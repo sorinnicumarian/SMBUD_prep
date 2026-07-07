@@ -165,7 +165,10 @@ function referencedNumbers(prompt, self) {
     if (m[1]) nums.add(+m[1])
     if (m[2]) nums.add(+m[2])
   }
-  const re2 = /\bexercises?\s+(\d+)/gi
+  // Negative lookahead excludes decimal self-numbering headers like "Exercise 1.3" (old-format
+  // exams label their own sub-parts this way) from being misread as a cross-reference to
+  // exercise "1" -- only bare whole-number mentions ("Exercise 3") count as a reference.
+  const re2 = /\bexercises?\s+(\d+)(?!\.\d)/gi
   while ((m = re2.exec(prompt))) nums.add(+m[1])
   if (/\bprevious (question|exercise|point|one)\b/i.test(prompt)) nums.add(self - 1)
   if (
