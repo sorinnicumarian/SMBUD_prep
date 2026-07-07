@@ -1,0 +1,294 @@
+[
+  {
+    "id": "SMBUD20260113-e1",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 5,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro",
+      "columnar",
+      "dwh",
+      "mongodb",
+      "vectordb",
+      "neo4j",
+      "spark"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each).",
+    "subStatements": [
+      {
+        "id": "SMBUD20260113-e1-s1",
+        "statement": "ACID transactional properties cannot be implemented in NoSQL databases.",
+        "answer": false,
+        "motivation": "Some NoSQL systems (e.g. MongoDB single-document ops, or multi-document transactions since MongoDB 4.0) do offer ACID guarantees \u2014 NoSQL trades ACID off by default for scalability/availability (BASE), but it isn't architecturally impossible."
+      },
+      {
+        "id": "SMBUD20260113-e1-s2",
+        "statement": "When writing distributed replicas, systems like Cassandra maximize speed by writing data in memtable (key-value) structures.",
+        "answer": true,
+        "motivation": "Cassandra writes go to an append-only commit log (durability) and an in-memory memtable (fast, sorted by key) before being flushed to an SSTable on disk \u2014 the memtable write is what makes writes fast."
+      },
+      {
+        "id": "SMBUD20260113-e1-s3",
+        "statement": "Data replication and data partitioning must be implemented together.",
+        "answer": false,
+        "motivation": "They're orthogonal concerns: a system can partition data across nodes without replicating it (no fault tolerance), or replicate a single non-partitioned dataset across nodes (no scale-out) \u2014 real systems usually combine both, but neither requires the other."
+      },
+      {
+        "id": "SMBUD20260113-e1-s4",
+        "statement": "On-line analytical processing (OLAP) is an element of decision support systems (DSS).",
+        "answer": true,
+        "motivation": "OLAP (multidimensional analysis over data warehouses) is one of the core components used to support decision-making, alongside data mining and reporting tools."
+      },
+      {
+        "id": "SMBUD20260113-e1-s5",
+        "statement": "Parquet is a columnar file data storage format.",
+        "answer": true,
+        "motivation": "Apache Parquet stores data column-by-column rather than row-by-row, which is what makes it efficient for analytical (OLAP-style) scans that only touch a subset of columns."
+      },
+      {
+        "id": "SMBUD20260113-e1-s6",
+        "statement": "ORM impedance mismatch can be solved by adopting non-relational data models, e.g., in documental DBs.",
+        "answer": true,
+        "motivation": "The object-relational impedance mismatch comes from mapping nested/hierarchical objects onto flat relational tables; document databases store nested JSON-like structures natively, which sidesteps the mismatch (at the cost of other trade-offs)."
+      },
+      {
+        "id": "SMBUD20260113-e1-s7",
+        "statement": "Modern vector databases implement approximated similarity calculations to reduce the size of the stored vectors.",
+        "answer": false,
+        "motivation": "Approximate Nearest Neighbor (ANN) indexing (e.g. HNSW, IVF) approximates the *search* to make it fast at scale \u2014 it does not shrink the stored vectors themselves; vector compression (e.g. quantization) is a separate, optional technique."
+      },
+      {
+        "id": "SMBUD20260113-e1-s8",
+        "statement": "In a graph database, you cannot connect two nodes through two subsequent connection steps without an intermediate node.",
+        "answer": true,
+        "motivation": "In the property-graph model, relationships always connect exactly two nodes; a 2-hop path necessarily passes through an intermediate node \u2014 there's no direct edge-to-edge chaining without a node in between."
+      },
+      {
+        "id": "SMBUD20260113-e1-s9",
+        "statement": "The gossip protocol is an additional layer implemented upon the capabilities enabled by a ring strategy.",
+        "answer": false,
+        "motivation": "It's the reverse: consistent-hashing ring placement is one design choice for data distribution, while gossip is the peer-to-peer protocol nodes use to exchange cluster-membership/state information \u2014 gossip doesn't depend on or sit \"on top of\" a ring topology."
+      },
+      {
+        "id": "SMBUD20260113-e1-s10",
+        "statement": "Spark RDD actions are executed lazily.",
+        "answer": false,
+        "motivation": "In Spark, *transformations* (map, filter, ...) are lazy and build a DAG; *actions* (collect, count, save, ...) are what actually trigger execution of that DAG \u2014 actions are eager, not lazy."
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260113-e2",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 2,
+    "marks": 1,
+    "type": "theory-essay",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "In three lines of text, explain the definition of relevance for IR-based data management.",
+    "solution": "Relevance measures how well a retrieved document matches a user's information need, not just raw keyword overlap. It accounts for term frequency, term rarity across the corpus (idf), and semantic/contextual match between query and document. It is inherently a graded, query-dependent judgment rather than a binary property of the document.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e3",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 3,
+    "marks": 3,
+    "type": "applied-modeling",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Domain: Sports Tournament Management System.** ER model: `Person` (superclass, ISA total/exclusive) with subclasses `Referee`, `Player`, `Coach`; `Match(Match_ID*, Date, Start_Time, End_Time, City, Home_Team, Home_Team_Score, Away_Team, Away_Team_Score)`; `Team(Team_ID*, Team_Name, City)`; `Event` (superclass, ISA partial/exclusive) with subclasses `Foul`, `Score`; `Tournament(Tournament_ID*, Name, Year)`. Relationships: `Involved In` (Person\u2194Event), `Offices` (Referee\u2194Match), `Belongs To` (Player\u2194Team), `Trains` (Coach\u2194Team), `Involves` (Event\u2194Match), `Plays` (Match\u2194Team), `Part Of` (Match\u2194Tournament).\n\nConsider a use case in Cassandra where you want to track all possible matches, along with their associated events. Define the database structure so that one can query events based on Date, Match, Team name, and Player, sorting results by match Time. Write the specification of the tables (and other artifacts if necessary). Define secondary indices only if strictly needed.",
+    "solution": "```sql\nCREATE TABLE events_by_date_match_team_player (\n    event_date date,\n    match_id uuid,\n    team_name text,\n    player_id uuid,\n    match_time time,\n    event_id uuid,\n    event_type text,\n    role text,\n    foul_type text,\n    card_given text,\n    referee_notes text,\n    goal_type text,\n    distance int,\n    its_own_goal boolean,\n    PRIMARY KEY ((event_date, match_id, team_name, player_id), match_time)\n) WITH CLUSTERING ORDER BY (match_time ASC);\n```\n\n**Grading notes:** the partition key must be all four equality-filter fields (date, match, team, player); the clustering key is the sort field (`match_time`). Missing the explicit `CLUSTERING ORDER BY` loses points even if the clustering key itself is correct.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e4",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 4,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "Using the same sports-tournament ER model, consider the entities Match, Tournament, and Event (and their child entities). Describe the nodes, their main attributes, and the edges (type-level graph or example graph, written not drawn).",
+    "solution": "```\n(:Match {match_id, date, start_time, end_time, city, home_team, home_score, away_team, away_score})\n(:Tournament {tournament_id, name, year})\n(:Event {event_id, date, time, type})  // type = 'Foul' | 'Score'\n  Foul-specific:  foul_type, card_given, referee_notes\n  Score-specific: team_id, goal_type, distance, its_own_goal\n\n(:Match)-[:PART_OF]->(:Tournament)\n(:Match)-[:INVOLVES]->(:Event)\n```\n\n**Grading notes:** prefer specific labels/relationship types for the `Foul`/`Score` subclasses where possible instead of one generic `Event` node with a `type` string field \u2014 being explicit about the ISA hierarchy in the graph model scores better.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e5",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 5,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "Using the graph model from the previous exercise, write a Cypher query that returns all tournaments held in 2025 that featured at least 30 matches ending in a draw, where every one of those tied matches included at least one foul event.",
+    "solution": "```cypher\nMATCH (t:Tournament)<-[:PART_OF]-(m:Match)\nWHERE t.year = 2025 AND m.home_score = m.away_score\nWHERE NOT EXISTS {\n  MATCH (m)-[:INVOLVES]->(e:Event {type: 'Foul'})\n}\nWITH t, count(m) AS tiedMatchesWithoutFoul\nWHERE tiedMatchesWithoutFoul = 0\nMATCH (t)<-[:PART_OF]-(m2:Match)\nWHERE m2.home_score = m2.away_score\nWITH t, count(m2) AS tiedMatches\nWHERE tiedMatches >= 30\nRETURN t\n```\n\n**Grading notes:** \"every tied match has a foul\" is a *universal* condition and needs `NOT EXISTS {}` (or equivalent) \u2014 a simple aggregate count of fouls across all tied matches does not enforce that ALL matches individually satisfy the condition (a common mistake).",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e6",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 6,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "Write a Cypher query that returns, for every match played in Milan, the total count of events grouped by event type. Only include matches with at least 3 scoring events, and filter to matches whose total events exceed 20.",
+    "solution": "```cypher\nMATCH (m:Match {city: 'Milan'})-[:INVOLVES]->(e:Event)\nWITH m, e.type AS type, count(e) AS cnt\nWITH m, collect({type: type, cnt: cnt}) AS byType, sum(cnt) AS totalEvents,\n     sum(CASE WHEN type = 'Score' THEN cnt ELSE 0 END) AS scoring\nWHERE totalEvents > 20 AND scoring >= 3\nRETURN m.match_id, byType\n```\n\n**Grading notes:** counts must be grouped *by event type* (not just a flat total per match) \u2014 the question asks for per-type counts, returned per match, after the `WITH`-checkpoint filter on total/scoring events.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e7",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 7,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "Consider the entities Match, Team, and Person (and their children) from the sports-tournament ER model. Implement the nesting of entities/relationships as a document design, without using `$lookup`.",
+    "solution": "```json\n{\n  \"team_id\": \"uuid\", \"name\": \"string\", \"city\": \"string\",\n  \"coach\": { \"coach_id\": \"uuid\", \"name\": \"string\", \"surname\": \"string\",\n             \"birth_date\": \"date\", \"gender\": \"string\",\n             \"nationality\": \"string\", \"specialization\": \"string\" },\n  \"players\": [\n    { \"player_id\": \"uuid\", \"name\": \"string\", \"surname\": \"string\",\n      \"shirt_number\": \"int\", \"position\": \"string\", \"salary\": \"number\" }\n  ]\n}\n// Matches embed a team snapshot, or reference team_id plus denormalized name/city,\n// to avoid a $lookup when reading a match together with its teams.\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e8",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 8,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "Using the team/coach/players document design from the previous exercise, write a query to collect, for each team, the number of players, and return the total number of teams with more than 30 players.",
+    "solution": "```js\ndb.teams.aggregate([\n  { $project: { team_id: 1, num_players: { $size: \"$players\" } } },\n  { $match: { num_players: { $gt: 30 } } },\n  { $count: \"num_teams_with_more_than_30_players\" }\n])\n```\n\n**Grading notes:** a real graded attempt (0.5/2) used `$unwind` + `$group` on the wrong field, then a second `$group` with `$addToSet` instead of a simple `$size` on the `players` array. When you already have an embedded array, use `$size` directly \u2014 don't `$unwind`+`$group` just to \"count array length\", that's exactly what `$size` is for.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e9",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 9,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "Write a query to return the matches officiated by Francesco Rossi and Michele Moretti that involved at least one team from Milan whose coach is from New Zealand.",
+    "solution": "```js\ndb.matches.aggregate([\n  { $match: { \"referees.name\": { $all: [\"Francesco Rossi\", \"Michele Moretti\"] } } },\n  { $lookup: { from: \"teams\", localField: \"home_team\", foreignField: \"team_id\", as: \"home\" } },\n  { $match: { \"home.city\": \"Milan\", \"home.coach.nationality\": \"New Zealand\" } },\n  { $project: { match_id: 1 } }\n])\n```\n\n**Grading notes:** a real graded attempt (1/2) used `$elemMatch` on plain string fields (`Name`/`Surname` aren't arrays) \u2014 `$elemMatch` is only for matching an element inside an array of *objects*. Don't reach for it just because you're matching two conditions at once.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e10",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 10,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "Consider the Event entity from the sports-tournament ER model. Add an attribute 'type' to represent the ISA hierarchy (Foul/Score). Provide the complete Elasticsearch index mapping.",
+    "solution": "```json\nPUT /events\n{\n  \"mappings\": {\n    \"properties\": {\n      \"event_id\":      { \"type\": \"keyword\" },\n      \"date\":          { \"type\": \"date\" },\n      \"time\":          { \"type\": \"date\", \"format\": \"HH:mm:ss\" },\n      \"match_id\":      { \"type\": \"keyword\" },\n      \"person_id\":     { \"type\": \"keyword\" },\n      \"type\":          { \"type\": \"keyword\" },\n      \"foul_type\":     { \"type\": \"text\" },\n      \"card_given\":    { \"type\": \"keyword\" },\n      \"referee_notes\": { \"type\": \"text\" }\n    }\n  }\n}\n```\n\n**Grading notes:** a real graded attempt (1/2) wrote `{\"type\": keyword}` without quotes around `\"keyword\"` \u2014 invalid JSON. Field type values are always quoted strings.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e11",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 11,
+    "marks": 1,
+    "type": "applied-modeling",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "Using the events index from the previous exercise, write a query to compute and return the total number of events for each event type.",
+    "solution": "```json\nGET /events/_search\n{ \"size\": 0, \"aggs\": { \"by_type\": { \"terms\": { \"field\": \"type\" } } } }\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e12",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 12,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "Write a query to return each foul whose title contains 'card' and whose description contains 'yellow' or 'red', giving a higher score to those containing 'red'.",
+    "solution": "```json\nGET /events/_search\n{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        { \"match\": { \"foul_type\": \"card\" } },\n        { \"match\": { \"referee_notes\": \"yellow red\", \"operator\": \"or\" } }\n      ],\n      \"should\": [\n        { \"match\": { \"referee_notes\": \"red\" } }\n      ]\n    }\n  }\n}\n```\n\n**Grading notes:** a real graded attempt (1.5/2) put the yellow/red condition in `filter` instead of `must` \u2014 `filter` doesn't contribute to scoring at all, and this query needs the match to contribute to the score so that `should` can further boost documents containing 'red'.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e13",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 13,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "Consider the Team entity. Create a key-value pair to store the current top team from the leaderboard (name, city, country), with a TTL of 100 seconds.",
+    "solution": "```\nHSET top_team name \"Inter\" city \"Milan\" country \"Italy\"\nEXPIRE top_team 100\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e14",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 14,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "Consider the Team entity. Create a sorted set to define a leaderboard: (Milan, 10), (Roma, 7), (Napoli, 3).",
+    "solution": "```\nZADD leaderboard 10 \"Milan\" 7 \"Roma\" 3 \"Napoli\"\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260113-e15",
+    "examId": "SMBUD20260113",
+    "date": "2026-01-13",
+    "academicYear": "AA2526",
+    "exerciseNo": 15,
+    "marks": 1,
+    "type": "applied-modeling",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "Using the leaderboard sorted set from the previous exercise, write a query to return the top team from the leaderboard.",
+    "solution": "```\nZRANGE leaderboard -1 -1\n```\n\n**Grading notes:** a real graded attempt (0.25/1) used `ZRANGE leaderboard 0 0`, which returns the **lowest**-scored member, not the top. `ZADD` stores members in ascending score order, so the top team is at index `-1`, not `0`.",
+    "solutionSource": "exam"
+  }
+]

@@ -1,0 +1,328 @@
+[
+  {
+    "id": "SMBUD20260601-e1",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 3.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro",
+      "hadoop",
+      "mongodb",
+      "spark",
+      "columnar",
+      "keyvalue"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown \u2014 the exam is dated by month only.*",
+    "subStatements": [
+      {
+        "id": "SMBUD20260601-e1-s1",
+        "statement": "A distributed database partitions customer records using the customer ID. Suppose that one customer generates 30% of all requests. This poses a problem to the system performance due to the CAP theorem.",
+        "answer": false,
+        "motivation": "This is a hot-partition/data-skew problem (uneven load distribution), not a CAP-theorem issue \u2014 CAP is about the consistency/availability trade-off under network partitions, unrelated to load skew from a single busy key."
+      },
+      {
+        "id": "SMBUD20260601-e1-s2",
+        "statement": "In many NoSQL systems, a write may be acknowledged before all replicas have received the update.",
+        "answer": true,
+        "motivation": "Systems with tunable consistency (e.g. Cassandra) let you write with a consistency level lower than ALL (e.g. ONE or QUORUM), acknowledging the client before every replica has the update \u2014 this is the standard availability/latency trade-off."
+      },
+      {
+        "id": "SMBUD20260601-e1-s3",
+        "statement": "In HDFS, the component responsible for maintaining file metadata (namespace, block locations, etc.) is called NodeManager.",
+        "answer": false,
+        "motivation": "That component is the NameNode. NodeManager is a YARN component that manages containers/resources on a worker node \u2014 unrelated to HDFS metadata."
+      },
+      {
+        "id": "SMBUD20260601-e1-s4",
+        "statement": "A document database allows one to specify the schema of the documents in a collection.",
+        "answer": false,
+        "motivation": "Document databases are schemaless/schema-flexible by design \u2014 different documents in the same collection can have different fields; there's no enforced collection-wide schema (though some, like MongoDB, offer optional schema validation)."
+      },
+      {
+        "id": "SMBUD20260601-e1-s5",
+        "statement": "Spark achieves fault tolerance primarily through the RDDs/DataFrames.",
+        "answer": true,
+        "motivation": "RDDs record their lineage (the sequence of transformations that built them); if a partition is lost, Spark recomputes it from lineage rather than needing replication, which is the primary fault-tolerance mechanism."
+      },
+      {
+        "id": "SMBUD20260601-e1-s6",
+        "statement": "In large-scale NoSQL databases (e.g., Cassandra), writes are first recorded in a commit log and then stored in an in-memory structure before being flushed to disk.",
+        "answer": true,
+        "motivation": "This is exactly Cassandra's write path: append to the commit log (durability), write to the in-memory memtable, and later flush the memtable to an immutable SSTable on disk."
+      },
+      {
+        "id": "SMBUD20260601-e1-s7",
+        "statement": "Denormalization often increases storage requirements because information may be duplicated across records.",
+        "answer": true,
+        "motivation": "Denormalization intentionally duplicates data (e.g. embedding the same sub-document in multiple parent documents) to avoid joins/lookups at read time, trading extra storage for read performance."
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e2",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 2,
+    "marks": 1,
+    "type": "theory-essay",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "Define the CAP theorem and the three properties involved (using a dotted list, one line per property).",
+    "solution": "- **Consistency** \u2014 every read receives the most recent write, or an error.\n- **Availability** \u2014 every request receives a (non-error) response, without a guarantee that it reflects the most recent write.\n- **Partition tolerance** \u2014 the system continues to operate despite network partitions between nodes.\n\nCAP states that a distributed system can only guarantee 2 of these 3 properties simultaneously (in practice, partition tolerance is non-negotiable in a real distributed system, so the real trade-off is Consistency vs. Availability under a partition).",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e3",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 3,
+    "marks": 1,
+    "type": "theory-essay",
+    "topics": [
+      "elasticsearch",
+      "vectordb"
+    ],
+    "prompt": "Compare and contrast information-retrieval-based databases with vector-based retrieval systems. Describe, in separate points: the underlying data representations; how queries are processed and matched against documents; strengths and limitations of each approach.",
+    "solution": "**Data representation**\n- IR-based: documents are represented as term/token indices (an inverted index), often scored with TF-IDF or BM25.\n- Vector-based: documents are represented as dense embeddings (fixed-length numeric vectors from a learned model).\n\n**Query processing / matching**\n- IR-based: queries are tokenized and matched via exact/fuzzy keyword overlap against the inverted index.\n- Vector-based: queries are embedded into the same vector space and matched via (approximate) nearest-neighbor search (cosine/Euclidean distance).\n\n**Strengths / limitations**\n- IR-based: fast, interpretable, exact on keyword matches \u2014 but blind to semantic similarity (synonyms, paraphrasing, different wording for the same concept).\n- Vector-based: captures semantic meaning beyond exact wording \u2014 but relies on an external embedding model, is only approximate (ANN search trades exactness for speed), and is less interpretable than keyword matching.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e4",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 4,
+    "marks": 1.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**THEORY (continued).** Mark each statement True or False (0.5 pt each).",
+    "subStatements": [
+      {
+        "id": "SMBUD20260601-e4-s1",
+        "statement": "Key-value databases typically include multiple-read primitives that execute many read operations in one execution cycle.",
+        "answer": true,
+        "motivation": "Commands like Redis's MGET (or pipelining) let a client fetch many keys in a single round trip, which is a standard key-value-store capability for batching reads."
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e5",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 5,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Domain: Sports Tournament Management System** (matches, teams, stages, spectators, sponsors). Consider the entities Spectator, Match, Stage, and Team from the ER model, and suppose you want to store the respective data instances in a graph database. Describe a possible graph model by specifying the node types, key attributes, and relationships (written, using standard Cypher notation for nodes/attributes/relationships \u2014 not drawn).",
+    "solution": "```\n(:Spectator {spectator_id, name, seat_number})\n(:Match     {match_id, begin_time, end_time})\n(:Stage     {stage_id, name})\n(:Team      {team_id, name})\n\n(:Spectator)-[:ATTENDS]->(:Match)\n(:Team)-[:PLAYS]->(:Match)\n(:Match)-[:BELONGS_TO]->(:Stage)\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e6",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 6,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "Using the graph model from the previous exercise, write a Cypher query to extract the number of teams that play in each stage, considering only matches that begin later than 10:00.",
+    "solution": "```cypher\nMATCH (t:Team)-[:PLAYS]->(m:Match)-[:BELONGS_TO]->(s:Stage)\nWHERE m.begin_time > time('10:00')\nRETURN s.stage_id, count(DISTINCT t) AS num_teams\n```\n\n**Note:** use `count(DISTINCT t)` \u2014 the same team can play multiple matches in the same stage, so a plain `count(t)` would overcount.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e7",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 7,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "Write a Cypher query to extract the number of spectators with the same name who attend a match on the same day, returning only the ones with more than 10 attendances (on the respective day).",
+    "solution": "```cypher\nMATCH (sp:Spectator)-[:ATTENDS]->(m:Match)\nWITH sp.name AS name, date(m.begin_time) AS day, count(*) AS attendances\nWHERE attendances > 10\nRETURN name, day, attendances\n```\n\n**Note:** classic \"`WITH`-before-aggregate-filter\" pattern \u2014 compute the count in `WITH`, then filter on it in the following `WHERE`; a plain `WHERE` cannot filter directly on an aggregate.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e8",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 8,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "Suppose you store staff members, spectators, and matches in a document database (MongoDB). How many collections would you define? How would you implement the relations between the concepts? Provide a simple documental representation using JSON.",
+    "solution": "**3 collections**: `staff`, `spectators`, `matches` \u2014 each has high cardinality and an independent lifecycle, so none is fully embedded into another.\n\n```json\n{\n  \"match_id\": \"uuid\", \"begin_time\": \"datetime\", \"end_time\": \"datetime\", \"stage_id\": \"uuid\",\n  \"staff_ids\": [\"uuid\", \"...\"],       // reference \u2014 staff can work multiple matches\n  \"spectators\": [ { \"spectator_id\": \"uuid\", \"seat_number\": \"int\" } ]  // embedded \u2014 attendance is match-specific\n}\n```\n\n**Note:** justify embed-vs-reference by cardinality/reuse \u2014 staff and spectators are entities reused across many matches, so they're referenced by id (or embedded only with lightweight, match-specific attendance info like `seat_number`), not embedded as full copies of the whole staff/spectator document.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e9",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 9,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "Using the matches/spectators document design, write the query to find the distinct names of spectators who attended a match that lasted less than 50 minutes.",
+    "solution": "```js\ndb.matches.aggregate([\n  { $match: { $expr: { $lt: [ { $subtract: [\"$end_time\", \"$begin_time\"] }, 50 * 60000 ] } } },\n  { $unwind: \"$spectators\" },\n  { $group: { _id: \"$spectators.name\" } }\n])\n```\n\n**Note:** duration is a *computed* expression (`end - begin`), so filtering on it needs `$expr`. Don't forget `$unwind` before grouping by a nested array field \u2014 a commonly flagged weak point.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e10",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 10,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "Write a query to extract the number of spectators attending a match, returning only the matches with more than 5000 spectators, for which at least one spectator's name is 'Mario'.",
+    "solution": "```js\ndb.matches.aggregate([\n  { $match: { \"spectators.name\": \"Mario\" } },\n  { $project: { match_id: 1, num_spectators: { $size: \"$spectators\" } } },\n  { $match: { num_spectators: { $gt: 5000 } } }\n])\n```\n\n**Note:** `$size` works directly on the array \u2014 no need to `$unwind`+`$group` just to count array length. Filter on the cheap \"contains Mario\" condition first, before computing size.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e11",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 11,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "Consider the match entity, related to team, stage, and spectator. Define the database structure so one can query matches by team ID and stage ID simultaneously, retrieving the spectators attending each match (with seat number) and sorting by begin time. Write the table specification, including all key attributes.",
+    "solution": "```sql\nCREATE TABLE matches_by_team_stage (\n    team_id uuid,\n    stage_id uuid,\n    begin_time timestamp,\n    match_id uuid,\n    end_time timestamp,\n    spectator_id uuid,\n    seat_number int,\n    PRIMARY KEY ((team_id, stage_id), begin_time, match_id, spectator_id)\n) WITH CLUSTERING ORDER BY (begin_time ASC);\n```\n\n**Note:** partition key = `(team_id, stage_id)` since both are always filtered together by equality. Clustering starts with `begin_time` for the required sort order, then `match_id`/`spectator_id` to keep rows unique per spectator.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e12",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 12,
+    "marks": 1,
+    "type": "applied-modeling",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "Using the `matches_by_team_stage` table from the previous exercise, write a CQL query to retrieve all matches for a given team ID and stage ID, returning match ID, begin time, and spectators with their seat number, ordered by begin time.",
+    "solution": "```sql\nSELECT match_id, begin_time, spectator_id, seat_number\nFROM matches_by_team_stage\nWHERE team_id = ? AND stage_id = ?\nORDER BY begin_time ASC;\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e13",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 13,
+    "marks": 1,
+    "type": "applied-modeling",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "Write a CQL query to retrieve all spectators attending a specific match, given the team ID, stage ID, and match ID. Return the spectator ID and seat number.",
+    "solution": "```sql\nSELECT spectator_id, seat_number\nFROM matches_by_team_stage\nWHERE team_id = ? AND stage_id = ? AND match_id = ?;\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e14",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 14,
+    "marks": 1,
+    "type": "applied-modeling",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "Suppose you must create an Elasticsearch index for the sponsors (name, description, funding amount, associated stage). Provide the complete mapping of the index.",
+    "solution": "```json\nPUT /sponsors\n{\n  \"mappings\": {\n    \"properties\": {\n      \"sponsor_id\":      { \"type\": \"keyword\" },\n      \"name\":            { \"type\": \"keyword\" },\n      \"description\":     { \"type\": \"text\" },\n      \"funding_amount\":  { \"type\": \"float\" },\n      \"stage_id\":        { \"type\": \"keyword\" }\n    }\n  }\n}\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e15",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 15,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "Using the sponsors index, write the complete query to extract the sponsors whose description text contains the words 'soda', 'car', and 'shave', excluding the ones that contain the word 'beauty'.",
+    "solution": "```json\nGET /sponsors/_search\n{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        { \"match\": { \"description\": \"soda\" } },\n        { \"match\": { \"description\": \"car\" } },\n        { \"match\": { \"description\": \"shave\" } }\n      ],\n      \"must_not\": [\n        { \"match\": { \"description\": \"beauty\" } }\n      ]\n    }\n  }\n}\n```\n\n**Note:** each required word gets its own `must` clause (a single `match` defaults to OR internally across the words *within* one clause, so three separate `must` clauses are what enforces AND across all three words). The excluded word goes in `must_not`.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e16",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 16,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "Write the complete query to extract the number of sponsors for each stage.",
+    "solution": "```json\nGET /sponsors/_search\n{ \"size\": 0, \"aggs\": { \"by_stage\": { \"terms\": { \"field\": \"stage_id\" } } } }\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e17",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 17,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "Suppose Stage 3 has three sponsors, described by name and funding amount: 'Nike' with 1000, 'Adidas' with 500, and 'Puma' with 2000. Store them with their funding amounts using Redis. Retrieve the most-funded sponsor.",
+    "solution": "```\nZADD stage3_sponsors 1000 \"Nike\" 500 \"Adidas\" 2000 \"Puma\"\nZREVRANGE stage3_sponsors 0 0 WITHSCORES\n// or equivalently: ZRANGE stage3_sponsors -1 -1 WITHSCORES\n```",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20260601-e18",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 18,
+    "marks": 2,
+    "type": "applied-modeling",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "Store information about a team with id 1, name 'Inter', city 'Milano', using Redis, then retrieve all its attributes.",
+    "solution": "```\nHSET team:1 name \"Inter\" city \"Milano\"\nHGETALL team:1\n```",
+    "solutionSource": "exam"
+  }
+]
