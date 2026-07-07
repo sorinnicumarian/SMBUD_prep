@@ -1,0 +1,258 @@
+[
+  {
+    "id": "SMBUD20220118-e1",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 1,
+    "marks": 6,
+    "type": "true-false-motivated",
+    "topics": ["hadoop", "architectures", "wrangling", "mongodb", "neo4j", "nosql-intro", "columnar"],
+    "prompt": "**Theory (6 PT).** Choose whether the following statements are true or false. Each correct answer awards 0.5 PT, each incorrect answer awards -0.25 PT.",
+    "subStatements": [
+      {
+        "id": "SMBUD20220118-e1-s1",
+        "statement": "Pig is a high-level language for data analysis used to express sequences of MapReduce jobs.",
+        "answer": true,
+        "motivation": "TRUE. Pig Latin is a high-level dataflow language that compiles down into a series of MapReduce jobs run on Hadoop, letting the user avoid writing raw Map/Reduce code."
+      },
+      {
+        "id": "SMBUD20220118-e1-s2",
+        "statement": "All APIs require the user to authenticate through the OAuth protocol.",
+        "answer": false,
+        "motivation": "FALSE. OAuth is only one of several possible authentication/authorization mechanisms (others include API keys, Basic Auth, JWT, or no authentication at all for public/open APIs); it is not mandatory for every API."
+      },
+      {
+        "id": "SMBUD20220118-e1-s3",
+        "statement": "The data wrangling process consists of four steps: understand, cleanse, augment, and shape.",
+        "answer": true,
+        "motivation": "TRUE. Data wrangling (data preparation) is commonly broken down into these four macro-phases: understanding the data's structure and quality, cleansing it (fixing errors/missing values), augmenting it (enriching/joining with other sources), and shaping it (reformatting/restructuring for the target use)."
+      },
+      {
+        "id": "SMBUD20220118-e1-s4",
+        "statement": "Both replication and partitioning are needed to grant proper management of data distribution.",
+        "answer": true,
+        "motivation": "TRUE. Partitioning (sharding) distributes data across nodes for scalability, while replication copies data across nodes for availability and fault tolerance; a distributed system typically needs both to be scalable and resilient at the same time."
+      },
+      {
+        "id": "SMBUD20220118-e1-s5",
+        "statement": "Vertical replication is appropriate when a business deals with flexible and increasing size of (big) datasets.",
+        "answer": false,
+        "motivation": "FALSE. Vertical scaling/replication means growing a single, more powerful machine, which has hard physical/cost limits and does not gracefully absorb ever-increasing big-data volumes. Flexible, growing datasets are better handled by horizontal scaling (partitioning/sharding across many commodity nodes)."
+      },
+      {
+        "id": "SMBUD20220118-e1-s6",
+        "statement": "MongoDB supports SSL both between client and server and between clusters (nodes).",
+        "answer": true,
+        "motivation": "TRUE. MongoDB supports TLS/SSL for client-to-server connections and for intra-cluster traffic (between mongod/mongos members of a replica set or sharded cluster)."
+      },
+      {
+        "id": "SMBUD20220118-e1-s7",
+        "statement": "Neo4j implements BASE transactions.",
+        "answer": false,
+        "motivation": "FALSE. Neo4j is fully ACID-compliant (atomic, consistent, isolated, durable transactions), unlike many NoSQL stores that trade consistency for availability under a BASE model."
+      },
+      {
+        "id": "SMBUD20220118-e1-s8",
+        "statement": "The main motivation of gossip protocols is that of increasing the alignment between the different nodes in a data mgmt. cluster.",
+        "answer": false,
+        "motivation": "FALSE. Gossip (epidemic) protocols primarily exist to let nodes efficiently disseminate cluster state and detect failures/membership changes in a decentralized, scalable way; eventual convergence of state is a side effect of this dissemination mechanism, not its defining motivation."
+      },
+      {
+        "id": "SMBUD20220118-e1-s9",
+        "statement": "Prescriptive analysis is a type of analysis that explains what happened in the past by looking at the data.",
+        "answer": false,
+        "motivation": "FALSE. Explaining what happened in the past is descriptive analysis. Prescriptive analytics instead recommends actions/decisions to achieve a desired future outcome, typically building on predictive analytics."
+      },
+      {
+        "id": "SMBUD20220118-e1-s10",
+        "statement": "In Cassandra, a partition key defines how the data is stored within a partition.",
+        "answer": false,
+        "motivation": "FALSE. The partition key determines which node/partition a row is routed to (it is hashed to place data). It is the clustering key that determines the on-disk sort order of rows *within* a partition."
+      },
+      {
+        "id": "SMBUD20220118-e1-s11",
+        "statement": "MongoDB is mainly focused on Consistency and Availability.",
+        "answer": false,
+        "motivation": "FALSE. In CAP terms MongoDB is generally classified as CP: it favors Consistency and Partition-tolerance (a single primary per replica set serves writes, and the system can sacrifice availability during elections/partitions), not CA."
+      },
+      {
+        "id": "SMBUD20220118-e1-s12",
+        "statement": "Depending on business scenarios, data properties, and size, one selects the appropriate data models and technology mix.",
+        "answer": true,
+        "motivation": "TRUE. This is the polyglot-persistence principle underlying modern data architectures: there is no one-size-fits-all database, so relational, document, graph, key-value, columnar, and search technologies are combined based on the specific requirements of each part of the system."
+      }
+    ],
+    "solution": "1 True, 2 False, 3 True, 4 True, 5 False, 6 True, 7 False, 8 False, 9 False, 10 False, 11 False, 12 True. See per-item motivations above.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20220118-e2",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 2,
+    "marks": 1.5,
+    "type": "applied-modeling",
+    "topics": ["relational", "architectures"],
+    "prompt": "**Exercise 1.1 (1.5 PT).** A media production company needs a data storage solution to track its production process: shows (TV programs, series, movies, each with a category, title, description, production year, reviews, shooting locations) and people on its payroll (personal data, bio, and detailed activity history — shows worked on, role, paychecks, work period). Shows and people can win awards (type, date). Shows record expenses (equipment, services, rentals — date, type, invoice, amount, providing company) and detailed production events (writing, casting, shooting, contract steps — tens per day). Shows have a script (the complete writing: what happens, who says/does what). The company also has staff workers not associated with any show.\n\nDescribe the conceptual model of the data using an Entity-Relationship model. Focus on the conceptualisation of the problem and avoid redundancy where possible, and mark the read direction of every relationship with an arrow tip.",
+    "solution": "Transcription of the official hand-drawn ER diagram (entity boxes / diamonds as given; some labels are hard to read on the scanned original and are reproduced best-effort):\n\n**Entities**\n- `PERSON` (id_number, name, surname, birth_date) — a generalization (ISA) root.\n- `STAFF` — ISA-child of `PERSON`: staff workers **not** tied to any show (no extra attributes beyond `PERSON`).\n- `SHOWS_PERSON` — ISA-child of `PERSON`: people who work on shows; extra attributes `bio`, `otherCompanyActivityHistory` (their activity history with *other* companies, kept as an attribute rather than a separate entity to avoid redundancy since it is not queried structurally).\n- `SHOW` (id, title, description, production_year, category).\n- `AWARD` (id, type, date) — shared by both `SHOW` and `SHOWS_PERSON`.\n- `LOCATION` (name, address, latitude, longitude).\n- `REVIEW` (id, rating, description).\n- `EXPENSE` (id, date, type, amount, invoice, company_name).\n- `SCRIPT` (id, scriptText).\n- `EVENT` (id, date, type).\n\n**Relationships**\n- `ISA`: `PERSON` → `{STAFF, SHOWS_PERSON}` (generalization hierarchy, drawn with the arrow pointing from the sub-types up to `PERSON`).\n- `WORKS` (`SHOWS_PERSON` (0:N) — `SHOW` (0:N)): attributes `role`, `paycheck`, `startDate`, `endDate` — this is the many-to-many link that records who worked on which show, with what role, pay and covered period.\n- `WIN` (`SHOWS_PERSON` (0:N) — `AWARD` (1:1)) and `WIN` (`SHOW` (0:N) — `AWARD` (1:1)): each award instance belongs to exactly one winner (person or show), while a person/show can win many awards — modelled as two separate relationships from the shared `AWARD` entity since an award is either for a person or a show.\n- `HAS` (`SHOW` (0:N) — `LOCATION` (1:N)): the shooting locations of a show.\n- `RECEIVES` (`SHOW` (1:1) — `REVIEW` (0:N)): a show receives many reviews, each review belongs to one show.\n- `HAS` (`SHOW` (1:1) — `EXPENSE` (0:N)): a show has many recorded expenses.\n- `HAS` (`SHOW` (1:1) — `SCRIPT` (1:1)): each show has exactly one script.\n- `IS_PART_OF` (`SCRIPT` (1:1) — `SHOWS_PERSON` (0:N)), with attributes `whatSays` / `whatDoes`: the script's per-person breakdown of what each show-person says/does, avoiding duplicating the whole script text per person.\n- `IS_MADE_OF` (`SHOW` (1:1) — `EVENT` (1:N)): the (potentially tens-per-day) production events belonging to a show.\n\nArrow tips point from the \"many\" reading side toward the entity being referenced (e.g. `WORKS` reads \"a show-person *works in* a show\"), so that the diagram is unambiguous about which side is being described by each relationship name.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e3",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 3,
+    "marks": 0.5,
+    "type": "theory-essay",
+    "topics": ["architectures", "nosql-intro"],
+    "prompt": "**Exercise 1.2 (0.5 PT).** Highlight which parts of the model from 1.1 you would implement in different database solutions (relational or non-relational, specifying the type). Briefly motivate the choices.",
+    "solution": "| DB | Main elements | Motivation |\n|---|---|---|\n| **Graph** | Show, People, Awards, Location, Interactions | Useful to research the relationships between the different parts of the schema (e.g. who worked with whom, on which shows, winning which awards) — graph traversals are natural here. |\n| **Documental (MongoDB)** | Show Staff Members, Show, Award, Activity | Useful to store all the elements together in a flexible, nested structure (a show document embedding its reviews/expenses/awards) without a rigid predefined schema. |\n| **Elasticsearch** | Script, People (bios), Histories | Provides full-text search and text-analysis functionality over unstructured/long text fields such as the script or a person's biography/activity history. |\n\nThe remaining, highly structured, transactional data (e.g. payroll/contract records, invoicing) would fit a **relational** database, which was not explicitly required by the official table but is consistent with polyglot persistence: pick the model that best fits each part's data properties and access patterns.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e4",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "applied-modeling",
+    "topics": ["neo4j"],
+    "prompt": "**Exercise 1.3 (0.5 PT).** Represent a graph schema for at least four different node types, their respective relations and attributes that you would implement in a graph DB. Be coherent with the names used in the ER diagram (the exam only stated \"Simple Request\" here, i.e. any reasonable, coherent schema is accepted).",
+    "solution": "```cypher\n// Node labels (with example attributes)\n(:ShowsPerson {id, name, surname, birth_date, bio})\n(:Show {id, title, description, production_year, category})\n(:Award {id, type, date})\n(:Location {name, address, latitude, longitude})\n\n// Relationships\n(:ShowsPerson)-[:WORKS_IN {role, paycheck, startDate, endDate}]->(:Show)\n(:ShowsPerson)-[:WINS]->(:Award)\n(:Show)-[:WINS]->(:Award)\n(:Show)-[:SHOT_AT]->(:Location)\n```\n\nThis reuses the entities/relationships named in the 1.1 ER diagram (`SHOWS_PERSON`, `SHOW`, `AWARD`, `LOCATION`, `WORKS`, `WIN`, `HAS`) mapped onto Neo4j nodes and typed relationships with their attributes attached to the relationship (e.g. `role`, `paycheck` on `WORKS_IN`) rather than duplicated on the nodes.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20220118-e5",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "applied-modeling",
+    "topics": ["mongodb"],
+    "prompt": "**Exercise 1.4 (0.5 PT).** Provide an example of a document for the `Show` entity and the entities it contains (reviews, locations, awards, expenses, script). For each entity, provide its attributes at least once within the document. Be coherent with the ER diagram and the data types (the exam only stated \"Simple Request\" here, i.e. any reasonable, coherent document is accepted).",
+    "solution": "```javascript\ndb.shows.insertOne({\n  \"_id\": \"show_101\",\n  \"title\": \"Northern Lights\",\n  \"description\": \"A crime drama set in Scandinavia.\",\n  \"production_year\": 2021,\n  \"category\": \"drama\",\n  \"locations\": [\n    { \"name\": \"Oslo Harbor\", \"address\": \"Havnegata 1, Oslo\", \"latitude\": 59.9075, \"longitude\": 10.7526 }\n  ],\n  \"reviews\": [\n    { \"id\": \"rev_1\", \"rating\": 4.5, \"description\": \"Gripping and well shot.\" }\n  ],\n  \"awards\": [\n    { \"id\": \"awd_1\", \"type\": \"Best Drama\", \"date\": \"2021-11-20\" }\n  ],\n  \"expenses\": [\n    { \"id\": \"exp_1\", \"date\": \"2021-03-05\", \"type\": \"services\", \"amount\": 12000, \"invoice\": \"INV-2021-045\", \"company_name\": \"CraftCam Ltd.\" }\n  ],\n  \"script\": {\n    \"id\": \"scr_1\",\n    \"scriptText\": \"INT. HARBOR - NIGHT. DETECTIVE LARSEN: 'We found the boat.' ...\"\n  }\n})\n```\n\nEach embedded entity (`locations`, `reviews`, `awards`, `expenses`, `script`) appears with its full attribute set at least once, matching the entities and attributes named in the 1.1 ER diagram, and is embedded (rather than referenced) since these sub-objects are always read together with their owning show.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20220118-e6",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 6,
+    "marks": 1,
+    "type": "theory-essay",
+    "topics": ["neo4j"],
+    "prompt": "**Exercise 2.1 (1 PT).** Suppose you store in a Neo4j graph database the lists of people, shows, and their connections (coherent with your ER diagram). Write a Cypher query that finds the pairs of actors who acted (together) in the same show and have the same age.",
+    "solution": "```cypher\nMATCH (a:ShowsPerson)-[r:WORKS_IN]->(s:Show)<-[t:WORKS_IN]-(b:ShowsPerson)\nWHERE a.age = b.age\n  AND r.role = \"actor\" AND t.role = \"actor\"\n  AND a.id <> b.id\nRETURN a, b\n```\n\nMatch two `ShowsPerson` nodes connected through a common `Show` via two `WORKS_IN` relationships, both with `role = \"actor\"`, filter on equal `age` and distinct identity to avoid pairing a person with themself (and to avoid self-pairs, though note this still returns each unordered pair twice — `a.id < b.id` would dedupe it).",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e7",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 7,
+    "marks": 1.5,
+    "type": "theory-essay",
+    "topics": ["neo4j"],
+    "prompt": "**Exercise 2.2 (1.5 PT).** Write a Cypher query that finds the pairs of shows produced by the same producer and were produced in the same year.",
+    "solution": "```cypher\nMATCH (s:Show)<-[r:WORKS_IN]-(a:ShowsPerson)-[t:WORKS_IN]->(b:Show)\nWHERE b.id <> s.id\n  AND r.role = \"director\" AND t.role = \"director\"\n  AND s.production_year = b.production_year\nRETURN s, b\n```\n\nMatch a `ShowsPerson` connected to two distinct `Show` nodes via `WORKS_IN` with `role = \"director\"` (used here as the stand-in for \"producer\"), and require the two shows to share `production_year`. As in 2.1, each unordered pair is returned twice; `s.id < b.id` would dedupe.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e8",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 8,
+    "marks": 1.5,
+    "type": "theory-essay",
+    "topics": ["neo4j"],
+    "prompt": "**Exercise 2.3 (1.5 PT).** Write a Cypher query that finds the people who received an award and acted in a show that received at least 2 awards in 2021 and in which at most one shooting-production event is included.",
+    "solution": "```cypher\nMATCH (p:ShowsPerson)-[:WINS]->(:Award),\n      (p)-[:WORKS_IN {role: \"actor\"}]->(s:Show)-[:WINS]->(awd:Award {year: \"2021\"}),\n      (s)-[:IS_MADE_OF]->(e:Event {type: \"shooting production\"})\nWITH p, count(DISTINCT awd) AS awd_count, count(DISTINCT e) AS shooting_count\nWHERE awd_count >= 2 AND shooting_count <= 1\nRETURN DISTINCT p\n```\n\nThis fixes small typos present in the official transcript (a stray `award_count` variable that was never bound — corrected to the `awd_count` actually computed in `WITH`; `count(awd)`/`count(e)` changed to `count(DISTINCT ...)` since the pattern can otherwise multiply-count when a show has several qualifying paths; \"at least 2\" / \"at most 1\" translated to `>= 2` / `<= 1` instead of the exam's stricter `> 1` / `< 2`, which are numerically equivalent for integers but clearer). Logic: `p` must have won some award (`WINS`), have acted (`WORKS_IN {role:\"actor\"}`) in a show `s`, that show must have at least 2 awards dated 2021, and at most 1 `shooting production` event.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e9",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 9,
+    "marks": 1.5,
+    "type": "theory-essay",
+    "topics": ["mongodb"],
+    "prompt": "**Exercise 3.1 (1.5 PT).** Suppose you store in MongoDB the lists of shows, awards, locations and reviews (coherent with your ER diagram). Write a query to collect 5 shows produced in 2021 in which at least one of the expenses is of type \"services\".",
+    "solution": "```javascript\ndb.shows.find({\n  \"$and\": [\n    { \"production_year\": 2021 },\n    { \"expenses.type\": \"services\" }\n  ]\n}).limit(5)\n```\n\n`expenses.type: \"services\"` matches any show whose embedded `expenses` array contains at least one element with `type = \"services\"` (MongoDB implicitly matches array-of-subdocument fields this way). `.limit(5)` caps the result at 5 documents. The `$and` is actually redundant here since MongoDB implicitly ANDs top-level fields — `db.shows.find({production_year: 2021, \"expenses.type\": \"services\"}).limit(5)` is equivalent and simpler — but the explicit `$and` form from the exam is also correct.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e10",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 10,
+    "marks": 1.5,
+    "type": "theory-essay",
+    "topics": ["mongodb"],
+    "prompt": "**Exercise 3.2 (1.5 PT).** Write a query to collect the number of awards received by each show whose average review vote/rating is greater than 4.",
+    "solution": "```javascript\ndb.shows.aggregate([\n  {\n    \"$project\": {\n      \"title\": 1,\n      \"avg_rating\": { \"$avg\": \"$reviews.rating\" },\n      \"num_awards\": { \"$size\": { \"$ifNull\": [\"$awards\", []] } }\n    }\n  },\n  {\n    \"$match\": { \"avg_rating\": { \"$gt\": 4 } }\n  }\n])\n```\n\nCorrected from the exam transcript: `$group` with `_id: true` would collapse *all* shows into one group, losing the per-show breakdown the question asks for (\"...received by **each** show\"), and the field references were missing their leading `$` (`\"reviews.rating\"`/`\"awards\"` must be `\"$reviews.rating\"`/`\"$awards\"` to be evaluated as field paths rather than literal strings), plus the aggregation pipeline array/braces were left unclosed. Using `$project` per-document computes `avg_rating` (average of the embedded `reviews.rating` array) and `num_awards` (size of the embedded `awards` array) for each show individually, then `$match` keeps only shows with `avg_rating > 4`.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e11",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 11,
+    "marks": 0.5,
+    "type": "theory-essay",
+    "topics": ["elasticsearch"],
+    "prompt": "**Exercise 4.1 (0.5 PT).** Suppose you store an Elasticsearch index of the reviews, including an attribute for the show's title (a sort of \"external key\", coherent with your ER diagram). Provide the complete mapping of the `reviews` index (field names, field types, mapping structure).",
+    "solution": "```json\nPUT reviews\n{\n  \"mappings\": {\n    \"properties\": {\n      \"description\": { \"type\": \"text\" },\n      \"rating\": { \"type\": \"float\" },\n      \"title\": { \"type\": \"keyword\" },\n      \"date\": { \"type\": \"date\" }\n    }\n  }\n}\n```\n\n`description` is `text` so it is analyzed/tokenized for full-text search (needed for 4.3). `rating` is numeric (`float`, since ratings such as 4.5 appear elsewhere in the exam) to support range queries (needed for 4.2). `title` — the \"external key\" pointing back to the show — is `keyword` (not analyzed) since it is used for exact-match aggregation/terms bucketing, not free-text search.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e12",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 12,
+    "marks": 1,
+    "type": "theory-essay",
+    "topics": ["elasticsearch"],
+    "prompt": "**Exercise 4.2 (1 PT).** Write a query to extract the count of positive reviews (i.e. vote/rating greater or equal to 4) received by each show.",
+    "solution": "```json\nGET /reviews/_search\n{\n  \"size\": 0,\n  \"query\": {\n    \"bool\": {\n      \"must\": {\n        \"range\": { \"rating\": { \"gte\": 4 } }\n      }\n    }\n  },\n  \"aggs\": {\n    \"positive_ratings\": {\n      \"terms\": { \"field\": \"title\" }\n    }\n  }\n}\n```\n\n`size: 0` suppresses the raw hits since only the aggregation result is wanted. The `bool`/`must`/`range` query filters to reviews with `rating >= 4`; the `terms` aggregation on the `title` keyword field then buckets and counts the surviving (positive) reviews per show.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e13",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 13,
+    "marks": 1.5,
+    "type": "theory-essay",
+    "topics": ["elasticsearch"],
+    "prompt": "**Exercise 4.3 (1.5 PT).** Write a query to extract the list of all the reviews whose text contains the word \"good\", ordered by Elasticsearch's relevance score.",
+    "solution": "```json\nGET /reviews/_search\n{\n  \"query\": {\n    \"match\": {\n      \"description\": \"good\"\n    }\n  }\n}\n```\n\nA `match` query on `description` (which must be mapped as `text` so it goes through an analyzer) performs full-text search for the term \"good\". Elasticsearch's `_search` endpoint already returns hits sorted by descending `_score` (the default relevance/BM25 ranking) unless an explicit `sort` is supplied, so no extra sort clause is needed to satisfy \"ordered by return score\".",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20220118-e14",
+    "examId": "SMBUD20220118",
+    "date": "2022-01-18",
+    "academicYear": "AA2122",
+    "exerciseNo": 14,
+    "marks": 3,
+    "type": "applied-modeling",
+    "topics": ["columnar"],
+    "prompt": "**Exercise 5 (3 PT).** A colleague gives you the following Cassandra script meant to set up a `staff_management_system` keyspace and a `staff_members` table, insert a test row, bulk-load more rows from a file, and run two test queries. Find every mistake and provide the fix. There may be zero, one, or multiple errors per step, and errors can be of different kinds. *(Grading note from the exam: no penalty for wrongly flagged \"errors\" — only credit for genuinely spotting and fixing the real ones.)*\n\n```sql\n-- Step 1\nCREATE KEYSPACE \"staff_management_system\" WITH replication =\n  {'class': 'SimpleStrategy', 'replication_factor': 15};\n\n-- Step 2\nUSE staff_management_system;\n\n-- Step 3\nCREATE TABLE staff_members (\n  name string,\n  surname string,\n  personal_id string,\n  age varint,\n  PRIMARY KEY (personal_id)\n);\n\n-- Step 4\nINSERT INTO staff_members (name, personal_id, surname, age) VALUES\n  (\"Francesco\", FRNRSS95E12F675T, \"Rossi\", 19);\n\n-- Step 5\nUPLOAD \"D:/Program Files/Cassandra/Data/staff_members.txt\";\n\n-- Step 6\nSELECT name, surname\nFROM staff_management_system\nWHERE personal_id = \"FRNTCC95E12F675T\";\n\n-- Step 7\nSELECT COUNT(*)\nFROM staff_management_system\nWHERE name = \"Francesco\";\n```",
+    "solution": "**Step 1 — `CREATE KEYSPACE`:** No error (quoting the keyspace name with double quotes is accepted in CQL). *(A genuinely debatable point some graders also flagged: `replication_factor: 15` is unrealistically high, but that is a modeling choice, not a syntax/semantic error.)*\n\n**Step 2 — `USE`:** No error.\n\n**Step 3 — `CREATE TABLE`:** **Error** — `string` is not a valid Cassandra CQL type.\n**Fix:** use `text` (or `varchar`):\n```sql\nCREATE TABLE staff_members (\n  name text,\n  surname text,\n  personal_id text,\n  age varint,\n  PRIMARY KEY (personal_id)\n);\n```\n\n**Step 4 — `INSERT`:** **Error** — `personal_id`'s value `FRNRSS95E12F675T` is not quoted, but the column is of type `text`, causing a type mismatch.\n**Fix:** quote it as a string literal:\n```sql\nINSERT INTO staff_members (name, personal_id, surname, age) VALUES\n  ('Francesco', 'FRNRSS95E12F675T', 'Rossi', 19);\n```\n\n**Step 5 — `UPLOAD`:** **Error** — `UPLOAD` is not a `cqlsh` command.\n**Fix:** use `SOURCE` to execute a file of CQL statements (or `COPY ... FROM` for CSV bulk-loading):\n```sql\nSOURCE 'D:/Program Files/Cassandra/Data/staff_members.txt';\n```\n\n**Step 6 — `SELECT ... FROM staff_management_system`:** **Error** — the query targets the keyspace name (`staff_management_system`) as if it were a table; it must query the table `staff_members` (within the current keyspace).\n**Fix:**\n```sql\nSELECT name, surname\nFROM staff_members\nWHERE personal_id = 'FRNTCC95E12F675T';\n```\n\n**Step 7 — `SELECT COUNT(*) ... WHERE name = ...`:** Two issues: (a) same table/keyspace confusion as step 6, and (b) filtering by `name`, which is neither the partition key nor a clustering column nor indexed, is not allowed by default in Cassandra.\n**Fix:** query the correct table and either create a secondary index on `name`, add `name` as a clustering column in the table design, or (least recommended, since it scans the whole table) add `ALLOW FILTERING`:\n```sql\nCREATE INDEX ON staff_members (name);\n\nSELECT COUNT(*)\nFROM staff_members\nWHERE name = 'Francesco';\n```",
+    "solutionSource": "exam"
+  }
+]

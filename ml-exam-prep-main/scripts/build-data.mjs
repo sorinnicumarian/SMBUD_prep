@@ -47,6 +47,12 @@ const COURSE_DEFS = {
     coursePath: join(ROOT, 'data', 'ami', 'course.json'),
     fallback: { id: 'ami', title: 'Ambient Intelligence & Domotics', shortTitle: 'AmI', hasParts: false },
   },
+  smbud: {
+    examsDir: join(ROOT, 'data', 'smbud', 'exams'),
+    taxonomyPath: join(ROOT, 'data', 'smbud', 'taxonomy.json'),
+    coursePath: join(ROOT, 'data', 'smbud', 'course.json'),
+    fallback: { id: 'smbud', title: 'Systems and Methods for Big and Unstructured Data', shortTitle: 'SMBUD', hasParts: false },
+  },
 }
 
 const QTYPES = [
@@ -80,8 +86,8 @@ const FillTable = z.object({
 function makeQuestionSchema(topicKeys) {
   return z
     .object({
-      id: z.string().regex(/^[A-Za-z]{2,4}\d{8}-e\d+$/, 'id must be like ML20230620-e3 / CI20250612-e3'),
-      examId: z.string().regex(/^[A-Za-z]{2,4}\d{8}$/),
+      id: z.string().regex(/^[A-Za-z]{2,5}\d{8}-e\d+$/, 'id must be like ML20230620-e3 / CI20250612-e3'),
+      examId: z.string().regex(/^[A-Za-z]{2,5}\d{8}$/),
       date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       academicYear: z.string().min(1),
       exerciseNo: z.number().int().positive(),

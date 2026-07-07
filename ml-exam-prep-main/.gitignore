@@ -19,6 +19,7 @@ public/ml/
 public/ci/
 public/aca/
 public/ami/
+public/smbud/
 
 .env
 .env.local

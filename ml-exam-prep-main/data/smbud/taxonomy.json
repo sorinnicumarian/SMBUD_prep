@@ -1,0 +1,16 @@
+[
+  { "key": "relational",    "name": "ER & Relational Model Recap",         "short": "ER/Rel",    "color": "#64748b" },
+  { "key": "architectures", "name": "Data Architectures & Big Data",       "short": "Arch",      "color": "#ca8a04" },
+  { "key": "nosql-intro",   "name": "NoSQL Foundations & CAP/BASE",        "short": "NoSQL",     "color": "#0891b2" },
+  { "key": "mongodb",       "name": "Document DB: MongoDB",                "short": "Mongo",     "color": "#16a34a" },
+  { "key": "neo4j",         "name": "Graph DB: Neo4j & Cypher",            "short": "Neo4j",     "color": "#dc2626" },
+  { "key": "keyvalue",      "name": "Key-Value Stores: Redis",             "short": "KV/Redis",  "color": "#f59e0b" },
+  { "key": "columnar",      "name": "Columnar DB: Cassandra",              "short": "Cassandra", "color": "#7c3aed" },
+  { "key": "dwh",           "name": "Data Warehousing & Snowflake",        "short": "DWH",       "color": "#2563eb" },
+  { "key": "elasticsearch", "name": "IR & Elasticsearch",                  "short": "ES/IR",     "color": "#0d9488" },
+  { "key": "hadoop",        "name": "Hadoop, HDFS & MapReduce",            "short": "Hadoop",    "color": "#9333ea" },
+  { "key": "spark",         "name": "Apache Spark",                       "short": "Spark",     "color": "#db2777" },
+  { "key": "vectordb",      "name": "Vector Databases",                   "short": "VectorDB",  "color": "#0ea5e9" },
+  { "key": "feature-store", "name": "Feature Stores",                     "short": "FeatStore", "color": "#65a30d" },
+  { "key": "wrangling",     "name": "Data Wrangling",                     "short": "Wrangling", "color": "#b45309" }
+]

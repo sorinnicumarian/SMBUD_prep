@@ -159,5 +159,24 @@ for (const [examId, entries] of Object.entries(amiMap)) {
   entries.forEach(([label, src], i) => add(examId, src, label, i === 0 ? '' : `-key`))
 }
 
+// ---- SMBUD: past exams (source PDFs, mostly blank/no official solutions) ----
+const SMBUD = '/Users/sorin/Library/CloudStorage/GoogleDrive-sorinnicumarian@gmail.com/My Drive/Career/Masters/Lectures/1.1/BD/Past Exams'
+const S = (...parts) => join(SMBUD, ...parts)
+const smbudMap = {
+  SMBUD20220118: [['Exam + official solutions', S('18_01_2022.pdf')]],
+  SMBUD20230113: [['Exam paper (no official solutions)', S('13_01_2023.pdf')]],
+  SMBUD20240606: [['Exam paper (no official solutions)', S('SMBUD Exam - 06_06_2024.pdf')]],
+  SMBUD20240624: [['Exam paper (no official solutions)', S('SMBUD Exam - 24_06_2024.pdf')]],
+  SMBUD20240906: [['Exam paper (no official solutions)', S('SMBUD Exam - 06_09_2024.pdf')]],
+  SMBUD20250121: [['Exam paper (no official solutions)', S('SMBUD Exam - 21_01_2025.pdf')]],
+  SMBUD20250211: [['Exam paper (no official solutions)', S('SMBUD Exam - 11_02_2025.pdf')]],
+  SMBUD20250530: [['Exam paper (no official solutions)', S('SMBUD Exam - 30_05_2025.pdf')]],
+  SMBUD20250613: [['Exam paper (no official solutions)', S('SMBUD Exam - 13_06_2025.pdf')]],
+  SMBUD20250912: [['Exam paper (no official solutions)', S('SMBUD Exam - 12_09_2025.pdf')]],
+}
+for (const [examId, entries] of Object.entries(smbudMap)) {
+  entries.forEach(([label, src], i) => add(examId, src, label, i === 0 ? '' : `-key`))
+}
+
 writeFileSync(join(OUT, 'index.json'), JSON.stringify(index))
 console.log(`✓ collected PDFs for ${Object.keys(index).length} exams (${(bytes / 1048576).toFixed(1)} MB) → public/exams/`)
