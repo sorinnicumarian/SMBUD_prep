@@ -1,10 +1,10 @@
-name: Deploy ML Exam Prep to GitHub Pages
+name: Deploy ExamPrep to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
-      - 'ml-exam-prep-main/**'
+      - 'ExamPrep/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ml-exam-prep-main
+        working-directory: ExamPrep
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -32,15 +32,15 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          cache-dependency-path: ml-exam-prep-main/pnpm-lock.yaml
+          cache-dependency-path: ExamPrep/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
       - name: Build data for all courses
         run: pnpm build:data
       - name: Build app
-        run: BASE_PATH=/SMBUD_prep/ pnpm build
+        run: BASE_PATH=/ExamPrep/ pnpm build
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ml-exam-prep-main/dist
+          path: ExamPrep/dist
 
   deploy:
     needs: build

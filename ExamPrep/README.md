@@ -39,7 +39,7 @@ plus `public/courses.json`. Question ids are stable, so `localStorage` progress 
 ```bash
 pnpm install
 pnpm build:data                 # builds ALL courses → public/<course>/...
-pnpm dev                        # http://localhost:5173/ml-exam-prep/
+pnpm dev                        # http://localhost:5173/ExamPrep/
 # production-style preview at root, served by the static server:
 BASE_PATH=/ pnpm build && node server.js   # http://localhost:8080
 ```
