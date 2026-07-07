@@ -260,7 +260,7 @@
     "topics": [
       "neo4j"
     ],
-    "prompt": "Using the same sports-tournament ER model, consider the entities Match, Tournament, and Event (and their child entities). Describe the nodes, their main attributes, and the edges (type-level graph or example graph, written not drawn).",
+    "prompt": "Using the same sports-tournament ER model (Exercise 3), consider the entities Match, Tournament, and Event (and their child entities). Describe the nodes, their main attributes, and the edges (type-level graph or example graph, written not drawn).",
     "solution": "```\n(:Match {match_id, date, start_time, end_time, city, home_team, home_score, away_team, away_score})\n(:Tournament {tournament_id, name, year})\n(:Event {event_id, date, time, type})  // type = 'Foul' | 'Score'\n  Foul-specific:  foul_type, card_given, referee_notes\n  Score-specific: team_id, goal_type, distance, its_own_goal\n\n(:Match)-[:PART_OF]->(:Tournament)\n(:Match)-[:INVOLVES]->(:Event)\n```\n\n**Grading notes:** prefer specific labels/relationship types for the `Foul`/`Score` subclasses where possible instead of one generic `Event` node with a `type` string field — being explicit about the ISA hierarchy in the graph model scores better.",
     "solutionSource": "exam"
   },
@@ -305,7 +305,7 @@
     "topics": [
       "mongodb"
     ],
-    "prompt": "Consider the entities Match, Team, and Person (and their children) from the sports-tournament ER model. Implement the nesting of entities/relationships as a document design, without using `$lookup`.",
+    "prompt": "Consider the entities Match, Team, and Person (and their children) from the sports-tournament ER model (Exercise 3). Implement the nesting of entities/relationships as a document design, without using `$lookup`.",
     "solution": "```json\n{\n  \"team_id\": \"uuid\", \"name\": \"string\", \"city\": \"string\",\n  \"coach\": { \"coach_id\": \"uuid\", \"name\": \"string\", \"surname\": \"string\",\n             \"birth_date\": \"date\", \"gender\": \"string\",\n             \"nationality\": \"string\", \"specialization\": \"string\" },\n  \"players\": [\n    { \"player_id\": \"uuid\", \"name\": \"string\", \"surname\": \"string\",\n      \"shirt_number\": \"int\", \"position\": \"string\", \"salary\": \"number\" }\n  ]\n}\n// Matches embed a team snapshot, or reference team_id plus denormalized name/city,\n// to avoid a $lookup when reading a match together with its teams.\n```",
     "solutionSource": "exam"
   },
@@ -350,7 +350,7 @@
     "topics": [
       "elasticsearch"
     ],
-    "prompt": "Consider the Event entity from the sports-tournament ER model. Add an attribute 'type' to represent the ISA hierarchy (Foul/Score). Provide the complete Elasticsearch index mapping.",
+    "prompt": "Consider the Event entity from the sports-tournament ER model (Exercise 3). Add an attribute 'type' to represent the ISA hierarchy (Foul/Score). Provide the complete Elasticsearch index mapping.",
     "solution": "```json\nPUT /events\n{\n  \"mappings\": {\n    \"properties\": {\n      \"event_id\":      { \"type\": \"keyword\" },\n      \"date\":          { \"type\": \"date\" },\n      \"time\":          { \"type\": \"date\", \"format\": \"HH:mm:ss\" },\n      \"match_id\":      { \"type\": \"keyword\" },\n      \"person_id\":     { \"type\": \"keyword\" },\n      \"type\":          { \"type\": \"keyword\" },\n      \"foul_type\":     { \"type\": \"text\" },\n      \"card_given\":    { \"type\": \"keyword\" },\n      \"referee_notes\": { \"type\": \"text\" }\n    }\n  }\n}\n```\n\n**Grading notes:** a real graded attempt (1/2) wrote `{\"type\": keyword}` without quotes around `\"keyword\"` — invalid JSON. Field type values are always quoted strings.",
     "solutionSource": "exam"
   },

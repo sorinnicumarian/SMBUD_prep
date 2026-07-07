@@ -304,7 +304,7 @@
       "nosql-intro",
       "relational"
     ],
-    "prompt": "**Exercise 1.2 (0.5 PT).** Highlight which parts of the model from 1.1 you would implement in different database solutions (relational or non-relational, specifying the type). Briefly motivate the choices.",
+    "prompt": "**Exercise 1.2 (0.5 PT).** Highlight which parts of the model from 1.1 (Exercise 2) you would implement in different database solutions (relational or non-relational, specifying the type). Briefly motivate the choices.",
     "solution": "| DB | Main elements | Motivation |\n|---|---|---|\n| **Graph** | Show, People, Awards, Location, Interactions | Useful to research the relationships between the different parts of the schema (e.g. who worked with whom, on which shows, winning which awards) \u2014 graph traversals are natural here. |\n| **Documental (MongoDB)** | Show Staff Members, Show, Award, Activity | Useful to store all the elements together in a flexible, nested structure (a show document embedding its reviews/expenses/awards) without a rigid predefined schema. |\n| **Elasticsearch** | Script, People (bios), Histories | Provides full-text search and text-analysis functionality over unstructured/long text fields such as the script or a person's biography/activity history. |\n\nThe remaining, highly structured, transactional data (e.g. payroll/contract records, invoicing) would fit a **relational** database, which was not explicitly required by the official table but is consistent with polyglot persistence: pick the model that best fits each part's data properties and access patterns.",
     "solutionSource": "exam"
   },
@@ -319,7 +319,7 @@
     "topics": [
       "neo4j"
     ],
-    "prompt": "**Exercise 1.3 (0.5 PT).** Represent a graph schema for at least four different node types, their respective relations and attributes that you would implement in a graph DB. Be coherent with the names used in the ER diagram (the exam only stated \"Simple Request\" here, i.e. any reasonable, coherent schema is accepted).",
+    "prompt": "**Exercise 1.3 (0.5 PT).** Represent a graph schema for at least four different node types, their respective relations and attributes that you would implement in a graph DB. Be coherent with the names used in the ER diagram (see Exercise 2) (the exam only stated \"Simple Request\" here, i.e. any reasonable, coherent schema is accepted).",
     "solution": "```cypher\n// Node labels (with example attributes)\n(:ShowsPerson {id, name, surname, birth_date, bio})\n(:Show {id, title, description, production_year, category})\n(:Award {id, type, date})\n(:Location {name, address, latitude, longitude})\n\n// Relationships\n(:ShowsPerson)-[:WORKS_IN {role, paycheck, startDate, endDate}]->(:Show)\n(:ShowsPerson)-[:WINS]->(:Award)\n(:Show)-[:WINS]->(:Award)\n(:Show)-[:SHOT_AT]->(:Location)\n```\n\nThis reuses the entities/relationships named in the 1.1 ER diagram (`SHOWS_PERSON`, `SHOW`, `AWARD`, `LOCATION`, `WORKS`, `WIN`, `HAS`) mapped onto Neo4j nodes and typed relationships with their attributes attached to the relationship (e.g. `role`, `paycheck` on `WORKS_IN`) rather than duplicated on the nodes.",
     "solutionSource": "authored"
   },
@@ -334,7 +334,7 @@
     "topics": [
       "mongodb"
     ],
-    "prompt": "**Exercise 1.4 (0.5 PT).** Provide an example of a document for the `Show` entity and the entities it contains (reviews, locations, awards, expenses, script). For each entity, provide its attributes at least once within the document. Be coherent with the ER diagram and the data types (the exam only stated \"Simple Request\" here, i.e. any reasonable, coherent document is accepted).",
+    "prompt": "**Exercise 1.4 (0.5 PT).** Provide an example of a document for the `Show` entity and the entities it contains (reviews, locations, awards, expenses, script). For each entity, provide its attributes at least once within the document. Be coherent with the ER diagram (see Exercise 2) and the data types (the exam only stated \"Simple Request\" here, i.e. any reasonable, coherent document is accepted).",
     "solution": "```javascript\ndb.shows.insertOne({\n  \"_id\": \"show_101\",\n  \"title\": \"Northern Lights\",\n  \"description\": \"A crime drama set in Scandinavia.\",\n  \"production_year\": 2021,\n  \"category\": \"drama\",\n  \"locations\": [\n    { \"name\": \"Oslo Harbor\", \"address\": \"Havnegata 1, Oslo\", \"latitude\": 59.9075, \"longitude\": 10.7526 }\n  ],\n  \"reviews\": [\n    { \"id\": \"rev_1\", \"rating\": 4.5, \"description\": \"Gripping and well shot.\" }\n  ],\n  \"awards\": [\n    { \"id\": \"awd_1\", \"type\": \"Best Drama\", \"date\": \"2021-11-20\" }\n  ],\n  \"expenses\": [\n    { \"id\": \"exp_1\", \"date\": \"2021-03-05\", \"type\": \"services\", \"amount\": 12000, \"invoice\": \"INV-2021-045\", \"company_name\": \"CraftCam Ltd.\" }\n  ],\n  \"script\": {\n    \"id\": \"scr_1\",\n    \"scriptText\": \"INT. HARBOR - NIGHT. DETECTIVE LARSEN: 'We found the boat.' ...\"\n  }\n})\n```\n\nEach embedded entity (`locations`, `reviews`, `awards`, `expenses`, `script`) appears with its full attribute set at least once, matching the entities and attributes named in the 1.1 ER diagram, and is embedded (rather than referenced) since these sub-objects are always read together with their owning show.",
     "solutionSource": "authored"
   },
@@ -349,7 +349,7 @@
     "topics": [
       "neo4j"
     ],
-    "prompt": "**Exercise 2.1 (1 PT).** Suppose you store in a Neo4j graph database the lists of people, shows, and their connections (coherent with your ER diagram). Write a Cypher query that finds the pairs of actors who acted (together) in the same show and have the same age.",
+    "prompt": "**Exercise 2.1 (1 PT).** Suppose you store in a Neo4j graph database the lists of people, shows, and their connections (coherent with your ER diagram from Exercise 2). Write a Cypher query that finds the pairs of actors who acted (together) in the same show and have the same age.",
     "solution": "```cypher\nMATCH (a:ShowsPerson)-[r:WORKS_IN]->(s:Show)<-[t:WORKS_IN]-(b:ShowsPerson)\nWHERE a.age = b.age\n  AND r.role = \"actor\" AND t.role = \"actor\"\n  AND a.id <> b.id\nRETURN a, b\n```\n\nMatch two `ShowsPerson` nodes connected through a common `Show` via two `WORKS_IN` relationships, both with `role = \"actor\"`, filter on equal `age` and distinct identity to avoid pairing a person with themself (and to avoid self-pairs, though note this still returns each unordered pair twice \u2014 `a.id < b.id` would dedupe it).",
     "solutionSource": "exam"
   },
@@ -394,7 +394,7 @@
     "topics": [
       "mongodb"
     ],
-    "prompt": "**Exercise 3.1 (1.5 PT).** Suppose you store in MongoDB the lists of shows, awards, locations and reviews (coherent with your ER diagram). Write a query to collect 5 shows produced in 2021 in which at least one of the expenses is of type \"services\".",
+    "prompt": "**Exercise 3.1 (1.5 PT).** Suppose you store in MongoDB the lists of shows, awards, locations and reviews (coherent with your ER diagram from Exercise 2). Write a query to collect 5 shows produced in 2021 in which at least one of the expenses is of type \"services\".",
     "solution": "```javascript\ndb.shows.find({\n  \"$and\": [\n    { \"production_year\": 2021 },\n    { \"expenses.type\": \"services\" }\n  ]\n}).limit(5)\n```\n\n`expenses.type: \"services\"` matches any show whose embedded `expenses` array contains at least one element with `type = \"services\"` (MongoDB implicitly matches array-of-subdocument fields this way). `.limit(5)` caps the result at 5 documents. The `$and` is actually redundant here since MongoDB implicitly ANDs top-level fields \u2014 `db.shows.find({production_year: 2021, \"expenses.type\": \"services\"}).limit(5)` is equivalent and simpler \u2014 but the explicit `$and` form from the exam is also correct.",
     "solutionSource": "exam"
   },
@@ -424,7 +424,7 @@
     "topics": [
       "elasticsearch"
     ],
-    "prompt": "**Exercise 4.1 (0.5 PT).** Suppose you store an Elasticsearch index of the reviews, including an attribute for the show's title (a sort of \"external key\", coherent with your ER diagram). Provide the complete mapping of the `reviews` index (field names, field types, mapping structure).",
+    "prompt": "**Exercise 4.1 (0.5 PT).** Suppose you store an Elasticsearch index of the reviews, including an attribute for the show's title (a sort of \"external key\", coherent with your ER diagram from Exercise 2). Provide the complete mapping of the `reviews` index (field names, field types, mapping structure).",
     "solution": "```json\nPUT reviews\n{\n  \"mappings\": {\n    \"properties\": {\n      \"description\": { \"type\": \"text\" },\n      \"rating\": { \"type\": \"float\" },\n      \"title\": { \"type\": \"keyword\" },\n      \"date\": { \"type\": \"date\" }\n    }\n  }\n}\n```\n\n`description` is `text` so it is analyzed/tokenized for full-text search (needed for 4.3). `rating` is numeric (`float`, since ratings such as 4.5 appear elsewhere in the exam) to support range queries (needed for 4.2). `title` \u2014 the \"external key\" pointing back to the show \u2014 is `keyword` (not analyzed) since it is used for exact-match aggregation/terms bucketing, not free-text search.",
     "solutionSource": "exam"
   },
