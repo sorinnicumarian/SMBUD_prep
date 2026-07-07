@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Describe and compare Ridge regression and LASSO algorithms to solve linear regression problems.",
     "solution": "Both Ridge regression and LASSO are **regularized** linear-regression methods: they augment the ordinary least squares (OLS) objective with a penalty on the magnitude of the weights to reduce variance/overfitting and improve conditioning.\n\n**Ridge regression** uses an $\\ell_2$ penalty:\n$$L(\\mathbf{w}) = \\|\\mathbf{y} - \\Phi\\mathbf{w}\\|_2^2 + \\lambda \\|\\mathbf{w}\\|_2^2.$$\nIt has a closed-form solution $\\hat{\\mathbf{w}} = (\\Phi^\\top\\Phi + \\lambda I)^{-1}\\Phi^\\top\\mathbf{y}$. The penalty shrinks all coefficients toward zero (smoothly) but does not set them exactly to zero. Adding $\\lambda I$ also guarantees the matrix is invertible (well-conditioned).\n\n**LASSO** uses an $\\ell_1$ penalty:\n$$L(\\mathbf{w}) = \\|\\mathbf{y} - \\Phi\\mathbf{w}\\|_2^2 + \\lambda \\|\\mathbf{w}\\|_1.$$\nThe $\\ell_1$ penalty is not differentiable at zero and its constraint region has corners, so the optimum often lies on an axis: LASSO drives some coefficients exactly to zero, performing **implicit feature selection** and yielding sparse models. It has no closed-form solution and is solved by convex optimization (e.g. coordinate descent, LARS).\n\n**Comparison.**\n- Both control the bias-variance trade-off through $\\lambda$ (larger $\\lambda$ → more bias, less variance).\n- Ridge keeps all features (dense weights); LASSO yields sparse solutions and selects features.\n- Ridge is preferable when many features are relevant or highly correlated; LASSO is preferable when only a few features matter or for interpretability/feature selection.\n- Ridge has a closed form; LASSO requires iterative optimization.\n- From a Bayesian view, Ridge corresponds to a Gaussian prior on the weights, LASSO to a Laplace prior.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Describe and compare Monte Carlo and Temporal Difference for model-free policy evaluation.",
     "solution": "Both Monte Carlo (MC) and Temporal Difference (TD) are **model-free** methods to estimate the value function $V^\\pi$ of a policy $\\pi$ from sampled experience, without knowing the transition/reward model.\n\n**Monte Carlo.** MC estimates $V^\\pi(s)$ by averaging the **actual returns** observed after visiting $s$, using complete episodes:\n$$V(s) \\leftarrow V(s) + \\alpha\\big(G_t - V(s)\\big),$$\nwhere $G_t$ is the full return from $s$ to the end of the episode. MC requires episodes to **terminate** and only updates at the end of an episode.\n\n**Temporal Difference (TD(0)).** TD updates the estimate using a **bootstrapped** target that combines the immediate reward with the current estimate of the next state's value:\n$$V(s) \\leftarrow V(s) + \\alpha\\big(r + \\gamma V(s') - V(s)\\big).$$\nIt updates after every step and does not require episodes to terminate.\n\n**Comparison.**\n- **Bias/variance:** MC targets ($G_t$) are unbiased but have high variance (sum of many random rewards); TD targets are biased (they use the current estimate $V(s')$) but have lower variance.\n- **Bootstrapping:** TD bootstraps (uses its own estimates); MC does not.\n- **Online vs offline:** TD is online and incremental (learns from incomplete episodes, suitable for continuing/non-terminating tasks); MC needs complete episodes.\n- **Convergence:** both converge to $V^\\pi$ under appropriate conditions; TD usually learns faster in practice and exploits the Markov property, while MC does not assume the Markov property and can be more robust when it is violated.",
     "solutionSource": "authored"
@@ -33,7 +37,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following snippet of code and answer the questions below providing adequate motivations.\n1. What algorithm is this code implementing? What kind of problem is it addressing?\n2. Explain the operations performed by the `eps_greedy` function.\n3. What conditions do we need on `alpha` and `eps` to make the algorithm converge to a desirable solution?\n4. How can we modify Line 4 to make the algorithm work off-policy?",
     "code": {
       "language": "python",
@@ -43,20 +49,93 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210907-e4",
+    "id": "ML20210907-e4.1",
     "examId": "ML20210907",
     "date": "2021-09-07",
     "academicYear": "AA2021",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["ensemble"],
+    "topics": [
+      "ensemble"
+    ],
     "prompt": "State whether the following claims about Bagging and Boosting are true or false, motivating your answers.",
     "subStatements": [
-      { "id": "ML20210907-e4-s1", "statement": "Since Boosting and Bagging are ensemble methods, they can be both parallelized.", "answer": false, "motivation": "Only Bagging can be parallelized, since training is done on different datasets, while Boosting is sequential by nature." },
-      { "id": "ML20210907-e4-s2", "statement": "Bagging should be applied with weak learners.", "answer": false, "motivation": "Weak learners are a good candidate for Boosting, since they have low variance. Typically one uses instead bagging when more complex and unstable learners are needed, to reduce their variance." },
-      { "id": "ML20210907-e4-s3", "statement": "The central idea of Boosting consists in using bootstrapping.", "answer": false, "motivation": "Bootstrapping is used in bagging, whose name derived indeed from \"bootstrap aggregation\"." },
-      { "id": "ML20210907-e4-s4", "statement": "It is not a good idea to use Boosting with a deep neural network as a base learner.", "answer": true, "motivation": "Deep neural networks are very complex predictors, which can have large variance. Therefore, you may not succeed in lowering bias without increasing variance. Moreover, since you need to train the network multiple times, the procedure may require a lot of time." }
+      {
+        "id": "ML20210907-e4.1-s1",
+        "statement": "Since Boosting and Bagging are ensemble methods, they can be both parallelized.",
+        "answer": false,
+        "motivation": "Only Bagging can be parallelized, since training is done on different datasets, while Boosting is sequential by nature."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210907-e4.2",
+    "examId": "ML20210907",
+    "date": "2021-09-07",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "ensemble"
+    ],
+    "prompt": "State whether the following claims about Bagging and Boosting are true or false, motivating your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210907-e4.2-s1",
+        "statement": "Bagging should be applied with weak learners.",
+        "answer": false,
+        "motivation": "Weak learners are a good candidate for Boosting, since they have low variance. Typically one uses instead bagging when more complex and unstable learners are needed, to reduce their variance."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210907-e4.3",
+    "examId": "ML20210907",
+    "date": "2021-09-07",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "ensemble"
+    ],
+    "prompt": "State whether the following claims about Bagging and Boosting are true or false, motivating your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210907-e4.3-s1",
+        "statement": "The central idea of Boosting consists in using bootstrapping.",
+        "answer": false,
+        "motivation": "Bootstrapping is used in bagging, whose name derived indeed from \"bootstrap aggregation\"."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210907-e4.4",
+    "examId": "ML20210907",
+    "date": "2021-09-07",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "ensemble"
+    ],
+    "prompt": "State whether the following claims about Bagging and Boosting are true or false, motivating your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210907-e4.4-s1",
+        "statement": "It is not a good idea to use Boosting with a deep neural network as a base learner.",
+        "answer": true,
+        "motivation": "Deep neural networks are very complex predictors, which can have large variance. Therefore, you may not succeed in lowering bias without increasing variance. Moreover, since you need to train the network multiple times, the procedure may require a lot of time."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -69,26 +148,102 @@
     "exerciseNo": 5,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "Vertical farming is the practice of growing crops in vertically stacked layers. A vertical farming company is faced with the problem of properly supplying its plants with the right amount of nutrients. Each plant lives in a separate piece of soil and is individually supplied with water and other nutritious substances. While the conditions in which plants live are similar, they are not identical, thus, different plants may need a tailored income of nutrients. Based on a historical dataset with measurements (including water and nutrition provided) of properly fed plants at different times, we would like to feed new plants in a proper way.\n1. Can the above problem be solved using a machine learning model? Which one? Provide and motivate either the features/target or action/states/reward for the chosen model.\n2. Provide an algorithm to solve the above problem, commenting on the pros and cons of its usage.\n3. Suppose now that the company wants to refine the current approach. They provide you with a new dataset that contains plants measurements (including water and nutrition provided) together with a health index, which gives you information on how much the plant is \"healthy\" at sampling time. They ask you to use this dataset to learn how to feed plants in order to maximize their health in the long run. How would you change your approach?",
     "solution": "1. The problem can be thought of as a **supervised learning regression** problem where, based on the data coming from the sensor-monitoring plants, one has to predict the correct amount of each nutrient. In another way, we are learning to imitate an expert policy for feeding plants (**imitation learning**). The features are the plant measurements and the target is the amount of nutrients to supply.\n2. The problem could be solved for example using **linear regression**. The main advantage is the simplicity of the approach; the main drawback is that it needs proper features to work, hence the complexity is moved to the feature-engineering phase. One could instead resort to more complex approaches involving neural networks, in order to learn high-level feature mappings.\n3. In this case, we can instead think the problem as an **RL setting**, in which states are the features we built from input sensors, actions are the nutrient values we want to supply, and the reward is given by the health index, which we want to maximize in the long run. Without having such an index, the problem cannot be framed in this way, since it lacks a proper reward function; hence, we could only imitate a policy we know to work well (fitting healthy plants data).",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210907-e6",
+    "id": "ML20210907-e6.1",
     "examId": "ML20210907",
     "date": "2021-09-07",
     "academicYear": "AA2021",
     "exerciseNo": 6,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210907-e6-s1", "statement": "When using an SVM, the computational cost of computing predictions scales with the size of training samples.", "answer": false, "motivation": "SVMs are a sparse model and the prediction cost scales with the number of support vectors." },
-      { "id": "ML20210907-e6-s2", "statement": "When training a soft-margin SVM, the noisier is the data the larger should be set the value of hyperparameter $C$.", "answer": false, "motivation": "The larger is $C$ the lower is the bias (and conversely the higher the variance). This is exactly the opposite of what we should do on a noisy dataset." },
-      { "id": "ML20210907-e6-s3", "statement": "Hard-margin SVMs can be successfully applied also to datasets that appear to be not linearly separable.", "answer": true, "motivation": "Applying the kernel function we could find the problem to be linearly separable in the feature space." },
-      { "id": "ML20210907-e6-s4", "statement": "The aim of the Kernel Trick is to limit the computational cost of the SVM training on datasets with a very large number of samples.", "answer": false, "motivation": "The computational cost of training an SVM is unfortunately cubic in the number of training samples. The kernel trick allows to limit the cost of computing a large number of features." }
+      {
+        "id": "ML20210907-e6.1-s1",
+        "statement": "When using an SVM, the computational cost of computing predictions scales with the size of training samples.",
+        "answer": false,
+        "motivation": "SVMs are a sparse model and the prediction cost scales with the number of support vectors."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210907-e6.2",
+    "examId": "ML20210907",
+    "date": "2021-09-07",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210907-e6.2-s1",
+        "statement": "When training a soft-margin SVM, the noisier is the data the larger should be set the value of hyperparameter $C$.",
+        "answer": false,
+        "motivation": "The larger is $C$ the lower is the bias (and conversely the higher the variance). This is exactly the opposite of what we should do on a noisy dataset."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210907-e6.3",
+    "examId": "ML20210907",
+    "date": "2021-09-07",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210907-e6.3-s1",
+        "statement": "Hard-margin SVMs can be successfully applied also to datasets that appear to be not linearly separable.",
+        "answer": true,
+        "motivation": "Applying the kernel function we could find the problem to be linearly separable in the feature space."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210907-e6.4",
+    "examId": "ML20210907",
+    "date": "2021-09-07",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210907-e6.4-s1",
+        "statement": "The aim of the Kernel Trick is to limit the computational cost of the SVM training on datasets with a very large number of samples.",
+        "answer": false,
+        "motivation": "The computational cost of training an SVM is unfortunately cubic in the number of training samples. The kernel trick allows to limit the cost of computing a large number of features."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -101,7 +256,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Consider a binary perceptron classifier defined by parameters $w = [2, 1, 1]^\\top$ with features vector $\\phi([a, b]) = [a, b, ab]^\\top$. Answer the following questions related to the perceptron algorithm. Provide full calculations and clear motivations.\n1. Given a new data point $(x, t) = ([a, b], t)$, explain the procedure you would follow to decide whether the classifier should be retrained.\n2. Consider the data point $(x_1, t_1) = ([1, 2], +1)$. Update the classifier with the perceptron algorithm ($\\alpha = 1$).\n3. Consider the data point $(x_2, t_2) = ([-1, -2], +1)$. Update the classifier with the perceptron algorithm ($\\alpha = 1$).\n4. After the previous updates to the classifier, can we say the retrain procedure is completed?",
     "solution": "1. First, we should check if the new data point is correctly classified, i.e. whether\n$$\\mathrm{sign}(w^\\top \\phi(x)) = \\mathrm{sign}([2,1,1]\\cdot[a,b,ab]) = t.$$\nIf the answer is positive we do not need to retrain, otherwise we should retrain the model, i.e. use the stochastic gradient descent method until convergence.\n2. $$\\mathrm{sign}(w^\\top \\phi(x_1)) = \\mathrm{sign}([2,1,1]\\cdot[1,2,2]^\\top) = \\mathrm{sign}(6) = +1.$$\nThe data point $x_1$ is correctly classified, so we do not need to update the model.\n3. $$\\mathrm{sign}(w^\\top \\phi(x_2)) = \\mathrm{sign}([2,1,1]\\cdot[-1,-2,2]^\\top) = \\mathrm{sign}(-2) = -1.$$\nThe data point $x_2$ is misclassified, so we have to update the model:\n$$w \\leftarrow w + \\alpha\\,\\phi(x_2)\\,t_2 = [2,1,1]^\\top + [-1,-2,2]^\\top = [1,-1,3]^\\top.$$\n4. No, since we have updated the classifier, we should check if all the other data points in the dataset are still correctly classified.",
     "solutionSource": "exam"
@@ -114,7 +271,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Consider a MAB algorithm choosing the arm $a_t$ and providing the following rewards $R_t$ over a time horizon of $T = 10$ rounds.\n\n| t | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| $R_{1,t}$ | 0 | 1 | 1 | 0 | 0 | 1 | 0 | 1 | 0 | 0 |\n| $R_{2,t}$ | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |\n| $R_{3,t}$ | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 1 |\n| $a_t$ | 1 | 2 | 3 | 3 | 1 | 3 | 2 | 3 | 1 | 2 |\n\n(only the reward for the chosen arm is revealed to the algorithm). Moreover, assume that the expected value for the three arms' reward are $\\mu_1 = 0.3$, $\\mu_2 = 0.8$, and $\\mu_3 = 0.6$.\n1. Compute the cumulated reward, the regret and the pseudo-regret for the algorithm over the time horizon $T$. (Recall that the regret is computed over realizations, while the pseudo-regret is computed over expected values);\n2. Compute the values for the UCB1 bounds for at time $t = 5$ for the three arms. Do you think that the algorithm used in this setting can be the UCB1?\n3. Do you think that the algorithm used in this setting might be the Thompson sampling?",
     "solution": "1.\n- The **cumulated reward** is: $0 + 0 + 0 + 0 + 0 + 1 + 0 + 0 + 1 = 2$ (summing the rewards of the chosen arms over the horizon).\n- The **regret** is: $9 - 2 = 7$ (the optimal realized cumulated reward in hindsight minus the obtained reward).\n- The **pseudo-regret** is: $0.5 + 0 + 0.2 + 0.2 + 0.5 + 0.2 + 0 + 0.2 + 0.5 + 0 = 2.3$ (with $\\Delta_1 = 0.5$, $\\Delta_2 = 0$, and $\\Delta_3 = 0.2$, summing $\\Delta_{a_t}$ over the rounds).\n2. At $t = 5$ each arm has been pulled: arm 1 once (1 round so far with reward 0), arm 2 once, arm 3 twice. The UCB1 bounds:\n$$U_{1,5} = \\frac{0}{2} + \\sqrt{\\frac{\\log(5)}{2}}, \\quad U_{2,5} = \\frac{0}{1} + \\sqrt{\\frac{\\log(5)}{1}}, \\quad U_{3,5} = \\frac{0}{2} + \\sqrt{\\frac{\\log(5)}{2}}.$$\nTherefore, the arm chosen for the next round would be $a_t = 2$. Consequently, the algorithm run above **cannot be the UCB1** (since at $t=5$ it played arm 1, not arm 2).\n3. Since Thompson Sampling has a stochastic nature, there is a chance that any possible sequence of the arms is chosen, even if with a small probability. Therefore, the algorithm run above **might be TS**.",
     "solutionSource": "exam"

@@ -6,31 +6,233 @@
     "academicYear": "AA1920",
     "exerciseNo": 1,
     "type": "applied-modeling",
-    "topics": ["classif", "linreg", "rl", "mab", "featsel"],
+    "topics": [
+      "classif",
+      "linreg",
+      "rl",
+      "mab",
+      "featsel"
+    ],
     "prompt": "Question 1 (Categorize ML problems). Categorize the following machine learning problems. For each one of them, suggest a technique to solve it and some features or actions/states pairs that might provide useful information for the specified technique.\n\n- Predict the outcome of a tennis match.\n- Select the players which are worthy of taking a specific role in a team.\n- Evaluate the performance of a robot squad in a specific environment.\n- Identify groups of similar songs (in terms of genre) from a large database.\n- Determine the critical factors for the development of a disease.\n- Learn how to provide an automated customer service.\n- Deciding the most promising investment strategy, among a given set.\n- Prediction of the sales in the next month for a bakery shop.",
     "solution": "- **Tennis match outcome**: the outcome could be either binary (Win/Loss) or the actual score (for each player). The former is a classification problem (e.g. SVM); if it is the actual score it is a regression problem (e.g. Kernel Regression). Features: previous results between the players, current ATP ranking, player statistics.\n- **Players worthy of a role**: classification problem, a multiclass one if we want to also select the role for each player. We can solve it with logistic regression using the players' statistics as input.\n- **Robot squad performance evaluation**: an RL evaluation problem (understanding how good a policy is) via MC or TD estimation. Actions are the robot movements (allowed in the environment); states are the energetic state and position of each robot.\n- **Group similar songs**: clustering problem (e.g. K-means) on an unlabeled dataset; features are the songs' length, author, and release information.\n- **Critical factors of a disease**: feature selection problem (wrapper or filtering techniques). Features to test are the ones related to each potential patient and its geographical position.\n- **Automated customer service**: assuming pre-recorded answers, a control RL technique to learn the proper action (each action corresponds to a specific answer) according to the situation (specific user and related context).\n- **Best investment strategy among a set**: if the environment is stationary, a MAB problem (e.g. UCB1 with the different strategies as arms); if some opponents are playing against us, an adversarial MAB technique (e.g. EXP3).\n- **Bakery sales prediction**: if the environment is stationary, regression techniques (e.g. linear regression) with features such as the sales of the previous month, weather conditions, etc. Otherwise rely on time series forecasting techniques.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210209-e2",
+    "id": "ML20210209-e2.1",
     "examId": "ML20210209",
     "date": "2021-02-09",
     "academicYear": "AA1920",
     "exerciseNo": 2,
     "type": "true-false-motivated",
-    "topics": ["rl", "mab"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210209-e2-s1", "statement": "Policy Evaluation always outputs the optimal value function.", "answer": false, "motivation": "Policy Evaluation goal is to find the correct value function corresponding to the policy we are evaluating. The optimal value function is the value function corresponding to the optimal policy instead: in order to obtain it, we have to solve the MDP (e.g., with Value-Iteration)." },
-      { "id": "ML20210209-e2-s2", "statement": "The value function may decrease on some steps of Policy Iteration, but in the end, the algorithm outputs the optimal one.", "answer": false, "motivation": "The policy improvement theorem guarantees that, at every step, the new policy is better than the previous one." },
-      { "id": "ML20210209-e2-s3", "statement": "Employing a discount factor in the computation of the cumulative return in MDPs is only a mathematical trick to ensure the convergence of the return.", "answer": false, "motivation": "The discount factor can also be interpreted as the probability for an episode to terminate at each step, or as how much we value immediate rewards w.r.t. future ones." },
-      { "id": "ML20210209-e2-s4", "statement": "Dealing with the exploration-exploitation tradeoff is more crucial in SARSA than Q-learning.", "answer": true, "motivation": "Being SARSA an on-policy algorithm, the learned policy is used to collect samples too, hence it has to balance between obtaining high returns and exploring the state and action space. Q-learning is an off-policy algorithm, hence an explorative policy can be employed with a greedy learned policy." },
-      { "id": "ML20210209-e2-s5", "statement": "The optimal policy of a Multi-Armed Bandit problem can be found with Value-Iteration.", "answer": true, "motivation": "TRUE, provided that I know the reward distributions of each arm; however, in that case, it would be probably simpler to find the mean of each one and then to choose the best. (FALSE, in order to use value-iteration I have to know the model, hence the distributions, which are usually unknown to the learner in the MAB setting.)" },
-      { "id": "ML20210209-e2-s6", "statement": "Given an MDP with a certain reward function, there is only a single policy that is optimal for it, and, for each optimal policy, there is only a single reward function for which it is optimal.", "answer": false, "motivation": "For each MDP we are guaranteed that there is always at least one optimal policy, but this does not prevent having more optimal policies. Moreover, the same policy can still be optimal if we modify the reward function, sometimes this procedure can also speed up learning (reward reshaping)." },
-      { "id": "ML20210209-e2-s7", "statement": "In an MDP, for each state, we can always choose an action that is optimal, independently from the time, and from the past history.", "answer": true, "motivation": "This is guaranteed from the existence of a stationary, Markovian, and deterministic optimal policy for each MDP." },
-      { "id": "ML20210209-e2-s8", "statement": "It is always better to perform Policy Evaluation by solving a linear system instead of using Dynamic Programming.", "answer": false, "motivation": "When the state space is small we can use the closed-form solution. However, even if the linear system approach offers the exact solution, for very large problems it can be impractical to solve it, hence, we can resort to using the approximated solution offered by DP." },
-      { "id": "ML20210209-e2-s9", "statement": "All sequential decision problems can be modeled as MDPs.", "answer": false, "motivation": "To model a problem as an MDP, we have to assume that the environment state is fully observable and Markovian, hence the current state of the environment should be completely determined by the current observation made by the agent. In some cases, we can \"transform\" the state of the environment to make it Markovian." },
-      { "id": "ML20210209-e2-s10", "statement": "As many policies can be optimal, there can be multiple optimal value functions in an MDP.", "answer": false, "motivation": "The only optimal value function is the unique fixed point of the Bellman Optimal Operator, and all optimal policies share the same value function." }
+      {
+        "id": "ML20210209-e2.1-s1",
+        "statement": "Policy Evaluation always outputs the optimal value function.",
+        "answer": false,
+        "motivation": "Policy Evaluation goal is to find the correct value function corresponding to the policy we are evaluating. The optimal value function is the value function corresponding to the optimal policy instead: in order to obtain it, we have to solve the MDP (e.g., with Value-Iteration)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.2",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.2-s1",
+        "statement": "The value function may decrease on some steps of Policy Iteration, but in the end, the algorithm outputs the optimal one.",
+        "answer": false,
+        "motivation": "The policy improvement theorem guarantees that, at every step, the new policy is better than the previous one."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.3",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.3-s1",
+        "statement": "Employing a discount factor in the computation of the cumulative return in MDPs is only a mathematical trick to ensure the convergence of the return.",
+        "answer": false,
+        "motivation": "The discount factor can also be interpreted as the probability for an episode to terminate at each step, or as how much we value immediate rewards w.r.t. future ones."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.4",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.4-s1",
+        "statement": "Dealing with the exploration-exploitation tradeoff is more crucial in SARSA than Q-learning.",
+        "answer": true,
+        "motivation": "Being SARSA an on-policy algorithm, the learned policy is used to collect samples too, hence it has to balance between obtaining high returns and exploring the state and action space. Q-learning is an off-policy algorithm, hence an explorative policy can be employed with a greedy learned policy."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.5",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.5-s1",
+        "statement": "The optimal policy of a Multi-Armed Bandit problem can be found with Value-Iteration.",
+        "answer": true,
+        "motivation": "TRUE, provided that I know the reward distributions of each arm; however, in that case, it would be probably simpler to find the mean of each one and then to choose the best. (FALSE, in order to use value-iteration I have to know the model, hence the distributions, which are usually unknown to the learner in the MAB setting.)"
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.6",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.6-s1",
+        "statement": "Given an MDP with a certain reward function, there is only a single policy that is optimal for it, and, for each optimal policy, there is only a single reward function for which it is optimal.",
+        "answer": false,
+        "motivation": "For each MDP we are guaranteed that there is always at least one optimal policy, but this does not prevent having more optimal policies. Moreover, the same policy can still be optimal if we modify the reward function, sometimes this procedure can also speed up learning (reward reshaping)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.7",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.7-s1",
+        "statement": "In an MDP, for each state, we can always choose an action that is optimal, independently from the time, and from the past history.",
+        "answer": true,
+        "motivation": "This is guaranteed from the existence of a stationary, Markovian, and deterministic optimal policy for each MDP."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.8",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.8-s1",
+        "statement": "It is always better to perform Policy Evaluation by solving a linear system instead of using Dynamic Programming.",
+        "answer": false,
+        "motivation": "When the state space is small we can use the closed-form solution. However, even if the linear system approach offers the exact solution, for very large problems it can be impractical to solve it, hence, we can resort to using the approximated solution offered by DP."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.9",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.9-s1",
+        "statement": "All sequential decision problems can be modeled as MDPs.",
+        "answer": false,
+        "motivation": "To model a problem as an MDP, we have to assume that the environment state is fully observable and Markovian, hence the current state of the environment should be completely determined by the current observation made by the agent. In some cases, we can \"transform\" the state of the environment to make it Markovian."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210209-e2.10",
+    "examId": "ML20210209",
+    "date": "2021-02-09",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Question 2 (RL). Tell whether the following statements about MDP and RL are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210209-e2.10-s1",
+        "statement": "As many policies can be optimal, there can be multiple optimal value functions in an MDP.",
+        "answer": false,
+        "motivation": "The only optimal value function is the unique fixed point of the Bellman Optimal Operator, and all optimal policies share the same value function."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -42,7 +244,11 @@
     "academicYear": "AA1920",
     "exerciseNo": 3,
     "type": "theory-essay",
-    "topics": ["modelsel", "featsel", "modeleval"],
+    "topics": [
+      "modelsel",
+      "featsel",
+      "modeleval"
+    ],
     "prompt": "Question 3 (Model Selection). Answer to the following questions about the bias-variance decomposition, model selection, and related topics. Motivate your answers.\n\n1. You trained two models on a problem with 5 features: Model A using all the 5 features and Model B using only 3 features. Assuming they have similar performances on the training set, do you expect Model A to perform better on the test set?\n2. You trained two models on a problem with 9 features: Model A using only 5 features and Model B using all the 9 features. Do you expect Model A to have a smaller training error than Model B?\n3. You trained a K-NN classifier and the performance on the validation set is much worse than the one on the training set. Would you increase the value of K?\n4. You trained a model with ridge regression and the performance on the validation set is much worse than the one on the training set. Would you decrease the regularization coefficient?\n5. You used 10-fold cross-validation to tune the hyper-parameter K of a classifier. The model trained on the third fold with K=3 achieved the best performance overall. Based on this, would you set K=3?\n6. You used 10-fold cross-validation to select a classification model among several ones. Once you selected the model, would it be a good idea to re-train it on the whole dataset (i.e., all the 10 folds together)?\n7. You trained 10 regression models applying different basis functions to the problem inputs. Assuming you don't have enough time to perform additional training, would you select the model with the lowest training error?\n8. You need to assess the performance of a model on a very large dataset. You discover that training your model on the whole dataset is not very (computationally) expensive. Would you use Leave-one-out (LOO) cross-validation?",
     "solution": "1. **NO**, Model A is more complex and hence has a larger variance and probability of overfitting training data. So it would probably result in a worse test error.\n2. **NO**, Model A is simpler and will probably have a larger bias resulting in a larger training error.\n3. **YES**, the model is overfitting training data. Increasing K will decrease variance and could reduce overfitting.\n4. **NO**, the model is overfitting training data. Decreasing the regularization coefficient will increase variance and possibly also overfitting.\n5. **NO**, you should choose the value of K based on the average performance computed on all the 10 folds.\n6. **YES**, cross-validation provides an unbiased estimate of the test error of each model. Once selected the model, it still is a good idea to use the whole data to train a possibly better model.\n7. **NO**, the training error does not provide a useful estimate of the true error (test error) of the model. You could, instead, use some adjusted error measure to select the model.\n8. **NO**, because even if a single training process is not expensive, if the dataset is very large, LOO will not be feasible. Instead, we should use K-fold cross-validation.",
     "solutionSource": "exam"
@@ -54,7 +260,9 @@
     "academicYear": "AA1920",
     "exerciseNo": 4,
     "type": "code-interpretation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Code 1 (MAB). Which algorithm is the following code implementing for the MAB setting? Describe in detail (line by line) what are the operations it performs and answer the following questions. Motivate your answers.\n\n- The algorithm updates the distributions of all the arms at each time step.\n- This algorithm provides a regret bound of order $\\log(T)$ for stochastic MAB and a regret bound of order $\\sqrt{T}$ for adversarial ones.\n- As we proceed with the learning procedure, the distributions beta_dist() are getting more and more concentrated to the real mean of the process.\n- As we proceed with the learning procedure the distributions mathcal_R() are getting more and more concentrated to the real mean of the process.\n- The procedure is able to model processes in which the reward is Gaussian.\n- The algorithm is using a specific pair of distributions called prior-posterior conjugates.\n- This procedure can be applied to generic RL control problems.\n- There might exist a more effective procedure that provides a regret of order less than $\\log(T)$.",
     "code": {
       "language": "matlab",
@@ -70,7 +278,10 @@
     "academicYear": "AA1920",
     "exerciseNo": 5,
     "type": "numerical-computation",
-    "topics": ["kernelsvm", "classif"],
+    "topics": [
+      "kernelsvm",
+      "classif"
+    ],
     "prompt": "Exercise 1 (SVM). Consider a linear, hard-margin, two-class SVM classifier defined by parameters $w = [-3, -5]$, $b = -5$ (Version A). Answer the following questions, providing adequate motivations (including the math).\n\n1. Provide the analytical formula of the boundary and the margins.\n2. How is the point $p_1 = [0.8, -1.0]$ classified according to the trained SVM?\n3. Assume to collect a new sample $p_2 = [1.0, -1.3]$ in the negative class. Do you need to retrain the SVM?",
     "solution": "**1)** Boundary and margins:\n$$-3 x_1 - 5 x_2 - 5 = 0 \\quad \\text{(boundary)}$$\n$$-3 x_1 - 5 x_2 - 6 = 0 \\quad \\text{(positive margin)}$$\n$$-3 x_1 - 5 x_2 - 4 = 0 \\quad \\text{(negative margin)}$$\n\n**2)** $-3 \\cdot 0.8 - 5 \\cdot (-1.0) - 5 = -2.4 \\Rightarrow$ **negative**.\n\n**3)** $-3 \\cdot 1.0 - 5 \\cdot (-1.3) - 5 = -1.5 \\Rightarrow$ negative. No need to retrain, the point is correctly classified. You would use a soft-margin if the problem is no more linearly separable.",
     "solutionSource": "exam"
@@ -82,7 +293,11 @@
     "academicYear": "AA1920",
     "exerciseNo": 6,
     "type": "numerical-computation",
-    "topics": ["linreg", "featsel", "modeleval"],
+    "topics": [
+      "linreg",
+      "featsel",
+      "modeleval"
+    ],
     "prompt": "Exercise 2 (Linear Regression). Consider the following coefficients estimated for a linear regression (Version A):\n\n| | Estimate | SE | tStat | pValue |\n| --- | --- | --- | --- | --- |\n| (Intercept) | 8.8471e-16 | 0.02053 | 4.3093e-14 | 1 |\n| x1 | -0.22815 | 0.051551 | -4.4258 | 1.869e-05 |\n| x2 | 0.12998 | 0.027838 | 4.6692 | 6.793e-06 |\n| x3 | 1.2163 | 0.056478 | 21.536 | 3.6039e-47 |\n\nNumber of observations: 150, Error degrees of freedom: 146. Root Mean Squared Error: 0.251. R-squared: 0.938, Adjusted R-Squared: 0.937. F-statistic vs. constant model: 737, p-value = 6.2e-88.\n\nAnswer the following questions:\n1. Do you think that at least one of the features is significant?\n2. Do you think that all the features are significant?\n3. How much is the RSS for this model?\n4. How much variance is explained by the model?\n5. How much error is this model making on average on a new data point?\n6. Do you think that the model is sound? Motivate your answers.",
     "solution": "1. **Yes**: since the F-statistic has a low p-value.\n2. **No**, it seems that x1, x2, and x3 are significant, according to the p-value (which is smaller than 0.05). (The intercept is not significant.)\n3. $RSS = RMSE^2 \\cdot n = 0.251^2 \\cdot 150 = 9.45$.\n4. According to the $R^2$ index the 93.8% of the variance has been explained by the model.\n5. This is the RMSE, therefore: 0.251.\n6. **Yes**, we have 150 samples and 4 variables, however, one may want to verify whether it is possible to obtain better results with a simpler model, e.g., only using the third feature.",
     "solutionSource": "exam"

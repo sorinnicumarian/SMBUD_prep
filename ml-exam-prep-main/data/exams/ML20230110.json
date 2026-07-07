@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Describe and compare Q-learning and SARSA.",
     "solution": "Both Q-learning and SARSA are **model-free, value-based, temporal-difference (TD) control** algorithms that learn an action-value function $Q(s,a)$ from interaction with an MDP, without knowing transitions or rewards.\n\n**SARSA (on-policy).** It updates $Q$ using the action $a'$ actually chosen by the current behaviour policy in the next state: $$Q(s,a) \\leftarrow Q(s,a) + \\alpha\\big(r + \\gamma Q(s',a') - Q(s,a)\\big).$$ The name comes from the tuple $(s,a,r,s',a')$. Because it learns the value of the policy being followed (including its exploration), it is **on-policy**.\n\n**Q-learning (off-policy).** It updates $Q$ using the greedy action in the next state, regardless of which action is actually taken: $$Q(s,a) \\leftarrow Q(s,a) + \\alpha\\big(r + \\gamma \\max_{a'} Q(s',a') - Q(s,a)\\big).$$ It directly approximates the optimal action-value function $Q^*$ while following a different (exploratory) behaviour policy, so it is **off-policy**.\n\n**Comparison.**\n- *Target:* SARSA uses $Q(s',a')$ of the behaviour policy; Q-learning uses $\\max_{a'}Q(s',a')$.\n- *What they converge to:* SARSA evaluates/optimizes the policy actually followed (the learned policy accounts for exploration risk); Q-learning converges to the optimal greedy policy $Q^*$.\n- *Exploration:* both need sufficient exploration (e.g. $\\epsilon$-greedy). SARSA tends to learn safer policies when exploration can lead to large penalties (classic cliff-walking example: SARSA takes the safe path, Q-learning the risky optimal path).\n- *Convergence:* both converge to $Q^*$ under standard conditions (GLIE exploration, Robbins-Monro learning rates); for SARSA the policy must become greedy in the limit.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "What is the **VC dimension** of a hypothesis space? What can it be used for?",
     "solution": "**Definition.** The Vapnik-Chervonenkis (VC) dimension $VC(\\mathcal{H})$ of a hypothesis space $\\mathcal{H}$ of binary classifiers is the size of the **largest set of points that $\\mathcal{H}$ can shatter**. A set of $d$ points is *shattered* by $\\mathcal{H}$ if, for every one of the $2^d$ possible labelings of those points, there exists some hypothesis $h \\in \\mathcal{H}$ that realizes that labeling. Formally, $VC(\\mathcal{H}) = \\max\\{d : \\exists \\text{ a set of } d \\text{ points shattered by } \\mathcal{H}\\}$. Note it suffices that **at least one** set of size $d$ is shattered (not all of them).\n\n**Examples.** Linear classifiers (hyperplanes) in $\\mathbb{R}^d$ have $VC = d+1$ (e.g. 3 for 2D lines). A finite hypothesis space has $VC(\\mathcal{H}) \\le \\log_2|\\mathcal{H}|$, hence finite VC.\n\n**What it is used for.** The VC dimension measures the **capacity / expressiveness** of a hypothesis space, independently of the data distribution and of the number of samples. It is the central quantity in **statistical learning theory**:\n- It provides distribution-free **generalization bounds** that hold for infinite hypothesis spaces. With probability $\\ge 1-\\delta$, $$L(h) \\le \\hat{L}(h) + \\sqrt{\\frac{VC(\\mathcal{H})\\big(\\ln\\frac{2N}{VC(\\mathcal{H})}+1\\big) + \\ln\\frac{4}{\\delta}}{N}},$$ linking true error to training error, sample size $N$ and capacity.\n- It quantifies **sample complexity**: how many samples are needed to PAC-learn a concept to a given accuracy/confidence (roughly proportional to $VC$).\n- It formalizes the **bias-variance / overfitting** trade-off: larger $VC$ means more expressive models (lower bias) but looser generalization guarantees (higher variance risk), guiding model selection.\n- A space is PAC-learnable iff it has finite VC dimension.",
     "solutionSource": "authored"
@@ -33,7 +37,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["linreg", "featsel"],
+    "topics": [
+      "linreg",
+      "featsel"
+    ],
     "prompt": "Consider the following snippet of code:\n\n1. Describe the procedure provided by the snippet above. Is it correct? If not, propose a correction.\n2. What is the purpose of the procedure above? Can you tell which property have the coefficients `coef` computed in the snippet above?\n3. Can you list at least two other approaches that can be used for purposes similar to the one provided by the procedure above? Motivate your answers.",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230110-e4",
+    "id": "ML20230110-e4.1",
     "examId": "ML20230110",
     "date": "2023-01-10",
     "academicYear": "AA2122",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Tell if the following statement about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20230110-e4-s1",
+        "id": "ML20230110-e4.1-s1",
         "statement": "The set of the Principal Components vectors are providing an orthonormal base for the original feature space.",
         "answer": true,
         "motivation": "The procedure for the PCA looks for the direction in the dataset which is providing the most variance and extracts the (first) Principal Component (PC) as the unit vector identifying that direction. Iteratively, it checks the direction, orthogonal to the previous one, with the most variance and extracts another (second) PC. The process iterates over a number of PC equal to the number of dimensions of the dataset. This produces an orthogonal base to the initial dataset."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230110-e4.2",
+    "examId": "ML20230110",
+    "date": "2023-01-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Tell if the following statement about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230110-e4-s2",
+        "id": "ML20230110-e4.2-s1",
         "statement": "Using as features for regression/classification problems the projection of the original features into the principal components provided by the PCA reduces the phenomenon of overfitting.",
         "answer": false,
         "motivation": "Only selecting the first $K$ PC one has the chance to remove the noise from the data and avoid overfitting. If we are keeping all the PC, we would have a linear transformation of the original dataset, which is likely to behave as good as the original one for the supervised task."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230110-e4.3",
+    "examId": "ML20230110",
+    "date": "2023-01-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Tell if the following statement about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230110-e4-s3",
+        "id": "ML20230110-e4.3-s1",
         "statement": "The percentage of the variance explained by a Principal Component is inversely proportional to the value of the corresponding eigenvalue.",
         "answer": false,
         "motivation": "The variance explained by each PC is directly proportional to the corresponding eigenvalue. Indeed, its formula is $\\frac{\\lambda_i}{\\sum_i \\lambda_i}$, where $\\lambda_i$ is the eigenvalues corresponding to the $i$-th PC."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230110-e4.4",
+    "examId": "ML20230110",
+    "date": "2023-01-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Tell if the following statement about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230110-e4-s4",
+        "id": "ML20230110-e4.4-s1",
         "statement": "The procedure to apply PCA to a dataset is deterministic.",
         "answer": true,
         "motivation": "The procedure includes a mean-scaling procedure and the inversion of the covariance matrix, which are both deterministic procedures."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230110-e5",
+    "id": "ML20230110-e5.1",
     "examId": "ML20230110",
     "date": "2023-01-10",
     "academicYear": "AA2122",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg", "kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell if the following statement about the Gaussian Processes (GP) are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20230110-e5-s1",
+        "id": "ML20230110-e5.1-s1",
         "statement": "The main difference between the Nadaraya-Watson Model and the GP is that the probabilistic model is defined over the joint input/output for the former model and only on the output for the latter model.",
         "answer": true,
         "motivation": "The Nadaraya-Watson Model imposes a prior on $p(x, y)$, where $x$ are the input and $y$ is the output, while GPs are only taking into account a probabilistic model on the target $y$. They both derive the value of the mean prediction starting from such priors."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230110-e5.2",
+    "examId": "ML20230110",
+    "date": "2023-01-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following statement about the Gaussian Processes (GP) are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230110-e5-s2",
+        "id": "ML20230110-e5.2-s1",
         "statement": "The GP model is a linear model w.r.t. the optimal parameter vector learned using a maximum likelihood estimation procedure.",
         "answer": false,
         "motivation": "GPs are nonparametric models, and therefore it is not always possible (see answer to 5.4) to define a parameter vector summarizing the GP model. Instead, the model is given by the training dataset itself."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230110-e5.3",
+    "examId": "ML20230110",
+    "date": "2023-01-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following statement about the Gaussian Processes (GP) are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230110-e5-s3",
+        "id": "ML20230110-e5.3-s1",
         "statement": "Assuming to have the inverse of the Gram matrix, the computational complexity of providing a new prediction is quadratic in the number of samples present in the training set.",
         "answer": true,
         "motivation": "The inversion of the matrix would have costed $O(n^3)$, where $n$ is the number of samples present in the dataset. Instead, the formula to compute the mean prediction includes a vector/matrix multiplication and a vector/vector multiplication, which are $O(n^2)$ and $O(n)$, respectively."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230110-e5.4",
+    "examId": "ML20230110",
+    "date": "2023-01-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Tell if the following statement about the Gaussian Processes (GP) are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230110-e5-s4",
+        "id": "ML20230110-e5.4-s1",
         "statement": "The prediction provided by a GP with a linear kernel, i.e., $k(x, y) = x^\\top y$, corresponds to the one provided by a specific linear regression model.",
         "answer": true,
         "motivation": "The final formula would be $m(x) = x^\\top X C t = x^\\top \\theta$, where $X$ is the matrix of the training inputs. Note that the value of $\\theta$ is entirely dependent on the dataset."
@@ -128,7 +241,11 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "featsel", "rl"],
+    "topics": [
+      "linreg",
+      "featsel",
+      "rl"
+    ],
     "prompt": "You are an ML specialist working for an online shipper that accepts orders and delivers them relying on several trucks. You are facing the following problems:\n\n1. Estimating the shipping time, based on the order characteristics (e.g., arrival time, weight, dimensions, pick up location, destination location).\n2. Identifying which are the characteristics of the order that are irrelevant for accomplishing the task described in the previous point.\n3. Deciding the price to charge the client in order to maximize the long-term profit, accounting also for the customer fidelization phenomenon.\n\nModel these three problems as ML problems, specifying the data (input, output, state, action, reward), the problem class, and a specific method to solve them.",
     "solution": "1. This is a SUPERVISED LEARNING problem, specifically, MULTIVARIATE REGRESSION. The input variables are the order characteristics (e.g., arrival time, weight, dimensions, pick up location, destination location) and the output variable is the shipping time (continuous variable). A possible method for solving it is linear regression.\n\n2. This is a FEATURE SELECTION problem. The input variables are the order characteristics (e.g., arrival time, weight, dimensions, pick up location, destination location). The output variable might be missing in the case of unsupervised feature selection or corresponding to the shipping time for supervised feature selection. A possible method for solving it is a wrapper approach that uses linear regression ad inner algorithm and forward feature selection.\n\n3. This is a REINFORCEMENT LEARNING problem. The state is represented by the historical information about customers and orders (from which deriving information about the fidelization) as well as the characteristics of the current order. The action is the price to be assigned to the current order. The reward is the profit (revenue - costs) related to the current order. It would have been inappropriate to consider the problem a MULTI-ARMED BANDIT because of the fidelization phenomenon that is such that our actions (prices) determine a modification of the environment state. A possible method for solving it is Q-learning.",
     "solutionSource": "exam"
@@ -141,7 +258,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider the linear two-class SVM classifier defined by the parameters $w = [5, 3]$ and $b = -3$ and trained on a **linearly separable** dataset. Answer the following questions, providing adequate motivation.\n\n1. How is the point $x_1 = [2, -3]$ classified according to the trained SVM?\n2. Suppose that the true label of $x_1$ is $t_1 = +1$. Is it possible that $x_1$ was contained in the training set? What about the case $t_1 = -1$?\n3. Consider the set of points of the form $x = [a, 2]$. For which values of $a$ the point $x$ lies on the margin?",
     "solution": "1. Let us compute the expression $w^T x_1 + b = 5 \\cdot 2 + 3 \\cdot (-3) - 3 = -2 < 0$. Thus, the point is classified as a negative instance.\n\n2. If $t_1 = 1$, $x_1$ cannot be contained in the training set, since, due to the previous calculation, it would have been missclassified, violating the linear separability assumption. If, instead, $t_1 = -1$, then $x_1$ is correctly classified and, consequently, could have been contained in the training set.\n\n3. A point $x$ lies on the margin if $|w^T x + b| = 1$. Thus, we have: $$1 = |[5, 3]^T [a, 2] - 3| = |5a + 6 - 3| \\implies a \\in \\left\\{-\\frac{2}{5}, -\\frac{4}{5}\\right\\}.$$",
     "solutionSource": "exam"
@@ -154,7 +273,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Assume to have a stochastic Multi-Armed Bandit (MAB) with 3 arms with average reward: $$R(a_1) = 0.1, \\quad R(a_2) = 0.6, \\quad R(a_3) = 0.3,$$ and each distribution $\\mathcal{R}(a_i)$ is a Bernoulli.\n\n1. Write the asymptotic minimum expected pseudo-regret we might have on average over $T = e^{10}$ time steps.\n2. If we apply the UCB1 algorithm, which is the upper bound on the expected pseudo-regret? Is it larger or smaller than the previous one?\n3. What can we tell about the minimum regret we might have on the above problem? And about the minimum regret of UCB1?\n\nNote that the KL divergence for Bernoulli variables with means $p$ and $q$ is: $$KL(p, q) = p\\log\\left(\\frac{p}{q}\\right) + (1-p)\\log\\left(\\frac{(1-p)}{(1-q)}\\right)$$ and (if necessary) that $\\log(\\frac{0.1}{0.6}) = -1.8$, $\\log(\\frac{0.9}{0.4}) = 0.8$, $\\log(\\frac{0.3}{0.6}) = -0.7$, $\\log(\\frac{0.7}{0.4}) = 0.6$, $\\log(\\frac{0.1}{0.3}) = -1.1$, and $\\log(\\frac{0.9}{0.7}) = 0.25$.",
     "solution": "1. The lower bound for a stochastic MAB problem is (for $T$ sufficiently large): $$L_T \\ge \\log T \\frac{\\Delta_i}{\\sum_{i, i\\ne *} KL(\\mu_i, \\mu^*)},$$ where $\\mu^*$ is the expected reward of the optimal arm, $\\mu_i$ is the expected reward of the $i$-th arm, and $\\Delta_i = \\mu^* - \\mu_i$. In our case we have: $$L_T > 10\\left(\\frac{0.6 - 0.1}{KL(0.1, 0.6)} + \\frac{0.6 - 0.3}{KL(0.3, 0.6)}\\right)$$ $$= 8\\cdot 10\\left(\\frac{0.5}{(0.1\\cdot(-1.8) + 0.9\\cdot 0.8)} + \\frac{0.3}{(0.3\\cdot(-0.7) + 0.7\\cdot 0.6)}\\right) \\approx 23.5.$$\n\n2. The formula for the upper bound of the UCB1 algorithm is: $$L_T \\le 8\\log T \\sum_{i\\ne *}\\frac{1}{\\Delta_i} + 1 + \\frac{\\pi^2}{3}\\left(\\sum_{i\\ne *}\\Delta_i\\right),$$ which in our setting becomes: $$L_t \\le 10\\left(\\frac{1}{0.6 - 0.1} + \\frac{1}{0.6 - 0.3}\\right) + (1 + \\frac{\\pi^2}{3})(0.6 - 0.1 + 0.6 - 0.3)$$ $$= 80\\left(2 + \\frac{10}{3}\\right) + (1 + \\frac{\\pi^2}{3}) * 0.8 \\approx 430.$$\n\n3. All the above theoretical results are only holding in expected value. Both bounds can be violated on specific runs of the UCB1 algorithm.",
     "solutionSource": "exam"

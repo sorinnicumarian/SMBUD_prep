@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Describe and compare the Monte Carlo and Temporal Difference approaches to policy evaluation.",
     "solution": "Both Monte Carlo (MC) and Temporal Difference (TD) are model-free methods for estimating the value function $V^\\pi(s)$ of a fixed policy $\\pi$ from sampled experience.\n\n**Monte Carlo (MC).** MC waits until the **end of an episode** and updates each visited state toward the *full observed return* $G_t = \\sum_{k\\ge 0}\\gamma^k R_{t+k+1}$:\n$$V(S_t) \\leftarrow V(S_t) + \\alpha\\big(G_t - V(S_t)\\big).$$\nIt does **not bootstrap** (no use of other estimates). It is **unbiased** (the return is a sample of the true value) but has **high variance**, and requires episodic tasks that terminate.\n\n**Temporal Difference (TD(0)).** TD updates after **every step**, using a *one-step bootstrap* target $R_{t+1} + \\gamma V(S_{t+1})$:\n$$V(S_t) \\leftarrow V(S_t) + \\alpha\\big(R_{t+1} + \\gamma V(S_{t+1}) - V(S_t)\\big).$$\nIt **bootstraps** (uses the current estimate of the next state). It is **biased** (the target depends on a current, possibly wrong estimate) but has **lower variance**, can learn **online** and from **incomplete/continuing** episodes.\n\n**Comparison.**\n- *Update timing:* MC at episode end; TD at each step (online).\n- *Bootstrapping:* MC no; TD yes.\n- *Bias/variance:* MC unbiased, high variance; TD biased, low variance.\n- *Applicability:* MC needs terminating episodes; TD works in continuing tasks.\n- *Convergence:* both converge to $V^\\pi$ under suitable step sizes; TD typically converges faster in practice. $n$-step methods and TD($\\lambda$) interpolate between the two extremes.",
     "solutionSource": "authored"
@@ -20,7 +22,11 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg", "modelsel", "featsel"],
+    "topics": [
+      "linreg",
+      "modelsel",
+      "featsel"
+    ],
     "prompt": "Describe the role of regularization in managing the bias-variance trade-off. Discuss the difference between L1 and L2 regularization techniques and their respective effects on model complexity and feature selection.",
     "solution": "**Role in the bias-variance trade-off.** Regularization adds a penalty on the magnitude of the model parameters to the training loss, $L_{reg}(w) = L(w) + \\lambda\\,\\Omega(w)$. By shrinking the weights it **reduces model complexity / variance** at the price of **introducing some bias**. Choosing $\\lambda$ (e.g. by cross-validation) tunes the trade-off: $\\lambda=0$ recovers the unregularized, low-bias/high-variance model; very large $\\lambda$ over-shrinks toward a high-bias/low-variance model. The goal is the $\\lambda$ minimizing the expected test error.\n\n**L2 regularization (Ridge),** $\\Omega(w)=\\lVert w\\rVert_2^2 = \\sum_j w_j^2$:\n- Penalizes large weights smoothly; has a **closed-form** solution $w = (\\Phi^\\top\\Phi + \\lambda I)^{-1}\\Phi^\\top t$.\n- **Shrinks** all coefficients toward zero but generally **does not set them exactly to zero**, so it does **not** perform feature selection. Good when many features are weakly relevant / correlated.\n\n**L1 regularization (Lasso),** $\\Omega(w)=\\lVert w\\rVert_1 = \\sum_j |w_j|$:\n- The $\\ell_1$ penalty is non-differentiable at 0; its geometry (diamond-shaped constraint) drives some coefficients **exactly to zero**, yielding **sparse** solutions.\n- Hence Lasso performs **automatic feature selection** and improves interpretability. It has **no closed form** and is solved by iterative/optimization methods.\n\n**Summary.** Both control complexity and the bias-variance trade-off; L2 shrinks smoothly (no selection), L1 produces sparsity (embedded feature selection). Elastic Net combines both penalties.",
     "solutionSource": "authored"
@@ -33,7 +39,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. What algorithm is the snippet of code above implementing? What problem is it trying to solve?\n2. Is code snippet above correct? If not, list the mistakes and provide a fix for each of them.\n3. Is the `while` loop guaranteed to stop after a finite number of iterations (if `gamma < 1`)? If yes, provide an upper bound on the maximum number of iterations. If not, provide a counterexample.",
     "code": {
       "language": "python",
@@ -43,36 +51,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230830-e4",
+    "id": "ML20230830-e4.1",
     "examId": "ML20230830",
     "date": "2023-08-30",
     "academicYear": "AA2223",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg", "modelsel"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Assume to have a regression model $y = \\mathbf{w}^\\top\\mathbf{x}$ over a dataset of input $\\mathbf{x}_i$ and corresponding target $t_i$, for $i\\in\\{1,\\dots,N\\}$. Indicate whether the following statements are true or false and motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20230830-e4-s1",
+        "id": "ML20230830-e4.1-s1",
         "statement": "Using the Maximum Likelihood Estimation method to compute the optimal parameter vector $\\mathbf{w}^*$ has a closed-form solution, regardless of the noise distribution present on the target realizations $t_i$.",
         "answer": false,
         "motivation": "FALSE: the closed-form solution is provided only for specific distributions of the noise. For instance, the one corresponding to the Least Squares solution requires uncorrelated Gaussian noise with fixed variance."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230830-e4.2",
+    "examId": "ML20230830",
+    "date": "2023-08-30",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Assume to have a regression model $y = \\mathbf{w}^\\top\\mathbf{x}$ over a dataset of input $\\mathbf{x}_i$ and corresponding target $t_i$, for $i\\in\\{1,\\dots,N\\}$. Indicate whether the following statements are true or false and motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230830-e4-s2",
+        "id": "ML20230830-e4.2-s1",
         "statement": "The least squares estimator $\\mathbf{w}^*$ of the parameter vector $\\mathbf{w}$ applied to the given dataset is the one with the lowest Mean Squared Error (MSE) of all linear estimators with no bias.",
         "answer": true,
         "motivation": "TRUE: this is a direct consequence of the Gauss-Markov theorem (the OLS estimator is the Best Linear Unbiased Estimator, BLUE)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230830-e4.3",
+    "examId": "ML20230830",
+    "date": "2023-08-30",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Assume to have a regression model $y = \\mathbf{w}^\\top\\mathbf{x}$ over a dataset of input $\\mathbf{x}_i$ and corresponding target $t_i$, for $i\\in\\{1,\\dots,N\\}$. Indicate whether the following statements are true or false and motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230830-e4-s3",
+        "id": "ML20230830-e4.3-s1",
         "statement": "Introducing nonlinear basis functions into the model increases the model flexibility at the cost of reducing its explainability (i.e., its degree of understanding by humans).",
         "answer": true,
         "motivation": "TRUE: by adding nonlinear bases we increase the dimension of the hypothesis space, therefore increasing the chance that the real model is close to one of the models of our hypothesis space. Conversely, it is harder to interpret nonlinear relationships between input and output."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230830-e4.4",
+    "examId": "ML20230830",
+    "date": "2023-08-30",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Assume to have a regression model $y = \\mathbf{w}^\\top\\mathbf{x}$ over a dataset of input $\\mathbf{x}_i$ and corresponding target $t_i$, for $i\\in\\{1,\\dots,N\\}$. Indicate whether the following statements are true or false and motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230830-e4-s4",
+        "id": "ML20230830-e4.4-s1",
         "statement": "We can use a regression model even if the target vector $(t_1,\\dots,t_N)$ represents a time series (i.e., they are not independent of each other and their distribution depends on the time index $i$).",
         "answer": false,
         "motivation": "FALSE: a main assumption of ML models is to have i.i.d. (independent and identically distributed) data; otherwise we are facing an environment whose behaviour changes over time or depends on the previous sequence of data. Therefore, even if only the target distribution is not i.i.d., this implies that it is not a good idea to use classical ML methods."
@@ -82,36 +143,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230830-e5",
+    "id": "ML20230830-e5.1",
     "examId": "ML20230830",
     "date": "2023-08-30",
     "academicYear": "AA2223",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["modelsel", "modeleval"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
     "subStatements": [
       {
-        "id": "ML20230830-e5-s1",
+        "id": "ML20230830-e5.1-s1",
         "statement": "A training error that is significantly smaller than the test error is a symptom of underfitting.",
         "answer": false,
         "motivation": "FALSE: it is a symptom of overfitting. Indeed, in such a case the training error is not representative of the true error. The chosen model has too large variance."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230830-e5.2",
+    "examId": "ML20230830",
+    "date": "2023-08-30",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20230830-e5-s2",
+        "id": "ML20230830-e5.2-s1",
         "statement": "A training loss close to the test error but significantly larger than the desired loss is a symptom of underfitting.",
         "answer": true,
         "motivation": "TRUE: in such a case the training error is representative of the true error, but the latter is larger than the desired one. The chosen model has too large bias."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230830-e5.3",
+    "examId": "ML20230830",
+    "date": "2023-08-30",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20230830-e5-s3",
+        "id": "ML20230830-e5.3-s1",
         "statement": "A small-variance model is prone to overfitting.",
         "answer": false,
         "motivation": "FALSE: with small variance, the training error will be representative of the true error. Nothing can be stated about the attitude to underfitting, but it is not prone to overfitting."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230830-e5.4",
+    "examId": "ML20230830",
+    "date": "2023-08-30",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20230830-e5-s4",
+        "id": "ML20230830-e5.4-s1",
         "statement": "A small-bias model is prone to overfitting.",
         "answer": false,
         "motivation": "DEPENDS. Nothing can be said about overfitting since it depends on the complexity of the hypothesis space (i.e., the variance of the model). For sure, the model will not be prone to underfitting."
@@ -128,7 +242,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "mab"],
+    "topics": [
+      "linreg",
+      "mab"
+    ],
     "prompt": "You are the owner of a software house and you are willing to estimate how much effort and income you are getting from the development of a new software. Assume there is some historical data about the characteristics of each software developed in the past, the duration of the development, and the profits provided by it.\n1. Model the problem of estimating the duration and profits you get from the development of a new software. Specify the data you would use, the class of problem you would model this problem with, and the methodology you would adopt.\n2. What if, instead, you do not have a dataset? Assume you need to decide on the sequential choice of the development of new software by choosing from a set of categories (e.g., game, business analytics, finance, sport). Provide a modeling (class of methods and data to process) and a method to solve such an issue.",
     "solution": "1. The problem is about **multiple regression** since both the quantities to estimate (amount of time and gains) are ordinal. As an input one might use the details about the software and about the team used to develop it. The solution might be to use the LS (Least Squares) to perform multiple linear regression.\n2. In this case we are in a **multi-armed bandit** setting, where the options are the different software classes and the reward is about either the gains you get from the development or minus the time duration (taking into account multiple rewards is not a viable option in the classical MAB setting). One can use either UCB1 or TS to solve the problem.",
     "solutionSource": "exam"
@@ -141,7 +258,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Consider the logistic regression two-class classifier:\n$$y_{\\mathbf{w}}(\\mathbf{x}) = \\frac{1}{1 + \\exp(-\\mathbf{w}^\\top\\mathbf{x})}.$$\n1. Given a training dataset $\\{(\\mathbf{x}_i, t_i)\\}_{i=1}^N$, write the formula of the loss function $L(\\mathbf{w})$ for training the logistic regression two-class classifier above.\n2. Derive the gradient of the loss function $L(\\mathbf{w})$.\n3. Starting from the weight vector $\\mathbf{w}_0 = (0,0,0)^\\top$, apply the gradient update with $\\alpha = 1$ and the following data points: $\\mathbf{x}_1 = (1,0,-1)^\\top$, $t_1 = 1$; $\\mathbf{x}_2 = (0,2,-3)^\\top$, $t_2 = 0$.",
     "solution": "1. The loss function is the negative log-likelihood (a.k.a. cross-entropy):\n$$L(\\mathbf{w}) = -\\log\\prod_{i=1}^N y_{\\mathbf{w}}(\\mathbf{x}_i)^{t_i}(1 - y_{\\mathbf{w}}(\\mathbf{x}_i))^{1-t_i} = -\\sum_{i=1}^N\\big(t_i\\log y_{\\mathbf{w}}(\\mathbf{x}_i) + (1-t_i)\\log(1 - y_{\\mathbf{w}}(\\mathbf{x}_i))\\big).$$\n2. First, $\\nabla_{\\mathbf{w}} y_{\\mathbf{w}}(\\mathbf{x}) = \\nabla_{\\mathbf{w}}\\frac{1}{1+\\exp(-\\mathbf{w}^\\top\\mathbf{x})} = \\frac{\\exp(-\\mathbf{w}^\\top\\mathbf{x})\\mathbf{x}}{(1+\\exp(-\\mathbf{w}^\\top\\mathbf{x}))^2} = y_{\\mathbf{w}}(\\mathbf{x})(1 - y_{\\mathbf{w}}(\\mathbf{x}))\\mathbf{x}$. Then:\n$$\\nabla_{\\mathbf{w}} L(\\mathbf{w}) = -\\sum_{i=1}^N\\big(t_i(1 - y_{\\mathbf{w}}(\\mathbf{x}_i))\\mathbf{x}_i - (1-t_i)y_{\\mathbf{w}}(\\mathbf{x}_i)\\mathbf{x}_i\\big) = \\sum_{i=1}^N(y_{\\mathbf{w}}(\\mathbf{x}_i) - t_i)\\mathbf{x}_i.$$\n3. Since $\\mathbf{w}_0 = (0,0,0)^\\top$ we have $y_{\\mathbf{w}_0}(\\mathbf{x}) = 1/2$ regardless of the value of $\\mathbf{x}$. Thus:\n$$\\mathbf{w}_1 = \\mathbf{w}_0 - \\alpha\\sum_{i=1}^2(y_{\\mathbf{w}}(\\mathbf{x}_i) - t_i)\\mathbf{x}_i = (0,0,0)^\\top - 1\\cdot\\left(\\tfrac12 - 1\\right)(1,0,-1)^\\top - 1\\cdot\\left(\\tfrac12 - 0\\right)(0,2,-3)^\\top$$\n$$= (1/2, 0, -1/2)^\\top + (0, -1, 3/2)^\\top = (1/2, -1, 1)^\\top.$$",
     "solutionSource": "exam"
@@ -154,7 +273,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Consider the bounds in Figure 1 (supposed to hold with probability at least $\\delta$) for a stochastic Multi-Armed Bandit (MAB) setting, where the bars are the Hoeffding bounds for the expected rewards, the circles are the estimated expected rewards, and the crosses are the real expected rewards (respectively equal to $0.5, 0.2, 0.1, 0.0, 0.2, 0.4, 0.6, 0.1, 0.1$, and $0.3$ for the ten arms).\n1. Which arm would a UCB1 algorithm choose for the next round?\n2. Do you think that Figure 1 might be the results obtained by running UCB1 for several rounds?\n3. Which arm will Thompson Sampling converge to if $T\\to\\infty$ (starting from a uniform prior)?\n4. Assuming that the arms have been pulled $T_1 = 5$, $T_2 = 50$, $T_3 = 10$, $T_4 = 5$, $T_5 = 10$, $T_6 = 10$, $T_7 = 5$, $T_8 = 10$, $T_9 = 2$, and $T_{10} = 10$, compute the pseudo-regret accumulated so far by the used algorithm.",
     "solution": "1. The one with the highest upper confidence bound, i.e., arm $a_9$.\n2. No, since UCB1 tends to have all the upper confidence bounds at a similar level over its execution.\n3. It would converge to the arm with the largest real expected reward, i.e., arm $a_7$.\n4. First, we compute the expected reward gaps (against the optimal $\\mu^* = 0.6$): $\\Delta_1 = 0.6 - 0.5 = 0.1$, $\\Delta_2 = 0.4$, $\\Delta_3 = 0.5$, $\\Delta_4 = 0.6$, $\\Delta_5 = 0.4$, $\\Delta_6 = 0.2$, $\\Delta_8 = 0.5$, $\\Delta_9 = 0.5$, $\\Delta_{10} = 0.3$. As a consequence, the regret is:\n$$R_T = \\mu^* T - \\sum_{t=1}^T \\mu_{i_t} = \\sum_{i=1}^{10}\\Delta_i T_i$$\n$$= 0.1\\cdot 5 + 0.4\\cdot 50 + 0.5\\cdot 10 + 0.6\\cdot 5 + 0.4\\cdot 10 + 0.2\\cdot 10 + 0.5\\cdot 10 + 0.5\\cdot 2 + 0.3\\cdot 10$$\n$$= 0.5 + 20 + 5 + 3 + 4 + 2 + 5 + 1 + 3 = 43.5,$$\nrecalling that $\\Delta_7 = 0$ since it is the optimal arm.",
     "solutionSource": "exam"

@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Provide an overview of the **feature selection** methods that you know and explain their pros and cons.",
     "solution": "Feature selection aims at choosing a subset of the available input variables, in order to reduce dimensionality, improve generalization (less overfitting), reduce computational cost, and increase interpretability. There are three main families.\n\n**Filter methods.** They rank/select features using statistical measures of relevance computed independently of any learning algorithm (e.g. correlation with the target, mutual information, chi-square, variance threshold), then keep the top features. *Pros:* very fast, scalable, model-agnostic, no overfitting in the selection step. *Cons:* they ignore feature interactions and the specific learner, so the selected subset may be sub-optimal for the final model.\n\n**Wrapper methods.** They search over subsets of features, training and evaluating the actual model (via cross-validation) for each candidate subset (e.g. forward selection, backward elimination, recursive feature elimination). *Pros:* take feature interactions and the specific model into account, usually giving the best-performing subset. *Cons:* computationally very expensive (combinatorial search, many model fits) and prone to overfitting the validation set if not done carefully.\n\n**Embedded methods.** Feature selection is performed as part of the model training itself. The classic example is **Lasso** ($L_1$ regularization), which drives some weights exactly to zero; also decision-tree / random-forest importances and elastic net. *Pros:* much cheaper than wrappers while still being model-aware, and they jointly optimize selection and fitting. *Cons:* tied to a specific model/family and the regularization strength must be tuned.\n\nAs an alternative to selecting a subset, **feature extraction** methods such as PCA build new combined features; these reduce dimensionality too but lose direct interpretability of the original variables.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Describe the **perceptron** model and how it is trained.",
     "solution": "**Model.** The perceptron is a binary linear classifier. Given an input $\\mathbf{x}$, it computes a linear combination $\\mathbf{w}^\\top\\mathbf{x} + w_0$ and predicts the class via the sign function: $\\hat{y} = \\operatorname{sign}(\\mathbf{w}^\\top\\mathbf{x} + w_0) \\in \\{-1, +1\\}$. Geometrically it defines a separating hyperplane $\\mathbf{w}^\\top\\mathbf{x} + w_0 = 0$; points on one side are classified $+1$, on the other $-1$. It is a generalized linear model with a step (threshold) activation.\n\n**Training (perceptron algorithm).** It minimizes the perceptron loss, which only penalizes misclassified points: $L(\\mathbf{w}) = -\\sum_{i \\in \\mathcal{M}} y_i(\\mathbf{w}^\\top\\mathbf{x}_i + w_0)$, where $\\mathcal{M}$ is the set of currently misclassified samples. Training proceeds by (stochastic) gradient descent / an online mistake-driven rule: initialize the weights (e.g. to zero), then iterate over the samples; whenever a sample $(\\mathbf{x}_i, y_i)$ is misclassified, update $$\\mathbf{w} \\leftarrow \\mathbf{w} + \\alpha\\, y_i \\mathbf{x}_i, \\qquad w_0 \\leftarrow w_0 + \\alpha\\, y_i,$$ where $\\alpha>0$ is the learning rate. Correctly classified points produce no update. Iterate until no misclassifications remain (or a maximum number of epochs).\n\n**Convergence.** The perceptron convergence theorem guarantees that if the training set is **linearly separable**, the algorithm converges to a separating hyperplane in a finite number of steps. If the data are not linearly separable, the algorithm does not converge (the weights keep oscillating). The specific hyperplane found depends on the initialization and the order of the updates, so it is not unique.",
     "solutionSource": "authored"
@@ -33,7 +37,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Consider the following snippet of code:\n\n1. Describe the procedure (what algorithm it is implementing) and the purpose (which kind of problem it is solving) of the above snippet of code.\n2. Is it correct? In the case the algorithm is not correct, propose a modification to fix the problem. In the case the algorithm is correct, state the theoretical guarantees of such an algorithm.\n3. Are there other available methods to solve this problem? Are they requiring some specific assumptions to be applied to the same setting the algorithm in the snippet is used?",
     "code": {
       "language": "python",
@@ -43,36 +49,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220714-e4",
+    "id": "ML20220714-e4.1",
     "examId": "ML20220714",
     "date": "2022-07-14",
     "academicYear": "AA2122",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Indicates whether the following statements about Linear Regression are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20220714-e4-s1",
+        "id": "ML20220714-e4.1-s1",
         "statement": "Ordinary Least Squares is more prone to overfitting than Lasso.",
         "answer": true,
         "motivation": "Ordinary Least Squares does not employ any regularization and, therefore, is more prone to overfitting than Lasso regression that employs a regularization on the $L_1$-norm of the weights $\\lVert w\\rVert_1$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220714-e4.2",
+    "examId": "ML20220714",
+    "date": "2022-07-14",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Indicates whether the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220714-e4-s2",
+        "id": "ML20220714-e4.2-s1",
         "statement": "Ridge regression performs an implicit feature selection procedure, leading to sparse solutions.",
         "answer": false,
         "motivation": "Although Ridge regression employs a regularization, such a regularization is not intended to perform a feature selection and the resulting solution is not, in general, sparse. Indeed, such a property is enforced by Lasso."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220714-e4.3",
+    "examId": "ML20220714",
+    "date": "2022-07-14",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Indicates whether the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220714-e4-s3",
+        "id": "ML20220714-e4.3-s1",
         "statement": "Lasso admits a closed-form solution of the optimal weights.",
         "answer": false,
         "motivation": "Lasso employs a regularization based on the $L_1$-norm of the weights $\\lVert w\\rVert_1$. This makes the resulting objective function non differentiable and prevents from obtaining a closed-form solution. Nevertheless, the objective function remains convex and can be easily optimized numerically."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220714-e4.4",
+    "examId": "ML20220714",
+    "date": "2022-07-14",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Indicates whether the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220714-e4-s4",
+        "id": "ML20220714-e4.4-s1",
         "statement": "Both Ridge regression and Lasso introduce a bias (from a bias-variance trade-off perspective) compared to Ordinary Least Squares.",
         "answer": true,
         "motivation": "They both make use of regularization techniques compared to Ordinary Least Squares. As such, from a bias-variance trade-off perspective, they increase the bias with a possible reduction of the variance."
@@ -82,36 +141,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220714-e5",
+    "id": "ML20220714-e5.1",
     "examId": "ML20220714",
     "date": "2022-07-14",
     "academicYear": "AA2122",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20220714-e5-s1",
+        "id": "ML20220714-e5.1-s1",
         "statement": "If I am trying to evaluate a policy on a small number of interactions, it is generally better to use TD rather than MC methods.",
         "answer": true,
         "motivation": "TD difference evaluation generally suffers a smaller variance in comparison to MC methods. If I can only access a few interactions, the variance would likely be the main issue for the value estimation."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220714-e5.2",
+    "examId": "ML20220714",
+    "date": "2022-07-14",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220714-e5-s2",
+        "id": "ML20220714-e5.2-s1",
         "statement": "MC evaluation would be a reasonable choice for providing an online estimation of a policy on a stream of data.",
         "answer": false,
         "motivation": "MC evaluation requires full episodes to provide an estimate of the value function, which is not a good fit for an online setting. Instead, one could use TD that employs bootstrapping to provide an online estimate of the value function."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220714-e5.3",
+    "examId": "ML20220714",
+    "date": "2022-07-14",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220714-e5-s3",
+        "id": "ML20220714-e5.3-s1",
         "statement": "The MC every-visit evaluation suffers a smaller bias in comparison to MC first-visit evaluation.",
         "answer": false,
         "motivation": "MC first-visit is unbiased but suffers from a large variance, whereas MC every-visit is slightly biased but it usually reduce the variance of the estimation."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220714-e5.4",
+    "examId": "ML20220714",
+    "date": "2022-07-14",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220714-e5-s4",
+        "id": "ML20220714-e5.4-s1",
         "statement": "The TD evaluation method is consistent, which means that it will surely converge to the optimal value function if sufficient data is available.",
         "answer": false,
         "motivation": "TD is a consistent policy evaluation method. This means that it will converge to the exact evaluation of the policy taking the data, which can be different from the optimal policy."
@@ -128,7 +240,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "modelsel"],
+    "topics": [
+      "linreg",
+      "modelsel"
+    ],
     "prompt": "This summer, the problem of water shortages is becoming more and more crucial in Italy as well. You are given a physical model of the water distribution network, which is able to simulate the evolution of the water reservoirs over time, providing the consumption of civil and industrial entities and the amount of water generated by rivers and other water sources.\n\n1. Do you think the same prediction can be provided by means of ML models? Provide a modelization of the problem, the possible data you would need, and the methods you would use to solve the problem.\n2. Provide a reason for preferring the developed ML model over the physical one.\n3. Would you use a different ML approach based on the amount of data available?",
     "solution": "1. This scenario can be modeled as a regression problem, where the water sources and consumer are given as input and the output is the water available in the different reservoirs. In this case, a solution might be to used Linear Regression or Gaussian Processes.\n\n2. A motivation for which one might apply a ML model instead of a physical one is that the physical model is too simple and does not capture the complexity of the phenomenon. Another reason is that we have some uncertainty on the water distribution system that the physical model cannot include, e.g., leaks over the network.\n\n3. On one hand, the more data is available the more complex model (e.g., computing additional features with basis functions) could be employed without fears of overfitting data. On the other hand, a large dataset could make some approaches computationally unfeasible, as Gaussian Processes, requiring to use methods that allow for incremental training, as Linear Regression.",
     "solutionSource": "exam"
@@ -141,7 +256,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a linear, hard-margin, two-class SVM classifier with parameters $$w = [2, -1], \\; b = 1.$$ Answer the following questions providing adequate motivations.\n\n1. How is the point $p_1 = [2, 1]$ classified according to the trained SVM?\n2. Is the point $p_2 = [0, 2]$ a support vector of the given SVM?\n3. Provide a point that falls on the boundary of the given SVM.\n4. Let us suppose we collect new data that make the classification task not linearly separable. How would you change the SVM model to deal with the task?",
     "solution": "1. We have $$w^\\top \\cdot p_1 + b = [2, -1] \\cdot [2, 1]^\\top + 1 = 4 - 1 + 1 = 4 \\ge 1$$ thus the point is classified as positive.\n\n2. We have $$w^\\top \\cdot p_2 + b = [2, -1] \\cdot [0, 2]^\\top + 1 = 0 - 2 + 1 = -1$$ thus the point falls on the negative margin and it is a support vector of the SVM.\n\n3. We look for a point $x$ such that $w^\\top \\cdot x + b = 0$. We can take $x_2 = 0$ and then compute $$[2, -1] \\cdot [x_1, 0]^\\top + 1 = 0 \\;\\rightarrow\\; x_1 = -1/2.$$\n\n4. We could either consider a soft-margin SVM or a different kernel function. In any case we should retrain the model to update the parameters accordingly.",
     "solutionSource": "exam"
@@ -154,7 +271,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["modeleval"],
+    "topics": [
+      "modeleval"
+    ],
     "prompt": "Consider a binary classifier trained on a dataset made of $N = 100$ samples.\n\n1. Suppose that the Precision $= 0.25$ and the F1 $= 0.4$, compute the Recall.\n2. Knowing, in addition, that the Accuracy $= 0.85$, compute the full confusion matrix.\n3. In which circumstances the Accuracy is not a reliable index to assess the quality of the trained model?",
     "solution": "1. First of all, we compute the Recall from the F1 definition: $$F1 = \\frac{2 \\cdot \\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}} \\implies \\text{Recall} = \\frac{F1 \\cdot \\text{Precision}}{2 \\cdot \\text{Precision} - F1} = \\frac{0.4 \\cdot 0.25}{2 \\cdot 0.25 - 0.4} = \\frac{0.1}{0.1} = 1.$$\n\n2. To get the confusion matrix, we simply apply the definition of Accuracy, Precision, and Recall, keeping in mind that the total number of samples is $N = 100$:\n$$\\text{Accuracy} = \\frac{TP + TN}{TP + TN + FP + FN} = \\frac{TP + TN}{100} = 0.85 \\implies TP + TN = 85$$\n$$\\text{Recall} = \\frac{TP}{TP + FN} = 1 \\implies FN = 0$$\n$$\\text{Precision} = \\frac{TP}{TP + FP} = 0.25 \\implies (1 - 0.25)TP = 0.25 FP \\implies 3TP = FP$$\nNow, using $TP + TN + FP + FN = 100$, recalling that $TP + TN = 85$ and $FN = 0$, we get $FP = 15$. Using $3TP = FP$, we get $TP = 5$. Finally, using $TP + TN = 85$, we get $TN = 80$. Thus, the confusion matrix is given by:\n\n| | Actual Class: 1 | Actual Class: 0 |\n| Predicted Class: 1 | 5 | 15 |\n| Predicted Class: 0 | 0 | 80 |\n\n3. Accuracy is not a reliable index of the quality of the trained model mainly in two scenarios: (i) when the dataset is unbalanced; (ii) when the importance of wrongly predicting positive-class samples is different from wrongly predicting negative-class samples.",
     "solutionSource": "exam"

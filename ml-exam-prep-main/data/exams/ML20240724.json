@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["modelsel"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Illustrate the Bias-Variance decomposition of the expected error of a regression model. Provide its complete derivation, the meaning of each term of the decomposition, and the practical significance of this decomposition.",
     "solution": "**Setup.** Assume the data are generated as $t = f(x) + \\varepsilon$ with noise $\\varepsilon$ of zero mean and variance $\\sigma^2$, independent of $x$. We learn a model $y(x; \\mathcal{D})$ from a random training set $\\mathcal{D}$. For a fixed test point $x$, consider the expected squared error, taken over both the noise and the random training sets.\n\n**Derivation.** Write $\\bar{y}(x) = \\mathbb{E}_{\\mathcal{D}}[y(x;\\mathcal{D})]$ (the average prediction over training sets). The expected error is\n$$\\mathbb{E}[(t - y(x;\\mathcal{D}))^2] = \\mathbb{E}[(t - f(x) + f(x) - y(x;\\mathcal{D}))^2].$$\nExpanding and using $\\mathbb{E}[\\varepsilon]=0$, the cross terms vanish, giving\n$$\\mathbb{E}[(t - y)^2] = \\underbrace{\\sigma^2}_{\\text{noise}} + \\mathbb{E}_{\\mathcal{D}}[(f(x) - y(x;\\mathcal{D}))^2].$$\nNow add and subtract $\\bar{y}(x)$ inside the second term:\n$$\\mathbb{E}_{\\mathcal{D}}[(f(x) - y)^2] = \\underbrace{(f(x) - \\bar{y}(x))^2}_{\\text{bias}^2} + \\underbrace{\\mathbb{E}_{\\mathcal{D}}[(y(x;\\mathcal{D}) - \\bar{y}(x))^2]}_{\\text{variance}},$$\nagain because the cross term $\\mathbb{E}_{\\mathcal{D}}[(f-\\bar y)(\\bar y - y)] = 0$. Hence\n$$\\mathbb{E}[(t - y(x;\\mathcal{D}))^2] = \\text{Bias}^2 + \\text{Variance} + \\sigma^2.$$\n\n**Meaning of each term.**\n- **Bias$^2$** $= (f(x) - \\bar{y}(x))^2$: the systematic error of the *average* model; how far the expected prediction is from the truth. Large for too-simple models (underfitting).\n- **Variance** $= \\mathbb{E}_{\\mathcal{D}}[(y - \\bar{y})^2]$: how much predictions fluctuate across different training sets. Large for too-complex models (overfitting).\n- **Noise** $\\sigma^2$: irreducible error inherent to the data; no model can remove it.\n\n**Practical significance.** It formalizes the **bias-variance trade-off**: increasing model complexity decreases bias but increases variance, and vice versa. The best generalization is reached at the complexity that minimizes their sum. It explains why regularization, more data, or ensembling help (regularization/bagging cut variance; boosting cuts bias), and it guides model selection.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Explain what a Gram Matrix is and its role in Kernel Methods within Machine Learning.",
     "solution": "**Definition.** Given a set of $N$ inputs $\\{x_1, \\ldots, x_N\\}$ and a kernel function $k(\\cdot,\\cdot)$, the **Gram matrix** (or kernel matrix) $K$ is the $N \\times N$ matrix with entries\n$$K_{ij} = k(x_i, x_j) = \\langle \\phi(x_i), \\phi(x_j)\\rangle,$$\ni.e. the inner products of the (possibly implicit) feature-space images of all pairs of inputs. By construction $K$ is **symmetric**, and for $k$ to be a valid kernel (Mercer's condition) $K$ must be **positive semi-definite** for every choice of inputs.\n\n**Role in kernel methods.** Many linear algorithms depend on the data only through inner products. The kernel trick replaces those inner products with $k$, so the entire algorithm can be run using only the Gram matrix $K$, never computing $\\phi(x)$ explicitly. This means:\n- One can work in very high- or infinite-dimensional feature spaces at a cost that depends on $N$ (the size of $K$), not on the feature dimension.\n- The Gram matrix is the central object in **kernel SVM** (it appears in the dual quadratic program), **kernel ridge regression**, **kernel PCA**, and Gaussian processes (where $K$ is the covariance matrix).\n- Its positive semi-definiteness guarantees the corresponding optimization problems are convex / well-posed.\n\n**Practical note.** Building and storing $K$ costs $O(N^2)$ memory and operations (and $O(N^3)$ for methods needing its inverse), which is the main scalability limitation of kernel methods for large $N$.",
     "solutionSource": "authored"
@@ -33,7 +37,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["kernelsvm", "modeleval"],
+    "topics": [
+      "kernelsvm",
+      "modeleval"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. What kind of problem is this code trying to solve? What methods are being used?\n2. What is being printed in line 13, and what could we conclude from this output?\n3. Are there any problems with the solution implemented here (that are visible from this code fragment)? If so, propose a fix.",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240724-e4",
+    "id": "ML20240724-e4.1",
     "examId": "ML20240724",
     "date": "2024-07-24",
     "academicYear": "AA2324",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20240724-e4-s1",
+        "id": "ML20240724-e4.1-s1",
         "statement": "When the model of the environment is known, it is never convenient to use sample-based reinforcement learning methods.",
         "answer": false,
         "motivation": "We may use MC or TD learning (instead of dynamic programming) even for known environments when the state space is too large or infinite."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240724-e4.2",
+    "examId": "ML20240724",
+    "date": "2024-07-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240724-e4-s2",
+        "id": "ML20240724-e4.2-s1",
         "statement": "SARSA and Q-learning are off-policy algorithms for control.",
         "answer": false,
         "motivation": "They are both algorithms for control, but SARSA is on-policy while Q-learning is off-policy."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240724-e4.3",
+    "examId": "ML20240724",
+    "date": "2024-07-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240724-e4-s3",
+        "id": "ML20240724-e4.3-s1",
         "statement": "Q-learning can be considered the sample-based version of value iteration.",
         "answer": true,
         "motivation": "Indeed, it updates the estimate of the optimal Q-function by resorting to a sample-based version of the optimal Bellman equation."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240724-e4.4",
+    "examId": "ML20240724",
+    "date": "2024-07-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240724-e4-s4",
+        "id": "ML20240724-e4.4-s1",
         "statement": "SARSA necessitates to play an $\\epsilon$-greedy policy with a vanishing $\\epsilon$ in order to converge to the optimal policy.",
         "answer": true,
         "motivation": "Indeed, SARSA is on policy and, thus, it learns the Q-function of the policy it is playing. For this reason, to converge to the optimal policy exploration $\\epsilon$ must vanish."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240724-e5",
+    "id": "ML20240724-e5.1",
     "examId": "ML20240724",
     "date": "2024-07-24",
     "academicYear": "AA2324",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg", "modeleval"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Consider a regression problem in two variables $x_1, x_2$ with features $\\phi_1(x_1,x_2) = x_1$, $\\phi_2(x_1,x_2) = x_2$, $\\phi_3(x_1,x_2) = x_1 x_2$ and a single output, solved with Ordinary Least Squares (OLS). Tell if the following statements are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20240724-e5-s1",
+        "id": "ML20240724-e5.1-s1",
         "statement": "The learned function is a hyperplane in input space.",
         "answer": false,
         "motivation": "False, because of the third feature that is nonlinear w.r.t. input variables. It is a hyperplane in feature space."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240724-e5.2",
+    "examId": "ML20240724",
+    "date": "2024-07-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Consider a regression problem in two variables $x_1, x_2$ with features $\\phi_1(x_1,x_2) = x_1$, $\\phi_2(x_1,x_2) = x_2$, $\\phi_3(x_1,x_2) = x_1 x_2$ and a single output, solved with Ordinary Least Squares (OLS). Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240724-e5-s2",
+        "id": "ML20240724-e5.2-s1",
         "statement": "OLS admits a closed-form solution.",
         "answer": true,
         "motivation": "True, since the regressor is still linear w.r.t. weights."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240724-e5.3",
+    "examId": "ML20240724",
+    "date": "2024-07-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Consider a regression problem in two variables $x_1, x_2$ with features $\\phi_1(x_1,x_2) = x_1$, $\\phi_2(x_1,x_2) = x_2$, $\\phi_3(x_1,x_2) = x_1 x_2$ and a single output, solved with Ordinary Least Squares (OLS). Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240724-e5-s3",
+        "id": "ML20240724-e5.3-s1",
         "statement": "The learned model has 3 parameters.",
         "answer": false,
         "motivation": "False, the parameters are 4 due to the intercept."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240724-e5.4",
+    "examId": "ML20240724",
+    "date": "2024-07-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modeleval"
+    ],
+    "prompt": "Consider a regression problem in two variables $x_1, x_2$ with features $\\phi_1(x_1,x_2) = x_1$, $\\phi_2(x_1,x_2) = x_2$, $\\phi_3(x_1,x_2) = x_1 x_2$ and a single output, solved with Ordinary Least Squares (OLS). Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240724-e5-s4",
+        "id": "ML20240724-e5.4-s1",
         "statement": "The overall significance of the model can be established with a single Student's t-test.",
         "answer": false,
         "motivation": "False, a Fisher-Snedecor test is needed to establish the overall significance of the model. A single Student's t-test can be used to establish the significance of a single weight."
@@ -128,7 +241,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "You are the CTO of a trading startup, and you are requested to address the following scenarios using machine learning techniques. For each scenario, classify it as a machine learning problem, specify the data (features and target or states, actions, and reward), and a specific method to solve it.\n\n1. Predict the price of multiple stocks for the next day, given historical data of the price of the same stocks in the past;\n2. Decide the amount of money to invest in each stock, given the current price of the same stocks and a limited investment budget.",
     "solution": "1. The scenario can be classified as a REGRESSION problem with multiple targets (the stocks). The features are the price of all the stocks in the past $n$ days ($n$ to be tuned), and the targets are the price of the stocks in the next day. A method to solve it is, for instance, LINEAR REGRESSION.\n\n2. The scenario can be classified as a REINFORCEMENT LEARNING problem, specifically CONTROL. The state is the price of the stocks in the current day and the investment budget, the action is the amount of money to be invested in each stock, and the reward function is the profit, i.e., the sum over all the stocks of the invested amount times the difference in the price of the stocks in two consecutive days. A method to solve it (assuming to discretize states and actions) is Q-LEARNING.",
     "solutionSource": "exam"
@@ -141,7 +257,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Consider a Multi-Armed Bandit (MAB) algorithm selecting among $K = 2$ actions for $n = 10$ rounds. The reward distributions for arms $a_1$ and $a_2$ are Bernoullis with parameters $p_1 = 0.6$ and $p_2 = 0.4$, respectively. The realization of arm pulls and rewards up to round 8 is the following (only the rewards in boldface are observed by the learner):\n\n| Round | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Reward $a_1$ | **0** | 1 | 1 | 1 | **1** | 0 | **1** | **0** | ? | ? |\n| Reward $a_2$ | 1 | **0** | **0** | 1 | 0 | **1** | 0 | 1 | ? | ? |\n| Selected arm | $a_1$ | $a_2$ | $a_2$ | $a_2$ | $a_1$ | $a_2$ | $a_1$ | $a_1$ | ? | ? |\n\n1. What is the (random) regret of the algorithm at the end of round 8? And the expected pseudo-regret?\n2. Suppose the algorithm was Thompson sampling, initialized with uniform priors. What are the posterior distributions for the two arms at the end of round 8? What can we say on the probability of Thompson sampling selecting arm $a_1$ at round 9? You can assume ties are broken in favor of arm $a_1$.\n3. Instead, assume the algorithm was UCB1, and it also played $a_1$ at round 9 observing a reward of 1. What arm would it play next, at round 10? Hint: $\\sqrt{0.4 \\ln(10)} < 0.96$ and $\\sqrt{0.5 \\ln(10)} > 1.07$.\n\nMotivate all answers and report all necessary computations.",
     "solution": "1. The optimal arm is $a_1$, so the random regret is\n$$\\sum_{t=1}^{8}(R_t(a_1) - R_t(A_t)) = (0-0) + (1-0) + (1-0) + (1-1) + (1-1) + (0-1) + (1-1) + (0-0) = 1,$$\nwhile the pseudo-regret is\n$$N_t(a_2) * (\\mathbb{E}[R(a_1)] - \\mathbb{E}[R(a_2)]) = 4 * (0.6 - 0.4) = 0.8.$$\n\n2. Since we observed two successes and two failures for both arms, the posterior is $\\text{Beta}(3,3)$ for both $a_1$ and $a_2$. TS will then draw two independent samples $\\theta_1, \\theta_2$ from this distribution, and pull arm $a_1$ if $\\theta_1 \\ge \\theta_2$. By symmetry, $\\Pr(\\theta_1 \\ge \\theta_2) = \\Pr(\\theta_2 \\ge \\theta_1)$ and since they sum to one they must both be equal to 0.5. So TS will pull arm $a_1$ with probability 0.5.\n\n3. For arm $a_1$ we observed a total reward of 3 with 5 pulls, so the UCB index is:\n$$\\frac{3}{5} + \\sqrt{\\frac{2 \\ln(10)}{5}} < 1.56.$$\nFor arm $a_2$ we observed total reward 2 with 4 pulls so the UCB index is:\n$$\\frac{2}{4} + \\sqrt{\\frac{2 \\ln(10)}{4}} > 1.57.$$\nUCB1 will play $a_2$ given its larger index.",
     "solutionSource": "exam"
@@ -154,7 +272,10 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["learntheory", "classif"],
+    "topics": [
+      "learntheory",
+      "classif"
+    ],
     "prompt": "Suppose you train a logistic regression classifier for binary classification with a training set composed of 1000 samples and using 29 features. The training classification error is 0.1, while the test classification error is 0.4. **You know that in the true data process, the positive and negative classes are generated with equal probability.** Answer the following questions, reporting all the steps and calculations:\n\n1. *Looking at the training classification error only*, what is the maximum probability $1 - \\delta$ that the trained classifier is better than a random guess classifier?\n2. *Looking at the test classification error only*, what is the minimum number of samples in the test set to ensure that the trained classifier is better than a random guess classifier, with probability at least $1 - \\delta = 1 - e^{-8}$?\n\n**Hint.** The VC-dimension of a linear classifier in $d$ dimensions is $d + 1$. Recall the bounds:\n$$\\mathcal{L} \\le \\widetilde{\\mathcal{L}} + \\sqrt{\\frac{\\log \\frac{1}{\\delta}}{2J}}, \\qquad \\mathcal{L} \\le \\widehat{\\mathcal{L}} + \\sqrt{\\frac{\\text{VC}\\log\\left(\\frac{2eN}{\\text{VC}}\\right) + \\log \\frac{4}{\\delta}}{N}}.$$\nIf needed, $30 \\log \\frac{200e}{3} \\approx 156$.",
     "solution": "Since in the true data process, the positive and negative classes are generated with equal probability, the random guess classifier has a classification error equal to 0.5.\n\n1. First of all, we recall that the VC-dimension of a logistic regression classifier (which is a linear classifier) with 29 features is $29 + 1 = 30$. We apply the VC-dimension bound to compute an upper bound on the true classification error. Then, we enforce that the upper bound is smaller than 0.5, solving for the probability $\\delta$:\n$$0.1 + \\sqrt{\\frac{\\text{VC}\\log\\left(\\frac{2eN}{\\text{VC}}\\right) + \\log \\frac{4}{\\delta}}{N}} < 0.5 \\implies 0.1 + \\sqrt{\\frac{156 + \\log\\frac{4}{\\delta}}{1000}} < 0.5 \\implies \\log\\frac{4}{\\delta} < 4 \\implies \\delta > \\frac{4}{e^4}.$$\nThus, the maximum probability is $1 - \\delta < 1 - \\frac{4}{e^4}$.\n\n2. We apply Hoeffding's inequality to compute an upper bound on the true classification error holding with probability at least $1 - e^{-8}$. Then, we enforce that the upper bound is smaller than 0.5, solving for the number of test samples $J$:\n$$0.4 + \\sqrt{\\frac{\\log\\frac{1}{\\delta}}{2J}} < 0.5 \\implies 0.4 + \\sqrt{\\frac{4}{J}} < 0.5 \\implies J > 400.$$\nThus, we need at least $J = 401$ test samples.",
     "solutionSource": "exam"

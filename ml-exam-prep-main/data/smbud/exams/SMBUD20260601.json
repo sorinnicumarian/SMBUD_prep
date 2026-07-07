@@ -1,60 +1,151 @@
 [
   {
-    "id": "SMBUD20260601-e1",
+    "id": "SMBUD20260601-e1.1",
     "examId": "SMBUD20260601",
     "date": "2026-06-01",
     "academicYear": "AA2526",
     "exerciseNo": 1,
-    "marks": 3.5,
+    "marks": 0.5,
     "type": "true-false-motivated",
     "topics": [
-      "nosql-intro",
-      "hadoop",
-      "mongodb",
-      "spark",
-      "columnar",
-      "keyvalue"
+      "architectures"
     ],
-    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown \u2014 the exam is dated by month only.*",
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown — the exam is dated by month only.*",
     "subStatements": [
       {
-        "id": "SMBUD20260601-e1-s1",
+        "id": "SMBUD20260601-e1.1-s1",
         "statement": "A distributed database partitions customer records using the customer ID. Suppose that one customer generates 30% of all requests. This poses a problem to the system performance due to the CAP theorem.",
         "answer": false,
-        "motivation": "This is a hot-partition/data-skew problem (uneven load distribution), not a CAP-theorem issue \u2014 CAP is about the consistency/availability trade-off under network partitions, unrelated to load skew from a single busy key."
-      },
+        "motivation": "This is a hot-partition/data-skew problem (uneven load distribution), not a CAP-theorem issue — CAP is about the consistency/availability trade-off under network partitions, unrelated to load skew from a single busy key."
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e1.2",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown — the exam is dated by month only.*",
+    "subStatements": [
       {
-        "id": "SMBUD20260601-e1-s2",
+        "id": "SMBUD20260601-e1.2-s1",
         "statement": "In many NoSQL systems, a write may be acknowledged before all replicas have received the update.",
         "answer": true,
-        "motivation": "Systems with tunable consistency (e.g. Cassandra) let you write with a consistency level lower than ALL (e.g. ONE or QUORUM), acknowledging the client before every replica has the update \u2014 this is the standard availability/latency trade-off."
-      },
+        "motivation": "Systems with tunable consistency (e.g. Cassandra) let you write with a consistency level lower than ALL (e.g. ONE or QUORUM), acknowledging the client before every replica has the update — this is the standard availability/latency trade-off."
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e1.3",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown — the exam is dated by month only.*",
+    "subStatements": [
       {
-        "id": "SMBUD20260601-e1-s3",
+        "id": "SMBUD20260601-e1.3-s1",
         "statement": "In HDFS, the component responsible for maintaining file metadata (namespace, block locations, etc.) is called NodeManager.",
         "answer": false,
-        "motivation": "That component is the NameNode. NodeManager is a YARN component that manages containers/resources on a worker node \u2014 unrelated to HDFS metadata."
-      },
+        "motivation": "That component is the NameNode. NodeManager is a YARN component that manages containers/resources on a worker node — unrelated to HDFS metadata."
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e1.4",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown — the exam is dated by month only.*",
+    "subStatements": [
       {
-        "id": "SMBUD20260601-e1-s4",
+        "id": "SMBUD20260601-e1.4-s1",
         "statement": "A document database allows one to specify the schema of the documents in a collection.",
         "answer": false,
-        "motivation": "Document databases are schemaless/schema-flexible by design \u2014 different documents in the same collection can have different fields; there's no enforced collection-wide schema (though some, like MongoDB, offer optional schema validation)."
-      },
+        "motivation": "Document databases are schemaless/schema-flexible by design — different documents in the same collection can have different fields; there's no enforced collection-wide schema (though some, like MongoDB, offer optional schema validation)."
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e1.5",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown — the exam is dated by month only.*",
+    "subStatements": [
       {
-        "id": "SMBUD20260601-e1-s5",
+        "id": "SMBUD20260601-e1.5-s1",
         "statement": "Spark achieves fault tolerance primarily through the RDDs/DataFrames.",
         "answer": true,
         "motivation": "RDDs record their lineage (the sequence of transformations that built them); if a partition is lost, Spark recomputes it from lineage rather than needing replication, which is the primary fault-tolerance mechanism."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e1.6",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown — the exam is dated by month only.*",
+    "subStatements": [
       {
-        "id": "SMBUD20260601-e1-s6",
+        "id": "SMBUD20260601-e1.6-s1",
         "statement": "In large-scale NoSQL databases (e.g., Cassandra), writes are first recorded in a commit log and then stored in an in-memory structure before being flushed to disk.",
         "answer": true,
         "motivation": "This is exactly Cassandra's write path: append to the commit log (durability), write to the in-memory memtable, and later flush the memtable to an immutable SSTable on disk."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations."
+  },
+  {
+    "id": "SMBUD20260601-e1.7",
+    "examId": "SMBUD20260601",
+    "date": "2026-06-01",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**THEORY.** Mark each statement True or False (0.5 pt each). *Exact calendar day within June 2026 is unknown — the exam is dated by month only.*",
+    "subStatements": [
       {
-        "id": "SMBUD20260601-e1-s7",
+        "id": "SMBUD20260601-e1.7-s1",
         "statement": "Denormalization often increases storage requirements because information may be duplicated across records.",
         "answer": true,
         "motivation": "Denormalization intentionally duplicates data (e.g. embedding the same sub-document in multiple parent documents) to avoid joins/lookups at read time, trading extra storage for read performance."
@@ -74,7 +165,7 @@
       "nosql-intro"
     ],
     "prompt": "Define the CAP theorem and the three properties involved (using a dotted list, one line per property).",
-    "solution": "- **Consistency** \u2014 every read receives the most recent write, or an error.\n- **Availability** \u2014 every request receives a (non-error) response, without a guarantee that it reflects the most recent write.\n- **Partition tolerance** \u2014 the system continues to operate despite network partitions between nodes.\n\nCAP states that a distributed system can only guarantee 2 of these 3 properties simultaneously (in practice, partition tolerance is non-negotiable in a real distributed system, so the real trade-off is Consistency vs. Availability under a partition).",
+    "solution": "- **Consistency** — every read receives the most recent write, or an error.\n- **Availability** — every request receives a (non-error) response, without a guarantee that it reflects the most recent write.\n- **Partition tolerance** — the system continues to operate despite network partitions between nodes.\n\nCAP states that a distributed system can only guarantee 2 of these 3 properties simultaneously (in practice, partition tolerance is non-negotiable in a real distributed system, so the real trade-off is Consistency vs. Availability under a partition).",
     "solutionSource": "exam"
   },
   {
@@ -90,7 +181,7 @@
       "vectordb"
     ],
     "prompt": "Compare and contrast information-retrieval-based databases with vector-based retrieval systems. Describe, in separate points: the underlying data representations; how queries are processed and matched against documents; strengths and limitations of each approach.",
-    "solution": "**Data representation**\n- IR-based: documents are represented as term/token indices (an inverted index), often scored with TF-IDF or BM25.\n- Vector-based: documents are represented as dense embeddings (fixed-length numeric vectors from a learned model).\n\n**Query processing / matching**\n- IR-based: queries are tokenized and matched via exact/fuzzy keyword overlap against the inverted index.\n- Vector-based: queries are embedded into the same vector space and matched via (approximate) nearest-neighbor search (cosine/Euclidean distance).\n\n**Strengths / limitations**\n- IR-based: fast, interpretable, exact on keyword matches \u2014 but blind to semantic similarity (synonyms, paraphrasing, different wording for the same concept).\n- Vector-based: captures semantic meaning beyond exact wording \u2014 but relies on an external embedding model, is only approximate (ANN search trades exactness for speed), and is less interpretable than keyword matching.",
+    "solution": "**Data representation**\n- IR-based: documents are represented as term/token indices (an inverted index), often scored with TF-IDF or BM25.\n- Vector-based: documents are represented as dense embeddings (fixed-length numeric vectors from a learned model).\n\n**Query processing / matching**\n- IR-based: queries are tokenized and matched via exact/fuzzy keyword overlap against the inverted index.\n- Vector-based: queries are embedded into the same vector space and matched via (approximate) nearest-neighbor search (cosine/Euclidean distance).\n\n**Strengths / limitations**\n- IR-based: fast, interpretable, exact on keyword matches — but blind to semantic similarity (synonyms, paraphrasing, different wording for the same concept).\n- Vector-based: captures semantic meaning beyond exact wording — but relies on an external embedding model, is only approximate (ANN search trades exactness for speed), and is less interpretable than keyword matching.",
     "solutionSource": "exam"
   },
   {
@@ -126,7 +217,7 @@
     "topics": [
       "neo4j"
     ],
-    "prompt": "**Domain: Sports Tournament Management System** (matches, teams, stages, spectators, sponsors). Consider the entities Spectator, Match, Stage, and Team from the ER model, and suppose you want to store the respective data instances in a graph database. Describe a possible graph model by specifying the node types, key attributes, and relationships (written, using standard Cypher notation for nodes/attributes/relationships \u2014 not drawn).",
+    "prompt": "**Domain: Sports Tournament Management System** (matches, teams, stages, spectators, sponsors). Consider the entities Spectator, Match, Stage, and Team from the ER model, and suppose you want to store the respective data instances in a graph database. Describe a possible graph model by specifying the node types, key attributes, and relationships (written, using standard Cypher notation for nodes/attributes/relationships — not drawn).",
     "solution": "```\n(:Spectator {spectator_id, name, seat_number})\n(:Match     {match_id, begin_time, end_time})\n(:Stage     {stage_id, name})\n(:Team      {team_id, name})\n\n(:Spectator)-[:ATTENDS]->(:Match)\n(:Team)-[:PLAYS]->(:Match)\n(:Match)-[:BELONGS_TO]->(:Stage)\n```",
     "solutionSource": "exam"
   },
@@ -142,7 +233,7 @@
       "neo4j"
     ],
     "prompt": "Using the graph model from the previous exercise, write a Cypher query to extract the number of teams that play in each stage, considering only matches that begin later than 10:00.",
-    "solution": "```cypher\nMATCH (t:Team)-[:PLAYS]->(m:Match)-[:BELONGS_TO]->(s:Stage)\nWHERE m.begin_time > time('10:00')\nRETURN s.stage_id, count(DISTINCT t) AS num_teams\n```\n\n**Note:** use `count(DISTINCT t)` \u2014 the same team can play multiple matches in the same stage, so a plain `count(t)` would overcount.",
+    "solution": "```cypher\nMATCH (t:Team)-[:PLAYS]->(m:Match)-[:BELONGS_TO]->(s:Stage)\nWHERE m.begin_time > time('10:00')\nRETURN s.stage_id, count(DISTINCT t) AS num_teams\n```\n\n**Note:** use `count(DISTINCT t)` — the same team can play multiple matches in the same stage, so a plain `count(t)` would overcount.",
     "solutionSource": "exam"
   },
   {
@@ -157,7 +248,7 @@
       "neo4j"
     ],
     "prompt": "Write a Cypher query to extract the number of spectators with the same name who attend a match on the same day, returning only the ones with more than 10 attendances (on the respective day).",
-    "solution": "```cypher\nMATCH (sp:Spectator)-[:ATTENDS]->(m:Match)\nWITH sp.name AS name, date(m.begin_time) AS day, count(*) AS attendances\nWHERE attendances > 10\nRETURN name, day, attendances\n```\n\n**Note:** classic \"`WITH`-before-aggregate-filter\" pattern \u2014 compute the count in `WITH`, then filter on it in the following `WHERE`; a plain `WHERE` cannot filter directly on an aggregate.",
+    "solution": "```cypher\nMATCH (sp:Spectator)-[:ATTENDS]->(m:Match)\nWITH sp.name AS name, date(m.begin_time) AS day, count(*) AS attendances\nWHERE attendances > 10\nRETURN name, day, attendances\n```\n\n**Note:** classic \"`WITH`-before-aggregate-filter\" pattern — compute the count in `WITH`, then filter on it in the following `WHERE`; a plain `WHERE` cannot filter directly on an aggregate.",
     "solutionSource": "exam"
   },
   {
@@ -172,7 +263,7 @@
       "mongodb"
     ],
     "prompt": "Suppose you store staff members, spectators, and matches in a document database (MongoDB). How many collections would you define? How would you implement the relations between the concepts? Provide a simple documental representation using JSON.",
-    "solution": "**3 collections**: `staff`, `spectators`, `matches` \u2014 each has high cardinality and an independent lifecycle, so none is fully embedded into another.\n\n```json\n{\n  \"match_id\": \"uuid\", \"begin_time\": \"datetime\", \"end_time\": \"datetime\", \"stage_id\": \"uuid\",\n  \"staff_ids\": [\"uuid\", \"...\"],       // reference \u2014 staff can work multiple matches\n  \"spectators\": [ { \"spectator_id\": \"uuid\", \"seat_number\": \"int\" } ]  // embedded \u2014 attendance is match-specific\n}\n```\n\n**Note:** justify embed-vs-reference by cardinality/reuse \u2014 staff and spectators are entities reused across many matches, so they're referenced by id (or embedded only with lightweight, match-specific attendance info like `seat_number`), not embedded as full copies of the whole staff/spectator document.",
+    "solution": "**3 collections**: `staff`, `spectators`, `matches` — each has high cardinality and an independent lifecycle, so none is fully embedded into another.\n\n```json\n{\n  \"match_id\": \"uuid\", \"begin_time\": \"datetime\", \"end_time\": \"datetime\", \"stage_id\": \"uuid\",\n  \"staff_ids\": [\"uuid\", \"...\"],       // reference — staff can work multiple matches\n  \"spectators\": [ { \"spectator_id\": \"uuid\", \"seat_number\": \"int\" } ]  // embedded — attendance is match-specific\n}\n```\n\n**Note:** justify embed-vs-reference by cardinality/reuse — staff and spectators are entities reused across many matches, so they're referenced by id (or embedded only with lightweight, match-specific attendance info like `seat_number`), not embedded as full copies of the whole staff/spectator document.",
     "solutionSource": "exam"
   },
   {
@@ -187,7 +278,7 @@
       "mongodb"
     ],
     "prompt": "Using the matches/spectators document design, write the query to find the distinct names of spectators who attended a match that lasted less than 50 minutes.",
-    "solution": "```js\ndb.matches.aggregate([\n  { $match: { $expr: { $lt: [ { $subtract: [\"$end_time\", \"$begin_time\"] }, 50 * 60000 ] } } },\n  { $unwind: \"$spectators\" },\n  { $group: { _id: \"$spectators.name\" } }\n])\n```\n\n**Note:** duration is a *computed* expression (`end - begin`), so filtering on it needs `$expr`. Don't forget `$unwind` before grouping by a nested array field \u2014 a commonly flagged weak point.",
+    "solution": "```js\ndb.matches.aggregate([\n  { $match: { $expr: { $lt: [ { $subtract: [\"$end_time\", \"$begin_time\"] }, 50 * 60000 ] } } },\n  { $unwind: \"$spectators\" },\n  { $group: { _id: \"$spectators.name\" } }\n])\n```\n\n**Note:** duration is a *computed* expression (`end - begin`), so filtering on it needs `$expr`. Don't forget `$unwind` before grouping by a nested array field — a commonly flagged weak point.",
     "solutionSource": "exam"
   },
   {
@@ -202,7 +293,7 @@
       "mongodb"
     ],
     "prompt": "Write a query to extract the number of spectators attending a match, returning only the matches with more than 5000 spectators, for which at least one spectator's name is 'Mario'.",
-    "solution": "```js\ndb.matches.aggregate([\n  { $match: { \"spectators.name\": \"Mario\" } },\n  { $project: { match_id: 1, num_spectators: { $size: \"$spectators\" } } },\n  { $match: { num_spectators: { $gt: 5000 } } }\n])\n```\n\n**Note:** `$size` works directly on the array \u2014 no need to `$unwind`+`$group` just to count array length. Filter on the cheap \"contains Mario\" condition first, before computing size.",
+    "solution": "```js\ndb.matches.aggregate([\n  { $match: { \"spectators.name\": \"Mario\" } },\n  { $project: { match_id: 1, num_spectators: { $size: \"$spectators\" } } },\n  { $match: { num_spectators: { $gt: 5000 } } }\n])\n```\n\n**Note:** `$size` works directly on the array — no need to `$unwind`+`$group` just to count array length. Filter on the cheap \"contains Mario\" condition first, before computing size.",
     "solutionSource": "exam"
   },
   {

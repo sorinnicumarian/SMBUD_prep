@@ -687,41 +687,90 @@
     "solutionSource": "authored"
   },
   {
-    "id": "ACA20250120-e5",
+    "id": "ACA20250120-e5.1",
     "examId": "ACA20250120",
     "date": "2025-01-20",
     "academicYear": "AA2425",
     "exerciseNo": 5,
-    "marks": 20,
+    "marks": 5,
     "type": "true-false-motivated",
     "topics": [
-      "perf",
-      "tomasulo",
-      "superscalar",
+      "perf"
+    ],
+    "prompt": "**Question 2.** State whether each statement is TRUE or FALSE and motivate.",
+    "subStatements": [
+      {
+        "id": "ACA20250120-e5.1-s1",
+        "statement": "The performance of an application is only limited by its code and the intrinsic parallelism.",
+        "answer": false,
+        "motivation": "FALSE. The code's intrinsic ILP is only an upper bound. Actual performance also depends on the microarchitecture (issue width, number/latency of functional units, branch prediction, register renaming), the memory hierarchy, and the clock frequency — and on Amdahl's law for the parallel/serial split. The same code runs at very different speeds on different machines."
+      }
+    ],
+    "solution": "1: FALSE — performance also depends on the hardware, memory and clock, not only the code/ILP. 2: TRUE — Tomasulo's renaming removes WAR/WAW that stall a Scoreboard. 3: TRUE — coarse-grained MT switches only on a costly stall event. 4: TRUE — renaming needs extra physical registers, a map table and a free list.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "ACA20250120-e5.2",
+    "examId": "ACA20250120",
+    "date": "2025-01-20",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 5,
+    "type": "true-false-motivated",
+    "topics": [
+      "scoreboard",
+      "tomasulo"
+    ],
+    "prompt": "**Question 2.** State whether each statement is TRUE or FALSE and motivate.",
+    "subStatements": [
+      {
+        "id": "ACA20250120-e5.2-s1",
+        "statement": "The Scoreboard and Tomasulo architectures can achieve different performance.",
+        "answer": true,
+        "motivation": "TRUE. Tomasulo adds **register renaming** (via reservation stations and the CDB), which removes WAR and WAW (name) dependences that still stall a Scoreboard at issue/write-back. Tomasulo also broadcasts results on the CDB so dependent instructions start sooner. Hence on the same code the two can produce different (usually better for Tomasulo) timings."
+      }
+    ],
+    "solution": "1: FALSE — performance also depends on the hardware, memory and clock, not only the code/ILP. 2: TRUE — Tomasulo's renaming removes WAR/WAW that stall a Scoreboard. 3: TRUE — coarse-grained MT switches only on a costly stall event. 4: TRUE — renaming needs extra physical registers, a map table and a free list.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "ACA20250120-e5.3",
+    "examId": "ACA20250120",
+    "date": "2025-01-20",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 5,
+    "type": "true-false-motivated",
+    "topics": [
+      "multiproc"
+    ],
+    "prompt": "**Question 2.** State whether each statement is TRUE or FALSE and motivate.",
+    "subStatements": [
+      {
+        "id": "ACA20250120-e5.3-s1",
+        "statement": "In coarse-grained multithreading, the processor executes the instructions of a thread until a specific event happens.",
+        "answer": true,
+        "motivation": "TRUE. Coarse-grained (block) multithreading keeps running one thread and switches only when that thread hits a costly stall event, typically a long-latency miss (e.g. an L2/last-level cache miss). It contrasts with fine-grained MT, which switches every cycle, and SMT, which issues from multiple threads in the same cycle."
+      }
+    ],
+    "solution": "1: FALSE — performance also depends on the hardware, memory and clock, not only the code/ILP. 2: TRUE — Tomasulo's renaming removes WAR/WAW that stall a Scoreboard. 3: TRUE — coarse-grained MT switches only on a costly stall event. 4: TRUE — renaming needs extra physical registers, a map table and a free list.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "ACA20250120-e5.4",
+    "examId": "ACA20250120",
+    "date": "2025-01-20",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 5,
+    "type": "true-false-motivated",
+    "topics": [
       "renaming"
     ],
     "prompt": "**Question 2.** State whether each statement is TRUE or FALSE and motivate.",
     "subStatements": [
       {
-        "id": "ACA20250120-e5-s1",
-        "statement": "The performance of an application is only limited by its code and the intrinsic parallelism.",
-        "answer": false,
-        "motivation": "FALSE. The code's intrinsic ILP is only an upper bound. Actual performance also depends on the microarchitecture (issue width, number/latency of functional units, branch prediction, register renaming), the memory hierarchy, and the clock frequency — and on Amdahl's law for the parallel/serial split. The same code runs at very different speeds on different machines."
-      },
-      {
-        "id": "ACA20250120-e5-s2",
-        "statement": "The Scoreboard and Tomasulo architectures can achieve different performance.",
-        "answer": true,
-        "motivation": "TRUE. Tomasulo adds **register renaming** (via reservation stations and the CDB), which removes WAR and WAW (name) dependences that still stall a Scoreboard at issue/write-back. Tomasulo also broadcasts results on the CDB so dependent instructions start sooner. Hence on the same code the two can produce different (usually better for Tomasulo) timings."
-      },
-      {
-        "id": "ACA20250120-e5-s3",
-        "statement": "In coarse-grained multithreading, the processor executes the instructions of a thread until a specific event happens.",
-        "answer": true,
-        "motivation": "TRUE. Coarse-grained (block) multithreading keeps running one thread and switches only when that thread hits a costly stall event, typically a long-latency miss (e.g. an L2/last-level cache miss). It contrasts with fine-grained MT, which switches every cycle, and SMT, which issues from multiple threads in the same cycle."
-      },
-      {
-        "id": "ACA20250120-e5-s4",
+        "id": "ACA20250120-e5.4-s1",
         "statement": "Explicit register renaming requires additional hardware.",
         "answer": true,
         "motivation": "TRUE. Explicit renaming needs a **physical register file larger than the architectural one**, a **rename/mapping table** to translate architectural→physical registers, and a **free list** with allocation/reclaim logic (plus recovery state for mispredictions). All of this is extra hardware beyond the baseline pipeline."

@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Describe the logistic regression model and how it is trained.",
     "solution": "**Model.** Logistic regression is a discriminative probabilistic model for (binary) classification. It models the posterior probability of the positive class as a sigmoid of a linear combination of the (possibly transformed) inputs:\n$$p(y=1\\mid \\mathbf{x}) = \\sigma(\\mathbf{w}^\\top \\boldsymbol{\\phi}(\\mathbf{x})) = \\frac{1}{1 + e^{-\\mathbf{w}^\\top \\boldsymbol{\\phi}(\\mathbf{x})}}.$$\nThe decision boundary $\\mathbf{w}^\\top \\boldsymbol{\\phi}(\\mathbf{x}) = 0$ is linear in the feature space. Unlike linear regression, the output is squashed into $[0,1]$ and interpreted as a probability.\n\n**Training.** The weights are estimated by **maximum likelihood**, equivalently by minimizing the cross-entropy (negative log-likelihood) loss:\n$$L(\\mathbf{w}) = -\\sum_{n} \\big[ y_n \\log \\hat{p}_n + (1-y_n)\\log(1-\\hat{p}_n)\\big],\\quad \\hat{p}_n = \\sigma(\\mathbf{w}^\\top \\boldsymbol{\\phi}(\\mathbf{x}_n)).$$\nThis loss is convex but has no closed-form solution, so it is minimized iteratively, e.g. by **gradient descent** (the gradient is $\\sum_n (\\hat{p}_n - y_n)\\boldsymbol{\\phi}(\\mathbf{x}_n)$) or by Newton's method (Iteratively Reweighted Least Squares). A regularization term (e.g. $\\ell_2$) is often added to avoid overfitting and divergence of the weights in linearly separable cases. The model generalizes to multiple classes via the softmax function.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Describe the value iteration algorithm and its properties.",
     "solution": "**Algorithm.** Value Iteration is a dynamic-programming method to solve a known MDP (states, actions, transition model $P$, reward $R$, discount $\\gamma$) and find the optimal value function and policy. It iteratively applies the **Bellman optimality operator** to the value function until convergence:\n$$V_{k+1}(s) \\leftarrow \\max_{a}\\Big[ R(s,a) + \\gamma \\sum_{s'} P(s'\\mid s,a)\\, V_k(s') \\Big].$$\nStarting from an arbitrary $V_0$, the update is applied to all states at each sweep. Upon convergence to $V^*$, the optimal (greedy) policy is extracted as\n$$\\pi^*(s) = \\arg\\max_{a}\\Big[ R(s,a) + \\gamma \\sum_{s'} P(s'\\mid s,a)\\, V^*(s') \\Big].$$\n\n**Properties.**\n- The Bellman optimality operator is a **$\\gamma$-contraction** in the max-norm (for $\\gamma < 1$), so by the Banach fixed-point theorem the iteration **converges to the unique fixed point** $V^*$ regardless of initialization.\n- Convergence is **geometric**: $\\|V_k - V^*\\|_\\infty \\le \\gamma^k \\|V_0 - V^*\\|_\\infty$.\n- It combines a single sweep of policy evaluation with policy improvement, so it does not need to evaluate each intermediate policy fully (unlike Policy Iteration).\n- It requires a **full model** of the environment and visits every state at each iteration; each sweep costs $O(|S|^2 |A|)$.\n- The optimal value function is unique, but multiple optimal policies may exist.",
     "solutionSource": "authored"
@@ -33,17 +37,39 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Consider the following snippet of code taking as input a dataset $X$ having 100 samples with 5 features. Are the subsequent statements true or false? Motivate your answers.\n1. The code snippet above is implementing a feature selection technique.\n2. Line 2 is unnecessary if the data in `X` are scaled.\n3. A model trained with the inputs `T` is likely to display a lower bias than a model trained with inputs `X`.\n4. It is possible to recover the original dataset `X` from `T` by computing $X = W[:, :2]^\\top \\cdot T$.",
     "code": {
       "language": "python",
       "source": "import numpy as np\nX_tilde = X - np.mean(X, axis=0)\nC = np.dot(X_tilde.T, X_tilde)\neigenvalues, W = np.linalg.eig(C)\nT = np.dot(X_tilde, W[:, :2])"
     },
     "subStatements": [
-      { "id": "ML20210720-e3-s1", "statement": "The code snippet above is implementing a feature selection technique.", "answer": false, "motivation": "The code snippet is implementing PCA, which is a feature extraction technique (not feature selection)." },
-      { "id": "ML20210720-e3-s2", "statement": "Line 2 is unnecessary if the data in `X` are scaled.", "answer": false, "motivation": "The data in `X` has to be centered anyway in order to compute the covariance matrix." },
-      { "id": "ML20210720-e3-s3", "statement": "A model trained with the inputs `T` is likely to display a lower bias than a model trained with inputs `X`.", "answer": false, "motivation": "The dataset `T` has lower dimensionality than the dataset `X`. Thus, a model trained on `T` is likely to have a larger bias but a smaller variance." },
-      { "id": "ML20210720-e3-s4", "statement": "It is possible to recover the original dataset `X` from `T` by computing $X = W[:, :2]^\\top \\cdot T$.", "answer": false, "motivation": "In this way we are minimizing the reconstruction error, but it would be greater than zero in general (we keep only 2 of the 5 components)." }
+      {
+        "id": "ML20210720-e3-s1",
+        "statement": "The code snippet above is implementing a feature selection technique.",
+        "answer": false,
+        "motivation": "The code snippet is implementing PCA, which is a feature extraction technique (not feature selection)."
+      },
+      {
+        "id": "ML20210720-e3-s2",
+        "statement": "Line 2 is unnecessary if the data in `X` are scaled.",
+        "answer": false,
+        "motivation": "The data in `X` has to be centered anyway in order to compute the covariance matrix."
+      },
+      {
+        "id": "ML20210720-e3-s3",
+        "statement": "A model trained with the inputs `T` is likely to display a lower bias than a model trained with inputs `X`.",
+        "answer": false,
+        "motivation": "The dataset `T` has lower dimensionality than the dataset `X`. Thus, a model trained on `T` is likely to have a larger bias but a smaller variance."
+      },
+      {
+        "id": "ML20210720-e3-s4",
+        "statement": "It is possible to recover the original dataset `X` from `T` by computing $X = W[:, :2]^\\top \\cdot T$.",
+        "answer": false,
+        "motivation": "In this way we are minimizing the reconstruction error, but it would be greater than zero in general (we keep only 2 of the 5 components)."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -56,45 +82,194 @@
     "exerciseNo": 4,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["mab", "rl"],
+    "topics": [
+      "mab",
+      "rl"
+    ],
     "prompt": "We are faced with the problem of learning the correct dosage of food to give to a kitten. Each day, we want to determine the amount of food to give him/her not to make him/her starve or get too much food. At the end of each day, we know if the choice we made was below the proper dosage, if the kitten asks for more food, or if we provided him/her with more food than required, if the kitten is sleeping too much. We would like to be able to learn the proper amount while maximizing the satisfaction of the kitten over time.\n1. Can the above problem be solved using a machine learning model? Which one? Provide and motivate either the features/target or action/states/reward for the chosen model.\n2. Provide an algorithm to solve the above problem, commenting on the pros and cons of its usage.\n3. What would change if the amount of food we provided to the cat would influence the kitten's weight over time?",
     "solution": "1. It can be modeled as a **stochastic MAB**, where the reward is the satisfaction of the kitten and the action corresponds to the different amounts of food.\n2. We can use both **UCB1** or **Thompson Sampling (TS)** to solve this problem. If we have prior information we can exploit (e.g. previous information on other kittens) the choice of TS is advised.\n3. In this case the action would influence the state of the kitten (its weight), therefore we would switch to an **RL setting**, and the use of UCB1 and TS is not a viable option anymore.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210720-e5",
+    "id": "ML20210720-e5.1",
     "examId": "ML20210720",
     "date": "2021-07-20",
     "academicYear": "AA2021",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["modelsel", "linreg"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Tell whether the following statements about training a supervised learning model are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210720-e5-s1", "statement": "The availability of a large dataset might lead to choosing a more complex model.", "answer": true, "motivation": "If one has more samples, he/she might also consider a more complex model to be used on the available data. Recall that the availability of a large amount of data does not mean that the model should necessarily be complex; instead, the complexity should be appropriate to the process generating data." },
-      { "id": "ML20210720-e5-s2", "statement": "When data is very noisy, it is not a good idea to employ regularization.", "answer": false, "motivation": "Regularization techniques are able to avoid overfitting, therefore they are less prone to model the noise present in the data." },
-      { "id": "ML20210720-e5-s3", "statement": "The larger is the training set, the smaller would be the training error.", "answer": false, "motivation": "If we assume that we fix the model, as we include more samples the training error generally increases or remains the same. In some specific case it might happen that the error decreases." },
-      { "id": "ML20210720-e5-s4", "statement": "Increasing the number of features would generally lead to a decrease of the training error.", "answer": true, "motivation": "We are more and more prone to overfitting as we increase the number of features, which leads to a decrease of the training error, but to lower generalization capabilities." }
+      {
+        "id": "ML20210720-e5.1-s1",
+        "statement": "The availability of a large dataset might lead to choosing a more complex model.",
+        "answer": true,
+        "motivation": "If one has more samples, he/she might also consider a more complex model to be used on the available data. Recall that the availability of a large amount of data does not mean that the model should necessarily be complex; instead, the complexity should be appropriate to the process generating data."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210720-e6",
+    "id": "ML20210720-e5.2",
+    "examId": "ML20210720",
+    "date": "2021-07-20",
+    "academicYear": "AA2021",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell whether the following statements about training a supervised learning model are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210720-e5.2-s1",
+        "statement": "When data is very noisy, it is not a good idea to employ regularization.",
+        "answer": false,
+        "motivation": "Regularization techniques are able to avoid overfitting, therefore they are less prone to model the noise present in the data."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210720-e5.3",
+    "examId": "ML20210720",
+    "date": "2021-07-20",
+    "academicYear": "AA2021",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell whether the following statements about training a supervised learning model are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210720-e5.3-s1",
+        "statement": "The larger is the training set, the smaller would be the training error.",
+        "answer": false,
+        "motivation": "If we assume that we fix the model, as we include more samples the training error generally increases or remains the same. In some specific case it might happen that the error decreases."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210720-e5.4",
+    "examId": "ML20210720",
+    "date": "2021-07-20",
+    "academicYear": "AA2021",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell whether the following statements about training a supervised learning model are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210720-e5.4-s1",
+        "statement": "Increasing the number of features would generally lead to a decrease of the training error.",
+        "answer": true,
+        "motivation": "We are more and more prone to overfitting as we increase the number of features, which leads to a decrease of the training error, but to lower generalization capabilities."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210720-e6.1",
     "examId": "ML20210720",
     "date": "2021-07-20",
     "academicYear": "AA2021",
     "exerciseNo": 6,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell whether the following statements about Kernel Methods are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210720-e6-s1", "statement": "There is no point in using a kernel dual representation, if its corresponding feature space is known.", "answer": false, "motivation": "One might use the kernel trick for computational reasons, for instance if the computation of the features in the original feature space is computationally heavy." },
-      { "id": "ML20210720-e6-s2", "statement": "$k(x, x') := e^{-\\|x + x'\\|^2}$ is a valid kernel function.", "answer": false, "motivation": "$k(x,x') = e^{-\\|x+x'\\|^2}$ cannot be used as a similarity measure: with this function an element is not similar to itself. Decomposing it, $e^{-\\|x+x'\\|^2} = e^{-x^\\top x - x'^\\top x' - 2x^\\top x'} = e^{x^\\top x} e^{-2x^\\top x'} e^{x'^\\top x'}$; differently from the case $\\|x - x'\\|$, the inner term is not a valid kernel due to the minus sign. A counterexample: take $\\mathbb{R}$ as feature space and the two points $1$ and $-1$; the Gram matrix has negative determinant, hence a negative eigenvalue, so it is not positive semidefinite." },
-      { "id": "ML20210720-e6-s3", "statement": "To compute prediction on a new sample using the dual representation, knowing the Gram matrix is sufficient.", "answer": false, "motivation": "We need also to compute the value of the kernel between the points in the training set and the newly processed one." },
-      { "id": "ML20210720-e6-s4", "statement": "It is possible to use Gaussian Processes in an online way (i.e., in a sequential learning setting).", "answer": true, "motivation": "The process requires to include a new row and a new column in the Gram matrix and to compute the kernel similarity for an additional point every time we include a new point in the training set. The process is similar to the one used for recursive least squares applied to the Gram matrix." }
+      {
+        "id": "ML20210720-e6.1-s1",
+        "statement": "There is no point in using a kernel dual representation, if its corresponding feature space is known.",
+        "answer": false,
+        "motivation": "One might use the kernel trick for computational reasons, for instance if the computation of the features in the original feature space is computationally heavy."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210720-e6.2",
+    "examId": "ML20210720",
+    "date": "2021-07-20",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell whether the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210720-e6.2-s1",
+        "statement": "$k(x, x') := e^{-\\|x + x'\\|^2}$ is a valid kernel function.",
+        "answer": false,
+        "motivation": "$k(x,x') = e^{-\\|x+x'\\|^2}$ cannot be used as a similarity measure: with this function an element is not similar to itself. Decomposing it, $e^{-\\|x+x'\\|^2} = e^{-x^\\top x - x'^\\top x' - 2x^\\top x'} = e^{x^\\top x} e^{-2x^\\top x'} e^{x'^\\top x'}$; differently from the case $\\|x - x'\\|$, the inner term is not a valid kernel due to the minus sign. A counterexample: take $\\mathbb{R}$ as feature space and the two points $1$ and $-1$; the Gram matrix has negative determinant, hence a negative eigenvalue, so it is not positive semidefinite."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210720-e6.3",
+    "examId": "ML20210720",
+    "date": "2021-07-20",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell whether the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210720-e6.3-s1",
+        "statement": "To compute prediction on a new sample using the dual representation, knowing the Gram matrix is sufficient.",
+        "answer": false,
+        "motivation": "We need also to compute the value of the kernel between the points in the training set and the newly processed one."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210720-e6.4",
+    "examId": "ML20210720",
+    "date": "2021-07-20",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell whether the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210720-e6.4-s1",
+        "statement": "It is possible to use Gaussian Processes in an online way (i.e., in a sequential learning setting).",
+        "answer": true,
+        "motivation": "The process requires to include a new row and a new column in the Gram matrix and to compute the kernel similarity for an additional point every time we include a new point in the training set. The process is similar to the one used for recursive least squares applied to the Gram matrix."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -107,7 +282,10 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif", "modeleval"],
+    "topics": [
+      "classif",
+      "modeleval"
+    ],
     "prompt": "A tomato factory wants to build a classifier that predicts whether tomato puree cans will be either approved (class 1) or rejected (class 0). The following binary features are evaluated: presence of organic (**ORGANIC**) or inorganic (**INORGANIC**) undesired content, a weight higher (**HIGHER**) or lower (**LOWER**) than the nominal one, and a *non-standard red* color for the puree (**PALE**). Given the following dataset:\n\nTraining samples (ORGANIC, INORGANIC, HIGHER, LOWER, PALE → APPROVED):\n- 1, 0, 0, 0, 1 → 0\n- 0, 1, 0, 0, 0 → 0\n- 1, 1, 1, 0, 0 → 0\n- 0, 0, 1, 0, 1 → 0\n- 0, 1, 0, 0, 1 → 0\n- 0, 0, 1, 0, 0 → 1\n- 1, 0, 0, 0, 1 → 1\n- 0, 0, 0, 1, 0 → 1\n\nTest samples (ORGANIC, INORGANIC, HIGHER, LOWER, PALE → APPROVED?):\n- 0, 0, 0, 1, 0 → ?\n- 0, 1, 0, 0, 1 → ?\n\n1. Estimate a Naïve Bayes classifier from the *training samples*, choosing the proper distributions for the classes priors and the feature posteriors.\n2. Predict the probability of the *test samples* to be approved or not.",
     "solution": "1. Prior distribution for the classes modeled as Bernoulli:\n$$P(c=0) = \\frac{5}{8}, \\qquad P(c=1) = \\frac{3}{8}.$$\nDistribution for each input given the class as Bernoulli (with $x_1=$ ORGANIC, $x_2=$ INORGANIC, etc.):\n$$P(x_1=1\\mid c=0) = \\frac{3}{5},\\qquad P(x_1=0\\mid c=0) = \\frac{2}{5},$$\n$$P(x_1=1\\mid c=1) = \\frac{1}{3},\\qquad P(x_1=0\\mid c=1) = \\frac{2}{3},$$\n$$P(x_2=1\\mid c=0) = \\frac{3}{5},\\qquad P(x_2=0\\mid c=0) = \\frac{2}{5},$$\n$$P(x_2=1\\mid c=1) = 0,\\qquad P(x_2=0\\mid c=1) = 1,$$\n$$\\dots$$\n(and analogously for the remaining features HIGHER, LOWER, PALE.)\n2. Since $P(x_4=1\\mid c=0) = 0$ (no rejected training can has LOWER weight), the first test sample has probability equal to 1 to belong to the **positive (approved)** class. Similarly, since $P(x_2=1\\mid c=1) = 0$ (no approved can has INORGANIC content), the second test sample has probability equal to 1 to belong to the **negative (rejected)** class.",
     "solutionSource": "exam"
@@ -120,7 +298,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the set of trajectories below, which are obtained while running the Monte Carlo policy iteration algorithm in an MDP with three states $\\mathcal{S} = \\{A, B, C\\}$ ($A$ is the initial state, $C$ is terminal), two actions $\\mathcal{A} = \\{u, d\\}$, and discount factor $\\gamma = 1$.\n$$(A,u,2) \\rightarrow (B,d,-2) \\rightarrow (A,d,-2) \\rightarrow (A,u,4) \\rightarrow (C)$$\n$$(A,d,1) \\rightarrow (B,u,-3) \\rightarrow (C)$$\n$$(A,d,7) \\rightarrow (B,d,0) \\rightarrow (C)$$\n1. Provide the policy evaluation step according to Monte Carlo first-visit.\n2. Provide the policy improvement step, i.e., the policy that the algorithm will deploy at the next iteration.\n3. Do you think the results would have changed with Monte Carlo every-visit evaluation?",
     "solution": "1. To perform the subsequent policy improvement we need to evaluate the $Q$ function (first-visit, $\\gamma = 1$):\n$$Q(A,u) = 2, \\qquad Q(A,d) = \\frac{2 - 2 + 7}{3} = \\frac{7}{3},$$\n$$Q(B,u) = -3, \\qquad Q(B,d) = \\frac{0 + 0}{2} = 0.$$\n2. In Monte Carlo policy iteration we have to ensure sufficient exploration by deploying an $\\varepsilon$-greedy policy. Since $Q(A,d) > Q(A,u)$ and $Q(B,d) > Q(B,u)$:\n$$\\pi(u\\mid A) = \\varepsilon,\\quad \\pi(d\\mid A) = 1-\\varepsilon,\\quad \\pi(u\\mid B) = \\varepsilon,\\quad \\pi(d\\mid B) = 1-\\varepsilon.$$\n3. The only state-action pair that occurs more than once in a single trajectory is $(A,u)$, thus we have to recompute its evaluation:\n$$Q(A,u) = \\frac{2 + 4}{2} = 3.$$\nSince now $Q(A,u) > Q(A,d)$ according to every-visit evaluation, the $\\varepsilon$-greedy policy would change as follows: $\\pi(u\\mid A) = 1-\\varepsilon$, and $\\pi(d\\mid A) = \\varepsilon$.",
     "solutionSource": "exam"

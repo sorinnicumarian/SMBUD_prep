@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["modelsel"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Derive the **Bias-Variance Decomposition** for regression under the squared error loss, considering a target variable $y$, a prediction model $\\hat{f}(x)$, and the true function $f(x)$. Explain how bias and variance contribute to the overall expected error of the model.",
     "solution": "**Setup.** Assume the data are generated as $y = f(x) + \\varepsilon$, where $\\varepsilon$ is zero-mean noise with variance $\\sigma^2$, independent of $x$. The model $\\hat{f}(x)$ is learned from a random training set, and we denote by $\\bar{f}(x) = \\mathbb{E}[\\hat{f}(x)]$ the average prediction over training sets. Consider the expected squared error at a point $x$ (expectation over both noise and training sets).\n\n**Derivation.**\n$$\\mathbb{E}[(y - \\hat{f}(x))^2] = \\mathbb{E}[(f(x) + \\varepsilon - \\hat{f}(x))^2].$$\nSince $\\varepsilon$ is independent and zero-mean, the cross term with $\\varepsilon$ vanishes:\n$$= \\sigma^2 + \\mathbb{E}[(f(x) - \\hat{f}(x))^2].$$\nNow add and subtract $\\bar{f}(x)$:\n$$\\mathbb{E}[(f(x) - \\hat{f}(x))^2] = \\mathbb{E}[(f(x) - \\bar{f}(x) + \\bar{f}(x) - \\hat{f}(x))^2].$$\nThe cross term $\\mathbb{E}[(f - \\bar f)(\\bar f - \\hat f)] = 0$ because $f - \\bar f$ is constant and $\\mathbb{E}[\\bar f - \\hat f] = 0$. Hence\n$$= \\underbrace{(f(x) - \\bar{f}(x))^2}_{\\text{Bias}^2} + \\underbrace{\\mathbb{E}[(\\hat{f}(x) - \\bar{f}(x))^2]}_{\\text{Variance}}.$$\nPutting it together:\n$$\\mathbb{E}[(y - \\hat{f}(x))^2] = \\text{Bias}^2 + \\text{Variance} + \\sigma^2.$$\n\n**Contribution of each term.**\n- **Bias$^2$** measures the systematic error of the average model: large when the model is too simple to capture $f$ (underfitting).\n- **Variance** measures how much the prediction changes across different training sets: large when the model is too flexible and fits noise (overfitting).\n- **$\\sigma^2$** is the irreducible noise; no model can reduce it.\n\nIncreasing model complexity decreases bias but increases variance (and vice versa): the **bias-variance trade-off**. The optimal model minimizes the sum of the two reducible terms.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "What is the **VC dimension** of a hypothesis space? What can it be used for?",
     "solution": "**Definition.** The Vapnik-Chervonenkis (VC) dimension of a hypothesis space $\\mathcal{H}$ (a set of binary classifiers) is the size of the **largest set of points that $\\mathcal{H}$ can shatter**. A set of $N$ points is *shattered* by $\\mathcal{H}$ if, for every one of the $2^N$ possible labelings of those points, there exists a hypothesis $h \\in \\mathcal{H}$ that realizes it. Formally, $\\text{VC}(\\mathcal{H})$ is the maximum $N$ such that there exists *some* set of $N$ points that is shattered. (It is enough that one configuration of $N$ points can be shattered; if no set of $N+1$ points can be, the VC dimension is $N$.)\n\n*Examples:* linear classifiers (thresholds on $\\boldsymbol{w}^\\top x + b$) in $\\mathbb{R}^d$ have VC dimension $d+1$; intervals on the real line have VC dimension 2; axis-aligned rectangles in $\\mathbb{R}^2$ have VC dimension 4.\n\n**What it is used for.** The VC dimension is a measure of the **capacity / complexity** of a hypothesis space, independent of the data distribution. Its main uses:\n- **Generalization bounds.** It bounds the gap between training error $\\hat{\\mathcal{L}}$ and true error $\\mathcal{L}$. With probability at least $1 - \\delta$,\n$$\\mathcal{L} \\le \\hat{\\mathcal{L}} + \\sqrt{\\frac{\\text{VC}\\left(\\log\\frac{2eN}{\\text{VC}}\\right) + \\log\\frac{4}{\\delta}}{N}}.$$\nThis shows generalization improves with more data $N$ and worsens with higher capacity (VC).\n- **Sample complexity.** It tells how many samples are needed to learn to a desired accuracy/confidence (PAC learning); roughly $N = O(\\text{VC})$ samples.\n- **Model selection / Occam's razor.** It formalizes the bias-variance / complexity trade-off: too-high VC overfits, too-low VC underfits. A finite VC dimension is necessary and sufficient for PAC-learnability in this setting.",
     "solutionSource": "authored"
@@ -33,7 +37,11 @@
     "exerciseNo": 3,
     "marks": 3,
     "type": "code-interpretation",
-    "topics": ["classif", "modeleval", "linreg"],
+    "topics": [
+      "classif",
+      "modeleval",
+      "linreg"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. Describe the procedure performed in the code above, detailing **line-by-line** the operations and their purpose.\n2. Is the process used in the code correct? Explain why or why not.\n3. Can Ordinary Least Squares (OLS) be applied to the same problem? Discuss whether OLS is suitable for classification tasks and explain its limitations compared to logistic regression.",
     "code": {
       "language": "python",
@@ -43,36 +51,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250108-e4",
+    "id": "ML20250108-e4.1",
     "examId": "ML20250108",
     "date": "2025-01-08",
     "academicYear": "AA2324",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Determine whether the following statements about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250108-e4-s1",
+        "id": "ML20250108-e4.1-s1",
         "statement": "The set of the Principal Components vectors forms an orthonormal basis for the original feature space.",
         "answer": true,
         "motivation": "The procedure for the PCA looks for the direction in the dataset which is providing the most variance and extracts the (first) Principal Component (PC) as the unit vector identifying that direction. Iteratively, it checks the direction, orthogonal to the previous one, with the most variance and extracts another (second) PC. The process iterates over a number of PC equal to the number of dimensions of the dataset. This produces an orthogonal base to the initial dataset."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250108-e4.2",
+    "examId": "ML20250108",
+    "date": "2025-01-08",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Determine whether the following statements about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250108-e4-s2",
+        "id": "ML20250108-e4.2-s1",
         "statement": "Projecting the original features onto the Principal Components and using these projections as features for regression or classification reduces the likelihood of overfitting.",
         "answer": false,
         "motivation": "Only selecting the first $K$ PC one has the chance to remove the noise from the data and avoid overfitting. If we are keeping all the PC, we would have a linear transformation of the original dataset, which is likely to behave as good as the original one for the supervised task."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250108-e4.3",
+    "examId": "ML20250108",
+    "date": "2025-01-08",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Determine whether the following statements about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250108-e4-s3",
+        "id": "ML20250108-e4.3-s1",
         "statement": "The percentage of the variance explained by a Principal Component is inversely proportional to the value of the corresponding eigenvalue.",
         "answer": false,
         "motivation": "The variance explained by each PC is directly proportional to the corresponding eigenvalue. Indeed, its formula is $\\frac{\\lambda_i}{\\sum_i \\lambda_i}$, where $\\lambda_i$ is the eigenvalue corresponding to the $i$-th PC."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250108-e4.4",
+    "examId": "ML20250108",
+    "date": "2025-01-08",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Determine whether the following statements about the Principal Component Analysis (PCA) procedure are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250108-e4-s4",
+        "id": "ML20250108-e4.4-s1",
         "statement": "The procedure to apply PCA to a dataset is deterministic.",
         "answer": true,
         "motivation": "The procedure includes an input normalization procedure and computing the eigenvectors of the covariance matrix, which are both deterministic procedures."
@@ -82,36 +143,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250108-e5",
+    "id": "ML20250108-e5.1",
     "examId": "ML20250108",
     "date": "2025-01-08",
     "academicYear": "AA2324",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Determine whether the following statements about the Multi-Armed Bandit (MAB) problem are true or false. Provide adequate motivations.",
     "subStatements": [
       {
-        "id": "ML20250108-e5-s1",
+        "id": "ML20250108-e5.1-s1",
         "statement": "In a stochastic MAB setting, the reward distribution of each arm remains fixed throughout the learning procedure.",
         "answer": true,
         "motivation": "In the stochastic MAB setting, the reward distribution of each arm does not change over time, and the learner's task is to learn these distributions."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250108-e5.2",
+    "examId": "ML20250108",
+    "date": "2025-01-08",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Determine whether the following statements about the Multi-Armed Bandit (MAB) problem are true or false. Provide adequate motivations.",
+    "subStatements": [
       {
-        "id": "ML20250108-e5-s2",
+        "id": "ML20250108-e5.2-s1",
         "statement": "MAB techniques can be directly applied to problems where there are dependencies between arms.",
         "answer": false,
         "motivation": "Standard MAB techniques assume independent arms. Dependencies between arms require specialized algorithms, such as those for structured bandit problems."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250108-e5.3",
+    "examId": "ML20250108",
+    "date": "2025-01-08",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Determine whether the following statements about the Multi-Armed Bandit (MAB) problem are true or false. Provide adequate motivations.",
+    "subStatements": [
       {
-        "id": "ML20250108-e5-s3",
+        "id": "ML20250108-e5.3-s1",
         "statement": "The exploration-exploitation trade-off is a fundamental challenge in MAB problems.",
         "answer": true,
         "motivation": "The core challenge in MAB is balancing exploration (to discover better arms) and exploitation (to maximize reward based on current knowledge)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250108-e5.4",
+    "examId": "ML20250108",
+    "date": "2025-01-08",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Determine whether the following statements about the Multi-Armed Bandit (MAB) problem are true or false. Provide adequate motivations.",
+    "subStatements": [
       {
-        "id": "ML20250108-e5-s4",
+        "id": "ML20250108-e5.4-s1",
         "statement": "The Thompson Sampling (TS) algorithm requires the knowledge of the reward distributions of the arms in advance.",
         "answer": false,
         "motivation": "Thompson Sampling does not require prior knowledge of reward distributions but instead uses a prior belief updated with observed rewards to sample actions."
@@ -128,7 +242,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "You are an ML specialist working for an agricultural robotics company that develops drones to monitor and spray crops in a large 2D field. Consider the following problems:\n\n1. Predict the time required for a drone to reach a specific area in the field based on its current position and wind speed using a dataset of past drone flights.\n2. Learn a drone navigation policy that minimizes the time and fuel consumption needed to spray all the crops in the field, assuming you can simulate the drone's operation.\n\nModel the two problems described above as ML problems, specifying the data (features and target or states, actions, and reward), the problem class, and a specific method to solve them.",
     "solution": "1. SUPERVISED LEARNING - REGRESSION. The features are the current position of the drone $(x, y)$, wind speed and direction, and the position of the target area. The target is the time needed to reach the target area. A method to solve it is Support Vector Regression (SVR).\n\n2. REINFORCEMENT LEARNING - CONTROL. The state consists of the drone's current position, remaining fuel, and the positions of unsprayed crops. The actions are the direction and velocity of movement. The reward could be a negative constant for each time step, plus a larger penalty for running out of fuel. The problem is episodic, ending when all crops are sprayed. A possible method to solve this problem is Q-Learning or SARSA.",
     "solutionSource": "exam"
@@ -141,7 +258,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following trajectory obtained by an agent interacting with an MDP having three states $\\mathcal{S} = \\{X, Y, Z\\}$ and two actions $\\mathcal{A} = \\{\\text{yes}, \\text{no}\\}$,\n$$(X, \\text{yes}, 3) \\to (Y, \\text{no}, -1) \\to (Z, \\text{yes}, 2) \\to (X, \\text{no}, 4) \\to (Y, \\text{yes}, 0) \\to (Z, \\text{no}, 1) \\to (Y, \\text{no}, -2) \\to (X, \\text{yes}, 5).$$\nConsider initial state-action values $Q(s,a) = 0$ for every state-action pair, a learning rate $\\alpha = 0.2$, and a discount factor $\\gamma = 1$. Answer the following questions, providing adequate motivations.\n\n1. Execute the *Q-learning* algorithm on the given trajectory (break ties using the first action listed in the action set).\n2. Execute the *SARSA* algorithm on the given trajectory.\n3. Derive the best policy for each state according to the output of *SARSA*. Is it different from the one provided by *Q-learning*?",
     "solution": "1. The formula for Q-learning is $Q(s,a) \\leftarrow Q(s,a) + \\alpha(R + \\gamma \\max_{a'} Q(s',a') - Q(s,a))$. Applying it step by step:\n$$Q(X, \\text{yes}) = 0 + 0.2(3 + 1 \\cdot 0 - 0) = 0.6$$\n$$Q(Y, \\text{no}) = 0 + 0.2(-1 + 1 \\cdot 0 - 0) = -0.2$$\n$$Q(Z, \\text{yes}) = 0 + 0.2(2 + 1 \\cdot 0.6 - 0) = 0.52$$\n$$Q(X, \\text{no}) = 0 + 0.2(4 + 1 \\cdot 0 - 0) = 0.8$$\n$$Q(Y, \\text{yes}) = 0 + 0.2(0 + 1 \\cdot 0.52 - 0) = 0.104$$\n$$Q(Z, \\text{no}) = 0 + 0.2(1 + 1 \\cdot 0.104 - 0) = 0.2208$$\n$$Q(Y, \\text{no}) = -0.2 + 0.2(-2 + 1 \\cdot 0.8 - (-0.2)) = -0.4$$\n\n2. The formula for SARSA is $Q(s,a) \\leftarrow Q(s,a) + \\alpha(R + \\gamma Q(s',a') - Q(s,a))$, where $a'$ is the action taken in the next step. Applying it step by step:\n$$Q(X, \\text{yes}) = 0 + 0.2(3 + 1 \\cdot 0 - 0) = 0.6$$\n$$Q(Y, \\text{no}) = 0 + 0.2(-1 + 1 \\cdot 0 - 0) = -0.2$$\n$$Q(Z, \\text{yes}) = 0 + 0.2(2 + 1 \\cdot 0 - 0) = 0.4$$\n$$Q(X, \\text{no}) = 0 + 0.2(4 + 1 \\cdot 0 - 0) = 0.8$$\n$$Q(Y, \\text{yes}) = 0 + 0.2(0 + 1 \\cdot 0 - 0) = 0$$\n$$Q(Z, \\text{no}) = 0 + 0.2(1 + 1 \\cdot (-0.2) - 0) = 0.16$$\n$$Q(Y, \\text{no}) = -0.2 + 0.2(-2 + 1 \\cdot 0.6 - (-0.2)) = -0.44$$\n\n3. The policy prescribed by SARSA is: $X \\to \\text{no}$, $Y \\to \\text{yes}$, $Z \\to \\text{yes}$. The policy from Q-learning is: $X \\to \\text{no}$, $Y \\to \\text{yes}$, $Z \\to \\text{yes}$. Therefore, the policies differ.",
     "solutionSource": "exam"
@@ -154,7 +273,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a linear binary SVM classifier that, after training, has weights $w = [2, -1]$ and bias $b = 1$. Motivate all answers and write down any necessary computation.\n\n1. How is the point $[2, 3]$ classified?\n2. Provide an example of a support vector for this SVM.\n3. Suppose the point $[3, 1]$ is added to the dataset with a positive label. Do we need to retrain the SVM?\n4. Can we discard the point $[0, -2]$ from the dataset if all we care about is predicting the class of new points?",
     "solution": "1. $f([2, 3]) = 2 \\cdot 2 - 1 \\cdot 3 + 1 = 2 > 0$, so the point is classified as positive.\n\n2. An example is $[0, 1]$, since $f([0, 1]) = 2 \\cdot 0 - 1 \\cdot 1 + 1 = 0$, so it is within the boundary. Any vector $v$ with $|f(v)| \\le 1$ is a good example.\n\n3. No, since $f([3, 1]) = 2 \\cdot 3 - 1 \\cdot 1 + 1 = 6 > 1$: the point is correctly classified and is not a support vector, so the classifier would not change.\n\n4. With a linear SVM, we can discard the whole dataset; the weights are enough! If we are using a non-parametric version (e.g., a kernel-based implementation with a linear kernel), we have to check if the point is a support vector. $f([0, -2]) = 2 \\cdot 0 - 1 \\cdot (-2) + 1 = 3 > 1$, so it is not a support vector, and it can be discarded anyway.",
     "solutionSource": "exam"

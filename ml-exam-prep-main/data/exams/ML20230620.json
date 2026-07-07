@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Describe the Bayesian Linear Regression approach and compare it to the least squares method.",
     "solution": "**Bayesian Linear Regression.** Instead of seeking a single point estimate of the weights $w$, the Bayesian approach treats $w$ as a random variable with a prior distribution and computes a full posterior given the data. Assuming a Gaussian likelihood $t_n = w^\\top\\phi(x_n) + \\varepsilon$, $\\varepsilon\\sim\\mathcal{N}(0,\\sigma^2)$, and a Gaussian prior $w\\sim\\mathcal{N}(0,\\tau^2 I)$, the posterior is also Gaussian:\n$$p(w\\mid X,t) = \\mathcal{N}(w\\mid \\mu_N, \\Sigma_N),\\quad \\Sigma_N = \\left(\\tfrac{1}{\\tau^2}I + \\tfrac{1}{\\sigma^2}\\Phi^\\top\\Phi\\right)^{-1},\\quad \\mu_N = \\tfrac{1}{\\sigma^2}\\Sigma_N\\Phi^\\top t.$$\nPrediction is made with the **predictive distribution**, integrating over the posterior: $p(t^*\\mid x^*, X, t) = \\int p(t^*\\mid x^*, w)\\,p(w\\mid X,t)\\,dw$, which is Gaussian with a mean and a variance that quantifies predictive uncertainty.\n\n**Comparison with least squares (OLS).**\n- OLS minimizes the residual sum of squares and returns a single point estimate $w_{OLS} = (\\Phi^\\top\\Phi)^{-1}\\Phi^\\top t$; it gives no measure of uncertainty over the parameters or predictions.\n- The **MAP** estimate of Bayesian LR with a Gaussian prior coincides with **Ridge regression** ($\\ell_2$-regularized least squares), with regularization $\\lambda = \\sigma^2/\\tau^2$. So the prior acts as a regularizer that reduces overfitting and variance.\n- The full Bayesian treatment yields a **distribution** over predictions (uncertainty estimates), is more robust with little data, and naturally incorporates prior knowledge, at the cost of more computation. OLS is simpler and unbiased but can have high variance when data are scarce or features are collinear.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Illustrate the PAC bound for consistent learners (train error equal to zero) and its applications.",
     "solution": "**Setting.** A learner is *consistent* if it returns a hypothesis $\\hat h$ that perfectly classifies the training set (zero training error). PAC (Probably Approximately Correct) learning bounds the *true* error $L_{true}(\\hat h)$ of such a hypothesis with high probability, over a finite hypothesis space $\\mathcal{H}$.\n\n**Bound.** For a finite $\\mathcal{H}$, with probability at least $1-\\delta$, every consistent hypothesis satisfies\n$$L_{true}(\\hat h) \\le \\frac{\\ln|\\mathcal{H}| + \\ln\\frac{1}{\\delta}}{N},$$\nwhere $N$ is the number of training samples. *Derivation idea:* a \"bad\" hypothesis (true error $>\\varepsilon$) is consistent with $N$ samples with probability at most $(1-\\varepsilon)^N \\le e^{-\\varepsilon N}$; union-bounding over $|\\mathcal{H}|$ hypotheses gives $|\\mathcal{H}|e^{-\\varepsilon N}\\le\\delta$, which solving for $\\varepsilon$ yields the bound.\n\n**Applications.**\n- **Sample complexity:** to guarantee $L_{true}\\le\\varepsilon$ with confidence $1-\\delta$, it suffices to have $N \\ge \\frac{1}{\\varepsilon}\\left(\\ln|\\mathcal{H}| + \\ln\\frac{1}{\\delta}\\right)$ samples. The required $N$ grows only logarithmically in $|\\mathcal{H}|$ and in $1/\\delta$.\n- **Error bounding:** given $N$, $\\delta$ and $|\\mathcal{H}|$, compute a guaranteed upper bound on the generalization error of a consistent learner.\n- It shows that richer hypothesis spaces (larger $|\\mathcal{H}|$) need more data, formalizing the trade-off between expressiveness and generalization.",
     "solutionSource": "authored"
@@ -33,7 +37,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["linreg", "classif"],
+    "topics": [
+      "linreg",
+      "classif"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. Describe the operations executed and the purpose (which problem and which method has been used) of the snippet reported above.\n2. Do you think the methods used above are appropriate for the considered problem? If not, propose an alternative approach. If yes, propose other approaches to solve the same problem.\n3. Are there any issue intrinsic to Line 7? Describe the issue and propose a method to deal with such a problem.",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230620-e4",
+    "id": "ML20230620-e4.1",
     "examId": "ML20230620",
     "date": "2023-06-20",
     "academicYear": "AA2223",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["modelsel", "linreg", "featsel", "kernelsvm"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "The figure shows train error and test error produced by changing a hyperparameter (on the x-axis) in a classifier/regressor on a given training/test dataset. From left to right the train error decreases (reaching $0$ at the right end) while the test error first decreases then increases. For each of the following methods along with the description of how the hyperparameter was changed (from left to right), tell if the picture could have been produced by it.",
     "subStatements": [
       {
-        "id": "ML20230620-e4-s1",
+        "id": "ML20230620-e4.1-s1",
         "statement": "Ridge regression, increasing regularization parameter $\\lambda$.",
         "answer": false,
         "motivation": "NO: increasing the regularization would increase the training error, therefore the graph cannot correspond to this case (here the training error decreases)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230620-e4.2",
+    "examId": "ML20230620",
+    "date": "2023-06-20",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "The figure shows train error and test error produced by changing a hyperparameter (on the x-axis) in a classifier/regressor on a given training/test dataset. From left to right the train error decreases (reaching $0$ at the right end) while the test error first decreases then increases. For each of the following methods along with the description of how the hyperparameter was changed (from left to right), tell if the picture could have been produced by it.",
+    "subStatements": [
       {
-        "id": "ML20230620-e4-s2",
+        "id": "ML20230620-e4.2-s1",
         "statement": "k-nearest neighbor classifier, decreasing number of neighbors $k$.",
         "answer": true,
         "motivation": "YES: the smaller the $K$ parameter, the more it is prone to overfit the original dataset. With $K=1$ all the data in the training set are perfectly classified (zero training error)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230620-e4.3",
+    "examId": "ML20230620",
+    "date": "2023-06-20",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "The figure shows train error and test error produced by changing a hyperparameter (on the x-axis) in a classifier/regressor on a given training/test dataset. From left to right the train error decreases (reaching $0$ at the right end) while the test error first decreases then increases. For each of the following methods along with the description of how the hyperparameter was changed (from left to right), tell if the picture could have been produced by it.",
+    "subStatements": [
       {
-        "id": "ML20230620-e4-s3",
+        "id": "ML20230620-e4.3-s1",
         "statement": "Logistic regressor, increasing the number of principal components extracted from the dataset.",
         "answer": true,
         "motivation": "YES: the more the number of features we are considering, the more the model is complex and prone to overfitting, so the training error decreases and the test error eventually rises."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230620-e4.4",
+    "examId": "ML20230620",
+    "date": "2023-06-20",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "The figure shows train error and test error produced by changing a hyperparameter (on the x-axis) in a classifier/regressor on a given training/test dataset. From left to right the train error decreases (reaching $0$ at the right end) while the test error first decreases then increases. For each of the following methods along with the description of how the hyperparameter was changed (from left to right), tell if the picture could have been produced by it.",
+    "subStatements": [
       {
-        "id": "ML20230620-e4-s4",
+        "id": "ML20230620-e4.4-s1",
         "statement": "SVM, decreasing the number of features selected by a filtering method.",
         "answer": false,
         "motivation": "NO: it would decrease the complexity of the model and therefore the training error should increase, not decrease."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230620-e5",
+    "id": "ML20230620-e5.1",
     "examId": "ML20230620",
     "date": "2023-06-20",
     "academicYear": "AA2223",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell if the following expressions are valid kernels, motivating your answer. The formation of the kernel should follow Mercer's theorem conditions (continuous, symmetric and semidefinite positive function).",
     "subStatements": [
       {
-        "id": "ML20230620-e5-s1",
+        "id": "ML20230620-e5.1-s1",
         "statement": "$k(x,x') = a\\,k_1(x,x') + b\\,k_2(x',x)$, where $k_1(\\cdot,\\cdot)$ and $k_2(\\cdot,\\cdot)$ are valid kernels.",
         "answer": true,
         "motivation": "As long as $a,b > 0$ we are assured that this combination provides a valid kernel (a non-negative linear combination of valid kernels is a valid kernel)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230620-e5.2",
+    "examId": "ML20230620",
+    "date": "2023-06-20",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following expressions are valid kernels, motivating your answer. The formation of the kernel should follow Mercer's theorem conditions (continuous, symmetric and semidefinite positive function).",
+    "subStatements": [
       {
-        "id": "ML20230620-e5-s2",
+        "id": "ML20230620-e5.2-s1",
         "statement": "$k(x,x') = \\lVert x\\rVert_2^2 + \\lVert x\\rVert_2\\,\\lVert x'\\rVert_2$.",
         "answer": false,
         "motivation": "The kernel form is not symmetric (due to the first term $\\lVert x\\rVert_2^2$, which depends only on $x$), so it is not a valid kernel."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230620-e5.3",
+    "examId": "ML20230620",
+    "date": "2023-06-20",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following expressions are valid kernels, motivating your answer. The formation of the kernel should follow Mercer's theorem conditions (continuous, symmetric and semidefinite positive function).",
+    "subStatements": [
       {
-        "id": "ML20230620-e5-s3",
+        "id": "ML20230620-e5.3-s1",
         "statement": "$k(x,x') = \\frac{|xx'|}{xx'} + 2$ for $x,x' \\in [-1,\\,1]$.",
         "answer": false,
         "motivation": "The kernel is not continuous at $x=0$ for each $x'\\in[-1,1]$, so it violates Mercer's continuity condition."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230620-e5.4",
+    "examId": "ML20230620",
+    "date": "2023-06-20",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following expressions are valid kernels, motivating your answer. The formation of the kernel should follow Mercer's theorem conditions (continuous, symmetric and semidefinite positive function).",
+    "subStatements": [
       {
-        "id": "ML20230620-e5-s4",
+        "id": "ML20230620-e5.4-s1",
         "statement": "$k(x,x') = x^\\top A x'$ with $A = \\begin{bmatrix} 3 & 1 \\\\ 1 & -4 \\end{bmatrix}$ and $x,x' \\in \\mathbb{R}^2$.",
         "answer": false,
         "motivation": "Since the matrix $A$ is not semidefinite positive ($\\det(A) = 3\\cdot(-4) - 1\\cdot 1 = -13 < 0$) it cannot identify a valid kernel."
@@ -128,7 +241,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "You are an ML specialist working in an industrial company that builds automatic manipulator systems in charge of collecting objects in a 2D environment. Consider the following ML problems:\n1. Estimate the time needed by the manipulator to collect a specific object, based on the object location, and having access to a dataset of the past executions of the manipulator.\n2. Learn the manipulator control policy that minimizes the amount of time needed to collect all the objects in the 2D environment, having the possibility to interact with the real system.\nModel the two problems described above as ML problems, specifying the data (features and target or states, actions, and reward), the problem class, and a specific method to solve them.",
     "solution": "1. **Supervised learning - Regression.** The features are the position (for instance, $x,y$) of the object to be collected and the target is the time needed for the collection. A method to solve it is KNN.\n2. **Reinforcement learning - Control.** The state is given by the positions of the objects in the 2D environment and the position of the robotic manipulator; the actions are the forces to be applied to the joints of the manipulator (or directly the position to be reached); and the reward is the opposite of the time needed to collect one object (or a negative constant for every time step). The problem is episodic, since it terminates once all objects have been collected. A possible method to solve it is Q-Learning (provided that we discretize state and action spaces).",
     "solutionSource": "exam"
@@ -141,7 +257,10 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif", "learntheory"],
+    "topics": [
+      "classif",
+      "learntheory"
+    ],
     "prompt": "Assume you need to learn the optimal parameter of a perceptron classifier, starting from a parameter vector $\\mathbf{w}^{(0)} = (1\\ 0)^\\top$ and a learning rate set to $\\alpha = 1$. You are given the following dataset:\n$$\\mathbf{x}_1 = (2\\ 1)^\\top,\\ t_1 = 1;\\quad \\mathbf{x}_2 = (1\\ -2)^\\top,\\ t_2 = -1;\\quad \\mathbf{x}_3 = (1\\ 3)^\\top,\\ t_3 = -1;\\quad \\mathbf{x}_4 = (-3\\ 2)^\\top,\\ t_4 = 1.$$\n1. Compute the vector $\\mathbf{w}$ once we run the gradient descent algorithm on the provided dataset once.\n2. Do you think that the computed $\\mathbf{w}$ is optimal for the given dataset?\n3. Can you tell if the perceptron training procedure would converge eventually?\n4. In general, given 4 distinct points with arbitrary labels in a 2D space, can they always be correctly classified by a perceptron?",
     "solution": "1. The online update prescribed by gradient descent is $w^{(k+1)} = w^{(k)} - \\alpha\\nabla L(w) = w^{(k)} + \\alpha x_n t_n$ when the prediction is wrong ($\\hat t_n \\neq t_n$). Therefore:\n- (a) $x_1$ correctly classified ($\\operatorname{sign}(x_1^\\top w) = \\operatorname{sign}((2\\ 1)(1\\ 0)^\\top) = \\operatorname{sign}(2) = 1 = t_1$): no update.\n- (b) $x_2$ misclassified ($\\operatorname{sign}(x_2^\\top w) = \\operatorname{sign}((1\\ -2)(1\\ 0)^\\top) = \\operatorname{sign}(1) = 1 \\neq t_2$): $w^{(1)} = (1\\ 0) + 1\\cdot(1\\ -2)(-1) = (0\\ 2)$.\n- (c) $x_3$ misclassified: $w^{(2)} = (0\\ 2) + 1\\cdot(1\\ 3)(-1) = (-1\\ -1)$.\n- (d) $x_4$ correctly classified: no update.\n2. Since the first sample is not yet correctly classified by the last vector $w^{(2)}$, convergence has not yet been achieved (so it is not optimal).\n3. Since the four points are not linearly separable (you should draw them to prove it), the procedure will not converge.\n4. NO: since the VC dimension of a linear classifier in 2D is 3, in general 4 points cannot be shattered by a perceptron in 2D.",
     "solutionSource": "exam"
@@ -154,7 +273,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following episode obtained by an agent interacting with an MDP having three states $\\mathcal{S} = \\{A,B,C\\}$ and two actions $\\mathcal{A} = \\{l,r\\}$:\n$$(A,l,1) \\to (C,l,2) \\to (A,r,0) \\to (B,r,5) \\to (B,l,0) \\to (C,l,-2) \\to (B,l,-2) \\to (A,r).$$\nConsider an initial state-action value $Q(s,a) = 0$ for every state-action pair, a learning rate $\\alpha = 0.5$, and a discount factor $\\gamma = 1$. Answer the following questions providing adequate motivations.\n1. Execute the Q-learning algorithm on the given episode (break ties using the first action listed in the action set).\n2. Execute the SARSA algorithm on the given episode.\n3. Provide the best policy according to the output of SARSA. Is it different from the one provided by Q-learning?",
     "solution": "1. The Q-learning update is $Q(s,a) \\leftarrow Q(s,a) + \\alpha(R + \\gamma\\max_{a'}Q(s',a') - Q(s,a))$:\n$$Q(A,l) = 0 + 0.5(1 + 1\\cdot 0 - 0) = 1/2$$\n$$Q(C,l) = 0 + 0.5(2 + 1\\cdot 0.5 - 0) = 5/4$$\n$$Q(A,r) = 0 + 0.5(0 + 1\\cdot 0 - 0) = 0$$\n$$Q(B,r) = 0 + 0.5(5 + 1\\cdot 0 - 0) = 5/2$$\n$$Q(B,l) = 0 + 0.5(0 + 1\\cdot 5/4 - 0) = 5/8$$\n$$Q(C,l) = 5/4 + 0.5(0 + 1\\cdot 5/2 - 5/4) = 15/8$$\n$$Q(B,l) = 5/8 + 0.5(-2 + 1\\cdot 1/2 - 5/8) = -7/16$$\n2. The SARSA update is $Q(s,a) \\leftarrow Q(s,a) + \\alpha(R + \\gamma Q(s',a') - Q(s,a))$, where $a'$ is the actually chosen next action:\n$$Q(A,l) = 0 + 0.5(1 + 1\\cdot 0 - 0) = 1/2$$\n$$Q(C,l) = 0 + 0.5(2 + 1\\cdot 0 - 0) = 1$$\n$$Q(A,r) = 0 + 0.5(0 + 1\\cdot 0 - 0) = 0$$\n$$Q(B,r) = 0 + 0.5(5 + 1\\cdot 0 - 0) = 5/2$$\n$$Q(B,l) = 0 + 0.5(0 + 1\\cdot 1 - 0) = 1/2$$\n$$Q(C,l) = 1 + 0.5(0 + 1\\cdot 1/2 - 1) = 3/4$$\n$$Q(B,l) = 1/2 + 0.5(-2 + 1\\cdot 0 - 1/2) = -3/4$$\n3. The policy prescribed by SARSA is: $A \\to l$, $B \\to r$, $C \\to l$. Q-learning would suggest $A \\to l$, $B \\to r$, $C \\to l$ as well. Therefore, their suggestions would be the same.",
     "solutionSource": "exam"

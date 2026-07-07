@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Describe **Support Vector Machines** (SVMs) for supervised classification problems. In particular explain how do they work, their strengths and weaknesses.",
     "solution": "**Idea.** An SVM is a linear classifier that, among all the hyperplanes separating two classes, chooses the one that **maximizes the margin**, i.e. the distance between the decision boundary and the closest training points. Maximizing the margin improves generalization and yields a unique solution.\n\n**Hard-margin formulation.** For linearly separable data with labels $y_i\\in\\{-1,+1\\}$, SVM solves $$\\min_{\\mathbf{w},b}\\tfrac12\\lVert\\mathbf{w}\\rVert^2 \\quad\\text{s.t.}\\quad y_i(\\mathbf{w}^\\top\\mathbf{x}_i+b)\\ge 1\\ \\forall i.$$ The points lying exactly on the margin ($y_i(\\mathbf{w}^\\top\\mathbf{x}_i+b)=1$) are the **support vectors**, and they alone determine the solution.\n\n**Soft margin.** When data are not separable (or noisy), slack variables $\\xi_i\\ge0$ are introduced: $$\\min_{\\mathbf{w},b,\\xi}\\tfrac12\\lVert\\mathbf{w}\\rVert^2 + C\\sum_i\\xi_i\\quad\\text{s.t.}\\quad y_i(\\mathbf{w}^\\top\\mathbf{x}_i+b)\\ge 1-\\xi_i.$$ The hyperparameter $C>0$ trades off margin width against classification errors.\n\n**Dual / kernels.** The problem can be written in dual form depending on the data only through inner products $\\mathbf{x}_i^\\top\\mathbf{x}_j$, which allows the **kernel trick**: replacing inner products with a kernel $k(\\mathbf{x}_i,\\mathbf{x}_j)$ lets SVM build non-linear boundaries (e.g. polynomial, RBF kernels).\n\n**Strengths.** Strong generalization via margin maximization; works well in high-dimensional spaces; sparse solution (only support vectors matter); flexible non-linear classification through kernels; convex optimization (global optimum).\n\n**Weaknesses.** Choice of kernel and tuning of $C$/kernel parameters is delicate; training scales poorly (roughly $O(N^2)$–$O(N^3)$) for large datasets; it is natively a binary classifier (multiclass needs one-vs-one/one-vs-rest); the output is not a calibrated probability; sensitive to feature scaling.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Describe the **PCA** technique and what it is used for.",
     "solution": "**What it is.** Principal Component Analysis (PCA) is an unsupervised linear technique for dimensionality reduction / feature extraction. It finds a new orthogonal basis (the principal components) such that the data, projected onto the first few components, retains as much of the original variance as possible.\n\n**Procedure.**\n1. **Center** the data by subtracting the empirical mean from each feature (and optionally standardize, since PCA is sensitive to feature scales).\n2. Compute the empirical **covariance matrix** $\\Sigma = \\tfrac1N X^\\top X$ (on centered data).\n3. Compute its **eigenvectors and eigenvalues** (equivalently, the SVD of $X$). The eigenvectors are the principal components; the corresponding eigenvalue is the variance explained along that direction.\n4. Sort components by decreasing eigenvalue and **keep the top $k$** of them; project the data onto these to get the reduced representation.\n\n**Choosing $k$.** Typically by requiring the cumulative explained variance to exceed a threshold (e.g. 95%), or by an \"elbow\" in the explained-variance curve.\n\n**What it is used for.** Reducing dimensionality (compression), removing redundancy / decorrelating features, denoising, visualization (project to 2–3 dimensions), and as a preprocessing step to speed up and regularize downstream learning, mitigating the curse of dimensionality.\n\n**Limitations.** It is linear (cannot capture non-linear structure unless kernelized — kernel PCA); it is unsupervised, so the directions of maximum variance need not be the most discriminative for a supervised task; and the resulting components are combinations of all original features, reducing interpretability.",
     "solutionSource": "authored"
@@ -33,7 +37,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following snippet of code:\n\n1. Describe the purpose of the procedure of line 1 and the purpose of the procedure of lines 3-8. Are they correct? If not, propose a correction.\n2. What is the main disadvantage of the procedure of line 1 compared to the one of lines 3-8?\n3. What happens to the two procedures when `gamma= 1`?",
     "code": {
       "language": "python",
@@ -43,36 +49,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220910-e4",
+    "id": "ML20220910-e4.1",
     "examId": "ML20220910",
     "date": "2022-09-10",
     "academicYear": "AA2122",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["modelsel"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Tell if the following statements about bias-variance trade-off are true or false. Motivate your answers. Consider a regression problem with input variables $x_1$, $x_2$, and $x_3$, that are linearly independent.",
     "subStatements": [
       {
-        "id": "ML20220910-e4-s1",
+        "id": "ML20220910-e4.1-s1",
         "statement": "In linear regression, if we replace variable $x_1$ with $x_1 + x_2$, we do not change the bias of the model.",
         "answer": true,
         "motivation": "Since the variables are linearly independent, the linear models representable with $\\{x_1, x_2, x_3\\}$ are the same as the one representable with $\\{x_1 + x_2, x_2, x_3\\}$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220910-e4.2",
+    "examId": "ML20220910",
+    "date": "2022-09-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements about bias-variance trade-off are true or false. Motivate your answers. Consider a regression problem with input variables $x_1$, $x_2$, and $x_3$, that are linearly independent.",
+    "subStatements": [
       {
-        "id": "ML20220910-e4-s2",
+        "id": "ML20220910-e4.2-s1",
         "statement": "In linear regression, if we replace variable $x_1$ with $x_1^2/100$, we might increase the variance of the model.",
         "answer": true,
         "motivation": "It might be the case that the variance is larger, since the linear models representable with $\\{x_1, x_2, x_3\\}$ are not comparable with the ones representable with $\\{x_1^2/100, x_2, x_3\\}$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220910-e4.3",
+    "examId": "ML20220910",
+    "date": "2022-09-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements about bias-variance trade-off are true or false. Motivate your answers. Consider a regression problem with input variables $x_1$, $x_2$, and $x_3$, that are linearly independent.",
+    "subStatements": [
       {
-        "id": "ML20220910-e4-s3",
+        "id": "ML20220910-e4.3-s1",
         "statement": "For an arbitrary model, if we remove variable $x_2$, we do not increase the variance of the model.",
         "answer": true,
         "motivation": "Regardless the used model, the space of representable models with a subset of the variables, i.e., $\\{x_1, x_3\\}$ is contained in the space of representable models with all the variables."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220910-e4.4",
+    "examId": "ML20220910",
+    "date": "2022-09-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements about bias-variance trade-off are true or false. Motivate your answers. Consider a regression problem with input variables $x_1$, $x_2$, and $x_3$, that are linearly independent.",
+    "subStatements": [
       {
-        "id": "ML20220910-e4-s4",
+        "id": "ML20220910-e4.4-s1",
         "statement": "For an arbitrary model, if we add variable $x_3^2$, we cannot increase the bias of the model.",
         "answer": true,
         "motivation": "Adding variables enlarges (or, possibly, leaves unchanged) the space of representable models."
@@ -82,36 +141,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220910-e5",
+    "id": "ML20220910-e5.1",
     "examId": "ML20220910",
     "date": "2022-09-10",
     "academicYear": "AA2122",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell if the following functions are valid kernels. Motivate your answers. Let $\\mathbf{x}, \\mathbf{y} \\in \\mathbb{R}^d$:",
     "subStatements": [
       {
-        "id": "ML20220910-e5-s1",
+        "id": "ML20220910-e5.1-s1",
         "statement": "$k_1(\\mathbf{x}, \\mathbf{y}) = \\mathbf{x}^T\\mathbf{y} + \\mathbf{x}^T\\mathbf{1} + \\mathbf{y}^T\\mathbf{1} + d$, where $\\mathbf{1} \\in \\mathbb{R}^d$ is the vector of all ones.",
         "answer": true,
         "motivation": "By definition, selecting $\\phi(\\mathbf{x}) = \\mathbf{x} + \\mathbf{1}$, we have $k_1(\\mathbf{x}, \\mathbf{y}) = \\phi(\\mathbf{x})^T\\phi(\\mathbf{y})$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220910-e5.2",
+    "examId": "ML20220910",
+    "date": "2022-09-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following functions are valid kernels. Motivate your answers. Let $\\mathbf{x}, \\mathbf{y} \\in \\mathbb{R}^d$:",
+    "subStatements": [
       {
-        "id": "ML20220910-e5-s2",
+        "id": "ML20220910-e5.2-s1",
         "statement": "$k_2(\\mathbf{x}, \\mathbf{y}) = \\mathbf{x}^T\\mathbf{y} - \\lVert\\mathbf{x}\\rVert^2$.",
         "answer": false,
         "motivation": "$k_2(\\mathbf{x}, \\mathbf{y})$ is not symmetric."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220910-e5.3",
+    "examId": "ML20220910",
+    "date": "2022-09-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following functions are valid kernels. Motivate your answers. Let $\\mathbf{x}, \\mathbf{y} \\in \\mathbb{R}^d$:",
+    "subStatements": [
       {
-        "id": "ML20220910-e5-s3",
+        "id": "ML20220910-e5.3-s1",
         "statement": "$k_3(\\mathbf{x}, \\mathbf{y}) = k_1(\\cos(\\mathbf{x}), \\cos(\\mathbf{y}))^3$, where the $\\cos(\\cdot)$ function is applied element-wise.",
         "answer": true,
         "motivation": "Since we are considering the same transformation $\\cos(\\cdot)$ applied to both arguments, then $(\\cdot)^3$ is a polynomial transformation with non-negative coefficients, and $k_1$ is a kernel."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220910-e5.4",
+    "examId": "ML20220910",
+    "date": "2022-09-10",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following functions are valid kernels. Motivate your answers. Let $\\mathbf{x}, \\mathbf{y} \\in \\mathbb{R}^d$:",
+    "subStatements": [
       {
-        "id": "ML20220910-e5-s4",
+        "id": "ML20220910-e5.4-s1",
         "statement": "$k_4(\\mathbf{x}, \\mathbf{y}) = \\exp(k_2(\\mathbf{x}, \\mathbf{y}) + k_2(\\mathbf{y}, \\mathbf{x}))$.",
         "answer": true,
         "motivation": "With simple computations, we obtain $$k_4(\\mathbf{x}, \\mathbf{y}) = \\exp(-k_2(\\mathbf{x}, \\mathbf{y}) + k_2(\\mathbf{y}, \\mathbf{x})) = \\exp(2\\mathbf{x}^T\\mathbf{y} - \\lVert\\mathbf{x}\\rVert^2 - \\lVert\\mathbf{y}\\rVert^2) = \\exp(-\\lVert\\mathbf{x} - \\mathbf{y}\\rVert^2)$$ that is the Gaussian kernel with $\\sigma^2 = \\frac{1}{2}$."
@@ -128,7 +240,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["classif", "linreg"],
+    "topics": [
+      "classif",
+      "linreg"
+    ],
     "prompt": "A pool has the problem that many customers are not wearing bathing caps, which is against the rules. The currently implemented method to prevent such a behaviour is that the lifeguards are checking the pool and notify to the person not wearing the bathing cap that she/he is in violation of the pool rules. However, this task is boring and prone to errors (lifeguards are commonly distracted by other issues). You are required to design a new system to automatically detect such a violation.\n\n1. Provide a solution to tell if at least one person is not wearing a bathing cap. Define the data you are required to collect, the type of problem you are solving and suggest a method that is suitable for the situation.\n2. Provide a solution if, instead, you want to count the number of people not wearing a bathing cap. Does this problem requires new data? Is it a different problem? Are you required to use a different technique?",
     "solution": "1. The solution would be to install a camera on the ceiling of the pool and use the images as input for a classifier. This process would require the acquisition of a dataset of images with the corresponding labels (there is someone in violation of the pool rules / everything is fine). A common way to solve classification problems involving images is to use CNN.\n\n2. In this case we would require a different label for the images. We need to couple each image with the number of people not wearing a bathing cap. In this case we are solving a regression problem. Assuming we are able to extract a set of meaningful features from the images, we might resort to any regression method (such as Linear Regression). Otherwise, we can still use CNN to solve the regression problem directly from the images.",
     "solutionSource": "exam"
@@ -141,7 +256,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Consider an initial parameter for a Linear Regression $\\mathbf{w}^{(0)} = [0\\ 1\\ 0]^\\top$ and a loss function of the form: $$J(\\mathbf{w}) = \\frac{1}{2N}\\sum_{n=1}^{N}(\\mathbf{w}^\\top\\mathbf{x}_n - t_n)^2,$$ where $N$ is the number of data.\n\n1. Given a learning rate of $\\alpha = 0.2$, derive the update given from the gradient descent algorithm to minimize the loss when it is applied to single data;\n2. Apply sequentially the above rule on the following dataset (one at a time): $$\\mathbf{x}_1 = [1\\ 3\\ 2]^\\top, t_1 = 4, \\quad \\mathbf{x}_2 = [1\\ 1\\ 1]^\\top, t_2 = 1, \\quad \\mathbf{x}_3 = [5\\ 10\\ 5]^\\top, t_3 = 14,$$\n3. Do we have any issue about using the gradient descend algorithm if we use the following loss function instead? $$J(\\mathbf{w}) = \\frac{1}{2N}\\sum_{n=1}^{N}|\\mathbf{w}^\\top\\mathbf{x}_n - t_n|$$",
     "solution": "1. The loss for a single data is $J(\\mathbf{w}) = \\frac{1}{2}(\\mathbf{w}^\\top\\mathbf{x}_n - t_n)^2$ and the gradient of the loss becomes $\\nabla J(\\mathbf{w}) = (\\mathbf{w}^\\top\\mathbf{x}_n - t_n)\\mathbf{x}_n$. The update of the gradient descent methods is then: $$\\mathbf{w}_{k+1} \\leftarrow \\mathbf{w}_k - \\alpha\\nabla J(\\mathbf{w}_k) = \\mathbf{w}_k - 0.2(\\mathbf{w}_k^\\top\\mathbf{x}_k - t_k)\\mathbf{x}_k$$\n\n2. Applying the rule sequentially:\n$$\\mathbf{w}_1 = [0, 1, 0]^\\top - 0.2\\cdot(-1)\\cdot[1, 3, 2]^\\top = [0.2, 1.6, 0.4]^\\top$$\n$$\\mathbf{w}_2 = [0.2, 1.6, 0.4]^\\top - 0.2\\cdot(1.2)\\cdot[1, 1, 1]^\\top = [-0.04, 1.36, 0.16]^\\top$$\n$$\\mathbf{w}_3 = [-0.04, 1.36, 0.16]^\\top - 0.2\\cdot(0.2)\\cdot[5, 10, 5]^\\top = [-0.24, 0.96, -0.04]^\\top$$\n\n3. Since the provided loss function has a gradient almost everywhere, we can apply such a strategy to find the optimal solution even in this case. The only issue is if we have parameter vectors s.t. $|\\mathbf{w}^\\top\\mathbf{x}_n - t_n| = 0$.",
     "solutionSource": "exam"
@@ -154,7 +271,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Suppose we collect data for a group of customers of a car insurance company with variables age $x_1$, number of accidents occurred so far $x_2$ and the probability to have a car accident in the next year $t$. We fit a logistic regression and produce estimated coefficients: $w_0 = -6$, $w_1 = 0.05$ and $w_2 = 0.5$.\n\n1. Compute the probability that a 20-years old customer who did 4 accidents will have a new accident in the next year (provide the formula and substitute the values, leave the calculations).\n2. How many accidents would a 30-years old customer need to have to have 50% chance of getting another one in the next year?\n3. Do you think that the parameters learned by the model are meaningful w.r.t. the problem it addresses?\n4. Do you think that this model is missing some crucial information about the customer? Do you need to retrain the model from scratch in the case you added a new variable $x_3$ to it?",
     "solution": "1. The probability is equal to: $$P(y = 1|\\mathbf{x}) = \\frac{1}{1 + e^{-(w_0 + w_1 x_1 + w_2 x_2)}} = \\frac{1}{1 + e^{-(-6 + 20\\cdot 0.05 + 4\\cdot 0.5)}} = \\frac{1}{1 + e^3}$$\n\n2. On the boundary of the Logistic Regression we have a 50% chance to get an accident in the next year, therefore: $$w_0 + w_1 x_1 + w_2 x_2 = 0 \\to -6 + 1.5 + 0.5\\, x_2 = 0 \\to x_2 = 9$$\n\n3. It seems to be correct that the more the accidents I had in the past the more the chance I will have a new accident. Conversely an increase of the age should decrease the chance of having an accident since drivers get skilled over time, reducing the chance of having a new accident.\n\n4. It seems that the features included are meaningful w.r.t. the problem solved. Probably we are missing the information about the amount of time the customer had the insurance, since old customers have more accidents only because they have a longer period over which they had the possibility to damage their car. Since there is no easy way of decoupling the loss function w.r.t. a single feature, one has to retrain everything from scratch.",
     "solutionSource": "exam"

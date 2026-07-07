@@ -6,60 +6,562 @@
     "academicYear": "AA1920",
     "exerciseNo": 1,
     "type": "theory-essay",
-    "topics": ["modelsel", "featsel", "ensemble", "linreg"],
+    "topics": [
+      "modelsel",
+      "featsel",
+      "ensemble",
+      "linreg"
+    ],
     "prompt": "Q1 (Model Selection). Answer the following questions about the bias-variance decomposition, model selection, and related topics. Motivate your answers.\n\n1. If your linear regression model underfits the training data, would you apply PCA to compute a more suitable feature space?\n2. If solving a regression problem the design matrix $(X^\\top X)$ is singular, would you apply PCA to solve this issue?\n3. You train a prediction model from a dataset of patients affected by one among 5 very different diseases (easily discriminated by the features). To reduce the number of features, would you apply PCA?\n4. A classifier fits the training data very well but underperforms on the validation set — would you apply Bagging or Boosting?\n5. A classifier trained with K-fold CV consistently performs poorly on both training and validation folds — Bagging or Boosting?\n6. You applied ridge regression with a rather large regularization coefficient — would bagging improve your model?\n7. Feature selection on a system with very limited computational resources — filter or wrapper?\n8. Feature selection to improve performance as much as possible — filter or wrapper?\n9. To rank features by importance — which feature-selection process?\n10. Linear regression from several sensor readings, some possibly faulty — which regression approach?\n11. OLS model whose validation error is much larger than training error (cannot change features or model) — what would you do?\n12. Choosing among models knowing only the training error (cannot retrain/evaluate) — what would you do?",
     "solution": "1. **NO** — if linear regression underfits, PCA features (linear combinations of inputs) will not solve the problem.\n2. **YES** — a singular design matrix is likely due to collinear features; apply PCA and keep the $K$ components with non-(near-)zero eigenvalues.\n3. **NO** — the dataset seems to contain several clusters, so PCA's representation is not very effective; also PCA does not guarantee the reduced set is best for prediction.\n4. **BAGGING** — it reduces variance (here we have low bias, high variance). Boosting reduces bias.\n5. **BOOSTING** — it reduces the bias of a stable learner without significantly increasing variance (the problem here).\n6. **NO** — ridge with a large coefficient is already very stable (limited variance), so bagging cannot exploit much.\n7. **FILTER** — a wrapper trains many models (expensive); filters only compute statistics on features.\n8. **WRAPPER** — filters assume feature independence and might miss the best subset.\n9. **FILTER** — compute a per-feature metric (e.g. correlation, information gain) and rank/select from most to least relevant.\n10. **LASSO** — it implicitly performs feature selection, getting rid of the faulty sensors.\n11. **REGULARIZATION** — reduce variance, e.g. Ridge regression; another option (if viable) is to increase the number of training samples.\n12. **ADJUSTED COMPLEXITY METRICS** — correct the training error by accounting for model complexity.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20200727-e2",
+    "id": "ML20200727-e2.1",
     "examId": "ML20200727",
     "date": "2020-07-27",
     "academicYear": "AA1920",
     "exerciseNo": 2,
     "type": "true-false-motivated",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20200727-e2-s1", "statement": "In a setting with Gaussian rewards we can use the UCB1 algorithm to have sublinear regret.", "answer": false, "motivation": "UCB1 is based on the Hoeffding inequality, which holds for limited-support (bounded) rewards." },
-      { "id": "ML20200727-e2-s2", "statement": "In the presence of prior information on the arms' rewards, we should use the EXP3 algorithm.", "answer": false, "motivation": "To exploit prior information the best option is a Bayesian algorithm — for MAB, Thompson Sampling. Moreover, in an adversarial setting there is no motivation to reuse past information since the reward is chosen by an opponent." },
-      { "id": "ML20200727-e2-s3", "statement": "In the case we do not know the nature of the MAB problem (stochastic or adversarial) it is a good idea to use the EXP3 algorithm.", "answer": true, "motivation": "The adversarial setting is a more general model than the stochastic one and is able to get a sublinear regret in both cases." },
-      { "id": "ML20200727-e2-s4", "statement": "An arm with a large upper confidence bound is likely to turn out to be the optimal one at the end of the MAB time horizon.", "answer": false, "motivation": "It might be that we have high uncertainty about its value but it turns out to have small expected reward." },
-      { "id": "ML20200727-e2-s5", "statement": "A MAB algorithm can be used in an MDP as long as the reward corresponding to the actions has the same distribution in every state.", "answer": true, "motivation": "Same reward distribution in each state is equivalent to a single state; assuming all actions are available in each state, a MAB algorithm (each arm = a policy) converges to the optimal one over a finite set." },
-      { "id": "ML20200727-e2-s6", "statement": "The Thompson Sampling algorithm can be applied only if we have Bernoulli rewards (success/failure).", "answer": false, "motivation": "In general we need a pair of conjugate distributions to make it work (during the course only the Bernoulli case was analysed)." },
-      { "id": "ML20200727-e2-s7", "statement": "The design of a MAB algorithm different from UCB1 might provide an expected pseudo-regret of order $\\log(\\log(T))$, $T$ being the time horizon.", "answer": false, "motivation": "This is prevented by the lower-bound theorem for the stochastic MAB setting, which provides a lower bound of order $\\log(T)$." },
-      { "id": "ML20200727-e2-s8", "statement": "An expert setting (e.g., weather forecasting) provides more information per round than the ones we have in a MAB setting.", "answer": true, "motivation": "In the expert setting we get feedback for each arm, unlike the MAB setting where feedback is only for the selected arm." },
-      { "id": "ML20200727-e2-s9", "statement": "The upper bound on the regret of UCB1 scales linearly with the number of arms.", "answer": true, "motivation": "The upper bound has a summation over the arms, so increasing the number of arms increases the regret linearly." },
-      { "id": "ML20200727-e2-s10", "statement": "There exist situations in which we are able to obtain a regret lower than the one prescribed by the lower bound for MAB.", "answer": true, "motivation": "The lower bound holds on average and on generic MAB problems; for specific realizations or specific settings we might get a smaller regret." },
-      { "id": "ML20200727-e2-s11", "statement": "It is generally a viable option to use an epsilon-greedy exploration strategy on a MAB setting.", "answer": true, "motivation": "True for the stochastic setting (an adversarial setting requires enough randomization). One may also accept FALSE, arguing there is no theoretical regret guarantee for such algorithms." },
-      { "id": "ML20200727-e2-s12", "statement": "The selection of the arm provided by Thompson Sampling is stochastic.", "answer": true, "motivation": "It relies on drawing a sample from a posterior distribution, hence it is intrinsically randomized." },
-      { "id": "ML20200727-e2-s13", "statement": "Since Thompson Sampling is a randomized algorithm, it can be used in an adversarial MAB setting.", "answer": false, "motivation": "The regret results we have for Thompson Sampling are only valid in the stochastic setting." }
+      {
+        "id": "ML20200727-e2.1-s1",
+        "statement": "In a setting with Gaussian rewards we can use the UCB1 algorithm to have sublinear regret.",
+        "answer": false,
+        "motivation": "UCB1 is based on the Hoeffding inequality, which holds for limited-support (bounded) rewards."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20200727-e3",
+    "id": "ML20200727-e2.2",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.2-s1",
+        "statement": "In the presence of prior information on the arms' rewards, we should use the EXP3 algorithm.",
+        "answer": false,
+        "motivation": "To exploit prior information the best option is a Bayesian algorithm — for MAB, Thompson Sampling. Moreover, in an adversarial setting there is no motivation to reuse past information since the reward is chosen by an opponent."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.3",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.3-s1",
+        "statement": "In the case we do not know the nature of the MAB problem (stochastic or adversarial) it is a good idea to use the EXP3 algorithm.",
+        "answer": true,
+        "motivation": "The adversarial setting is a more general model than the stochastic one and is able to get a sublinear regret in both cases."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.4",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.4-s1",
+        "statement": "An arm with a large upper confidence bound is likely to turn out to be the optimal one at the end of the MAB time horizon.",
+        "answer": false,
+        "motivation": "It might be that we have high uncertainty about its value but it turns out to have small expected reward."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.5",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.5-s1",
+        "statement": "A MAB algorithm can be used in an MDP as long as the reward corresponding to the actions has the same distribution in every state.",
+        "answer": true,
+        "motivation": "Same reward distribution in each state is equivalent to a single state; assuming all actions are available in each state, a MAB algorithm (each arm = a policy) converges to the optimal one over a finite set."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.6",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.6-s1",
+        "statement": "The Thompson Sampling algorithm can be applied only if we have Bernoulli rewards (success/failure).",
+        "answer": false,
+        "motivation": "In general we need a pair of conjugate distributions to make it work (during the course only the Bernoulli case was analysed)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.7",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.7-s1",
+        "statement": "The design of a MAB algorithm different from UCB1 might provide an expected pseudo-regret of order $\\log(\\log(T))$, $T$ being the time horizon.",
+        "answer": false,
+        "motivation": "This is prevented by the lower-bound theorem for the stochastic MAB setting, which provides a lower bound of order $\\log(T)$."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.8",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.8-s1",
+        "statement": "An expert setting (e.g., weather forecasting) provides more information per round than the ones we have in a MAB setting.",
+        "answer": true,
+        "motivation": "In the expert setting we get feedback for each arm, unlike the MAB setting where feedback is only for the selected arm."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.9",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.9-s1",
+        "statement": "The upper bound on the regret of UCB1 scales linearly with the number of arms.",
+        "answer": true,
+        "motivation": "The upper bound has a summation over the arms, so increasing the number of arms increases the regret linearly."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.10",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.10-s1",
+        "statement": "There exist situations in which we are able to obtain a regret lower than the one prescribed by the lower bound for MAB.",
+        "answer": true,
+        "motivation": "The lower bound holds on average and on generic MAB problems; for specific realizations or specific settings we might get a smaller regret."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.11",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.11-s1",
+        "statement": "It is generally a viable option to use an epsilon-greedy exploration strategy on a MAB setting.",
+        "answer": true,
+        "motivation": "True for the stochastic setting (an adversarial setting requires enough randomization). One may also accept FALSE, arguing there is no theoretical regret guarantee for such algorithms."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.12",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.12-s1",
+        "statement": "The selection of the arm provided by Thompson Sampling is stochastic.",
+        "answer": true,
+        "motivation": "It relies on drawing a sample from a posterior distribution, hence it is intrinsically randomized."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e2.13",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e2.13-s1",
+        "statement": "Since Thompson Sampling is a randomized algorithm, it can be used in an adversarial MAB setting.",
+        "answer": false,
+        "motivation": "The regret results we have for Thompson Sampling are only valid in the stochastic setting."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.1",
     "examId": "ML20200727",
     "date": "2020-07-27",
     "academicYear": "AA1920",
     "exerciseNo": 3,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20200727-e3-s1", "statement": "You split the dataset in three equal parts and train three equivalent linear models on the splits. The parameters are very similar across models, but you get large training errors. In this case, employing a kernel method would NOT help.", "answer": false, "motivation": "The description suggests low variance and high bias, thus employing a kernel method might help." },
-      { "id": "ML20200727-e3-s2", "statement": "You face a regression problem on a dataset with $N$ samples and $M = N^2$ features. It is likely that the dual representation of linear regression would be more efficient than the primal one.", "answer": true, "motivation": "The dual representation requires inverting an $N\\times N$ matrix, while the primal requires inverting an $M\\times M$ matrix." },
-      { "id": "ML20200727-e3-s3", "statement": "The kernel trick allows dealing with complex classification problems by reducing the dimensionality of the feature space.", "answer": false, "motivation": "The kernel trick allows implicit computation of a high-dimensional scalar product; it is not a dimensionality-reduction technique." },
-      { "id": "ML20200727-e3-s4", "statement": "Consider $k(x,x') = \\exp(c_1 k_1(x,x') + c_2 k_2(x,x'))$, where $k_1, k_2$ are valid kernels. We can say $k$ represents a scalar product in some, possibly high-dimensional, feature space.", "answer": true, "motivation": "Under the assumption $c_1, c_2 > 0$, $k$ is a valid kernel obtainable from $k_1, k_2$ via common composition rules (linear combination and exponential), so it represents a scalar product between implicit feature vectors." },
-      { "id": "ML20200727-e3-s5", "statement": "Having trained a soft-margin SVM, any point associated with a parameter greater than zero is correctly classified by the SVM.", "answer": false, "motivation": "Every point with a parameter greater than zero is a support vector, but in a soft-margin SVM it can be either correctly classified or misclassified." },
-      { "id": "ML20200727-e3-s6", "statement": "Both logistic regression and an SVM are suitable for a non-separable classification problem, but the resulting separating hyper-planes will likely be different.", "answer": true, "motivation": "Their objective functions differ (maximum likelihood for logistic regression vs margin maximization for SVM), so the hyper-planes are not guaranteed to be equal." },
-      { "id": "ML20200727-e3-s7", "statement": "For a non-separable classification problem it is a good idea to use a soft-margin SVM; especially, by setting a large value for $C$ you reduce the variance at the expense of some bias.", "answer": false, "motivation": "$C$ controls the penalization for misclassified samples: the larger $C$, the less misclassification we allow, and the less we reduce variance." },
-      { "id": "ML20200727-e3-s8", "statement": "Like any memory-based method (e.g. k-NN), an SVM is lightning fast in training but fairly slow in prediction.", "answer": false, "motivation": "SVM training scales with the cube of the number of samples in the general case; being a sparse kernel method, it is usually fast in prediction." },
-      { "id": "ML20200727-e3-s9", "statement": "If we train a hard-margin SVM over a linearly separable dataset, we cannot get any point inside the margins during the prediction phase.", "answer": false, "motivation": "We will not have points inside the margin in the training phase, but we cannot control what happens on new data points (prediction phase)." },
-      { "id": "ML20200727-e3-s10", "statement": "To address a 4-class classification problem with a one-against-one multi-class SVM, we have to train exactly 6 single SVMs.", "answer": true, "motivation": "With one-against-one, $k(k-1)/2$ models are required, where $k$ is the number of classes: $4\\cdot 3/2 = 6$." },
-      { "id": "ML20200727-e3-s11", "statement": "To train general kernel methods, it is probably a good idea to focus on larger storage capabilities than computational power.", "answer": true, "motivation": "Kernel methods usually require storing all the training set to perform predictions, while computing kernel functions is unlikely to be particularly demanding." },
-      { "id": "ML20200727-e3-s12", "statement": "You are solving a non-separable problem with a linear model with poor performance, but you can see a higher-dimensional feature space where the problem is linearly separable. Thus it is a good choice to employ a kernel method.", "answer": false, "motivation": "If you can see a feature space where the problem is linearly separable, it is probably better to train your model in that space directly. (However, if the explicit computation of the features is expensive, the kernel trick can be used to avoid it while expanding the feature space.)" }
+      {
+        "id": "ML20200727-e3.1-s1",
+        "statement": "You split the dataset in three equal parts and train three equivalent linear models on the splits. The parameters are very similar across models, but you get large training errors. In this case, employing a kernel method would NOT help.",
+        "answer": false,
+        "motivation": "The description suggests low variance and high bias, thus employing a kernel method might help."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.2",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.2-s1",
+        "statement": "You face a regression problem on a dataset with $N$ samples and $M = N^2$ features. It is likely that the dual representation of linear regression would be more efficient than the primal one.",
+        "answer": true,
+        "motivation": "The dual representation requires inverting an $N\\times N$ matrix, while the primal requires inverting an $M\\times M$ matrix."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.3",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.3-s1",
+        "statement": "The kernel trick allows dealing with complex classification problems by reducing the dimensionality of the feature space.",
+        "answer": false,
+        "motivation": "The kernel trick allows implicit computation of a high-dimensional scalar product; it is not a dimensionality-reduction technique."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.4",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.4-s1",
+        "statement": "Consider $k(x,x') = \\exp(c_1 k_1(x,x') + c_2 k_2(x,x'))$, where $k_1, k_2$ are valid kernels. We can say $k$ represents a scalar product in some, possibly high-dimensional, feature space.",
+        "answer": true,
+        "motivation": "Under the assumption $c_1, c_2 > 0$, $k$ is a valid kernel obtainable from $k_1, k_2$ via common composition rules (linear combination and exponential), so it represents a scalar product between implicit feature vectors."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.5",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.5-s1",
+        "statement": "Having trained a soft-margin SVM, any point associated with a parameter greater than zero is correctly classified by the SVM.",
+        "answer": false,
+        "motivation": "Every point with a parameter greater than zero is a support vector, but in a soft-margin SVM it can be either correctly classified or misclassified."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.6",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.6-s1",
+        "statement": "Both logistic regression and an SVM are suitable for a non-separable classification problem, but the resulting separating hyper-planes will likely be different.",
+        "answer": true,
+        "motivation": "Their objective functions differ (maximum likelihood for logistic regression vs margin maximization for SVM), so the hyper-planes are not guaranteed to be equal."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.7",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.7-s1",
+        "statement": "For a non-separable classification problem it is a good idea to use a soft-margin SVM; especially, by setting a large value for $C$ you reduce the variance at the expense of some bias.",
+        "answer": false,
+        "motivation": "$C$ controls the penalization for misclassified samples: the larger $C$, the less misclassification we allow, and the less we reduce variance."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.8",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.8-s1",
+        "statement": "Like any memory-based method (e.g. k-NN), an SVM is lightning fast in training but fairly slow in prediction.",
+        "answer": false,
+        "motivation": "SVM training scales with the cube of the number of samples in the general case; being a sparse kernel method, it is usually fast in prediction."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.9",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.9-s1",
+        "statement": "If we train a hard-margin SVM over a linearly separable dataset, we cannot get any point inside the margins during the prediction phase.",
+        "answer": false,
+        "motivation": "We will not have points inside the margin in the training phase, but we cannot control what happens on new data points (prediction phase)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.10",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.10-s1",
+        "statement": "To address a 4-class classification problem with a one-against-one multi-class SVM, we have to train exactly 6 single SVMs.",
+        "answer": true,
+        "motivation": "With one-against-one, $k(k-1)/2$ models are required, where $k$ is the number of classes: $4\\cdot 3/2 = 6$."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.11",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.11-s1",
+        "statement": "To train general kernel methods, it is probably a good idea to focus on larger storage capabilities than computational power.",
+        "answer": true,
+        "motivation": "Kernel methods usually require storing all the training set to perform predictions, while computing kernel functions is unlikely to be particularly demanding."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200727-e3.12",
+    "examId": "ML20200727",
+    "date": "2020-07-27",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3 (Kernel / SVM). Tell if the following statements about Kernel Methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200727-e3.12-s1",
+        "statement": "You are solving a non-separable problem with a linear model with poor performance, but you can see a higher-dimensional feature space where the problem is linearly separable. Thus it is a good choice to employ a kernel method.",
+        "answer": false,
+        "motivation": "If you can see a feature space where the problem is linearly separable, it is probably better to train your model in that space directly. (However, if the explicit computation of the features is expensive, the kernel trick can be used to avoid it while expanding the feature space.)"
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -71,7 +573,9 @@
     "academicYear": "AA1920",
     "exerciseNo": 4,
     "type": "code-interpretation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Q4 (Code Interpretation - RL). The code snippet below implements the update loop of a well-known algorithm (a random choice between Q-learning and SARSA, shown below). Tell if the following statements are true or false and provide adequate motivations.\n\n- Describe the content of the lines provided in the snippet.\n- The purpose of the reported algorithm is to get a reliable evaluation of the Q function for the considered policy.\n- The higher we set the value of alpha in line 4-5, the faster the algorithm will converge.\n- With a sufficiently large value for I, the reported algorithm is guaranteed to converge to the optimal policy.\n- If we substitute the epsilon-greedy policy with any other stochastic policy ensuring sufficient exploration to all the possible actions the reported update loop would make sense as well.\n- The epsilon parameter allows to control the exploration-exploitation trade-off. Especially, the lower the value of epsilon, the more exploration we have.\n- The update rule in line 4-5 is inspired by the Bellman expectation equation.\n- If we would like to employ Monte-Carlo estimation in the update rule, we just need to substitute the term within the parenthesis in line 5 with the return.",
     "code": {
       "language": "matlab",
@@ -87,7 +591,9 @@
     "academicYear": "AA1920",
     "exerciseNo": 5,
     "type": "numerical-computation",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Q5 (Hypothesis Space Computation). Consider the questions below (answered here for Version A).\n\n1. What is the cardinality of $\\mathcal{H}$?\n2. How many samples $N$ are necessary to guarantee that, with a probability at least of 0.99, the error of a consistent hypothesis (i.e., in the version space) is not greater than 0.05? Recall that $\\Pr(\\exists h \\in \\mathcal{H} : \\text{error}_D(h) = 0 \\text{ and } \\text{error}_{true}(h) \\ge \\epsilon) \\le |\\mathcal{H}| e^{-\\epsilon N}$.\n3. If we assume the training error is not zero (i.e., we are in an agnostic learning setting), do we need less or more samples than the ones computed in (2) to guarantee that, with a probability at least of 0.99, the true error does not exceed the training error of more than 0.1?\n4. Can you explain what would have changed if the cardinality of hypothesis space had been infinite instead (no computations are required)?\n\n**Version A.** Consider a classification problem in which the instance space is $X = \\langle x_1, x_2, x_3, x_4, x_5 \\rangle$ where each $x_i$ is a boolean variable. Consider also a hypothesis space $\\mathcal{H}$ composed by rules of the following form: if ($x_1 = a_1$ or $x_2 = a_2$ or $x_3 = a_3$ or $x_4 = a_4$ or $x_5 = a_5$) then $y = 1$, otherwise $y = 0$, where $a_1, a_2, \\ldots, a_5$ are parameters, defined for each hypothesis in the space, which can only be equal to 0 or 1.",
     "solution": "**1)** Since, for each of the hypothesis there are 5 predicates connected by a boolean OR, and each of the predicate can assume two different meanings based on the value of its constant $a_i$, the cardinality of $\\mathcal{H}$ is:\n$$|\\mathcal{H}| = 2^5 = 32$$\n\n**2)** If the learner is consistent, we can compute the value of $N$ using the corresponding bound:\n$$N \\ge \\frac{1}{\\epsilon} \\left( \\ln(|\\mathcal{H}|) + \\ln\\left(\\frac{1}{\\delta}\\right) \\right) = 20 \\cdot (5\\ln 2 + 2\\ln 2 + 2\\ln 5) \\approx 162$$\n\n**3)** In the agnostic learning case we can compute the bound using the corresponding bound: $N \\ge \\frac{1}{2\\epsilon^2} \\left( \\ln(|\\mathcal{H}|) + \\ln\\left(\\frac{1}{\\delta}\\right) \\right)$, therefore it would require a larger number of samples even as doubling $\\epsilon$ (as in the agnostic bound it compares squared at the denominator).\n\n**4)** If the Hypothesis space is infinite, then, for the consistent case, an alternative bound is available, in which the VC-dimension of $\\mathcal{H}$ is used instead of its cardinality. This bound is:\n$$N \\ge \\frac{1}{\\epsilon} \\left( 8 \\cdot VC(\\mathcal{H}) \\cdot \\log_2\\left(\\frac{13}{\\epsilon}\\right) + 4 \\log_2\\left(\\frac{2}{\\delta}\\right) \\right)$$",
     "solutionSource": "exam"
@@ -99,7 +605,10 @@
     "academicYear": "AA1920",
     "exerciseNo": 6,
     "type": "numerical-computation",
-    "topics": ["classif", "modeleval"],
+    "topics": [
+      "classif",
+      "modeleval"
+    ],
     "prompt": "Q6 (Kernel KNN). A KNN classifier classifies a new data point by applying a majority voting among its K-Nearest Neighbour.\n\n1. Classify the new point according to a KNN classifier trained on the dataset reported below (Version A), assuming $K = 3$ and using the euclidean distance.\n2. What happens if we use $K = 10$ instead? Do you think it is a good idea to choose such a parameter (hint: two pros if it is a good idea or two cons if it is not)?\n3. Suggest a technique to set the parameter $K$.\n\n**Version A — Training Points:**\n$x_0 = (-2, -3, 0), y_0 = 1$; $x_1 = (-2, 2, 1), y_1 = 1$; $x_2 = (-2, -1, -3), y_2 = 1$; $x_3 = (2, 1, -3), y_3 = 1$; $x_4 = (2, -3, 2), y_4 = 1$; $x_5 = (1, 2, 1), y_5 = 0$; $x_6 = (-1, 1, -2), y_6 = 0$; $x_7 = (-1, 2, 2), y_7 = 1$; $x_8 = (1, -2, 0), y_8 = 0$; $x_9 = (-3, -3, -2), y_9 = 1$.\n**New Point:** $x = (0, 0, -1)$.",
     "solution": "**1) Using $K = 3$** (euclidean distances to the new point $x = (0,0,-1)$):\n$$d(x, x_6) = \\sqrt{1+1+1} = \\sqrt{3} \\approx 1.73, \\; y_6 = 0$$\n$$d(x, x_8) = \\sqrt{1+4+1} = \\sqrt{6} \\approx 2.45, \\; y_8 = 0$$\n$$d(x, x_2) = \\sqrt{4+1+4} = \\sqrt{9} = 3.0, \\; y_2 = 1$$\nThe three nearest neighbours have labels $\\{0, 0, 1\\}$ so the majority vote gives **KNN Classification: 0** (Actual Value: 0).\n\n**2) Using $K = 10$:** the classification becomes **1** (Actual Value: 0). It is not a good idea since in this case we would have exactly the same results for each new datapoint (with $K$ equal to the number of training samples, the prediction is always the global majority class). Moreover, in general, it is a good practice to select an odd value for the $K$ parameter to avoid ties.\n\n**3)** We can use cross-validation (k-fold) to select the $K$ having the lowest expected error.",
     "solutionSource": "exam"

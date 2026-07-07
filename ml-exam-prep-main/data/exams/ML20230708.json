@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["modelsel"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Beginning with the expected squared error of a regression model, outline the steps that lead to the Bias-Variance Decomposition of this error, providing the resulting equations. Then, briefly discuss the intuitive meaning behind each term in the final decomposition.",
     "solution": "**Setting.** Assume data are generated as $t = f(x) + \\varepsilon$ with noise $\\varepsilon$ of zero mean and variance $\\sigma^2$. A learning algorithm trained on a random dataset $\\mathcal{D}$ produces a model $\\hat f_{\\mathcal{D}}(x)$. We study the expected squared error at a point $x$, taking expectation over the noise and over the random training set $\\mathcal{D}$.\n\n**Derivation.** Consider $\\mathbb{E}\\big[(t - \\hat f(x))^2\\big]$. Add and subtract the average prediction $\\bar f(x) = \\mathbb{E}_{\\mathcal{D}}[\\hat f_{\\mathcal{D}}(x)]$ and the true function $f(x)$, then expand. The cross terms vanish in expectation (noise is independent of the model and has zero mean; $\\hat f - \\bar f$ has zero mean over $\\mathcal{D}$), leaving three terms:\n$$\\mathbb{E}\\big[(t - \\hat f(x))^2\\big] = \\underbrace{\\big(f(x) - \\bar f(x)\\big)^2}_{\\text{Bias}^2} + \\underbrace{\\mathbb{E}_{\\mathcal{D}}\\big[(\\hat f_{\\mathcal{D}}(x) - \\bar f(x))^2\\big]}_{\\text{Variance}} + \\underbrace{\\sigma^2}_{\\text{Irreducible noise}}.$$\n\n**Intuitive meaning.**\n- **Bias$^2$:** how far the *average* model is from the true function — the systematic error due to the model being too simple/restrictive (underfitting).\n- **Variance:** how much the model's prediction fluctuates around its average as the training set changes — sensitivity to the particular data sample (overfitting).\n- **Irreducible noise** $\\sigma^2$: the intrinsic variability of the data that no model can remove.\n\nReducing model complexity lowers variance but raises bias and vice versa: the bias–variance trade-off, which is minimized at intermediate complexity.",
     "solutionSource": "authored"
@@ -20,7 +22,10 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl", "mab"],
+    "topics": [
+      "rl",
+      "mab"
+    ],
     "prompt": "Explain what is an $\\epsilon$-greedy policy and why it is useful in Reinforcement Learning.",
     "solution": "**Definition.** An $\\epsilon$-greedy policy is a simple strategy for balancing exploration and exploitation. At each step, with probability $1-\\epsilon$ it selects the *greedy* action (the one with the highest current value estimate, $\\arg\\max_a Q(s,a)$), and with probability $\\epsilon$ it selects a random action uniformly among all available actions:\n$$\\pi(a\\mid s) = \\begin{cases} 1-\\epsilon + \\epsilon/|\\mathcal{A}| & a = \\arg\\max_{a'} Q(s,a') \\\\ \\epsilon/|\\mathcal{A}| & \\text{otherwise.} \\end{cases}$$\n\n**Why it is useful.** In RL the agent must learn from its own experience, so it faces the **exploration–exploitation dilemma**: exploiting current knowledge maximizes immediate reward, but without exploration the agent may never discover better actions and can get stuck in a sub-optimal policy. The $\\epsilon$ term guarantees that **every action keeps being tried** with non-zero probability, so the value estimates of all actions keep improving and the agent can escape local optima. It is trivial to implement and works with model-free methods such as Q-learning and SARSA.\n\n**Practical note.** $\\epsilon$ is often **decayed** over time (large at the start for exploration, shrinking toward 0 as estimates become reliable), which lets the policy converge toward the purely greedy (optimal) one while still guaranteeing sufficient exploration early on (GLIE condition).",
     "solutionSource": "authored"
@@ -33,7 +38,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["classif", "modeleval"],
+    "topics": [
+      "classif",
+      "modeleval"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. Describe the operations executed and the purpose (which problem and which method has been used) of the snippet reported above.\n2. Interpret the operation that is performed at line 13. Can you say something about the recall of `pred3` compared to the recall of `pred1`? Motivate your answer.\n3. Can any of the two models employed in the snippet be used for augmenting the available data with artificially generated samples? Motivate your answer.",
     "code": {
       "language": "python",
@@ -43,36 +51,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230708-e4",
+    "id": "ML20230708-e4.1",
     "examId": "ML20230708",
     "date": "2023-07-08",
     "academicYear": "AA2223",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["featsel", "linreg", "modelsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Tell if the following properties are typical of filter feature selection, PCA, Lasso, or none of them. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20230708-e4-s1",
+        "id": "ML20230708-e4.1-s1",
         "statement": "It increases the bias of the model.",
         "answer": true,
         "motivation": "All of them (PCA if a strict subset of the principal components is considered). All these model selection techniques aim at trading off a reduction of the variance at the price of increasing the bias of the model."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230708-e4.2",
+    "examId": "ML20230708",
+    "date": "2023-07-08",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Tell if the following properties are typical of filter feature selection, PCA, Lasso, or none of them. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230708-e4-s2",
+        "id": "ML20230708-e4.2-s1",
         "statement": "It provides features that are different from the original ones.",
         "answer": true,
         "motivation": "PCA. All other methods perform a form of feature selection identifying a subset of the original features; instead, PCA is a feature extraction method that provides novel features that are linear combinations of the original ones."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230708-e4.3",
+    "examId": "ML20230708",
+    "date": "2023-07-08",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Tell if the following properties are typical of filter feature selection, PCA, Lasso, or none of them. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230708-e4-s3",
+        "id": "ML20230708-e4.3-s1",
         "statement": "It is embedded into the training loss.",
         "answer": true,
         "motivation": "Lasso. It is a regularization technique which alters the training loss by introducing a regularizer (the $\\ell_1$ penalty)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230708-e4.4",
+    "examId": "ML20230708",
+    "date": "2023-07-08",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Tell if the following properties are typical of filter feature selection, PCA, Lasso, or none of them. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230708-e4-s4",
+        "id": "ML20230708-e4.4-s1",
         "statement": "It can be applied in combination to linear regression only.",
         "answer": false,
         "motivation": "It applies to none of them as stated. Filter feature selection and PCA are applied before training, irrespective of the model. Note that, even if we only saw Lasso for the regression problem, it can be applied also to any parametric model (regression or classification)."
@@ -89,42 +150,97 @@
     "exerciseNo": 5,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "We are the manager of a football team and we are planning the players to buy and sell to create the next year team. The process of bargaining between teams to conclude a purchase is a process where, in a sequence, we propose an offer (a mix of money and other players for a specific player) and the counterpart decides to accept the offer, refuse it and continue bargaining or refuse it and stop the bargaining process.\n1. Define the type of data one might consider when modeling this process (input, output, state, action, reward, etc.).\n2. Tell which problem is the one of evaluating the performance of the bargaining strategy of the previous season. Suggest a method to solve this problem.\n3. Can we use the same approach if we want to find the most appropriate way to maximize the value obtained from the bargain process? If not, tell which problem we are facing and propose a method to solve it.",
     "solution": "1. The problem is a sequential decision problem that can be modeled as an **MDP**. The states are represented by the current situation of the team (players already in the team and available money for transfers), the actions are the different offers for the players of other teams, the rewards are positive if we close a deal, zero if we continue the bargain and negative if the bargain is stopped, the transitions are stochastic (assuming that the managers of the other teams are not changing their behaviour over time), the discount factor can be set to 1 since we assume that the episodes end at some point, and the initial distribution is the initial amount of money and the current team.\n2. In this case, we are facing an **RL prediction problem**, where we would like to have the cumulated value of a specific strategy for each one of the different states. In this setting, we might use MC or TD.\n3. In this case, we are facing an **RL control problem**, since the target is the optimization of the optimal strategy. In this setting, we can resort to Q-learning or SARSA.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230708-e6",
+    "id": "ML20230708-e6.1",
     "examId": "ML20230708",
     "date": "2023-07-08",
     "academicYear": "AA2223",
     "exerciseNo": 6,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Tell if the following statements are true for the UCB1 and/or Thompson Sampling (TS) algorithms. Properly motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20230708-e6-s1",
+        "id": "ML20230708-e6.1-s1",
         "statement": "It is able to include prior information on the MAB problem we are solving.",
         "answer": true,
         "motivation": "TS: being a Bayesian algorithm, it is able to incorporate prior information by changing the shape of the initial prior distribution on the expected rewards. (UCB1 cannot.)"
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230708-e6.2",
+    "examId": "ML20230708",
+    "date": "2023-07-08",
+    "academicYear": "AA2223",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements are true for the UCB1 and/or Thompson Sampling (TS) algorithms. Properly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230708-e6-s2",
+        "id": "ML20230708-e6.2-s1",
         "statement": "Can be applied if the rewards provided by pulling arms are unbounded.",
         "answer": false,
         "motivation": "NONE: UCB1 requires that the rewards are over a finite support, and in lectures we only presented the version of TS that requires rewards drawn from a Bernoulli distribution. Extensions for unbounded rewards exist for both methods but were not presented in the course."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230708-e6.3",
+    "examId": "ML20230708",
+    "date": "2023-07-08",
+    "academicYear": "AA2223",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements are true for the UCB1 and/or Thompson Sampling (TS) algorithms. Properly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230708-e6-s3",
+        "id": "ML20230708-e6.3-s1",
         "statement": "Effectively solves online RL problems with a single state.",
         "answer": true,
         "motivation": "BOTH: the MAB setting is equivalent to the definition of an RL problem with a single state and a finite time horizon $T$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230708-e6.4",
+    "examId": "ML20230708",
+    "date": "2023-07-08",
+    "academicYear": "AA2223",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements are true for the UCB1 and/or Thompson Sampling (TS) algorithms. Properly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230708-e6-s4",
+        "id": "ML20230708-e6.4-s1",
         "statement": "Solves the exploration/exploitation dilemma using the *optimism in the face of uncertainty* principle.",
         "answer": true,
         "motivation": "UCB1: it uses upper confidence bounds over the expected reward estimates to avoid converging on locally optimal arms (optimism in the face of uncertainty). TS instead uses posterior sampling."
@@ -141,7 +257,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a soft-margin linear SVM classifier trained on a non-linearly separable dataset, leading to the weight vector $\\mathbf{w} = (-2, 1)^\\top$ and constant $b = -1$. Address the following questions motivating your answers.\n1. Draw the decision boundary and the margins.\n2. Let $\\mathbf{x} = (-3, 1)^\\top$ be a training point belonging to the negative class. Is it correctly classified? Tell which of the following conditions of the slack variable $\\xi$ of point $\\mathbf{x}$ is correct: $\\xi = 0$, $\\xi > 1$, or $0 < \\xi < 1$. Why?\n3. Can you suggest a method to reduce the number of points misclassified by the SVM?",
     "solution": "1. A point $\\mathbf{x} = (x_1, x_2)^\\top$ lies on the decision boundary if $\\mathbf{w}^\\top\\mathbf{x} + b = 0 \\implies -2x_1 + x_2 - 1 = 0 \\implies x_2 = 2x_1 + 1$. It lies within the margin if $|\\mathbf{w}^\\top\\mathbf{x} + b| < 1 \\implies |-2x_1 + x_2 - 1| < 1 \\implies 2x_1 < x_2 < 2x_1 + 2$.\n2. We have $\\mathbf{w}^\\top\\mathbf{x} + b = (-2)(-3) + (1)(1) - 1 = 6 + 1 - 1 = 6 > 0$. The SVM classifies the point as belonging to the **positive** class. Thus, the point is **not** correctly classified (it is negative). To satisfy the soft constraint with $t = -1$: $t(\\mathbf{w}^\\top\\mathbf{x} + b) \\ge 1 - \\xi \\implies -6 \\ge 1 - \\xi$, so it must hold that $\\xi \\ge 7$. Thus, the compatible condition is $\\xi > 1$.\n3. A possible technique is to use a non-linear kernel, e.g., a Gaussian kernel. In addition, changing the value of the hyperparameter $C$ in the loss function can lead to a reduction of the number of misclassified points.",
     "solutionSource": "exam"
@@ -154,7 +272,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Consider the hypothesis space $\\mathcal{H}$ made of the union of two closed intervals on $\\mathbb{R}$, i.e., $[a,b]\\cup[c,d]$. Address the following questions motivating your answers.\n1. If $VC(\\mathcal{H}) = 4$, provide a PAC bound for the true error holding with probability $1 - 4e^{-5}$, knowing that the training loss is $L_{train} = 0.3$ that is obtained with $N = 100$ samples. (Note that $\\log(200/4) \\approx 4$.)\n2. Prove that $VC(\\mathcal{H}) \\ge 4$.\n3. Prove that $VC(\\mathcal{H}) < 5$.",
     "solution": "1. By applying the learning theory bound for infinite hypothesis spaces with $\\delta = 4e^{-5}$:\n$$L_{true} \\le L_{train} + \\sqrt{\\frac{VC(\\mathcal{H})\\log\\frac{2Ne}{VC(\\mathcal{H})} + \\log\\frac{4}{\\delta}}{N}} = 0.3 + \\sqrt{\\frac{4\\log\\frac{200e}{4} + \\log(e^5)}{100}} \\approx 0.3 + \\sqrt{\\frac{25}{100}} = 0.8.$$\n(Here $\\log\\frac{200e}{4} = \\log\\frac{200}{4} + 1 \\approx 4 + 1 = 5$, so the numerator is $4\\cdot 5 + 5 = 25$.)\n2. By enumerating all possible dichotomies of a set of 4 instances, one can show every labeling is realizable by a union of two intervals, so $VC(\\mathcal{H}) \\ge 4$ (a union of two intervals can isolate up to 4 alternating points).\n3. Consider any set of 5 instances $\\{x_1, x_2, x_3, x_4, x_5\\}$. If at least two of the points overlap, without loss of generality consider $x_1 = x_2$; then we consider the dichotomy in which $t_1 \\neq t_2$, for which no consistent classifier can be found. Otherwise, assume without loss of generality $x_1 < x_2 < x_3 < x_4 < x_5$ and assign the dichotomy $t_1 = t_3 = t_5 = +$ and $t_2 = t_4 = -$, for which no consistent classifier can be found (it would require three separate positive intervals). Hence $VC(\\mathcal{H}) < 5$.",
     "solutionSource": "exam"

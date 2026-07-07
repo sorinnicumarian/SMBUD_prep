@@ -7,7 +7,10 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["kernelsvm", "classif"],
+    "topics": [
+      "kernelsvm",
+      "classif"
+    ],
     "prompt": "Describe Support Vector Machines (SVMs) for supervised classification problems. In particular explain how do they work, their strengths and weaknesses.",
     "solution": "**Idea.** A Support Vector Machine is a discriminative classifier that finds the separating hyperplane $\\mathbf{w}^\\top \\mathbf{x} + b = 0$ that **maximizes the margin**, i.e. the distance between the boundary and the closest training points of each class. Maximizing the margin yields good generalization (it minimizes a bound on the generalization error).\n\n**Hard-margin.** For a linearly separable dataset it solves\n$$\\min_{\\mathbf{w}, b} \\tfrac{1}{2}\\|\\mathbf{w}\\|^2 \\quad \\text{s.t.} \\quad t_n(\\mathbf{w}^\\top \\mathbf{x}_n + b) \\ge 1 \\ \\forall n.$$\nThis is a convex quadratic program. Its dual involves only inner products of the inputs and the solution depends only on the **support vectors** (points on the margin), making the model sparse.\n\n**Soft-margin.** For non-separable data, slack variables $\\xi_n \\ge 0$ allow some violations, controlled by a hyperparameter $C$:\n$$\\min_{\\mathbf{w}, b, \\boldsymbol{\\xi}} \\tfrac{1}{2}\\|\\mathbf{w}\\|^2 + C\\sum_n \\xi_n \\quad \\text{s.t.}\\quad t_n(\\mathbf{w}^\\top \\mathbf{x}_n + b) \\ge 1 - \\xi_n.$$\nLarge $C$ penalizes misclassification heavily (low bias, high variance); small $C$ tolerates errors (higher bias, lower variance).\n\n**Kernel trick.** Because the dual depends only on inner products, these can be replaced by a kernel $k(\\mathbf{x}, \\mathbf{x}')$, implicitly mapping data to a high-dimensional feature space where it becomes linearly separable, without computing the features explicitly.\n\n**Strengths.** Strong generalization via margin maximization; sparse solution (fast prediction depending only on support vectors); flexible via kernels; convex problem with a global optimum; works well in high dimensions.\n\n**Weaknesses.** Training is expensive (roughly cubic in the number of samples), so it scales poorly to very large datasets; sensitive to the choice of $C$ and kernel hyperparameters (requires tuning/cross-validation); does not natively output probabilities; naturally binary (multiclass requires one-vs-one / one-vs-rest).",
     "solutionSource": "authored"
@@ -20,7 +23,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Describe the Thomson Sampling algorithm for multi-armed bandit problems.",
     "solution": "**Setting.** In a stochastic multi-armed bandit problem there are $K$ arms, each with an unknown reward distribution; at each round we pull one arm and observe its reward, aiming to maximize cumulative reward (minimize regret) over the horizon.\n\n**Thompson Sampling (TS).** TS is a **Bayesian, randomized** strategy based on probability matching: it maintains a posterior distribution over each arm's unknown parameter and, at each round, picks an arm according to its posterior probability of being optimal.\n\n**Bernoulli case (Beta-Bernoulli).** With Bernoulli rewards, the conjugate prior is a Beta distribution. For each arm $i$ keep a $\\mathrm{Beta}(\\alpha_i, \\beta_i)$ posterior (initialized e.g. $\\alpha_i = \\beta_i = 1$). At each round $t$:\n1. For each arm $i$, draw a sample $\\theta_i \\sim \\mathrm{Beta}(\\alpha_i, \\beta_i)$.\n2. Play the arm $a_t = \\arg\\max_i \\theta_i$.\n3. Observe reward $r_t \\in \\{0,1\\}$ and update: if success $\\alpha_{a_t} \\leftarrow \\alpha_{a_t} + 1$, else $\\beta_{a_t} \\leftarrow \\beta_{a_t} + 1$.\n\n**Properties.**\n- It naturally balances exploration and exploitation: arms with uncertain (wide) posteriors are sometimes sampled high and explored; as evidence accumulates the posteriors concentrate and the best arm is exploited.\n- The arm selection is **stochastic** (it draws samples from the posteriors).\n- It can incorporate **prior information** about the arms.\n- It achieves the optimal $O(\\log T)$ asymptotic regret in the stochastic setting (matching the Lai-Robbins lower bound), and empirically often outperforms UCB1.\n- It requires a conjugate prior/likelihood pair (e.g. Beta-Bernoulli, Gaussian-Gaussian) to update the posterior efficiently; its guarantees hold only in the stochastic (not adversarial) setting.",
     "solutionSource": "authored"
@@ -33,36 +38,132 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["featsel", "modelsel"],
+    "topics": [
+      "featsel",
+      "modelsel"
+    ],
     "prompt": "Consider the following snippet of code taking as input an $N \\times M$ matrix `X` of data points and an $N$-dimensional vector `y` of binary targets, where $N$ is the number samples, $M$ is the number of features. Are the subsequent statements true or false? Provide motivations for your answers.\n1. This snippet of code implements a portion of a well-known model selection procedure. (*Note*: in any case, specify the procedure and briefly describe how to complement the code).\n2. After having run the reported snippet, one should keep the classifier that led to the maximum value in the list of accuracies.\n3. The classifier trained at line 3 is likely to suffer a larger bias than the classifiers trained at line 8.\n4. The time of computation we need to run the snippet of code scales linearly with `M`.",
     "code": {
       "language": "python",
       "source": "import numpy as np\nclassifier = LogisiticRegression()\nclassifier.fit(X, y)\nyhat = classifier.predict(X)\naccuracies = [sum(yhat == y) / N]\nfor i in range(M):\n    Xi = np.delete(X, i, axis=1)\n    classifier.fit(Xi, y)\n    yhat = classifier.predict(Xi)\n    accuracies.append(sum(yhat == y) / N)"
     },
     "subStatements": [
-      { "id": "ML20220127-e3-s1", "statement": "This snippet of code implements a portion of a well-known model selection procedure.", "answer": true, "motivation": "The code implements the first iteration of a typical **backward feature selection** procedure, which is used for model selection. However, some aspects are missing in the snippet, such as the computation of the accuracy on a validation set or cross-validation (instead of on the training set)." },
-      { "id": "ML20220127-e3-s2", "statement": "After having run the reported snippet, one should keep the classifier that led to the maximum value in the list of accuracies.", "answer": false, "motivation": "Model selection cannot be performed on the training accuracy, otherwise we would always select the model that keeps all the `M` features." },
-      { "id": "ML20220127-e3-s3", "statement": "The classifier trained at line 3 is likely to suffer a larger bias than the classifiers trained at line 8.", "answer": false, "motivation": "The classifier trained on the full set of features is likely to suffer a larger variance and a lower bias w.r.t. the classifiers trained on a subset of the features." },
-      { "id": "ML20220127-e3-s4", "statement": "The time of computation we need to run the snippet of code scales linearly with `M`.", "answer": false, "motivation": "Whereas we need to run the loop (lines 6-10) exactly `M` times, the time of computation we need to run the fit function of the classifier grows with `M` as well, logistic regression being a parametric method." }
+      {
+        "id": "ML20220127-e3-s1",
+        "statement": "This snippet of code implements a portion of a well-known model selection procedure.",
+        "answer": true,
+        "motivation": "The code implements the first iteration of a typical **backward feature selection** procedure, which is used for model selection. However, some aspects are missing in the snippet, such as the computation of the accuracy on a validation set or cross-validation (instead of on the training set)."
+      },
+      {
+        "id": "ML20220127-e3-s2",
+        "statement": "After having run the reported snippet, one should keep the classifier that led to the maximum value in the list of accuracies.",
+        "answer": false,
+        "motivation": "Model selection cannot be performed on the training accuracy, otherwise we would always select the model that keeps all the `M` features."
+      },
+      {
+        "id": "ML20220127-e3-s3",
+        "statement": "The classifier trained at line 3 is likely to suffer a larger bias than the classifiers trained at line 8.",
+        "answer": false,
+        "motivation": "The classifier trained on the full set of features is likely to suffer a larger variance and a lower bias w.r.t. the classifiers trained on a subset of the features."
+      },
+      {
+        "id": "ML20220127-e3-s4",
+        "statement": "The time of computation we need to run the snippet of code scales linearly with `M`.",
+        "answer": false,
+        "motivation": "Whereas we need to run the loop (lines 6-10) exactly `M` times, the time of computation we need to run the fit function of the classifier grows with `M` as well, logistic regression being a parametric method."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220127-e4",
+    "id": "ML20220127-e4.1",
     "examId": "ML20220127",
     "date": "2022-01-27",
     "academicYear": "AA2021",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Tell whether the following statements about sequential decision problems are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20220127-e4-s1", "statement": "The optimal value function alone is sufficient to compute the optimal policy.", "answer": false, "motivation": "The optimal policy is the greedy policy w.r.t. the optimal Q-function. If I have the optimal value function but not the one-step dynamics, I cannot recover the optimal Q-function. Moreover, since I do not know the model, I cannot use DP techniques, but I have to use RL algorithms." },
-      { "id": "ML20220127-e4-s2", "statement": "The sparsity of the reward can be a major problem for on-policy RL algorithms.", "answer": true, "motivation": "Despite reward sparsity being a general issue for RL algorithms, an on-policy algorithm might not be able to explore enough to reach states with higher reward, while an off-policy algorithm might be more aggressive in the exploration." },
-      { "id": "ML20220127-e4-s3", "statement": "The value function may decrease on some steps of Policy Iteration, even if, in the end, the algorithm outputs the optimal one.", "answer": false, "motivation": "The policy improvement theorem guarantees that, at every step, the new policy is better than the previous one (the value function is monotonically non-decreasing)." },
-      { "id": "ML20220127-e4-s4", "statement": "As many policies can be optimal, there can be multiple optimal value functions in an MDP.", "answer": false, "motivation": "The only optimal value function is the unique fixed point of the Bellman Optimal Operator, and all optimal policies share the same value function." }
+      {
+        "id": "ML20220127-e4.1-s1",
+        "statement": "The optimal value function alone is sufficient to compute the optimal policy.",
+        "answer": false,
+        "motivation": "The optimal policy is the greedy policy w.r.t. the optimal Q-function. If I have the optimal value function but not the one-step dynamics, I cannot recover the optimal Q-function. Moreover, since I do not know the model, I cannot use DP techniques, but I have to use RL algorithms."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220127-e4.2",
+    "examId": "ML20220127",
+    "date": "2022-01-27",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the following statements about sequential decision problems are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220127-e4.2-s1",
+        "statement": "The sparsity of the reward can be a major problem for on-policy RL algorithms.",
+        "answer": true,
+        "motivation": "Despite reward sparsity being a general issue for RL algorithms, an on-policy algorithm might not be able to explore enough to reach states with higher reward, while an off-policy algorithm might be more aggressive in the exploration."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220127-e4.3",
+    "examId": "ML20220127",
+    "date": "2022-01-27",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the following statements about sequential decision problems are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220127-e4.3-s1",
+        "statement": "The value function may decrease on some steps of Policy Iteration, even if, in the end, the algorithm outputs the optimal one.",
+        "answer": false,
+        "motivation": "The policy improvement theorem guarantees that, at every step, the new policy is better than the previous one (the value function is monotonically non-decreasing)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220127-e4.4",
+    "examId": "ML20220127",
+    "date": "2022-01-27",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the following statements about sequential decision problems are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220127-e4.4-s1",
+        "statement": "As many policies can be optimal, there can be multiple optimal value functions in an MDP.",
+        "answer": false,
+        "motivation": "The only optimal value function is the unique fixed point of the Bellman Optimal Operator, and all optimal policies share the same value function."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -75,26 +176,102 @@
     "exerciseNo": 5,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "modeleval"],
+    "topics": [
+      "linreg",
+      "modeleval"
+    ],
     "prompt": "A company selling glasses called *TenebrisOttica* ask us to provide a method to estimate the total amount of sales (in terms of number of glasses sold) at the end of the month. The business unit is expecting to have a daily update of this estimate.\n1. Do you think that it is appropriate to use an ML approach to solve the previous problem? Which assumptions are required to allow the use of ML for the above application.\n2. Assuming that the above assumptions are satisfied, model the above problem using a Machine Learning approach. Suggest both the data one needs and a proper ML method to solve it.\n3. Assuming that the above assumption does not hold, what is the problem setting we are in?",
     "solution": "1. A crucial assumption required for the application of ML is that the samples are **i.i.d.** In this specific application the data may be temporally dependent and the process generating data may change over time, therefore the data are not independent nor identically distributed. However, considering a large enough window of data and providing prediction over a short time period (so that the nonstationarity is not significant), one might apply ML techniques.\n2. The problem is a **regression** one, where the inputs are information about past sales, product details, and user feedbacks and the output is the number of sales at the end of the month. The model should take into account the temporal distance from the current day to the end of the month. A possible method to solve the problem is **Linear Regression** or **Gaussian Process Regression**.\n3. In the case we cannot rely on the i.i.d. assumption we are in a **time series prediction** setting. The environment we are considering is either a stochastic nonstationary one or an adversarial one, if we assume that the competitors are significantly affecting the process.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220127-e6",
+    "id": "ML20220127-e6.1",
     "examId": "ML20220127",
     "date": "2022-01-27",
     "academicYear": "AA2021",
     "exerciseNo": 6,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Tell if the following statements about learning theory are true or false. Provide adequate motivations for your answers.",
     "subStatements": [
-      { "id": "ML20220127-e6-s1", "statement": "We can expect all the learning algorithms to perform equally bad on a given learning concept.", "answer": false, "motivation": "According to the No Free Lunch theorem we can expect all the learning algorithms to perform equally bad on *average* over the concepts. Instead, the specific structure of a given concept can favor an algorithm over another." },
-      { "id": "ML20220127-e6-s2", "statement": "In the theory of PAC learning, the value of $\\varepsilon$ controls the probability of incurring in a generalization loss greater than $\\delta$ on the target concept.", "answer": false, "motivation": "The opposite is true. The value of $\\delta$ upper bounds the probability of training a model with a generalization loss greater than $\\varepsilon$." },
-      { "id": "ML20220127-e6-s3", "statement": "The VC dimension of an hypothesis space with infinite cardinality cannot be finite.", "answer": false, "motivation": "The VC dimension is a finer measure of the expressivity of the hypothesis space w.r.t. its cardinality, and it can be finite even if the hypothesis space is not." },
-      { "id": "ML20220127-e6-s4", "statement": "The VC dimension of a linear classifier in a 1-dimensional space is exactly 2.", "answer": true, "motivation": "Take two points on the axis $y = 0$, say $x_1 = a$ and $x_2 = b$ ($a < b$). For every meaningful combination of labels $(+,+), (-,-), (-,+)$, we can always obtain a perfect classifier with a linear model ($x < a$, $x > b$, $a < x < b$ respectively). Instead, if we add a third point $x_3 = c$ ($b < c$), we cannot correctly classify the instance $(+, -, +)$." }
+      {
+        "id": "ML20220127-e6.1-s1",
+        "statement": "We can expect all the learning algorithms to perform equally bad on a given learning concept.",
+        "answer": false,
+        "motivation": "According to the No Free Lunch theorem we can expect all the learning algorithms to perform equally bad on *average* over the concepts. Instead, the specific structure of a given concept can favor an algorithm over another."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220127-e6.2",
+    "examId": "ML20220127",
+    "date": "2022-01-27",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about learning theory are true or false. Provide adequate motivations for your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220127-e6.2-s1",
+        "statement": "In the theory of PAC learning, the value of $\\varepsilon$ controls the probability of incurring in a generalization loss greater than $\\delta$ on the target concept.",
+        "answer": false,
+        "motivation": "The opposite is true. The value of $\\delta$ upper bounds the probability of training a model with a generalization loss greater than $\\varepsilon$."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220127-e6.3",
+    "examId": "ML20220127",
+    "date": "2022-01-27",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about learning theory are true or false. Provide adequate motivations for your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220127-e6.3-s1",
+        "statement": "The VC dimension of an hypothesis space with infinite cardinality cannot be finite.",
+        "answer": false,
+        "motivation": "The VC dimension is a finer measure of the expressivity of the hypothesis space w.r.t. its cardinality, and it can be finite even if the hypothesis space is not."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220127-e6.4",
+    "examId": "ML20220127",
+    "date": "2022-01-27",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about learning theory are true or false. Provide adequate motivations for your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220127-e6.4-s1",
+        "statement": "The VC dimension of a linear classifier in a 1-dimensional space is exactly 2.",
+        "answer": true,
+        "motivation": "Take two points on the axis $y = 0$, say $x_1 = a$ and $x_2 = b$ ($a < b$). For every meaningful combination of labels $(+,+), (-,-), (-,+)$, we can always obtain a perfect classifier with a linear model ($x < a$, $x > b$, $a < x < b$ respectively). Instead, if we add a third point $x_3 = c$ ($b < c$), we cannot correctly classify the instance $(+, -, +)$."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -107,7 +284,10 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "code-interpretation",
-    "topics": ["linreg", "modeleval"],
+    "topics": [
+      "linreg",
+      "modeleval"
+    ],
     "prompt": "Given the following results obtained by applying linear regression on a dataset (OLS Regression Results summary table reproduced in the code block). Answer the following questions:\n1. Do you think that each feature is individually significant?\n2. Do you think that at least one of the features is significant?\n3. How much variance is explained by the model?\n4. Do you think that the model is sound?",
     "code": {
       "language": "pseudocode",
@@ -124,7 +304,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "applied-modeling",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "We are given a Heating, Ventilation, and Air Conditioning (HVAC) in which the states are cold (c), medium (m), warm (w) temperature. We can perform three actions: heat (h), refrigerate (r), and do nothing (d). Assume to have the following partial episodes for the HVAC functioning.\n$$(c,d,0) \\rightarrow (c,h,1) \\rightarrow (m,h,1) \\rightarrow (m,h,-1) \\rightarrow (w,r,1) \\rightarrow (m,\\cdot,\\cdot) \\rightarrow \\dots$$\n$$(m,r,-2) \\rightarrow (c,h,-2) \\rightarrow (c,h,1) \\rightarrow (m,h,1) \\rightarrow (m,h,1) \\rightarrow (w,\\cdot,\\cdot) \\rightarrow \\dots$$\nwhere a tuple $(S, A, R)$ corresponds to the State, Action, and Reward at a specific time.\n1. Model it as an MDP and draw the corresponding graphical representation, specifying the transition probabilities and rewards (estimated from the episodes) for each transition.\n2. Can you tell if the reward of this process is stochastic or deterministic? And what about the transitions?\n3. Assuming we want to evaluate the performance of the HVAC, tell which kind of problem we are in and suggest a technique to solve it.",
     "solution": "1. The MDP has states $\\{c, m, w\\}$ and actions $\\{h, r, d\\}$. Estimating from the episodes (frequency counts):\n- From $c$ with action $d$: $\\rightarrow c$ with reward $0$ (self-loop).\n- From $c$ with action $h$: it leads to $c$ once (reward $1$) and to $m$ once (reward $1$), so $P(c\\mid c,h) = 1/3$ (reward $-2$ also observed once for $c,h\\rightarrow c$) and $P(m\\mid c,h) = 2/3$, reward $1$.\n- From $m$ with action $h$: leads to $m$ (reward $1$ once, reward $-1$ once) and to $w$, with the estimated transition probabilities.\n- From $m$ with action $r$: $\\rightarrow c$ with reward $-2$.\n- From $w$ with action $r$: $\\rightarrow m$ with reward $1$.\n(The graphical representation shows these transitions, each annotated with its estimated probability and reward.)\n2. The **transitions are stochastic**, since some of the actions lead to two different new states, e.g. the action heat (h) in the state cold (c) leads sometimes to $c$ and sometimes to $m$. The **reward is stochastic** as well, since heating in the medium state provided once the reward $1$ and once $-1$.\n3. This setting suggests it is an **MDP prediction problem** (policy evaluation), either using directly the original episodes (using MC or TD) or one might use the estimated model and use DP techniques to solve it in an exact way, due to the limited dimension of the problem.",
     "solutionSource": "exam"

@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Describe and compare Ridge regression and Lasso regression.",
     "solution": "Both Ridge and Lasso are **regularized** versions of linear regression: they add a penalty on the size of the weights $\\boldsymbol{w}$ to the ordinary least squares loss, in order to reduce variance / overfitting and improve generalization.\n\n**Ridge regression ($\\ell_2$).** Minimizes\n$$L(\\boldsymbol{w}) = \\lVert \\boldsymbol{t} - \\Phi \\boldsymbol{w} \\rVert_2^2 + \\lambda \\lVert \\boldsymbol{w} \\rVert_2^2 = \\sum_i (t_i - \\boldsymbol{w}^\\top \\phi(x_i))^2 + \\lambda \\sum_j w_j^2.$$\nIt has a **closed-form solution** $\\boldsymbol{w} = (\\Phi^\\top \\Phi + \\lambda I)^{-1} \\Phi^\\top \\boldsymbol{t}$. The $\\lambda I$ term makes the matrix invertible even when $\\Phi^\\top\\Phi$ is singular. Ridge **shrinks** all weights toward zero but generally **does not set them exactly to zero**, so it keeps all features. It corresponds to a Gaussian prior on $\\boldsymbol{w}$ (MAP estimate).\n\n**Lasso regression ($\\ell_1$).** Minimizes\n$$L(\\boldsymbol{w}) = \\lVert \\boldsymbol{t} - \\Phi \\boldsymbol{w} \\rVert_2^2 + \\lambda \\lVert \\boldsymbol{w} \\rVert_1 = \\sum_i (t_i - \\boldsymbol{w}^\\top \\phi(x_i))^2 + \\lambda \\sum_j |w_j|.$$\nThe $\\ell_1$ penalty has **no closed-form solution** (the objective is convex but non-differentiable at 0; solved by e.g. coordinate descent / LARS). Crucially, Lasso drives **some weights exactly to zero**, performing **automatic feature selection** and yielding sparse, more interpretable models. It corresponds to a Laplace prior on $\\boldsymbol{w}$.\n\n**Comparison.**\n- *Penalty geometry:* the $\\ell_1$ constraint region has corners on the axes, so the optimum often lands on an axis (zero weights) — hence sparsity; the $\\ell_2$ region is a smooth ball, so weights shrink but stay nonzero.\n- *Feature selection:* Lasso yes, Ridge no.\n- *Computation:* Ridge has a closed form and is differentiable; Lasso requires iterative optimization.\n- *Correlated features:* Ridge spreads the weight across correlated features (more stable); Lasso tends to arbitrarily pick one and zero out the others.\n- *When to use:* Ridge when most features are relevant and multicollinearity is an issue; Lasso when you expect few relevant features and want a sparse model. (Elastic Net combines both penalties.)\nIn both, increasing $\\lambda$ increases bias and decreases variance.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Describe the logistic regression model and how it is trained.",
     "solution": "**Model.** Logistic regression is a **probabilistic linear classifier** for binary classification. Given input features $\\boldsymbol{x}$ (and weights $\\boldsymbol{w}$, with a bias term), it models the posterior probability of the positive class by passing a linear combination through the **sigmoid** function:\n$$p(y = 1 \\mid \\boldsymbol{x}) = \\sigma(\\boldsymbol{w}^\\top \\boldsymbol{x}) = \\frac{1}{1 + e^{-\\boldsymbol{w}^\\top \\boldsymbol{x}}}, \\qquad p(y=0\\mid\\boldsymbol{x}) = 1 - \\sigma(\\boldsymbol{w}^\\top \\boldsymbol{x}).$$\nThe sigmoid squashes the output to $(0,1)$, giving a calibrated probability. The decision boundary $\\sigma(\\boldsymbol{w}^\\top \\boldsymbol{x}) = 0.5 \\iff \\boldsymbol{w}^\\top \\boldsymbol{x} = 0$ is **linear** in the input (or feature) space. For multi-class problems, the sigmoid is replaced by the softmax.\n\n**Training.** The weights are fit by **maximum likelihood**, equivalently by minimizing the **cross-entropy (negative log-likelihood)** loss. For $N$ samples with labels $t_i \\in \\{0,1\\}$ and predicted probabilities $\\hat{p}_i = \\sigma(\\boldsymbol{w}^\\top \\boldsymbol{x}_i)$:\n$$L(\\boldsymbol{w}) = -\\sum_{i=1}^{N} \\big[ t_i \\log \\hat{p}_i + (1 - t_i) \\log(1 - \\hat{p}_i) \\big].$$\nThis loss is **convex**, so it has a unique global minimum, but unlike linear regression there is **no closed-form solution**. It is minimized with **iterative gradient-based methods** (gradient descent / stochastic gradient descent, or Newton's method / IRLS). The gradient has the simple form\n$$\\nabla_{\\boldsymbol{w}} L = \\sum_{i=1}^{N} (\\hat{p}_i - t_i)\\, \\boldsymbol{x}_i = \\Phi^\\top (\\hat{\\boldsymbol{p}} - \\boldsymbol{t}).$$\nA regularization term (e.g. $\\ell_2$) is often added to prevent overfitting, especially when the data are (nearly) linearly separable, where the unregularized weights would diverge to infinity.",
     "solutionSource": "authored"
@@ -33,7 +37,11 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["linreg", "modeleval", "modelsel"],
+    "topics": [
+      "linreg",
+      "modeleval",
+      "modelsel"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. Describe the procedure performed in the code above, detailing **line-by-line** the operations and their purpose.\n2. Is the process used in the code correct? Explain why or why not. If incorrect, propose a fix.\n3. Compare and contrast the two models (`model1` and `model2`) in terms of flexibility and risk of overfitting.",
     "code": {
       "language": "python",
@@ -43,36 +51,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250127-e4",
+    "id": "ML20250127-e4.1",
     "examId": "ML20250127",
     "date": "2025-01-27",
     "academicYear": "AA2324",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Tell whether the statements about Monte Carlo (MC) and Temporal Difference (TD) estimation methods are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250127-e4-s1",
+        "id": "ML20250127-e4.1-s1",
         "statement": "MC methods are model-free, while TD methods require a model of the environment.",
         "answer": false,
         "motivation": "MC and TD methods are model-free, meaning they do not require a model of the environment (i.e., knowledge of transition probabilities or the reward function). They learn directly from the interactions with the environment by sampling."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250127-e4.2",
+    "examId": "ML20250127",
+    "date": "2025-01-27",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the statements about Monte Carlo (MC) and Temporal Difference (TD) estimation methods are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250127-e4-s2",
+        "id": "ML20250127-e4.2-s1",
         "statement": "MC methods are unbiased, while TD methods are biased.",
         "answer": true,
         "motivation": "MC methods are unbiased because they compute the return based on the complete episode, which represents the true expected value under the given policy. TD methods, on the other hand, are biased because they estimate the value function based on bootstrapping (i.e., using estimates of future values rather than the true future values)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250127-e4.3",
+    "examId": "ML20250127",
+    "date": "2025-01-27",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the statements about Monte Carlo (MC) and Temporal Difference (TD) estimation methods are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250127-e4-s3",
+        "id": "ML20250127-e4.3-s1",
         "statement": "Given an episode of length T, you can generate T samples for the MC estimation of the value function.",
         "answer": true,
         "motivation": "MC methods generate one sample for the return at each time step $t$ in the episode. For an episode of length T you can generate T samples, one for each state visited during the episode. Each sample corresponds to the cumulative reward from time $t$ until the end of the episode."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250127-e4.4",
+    "examId": "ML20250127",
+    "date": "2025-01-27",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the statements about Monte Carlo (MC) and Temporal Difference (TD) estimation methods are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250127-e4-s4",
+        "id": "ML20250127-e4.4-s1",
         "statement": "MC estimation works better than TD estimation if the problem is not Markovian.",
         "answer": true,
         "motivation": "MC methods do not rely on the Markov property since they compute the return based on the actual sequence of rewards observed in an episode. In contrast, TD methods assume the Markov property because they use the value of the next state in their bootstrapping process. If the problem is not Markovian, the value estimates in TD may be inaccurate due to the violation of the Markov assumption, making MC a better choice."
@@ -82,36 +143,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250127-e5",
+    "id": "ML20250127-e5.1",
     "examId": "ML20250127",
     "date": "2025-01-27",
     "academicYear": "AA2324",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250127-e5-s1",
+        "id": "ML20250127-e5.1-s1",
         "statement": "When using an SVM, the computational cost of computing predictions scales with the size of training samples.",
         "answer": false,
         "motivation": "SVMs are sparse models and the prediction cost scales with the number of support vectors."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250127-e5.2",
+    "examId": "ML20250127",
+    "date": "2025-01-27",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250127-e5-s2",
+        "id": "ML20250127-e5.2-s1",
         "statement": "When training a soft-margin SVM, the noisier the data, the larger should be set the value of hyperparameter C.",
         "answer": false,
         "motivation": "The larger is C, the lower the bias (and conversely, the higher the variance). This is exactly the opposite of what we should expect to do on a noisy dataset."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250127-e5.3",
+    "examId": "ML20250127",
+    "date": "2025-01-27",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250127-e5-s3",
+        "id": "ML20250127-e5.3-s1",
         "statement": "Hard-margin SVMs can be successfully applied also to datasets that appear to be not linearly separable.",
         "answer": true,
         "motivation": "Applying the kernel function, we could find the problem to be linearly separable in the feature space."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250127-e5.4",
+    "examId": "ML20250127",
+    "date": "2025-01-27",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Are the following statements about Support Vector Machines (SVMs) True or False? Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250127-e5-s4",
+        "id": "ML20250127-e5.4-s1",
         "statement": "The aim of the Kernel Trick is to limit the computational cost of the SVM training on datasets with a very large number of samples.",
         "answer": false,
         "motivation": "The computational cost of training SVM is, unfortunately, cubic in the number of training samples. Kernel trick allows to limit the cost of computing a large number of features."
@@ -128,7 +242,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "mab"],
+    "topics": [
+      "linreg",
+      "mab"
+    ],
     "prompt": "You work as a data scientist for a wildlife conservation organization. Your goal is to predict the health condition of birds in a sanctuary based on non-invasive measurements such as wing span, weight, beak length, and feather reflectance. Your organization has limited computational resources but can count on a large dataset labeled by expert ornithologists who have assessed the birds' health conditions based on medical tests and observations.\n\nFor each of the following scenarios, explain how you would model this task as a machine-learning problem and propose the method you would use to solve it.\n\n1. The health condition of the birds is represented as a percentage, where 0% means the bird is severely ill and 100% means the bird is in perfect health.\n2. Recommend one of several predefined treatments for the birds (e.g., \"Dietary Change,\" \"Medical Checkup,\" \"No Intervention\") to improve their health. The actual impact of the treatments is unknown and can only be evaluated after application (e.g., observing how the bird's condition changes over time).",
     "solution": "1. This is a regression problem where the target variable (health condition) is a continuous value ranging from 0 to 100. The input variables are the measured features (wing span, weight, etc.). Given the limited computational resources, a parametric method such as linear regression is recommended, possibly with regularization, to prevent overfitting. If the dataset is large, stochastic gradient descent could be used for training.\n\n2. This is a Multi-Armed Bandit (MAB) problem where each \"arm\" corresponds to a possible treatment (e.g., \"Dietary Change,\" \"Medical Checkup,\" \"No Intervention\"). The goal is to maximize the birds' health improvement while dynamically learning the effectiveness of each treatment based on contextual features (e.g., measurements of the bird). A Contextual Bandit approach would be appropriate here, where features such as wing span, weight, and beak length are used to guide the decision. Algorithms like Thompson Sampling or Upper Confidence Bound (UCB) adapted for contextual data could be used. These algorithms would balance exploration (trying different treatments to gather more information) and exploitation (choosing the treatment that is currently estimated to be the most effective).",
     "solutionSource": "exam"
@@ -141,7 +258,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Consider an algorithm for a MAB with binary rewards, choosing the arm $A_t \\in \\{a_1, a_2\\}$ and obtaining the following rewards $R_t$ at each round $t$ over a time horizon of $T = 10$ rounds. The table shows $R_t$ (recall that only the reward for the chosen arm is revealed to the algorithm):\n\n| t | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Rewards from $a_1$ | 1 | 0 | | 1 | 1 | | 0 | | 1 | |\n| Rewards from $a_2$ | | | 1 | | | 0 | | 1 | | 0 |\n\n1. Knowing that the expected reward of $a_1$ is $\\mu_1 = 0.7$ and that of $a_2$ is $\\mu_2 = 0.3$, compute the expected regret over the time horizon $T$.\n2. Compute the regret over the time horizon $T$, or say what extra information you would need to compute it. Recall that the regret is computed over realizations, while the expected regret is computed over expected rewards.\n3. What arm would UCB1 play in the next round $t = 11$? Consider that $\\sqrt{\\frac{\\ln(10)}{3}} \\simeq 0.87$ and $\\sqrt{\\frac{\\ln(10)}{2}} \\simeq 1.07$. Motivate your answer.\n4. What can you say about the arm that Thompson Sampling (initialized with a uniform prior in $t = 0$) would play in the next round $t = 11$?",
     "solution": "1. The first arm is optimal, so the expected regret can be computed as $\\sum_{t=1}^{10}(\\mu_1 - \\mu_i) = 0 + 0 + 0.4 + 0 + 0 + 0.4 + 0 + 0.4 + 0 + 0.4 = 1.6$, or more simply, since the only suboptimal arm has been played 4 times, as $4 \\times (\\mu_1 - \\mu_2) = 1.6$.\n\n2. To compute the (random) regret, I would need, at each round, the realization of the reward of the arm that was not played.\n\n3. The indexes for the two arms are:\n$$U_1 = \\frac{4}{6} + \\sqrt{\\frac{2 \\ln(10)}{6}} \\simeq 1.54$$\n$$U_2 = \\frac{2}{4} + \\sqrt{\\frac{2 \\ln(10)}{4}} \\simeq 1.57,$$\nso UCB1 would play the second arm.\n\n4. I cannot know with certainty the arm that TS will play. The posterior distributions on the expected reward will be $\\text{Beta}(\\alpha = 5, \\beta = 3)$ for arm $a_1$ and $\\text{Beta}(\\alpha = 3, \\beta = 3)$ for $a_2$. The first is more skewed towards high rewards, so it is more likely that TS will play $a_1$.",
     "solutionSource": "exam"
@@ -154,7 +273,10 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm", "classif"],
+    "topics": [
+      "kernelsvm",
+      "classif"
+    ],
     "prompt": "Consider a dataset with 2-dimensional feature vectors $\\boldsymbol{x}_i = (x_{i1}, x_{i2})$ and corresponding binary labels $y_i \\in \\{-1, 1\\}$ for $i \\in \\{1, 2, 3, 4\\}$:\n$$\\mathcal{D} = \\{((1,1), -1), ((2,3), 1), ((3,3), -1), ((4,1), 1)\\}$$\nYou are required to apply kernelized K-Nearest Neighbors (KNN) with $K = 3$ to classify a new data point $\\boldsymbol{x}_{\\text{new}} = (2, 2)$ using the following kernels:\n1. Linear Kernel: $k(\\boldsymbol{x}_i, \\boldsymbol{x}_j) = \\boldsymbol{x}_i^\\top \\boldsymbol{x}_j$;\n2. Polynomial Kernel: $k(\\boldsymbol{x}_i, \\boldsymbol{x}_j) = (\\boldsymbol{x}_i^\\top \\boldsymbol{x}_j + 1)^2$;\n3. Gaussian Kernel (RBF): $k(\\boldsymbol{x}_i, \\boldsymbol{x}_j) = \\exp\\left(-\\frac{\\lVert \\boldsymbol{x}_i - \\boldsymbol{x}_j \\rVert^2}{2\\sigma^2}\\right)$, with $\\sigma = 1$.\n\nReport and comment on all the steps.",
     "solution": "**1. Linear Kernel:**\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_1) = (2)(1) + (2)(1) = 4$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_2) = (2)(2) + (2)(3) = 10$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_3) = (2)(3) + (2)(3) = 12$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_4) = (2)(4) + (2)(1) = 10$$\nThe similarities with the training points are: $4, 10, 10, 12$. The three closest neighbors are $\\boldsymbol{x}_3, \\boldsymbol{x}_4$, and $\\boldsymbol{x}_2$, with labels $-1, 1, 1$ respectively. Therefore, the predicted label for $\\boldsymbol{x}_{\\text{new}}$ is 1 (majority label).\n\n**2. Polynomial Kernel:**\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_1) = ((2)(1) + (2)(1) + 1)^2 = (4+1)^2 = 25$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_2) = ((2)(2) + (2)(3) + 1)^2 = (10+1)^2 = 121$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_3) = ((2)(3) + (2)(3) + 1)^2 = (12+1)^2 = 169$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_4) = ((2)(4) + (2)(1) + 1)^2 = (10+1)^2 = 121$$\nThe similarities with the training points are: $25, 121, 121, 169$. The three closest neighbors are $\\boldsymbol{x}_3, \\boldsymbol{x}_2$, and $\\boldsymbol{x}_4$, with labels $-1, 1, 1$ respectively. Therefore, the predicted label for $\\boldsymbol{x}_{\\text{new}}$ is 1 (majority label).\n\n**3. Gaussian Kernel:**\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_1) = \\exp\\left(-\\frac{(2-1)^2 + (2-1)^2}{2(1)^2}\\right) = \\exp\\left(-\\frac{1+1}{2}\\right) = \\exp(-1) \\approx 0.3679$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_2) = \\exp\\left(-\\frac{(2-2)^2 + (2-3)^2}{2(1)^2}\\right) = \\exp\\left(-\\frac{1}{2}\\right) \\approx 0.6065$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_3) = \\exp\\left(-\\frac{(2-3)^2 + (2-3)^2}{2(1)^2}\\right) = \\exp\\left(-\\frac{2}{2}\\right) = \\exp(-1) \\approx 0.3679$$\n$$k(\\boldsymbol{x}_{\\text{new}}, \\boldsymbol{x}_4) = \\exp\\left(-\\frac{(2-4)^2 + (2-1)^2}{2(1)^2}\\right) = \\exp\\left(-\\frac{5}{2}\\right) \\approx 0.0821$$\nThe similarities with the training points are: $0.3679, 0.6065, 0.3679, 0.0821$. The three closest neighbors are $\\boldsymbol{x}_2, \\boldsymbol{x}_1$, and $\\boldsymbol{x}_3$, with labels $1, -1, -1$ respectively. Therefore, the predicted label for $\\boldsymbol{x}_{\\text{new}}$ is $-1$ (majority label).",
     "solutionSource": "exam"

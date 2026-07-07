@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Explain what is the **VC dimension** of a hypothesis space and what it is used for.",
     "solution": "**Definition.** The Vapnik-Chervonenkis (VC) dimension $VC(\\mathcal{H})$ of a hypothesis space $\\mathcal{H}$ is the size of the largest set of points that $\\mathcal{H}$ can **shatter**. A set of $N$ points is shattered by $\\mathcal{H}$ if, for every one of the $2^N$ possible labelings of those points, there exists a hypothesis $h \\in \\mathcal{H}$ that classifies them perfectly. Formally, $VC(\\mathcal{H})$ is the maximum $N$ such that there exists at least one configuration of $N$ points that can be shattered. To show $VC(\\mathcal{H}) \\ge d$ it suffices to exhibit one set of $d$ points that is shattered; to show $VC(\\mathcal{H}) < d+1$ one must show that no set of $d+1$ points can be shattered.\n\n**Examples.** A linear classifier in $\\mathbb{R}^d$ (with bias) has $VC = d+1$ (e.g. lines in the plane have $VC = 3$). Axis-aligned rectangles in the plane have $VC = 4$.\n\n**What it is used for.** The VC dimension is a measure of the **capacity / expressivity** (complexity) of a hypothesis space that is finer than its mere cardinality (it can be finite even for an infinite $\\mathcal{H}$). It is the key quantity in statistical learning theory:\n- It appears in **generalization bounds** (e.g. PAC bounds): with probability at least $1-\\delta$, the true error is bounded by the training error plus a term that grows with $VC(\\mathcal{H})$ and decreases with the number of samples $N$.\n- It gives the **sample complexity**: the number of samples needed to PAC-learn a concept scales with $VC(\\mathcal{H})$.\n- It formalizes the **bias-variance / overfitting** trade-off: a higher VC dimension means greater expressivity (lower bias) but a larger gap between training and test error (higher variance), so more data is required to generalize.\nLearning is feasible (the hypothesis space is PAC-learnable) iff the VC dimension is finite.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Describe the **PCA** technique and what it is used for.",
     "solution": "**Idea.** Principal Component Analysis (PCA) is an unsupervised, linear **feature-extraction / dimensionality-reduction** technique. It finds a new orthogonal basis (the *principal components*) of the feature space, ordered by the amount of variance of the data they capture, and projects the data onto the first few components, thereby reducing dimensionality while retaining as much variance (information) as possible.\n\n**Procedure.**\n1. **Center** the data (subtract the mean of each feature); optionally standardize/scale.\n2. Compute the **covariance matrix** $C = \\frac{1}{N}\\tilde{X}^\\top \\tilde{X}$ of the centered data $\\tilde{X}$.\n3. Compute the **eigenvalues and eigenvectors** of $C$. The eigenvectors are the principal components; each eigenvalue is the variance explained along its component.\n4. Sort the eigenvectors by decreasing eigenvalue and keep the top $k$ (e.g. enough to retain a desired fraction of the total variance). Stack them as columns of $W$.\n5. **Project** the data: $T = \\tilde{X}\\,W$ gives the lower-dimensional representation. (Equivalently PCA can be computed via the SVD of $\\tilde{X}$.)\n\n**Properties.** The principal components are orthogonal and uncorrelated; the projection onto the first $k$ components is the linear projection that **minimizes the reconstruction (squared) error** and maximizes retained variance. PCA discards the directions of least variance.\n\n**What it is used for.**\n- Dimensionality reduction (fewer features → less variance/overfitting, faster training, less storage).\n- Removing collinearity / fixing an ill-conditioned (near-singular) design matrix $X^\\top X$.\n- Data visualization (project to 2D/3D).\n- Denoising / compression.\n\n**Limitations.** It is unsupervised (it ignores the target), so the retained components are not guaranteed to be the most predictive; it only captures linear structure; components are linear combinations of all original features, so it is feature *extraction* (not feature *selection*) and reduces interpretability; it is sensitive to feature scaling.",
     "solutionSource": "authored"
@@ -33,7 +37,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Consider the following snippet of code.\n1. Which problem is the snippet above solving?\n2. Which algorithms are implemented by the snippet above?\n3. Which model would you choose to provide an interpretable solution, e.g., a model whose parameters influence are easy to explain?\n4. Which are the pros and the cons of using the algorithm in lines 4-6?",
     "code": {
       "language": "python",
@@ -50,45 +56,193 @@
     "exerciseNo": 4,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "We want to monitor the presence of a contaminant in the water distribution systems of a large city. We are provided with the choice of a fixed number $L$ of different locations where to monitor the contaminant concentration $c_l$, but we are constrained to select a single location per day, due to shortage of personnel. Our goal is to maximize the average concentration of contaminant measured over a finite period $T$.\n1. Model the previous problem using a Machine Learning approach (tell which kind of problem it is and specify the input/output or state/action/reward). Propose a method to solve the above problem.\n2. The authorities are not convinced with your choice. Provide some theoretical evidence that the chosen method is sound and effective.\n3. What would be the performance of an approach that selects the location each day randomly?",
     "solution": "1. The problem represents a **MAB problem** with $L$ different arms over a time horizon of $T$ days. The reward consists in the contaminant concentration $c_l$ collected; therefore minimizing the regret is equivalent to maximizing the average concentration collected. If we assume that the environment does not change over time, we might resort to stochastic MAB techniques, such as **UCB1 or Thompson Sampling (TS)**.\n2. The methods provide theoretical guarantees on the upper bound on the regret. Specifically, both the mentioned algorithms provide a regret of $O\\!\\left(\\frac{\\log(T)}{\\Delta}\\right)$, where $\\Delta$ is the average gap in terms of concentration w.r.t. the optimal arms. This means the regret grows only logarithmically in $T$ (sublinear), so the average per-round reward approaches the optimal one.\n3. In this case each arm has the same chance of being pulled, therefore we would have a regret of $O(T\\Delta)$ (linear in $T$), i.e. the average reward stays bounded away from the optimum.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220215-e5",
+    "id": "ML20220215-e5.1",
     "examId": "ML20220215",
     "date": "2022-02-15",
     "academicYear": "AA2021",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Tell if the following properties hold for the Logistic Regression (LR) and Perceptron (PE) methods. Motivate your answer.",
     "subStatements": [
-      { "id": "ML20220215-e5-s1", "statement": "The training process is guaranteed to terminate in a finite amount of time.", "answer": true, "motivation": "True for LR since the loss function is convex; false for PE if the classes are not linearly separable (the perceptron algorithm does not terminate in that case)." },
-      { "id": "ML20220215-e5-s2", "statement": "The choice of the learning rate is crucial to speed up the learning process.", "answer": true, "motivation": "True for LR since we are applying an online gradient descent optimization approach to minimize the loss; false for PE since the learning rate gradually decreases its influence over time (it does not affect the final solution)." },
-      { "id": "ML20220215-e5-s3", "statement": "It is possible to determine the significance of the parameters learned by the method.", "answer": true, "motivation": "True for LR where the parameters have significance for the log odds of the model; false for PE which only provides a sharp $\\{0, 1\\}$ label." },
-      { "id": "ML20220215-e5-s4", "statement": "If the method converges, it may converge to different optimal parameter vectors.", "answer": false, "motivation": "False for LR since the loss function is convex and provides a single optimal parameter vector; true for PE since, if the classes are linearly separable, there may be multiple boundaries separating the training data perfectly." }
+      {
+        "id": "ML20220215-e5.1-s1",
+        "statement": "The training process is guaranteed to terminate in a finite amount of time.",
+        "answer": true,
+        "motivation": "True for LR since the loss function is convex; false for PE if the classes are not linearly separable (the perceptron algorithm does not terminate in that case)."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220215-e6",
+    "id": "ML20220215-e5.2",
+    "examId": "ML20220215",
+    "date": "2022-02-15",
+    "academicYear": "AA2021",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following properties hold for the Logistic Regression (LR) and Perceptron (PE) methods. Motivate your answer.",
+    "subStatements": [
+      {
+        "id": "ML20220215-e5.2-s1",
+        "statement": "The choice of the learning rate is crucial to speed up the learning process.",
+        "answer": true,
+        "motivation": "True for LR since we are applying an online gradient descent optimization approach to minimize the loss; false for PE since the learning rate gradually decreases its influence over time (it does not affect the final solution)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220215-e5.3",
+    "examId": "ML20220215",
+    "date": "2022-02-15",
+    "academicYear": "AA2021",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following properties hold for the Logistic Regression (LR) and Perceptron (PE) methods. Motivate your answer.",
+    "subStatements": [
+      {
+        "id": "ML20220215-e5.3-s1",
+        "statement": "It is possible to determine the significance of the parameters learned by the method.",
+        "answer": true,
+        "motivation": "True for LR where the parameters have significance for the log odds of the model; false for PE which only provides a sharp $\\{0, 1\\}$ label."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220215-e5.4",
+    "examId": "ML20220215",
+    "date": "2022-02-15",
+    "academicYear": "AA2021",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following properties hold for the Logistic Regression (LR) and Perceptron (PE) methods. Motivate your answer.",
+    "subStatements": [
+      {
+        "id": "ML20220215-e5.4-s1",
+        "statement": "If the method converges, it may converge to different optimal parameter vectors.",
+        "answer": false,
+        "motivation": "False for LR since the loss function is convex and provides a single optimal parameter vector; true for PE since, if the classes are linearly separable, there may be multiple boundaries separating the training data perfectly."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220215-e6.1",
     "examId": "ML20220215",
     "date": "2022-02-15",
     "academicYear": "AA2021",
     "exerciseNo": 6,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg", "kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell if the following statements about parametric and non-parametric methods are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20220215-e6-s1", "statement": "To address a classification task on a large dataset of low-dimensional points, it is usually better to employ a non-parametric method than a parametric one.", "answer": false, "motivation": "Non-parametric methods are usually convenient when data are high-dimensional, whereas parametric methods can better handle very large low-dimensional datasets." },
-      { "id": "ML20220215-e6-s2", "statement": "When a regression task requires to provide real-time predictions, it is in general a good idea to train a non-parametric method.", "answer": false, "motivation": "Non-parametric methods (e.g. k-nearest neighbors) are usually slower in prediction than parametric methods (e.g. linear regression)." },
-      { "id": "ML20220215-e6-s3", "statement": "Non-parametric methods are generally less affected by the curse of dimensionality than parametric methods.", "answer": true, "motivation": "Non-parametric methods can generally deal with an exponentially-growing feature space through the kernel trick." },
-      { "id": "ML20220215-e6-s4", "statement": "The Bayesian linear regression is a non-parametric method.", "answer": false, "motivation": "Bayesian linear regression is a parametric method, in which the parameters are learned from data through a Bayesian approach." }
+      {
+        "id": "ML20220215-e6.1-s1",
+        "statement": "To address a classification task on a large dataset of low-dimensional points, it is usually better to employ a non-parametric method than a parametric one.",
+        "answer": false,
+        "motivation": "Non-parametric methods are usually convenient when data are high-dimensional, whereas parametric methods can better handle very large low-dimensional datasets."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220215-e6.2",
+    "examId": "ML20220215",
+    "date": "2022-02-15",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following statements about parametric and non-parametric methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220215-e6.2-s1",
+        "statement": "When a regression task requires to provide real-time predictions, it is in general a good idea to train a non-parametric method.",
+        "answer": false,
+        "motivation": "Non-parametric methods (e.g. k-nearest neighbors) are usually slower in prediction than parametric methods (e.g. linear regression)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220215-e6.3",
+    "examId": "ML20220215",
+    "date": "2022-02-15",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following statements about parametric and non-parametric methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220215-e6.3-s1",
+        "statement": "Non-parametric methods are generally less affected by the curse of dimensionality than parametric methods.",
+        "answer": true,
+        "motivation": "Non-parametric methods can generally deal with an exponentially-growing feature space through the kernel trick."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220215-e6.4",
+    "examId": "ML20220215",
+    "date": "2022-02-15",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Tell if the following statements about parametric and non-parametric methods are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20220215-e6.4-s1",
+        "statement": "The Bayesian linear regression is a non-parametric method.",
+        "answer": false,
+        "motivation": "Bayesian linear regression is a parametric method, in which the parameters are learned from data through a Bayesian approach."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -101,7 +255,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a linear, hard-margin, two-class SVM classifier defined by parameters:\n$$w = [-4, -4], \\quad b = 0.$$\nAnswer the following questions providing adequate motivations.\n1. Provide the analytical formula of the boundary and the margins.\n2. How is the point $p_1 = [0.5; -0.9]$ classified according to the trained SVM?\n3. Assume to collect a new sample $p_2 = [0.2; -0.3]$ in the negative class. Do you need to retrain the SVM?",
     "solution": "1. The boundary and margins are:\n$$-4 x_1 - 4 x_2 + 0 = 0 \\quad (\\text{boundary})$$\n$$-4 x_1 - 4 x_2 - 1 = 0 \\quad (\\text{positive margin})$$\n$$-4 x_1 - 4 x_2 + 1 = 0 \\quad (\\text{negative margin})$$\n2. $-4\\cdot 0.5 - 4\\cdot(-0.9) + 0 = -2 + 3.6 = 1.6 \\rightarrow$ classified as **positive**.\n3. $-4\\cdot 0.2 - 4\\cdot(-0.3) + 0 = -0.8 + 1.2 = 0.4 \\rightarrow$ classified as **positive**. Since $p_2$ should belong to the negative class, it would be misclassified, thus **you need to retrain** and $p_2$ becomes a support vector. You would use a soft-margin SVM if the problem is no longer linearly separable.",
     "solutionSource": "exam"
@@ -114,7 +270,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following episode obtained by an agent interacting with an MDP having two states $\\mathcal{S} = \\{A, B\\}$ and two actions $\\mathcal{A} = \\{l, r\\}$,\n$$(A,l,1) \\rightarrow (A,l,1) \\rightarrow (A,r,0) \\rightarrow (B,r,10) \\rightarrow (B,l,0) \\rightarrow (A,r,0) \\rightarrow (B,l,0) \\rightarrow (A).$$\nAnswer to the following questions providing adequate motivations.\n1. Execute the *Q-learning* algorithm on the given episode considering initial state-action values $Q(S, a) = 0$ for every state-action pair, learning rate $\\alpha = 0.5$, and discount factor $\\gamma = 0$.\n2. Provide the best policy according to the output of *Q-learning*.\n3. Do you think that the agent fully exploited the policy learned in the episode above? Make a consistent guess with the available information.",
     "solution": "1. We start with the initial values $Q(A,l) = Q(A,r) = Q(B,l) = Q(B,r) = 0$. Then we compute the Q-learning update $Q(S_t, a_t) \\leftarrow (1-\\alpha)Q(S_t, a_t) + \\alpha\\big(R_t + \\gamma \\max_{a\\in\\{l,r\\}} Q(S_{t+1}, a)\\big)$ for every step $t$ in the episode (with $\\gamma = 0$ the bootstrap term vanishes):\n   - (a) $Q(A,l) \\leftarrow 0.5\\,Q(A,l) + 0.5(1 + 0) = 0.5\\cdot 0 + 0.5\\cdot 1 = 0.5$\n   - (b) $Q(A,l) \\leftarrow 0.5\\,Q(A,l) + 0.5(1 + 0) = 0.5\\cdot 0.5 + 0.5\\cdot 1 = 0.75$\n   - (c) $Q(A,r) \\leftarrow 0.5\\,Q(A,r) + 0.5(0 + 0) = 0.5\\cdot 0 + 0.5\\cdot 0 = 0$\n   - (d) $Q(B,r) \\leftarrow 0.5\\,Q(B,r) + 0.5(10 + 0) = 0.5\\cdot 0 + 0.5\\cdot 10 = 5$\n   - (e) $Q(B,l) \\leftarrow 0.5\\,Q(B,l) + 0.5(0 + 0) = 0.5\\cdot 0 + 0.5\\cdot 0 = 0$\n   - (f) $Q(A,r) \\leftarrow 0.5\\,Q(A,r) + 0.5(0 + 0) = 0.5\\cdot 0 + 0.5\\cdot 0 = 0$\n   - (g) $Q(B,l) \\leftarrow 0.5\\,Q(B,l) + 0.5(0 + 0) = 0.5\\cdot 0.5 + 0.5\\cdot 0 = 0.25$\n\n   which results in $Q(A,l) = 0.75$, $Q(A,r) = 0$, $Q(B,l) = 0.25$, $Q(B,r) = 5$.\n2. We select the greedy policy $\\pi(S) \\in \\arg\\max_{a\\in\\{l,r\\}} Q(S,a)$ w.r.t. the state-action values obtained with Q-learning, which gives $\\pi(A) = l$, $\\pi(B) = r$.\n3. Since at the steps (c), (e), (f), (g) the agent is not choosing the action that maximizes the current estimate of the $Q$ values, we can infer that the episode does involve some **exploration** (the agent did not fully exploit the learned policy).",
     "solutionSource": "exam"

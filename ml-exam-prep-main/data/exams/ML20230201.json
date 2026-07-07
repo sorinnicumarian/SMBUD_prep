@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["ensemble"],
+    "topics": [
+      "ensemble"
+    ],
     "prompt": "Illustrate the AdaBoost algorithm, explain its purpose and in which case it is useful.",
     "solution": "**Purpose.** AdaBoost (Adaptive Boosting) is an ensemble method that combines many **weak learners** (classifiers only slightly better than random, e.g. decision stumps) into a single strong classifier. Its goal is mainly to **reduce bias**: by training learners sequentially, each focusing on the examples previously misclassified, the ensemble progressively fits hard regions of the input space.\n\n**Algorithm (binary classification, $y_i \\in \\{-1, +1\\}$).** Maintain a weight distribution $D_t(i)$ over the $N$ training samples, initialized uniformly $D_1(i) = 1/N$. For $t = 1, \\dots, T$:\n1. Train a weak learner $h_t$ on the data weighted by $D_t$.\n2. Compute its weighted error $\\varepsilon_t = \\sum_{i} D_t(i)\\,\\mathbb{1}[h_t(x_i) \\ne y_i]$.\n3. Compute its coefficient $\\alpha_t = \\tfrac12 \\ln\\frac{1-\\varepsilon_t}{\\varepsilon_t}$ (larger when the learner is more accurate).\n4. Update the weights: $D_{t+1}(i) \\propto D_t(i)\\,\\exp(-\\alpha_t y_i h_t(x_i))$, increasing the weight of misclassified points and decreasing it for correctly classified ones; then renormalize.\n\n**Final classifier (inference).** A weighted majority vote: $$H(x) = \\operatorname{sign}\\left(\\sum_{t=1}^{T} \\alpha_t h_t(x)\\right).$$\n\n**When it is useful.** AdaBoost is useful when the base learner has **high bias / low variance** (a weak learner that underfits): boosting drives the bias down and can achieve very high accuracy. It is most effective on clean, low-noise problems. Conversely it is **not recommended with noisy data or many mislabeled examples**, since it keeps up-weighting those hard/noisy points and overfits them; in that high-variance regime, bagging is a better choice.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Describe and compare Ridge regression and Lasso regression.",
     "solution": "Both Ridge and Lasso are **regularized linear regression** methods: they add a penalty on the weights to the ordinary least squares (OLS) objective, trading a bit of bias for a reduction in variance, which mitigates overfitting (especially with many/correlated features).\n\n**Ridge regression ($L_2$).** Minimizes $$\\lVert \\mathbf{t} - \\Phi\\mathbf{w}\\rVert^2 + \\lambda\\lVert\\mathbf{w}\\rVert_2^2.$$ The penalty is the squared $L_2$-norm. It has a **closed-form solution** $\\mathbf{w} = (\\Phi^\\top\\Phi + \\lambda I)^{-1}\\Phi^\\top\\mathbf{t}$, the objective is smooth and strictly convex (unique solution). Ridge **shrinks** all weights toward zero but generally **does not set them exactly to zero**, so the solution is not sparse.\n\n**Lasso regression ($L_1$).** Minimizes $$\\lVert \\mathbf{t} - \\Phi\\mathbf{w}\\rVert^2 + \\lambda\\lVert\\mathbf{w}\\rVert_1.$$ The penalty is the $L_1$-norm. It is convex but **non-differentiable** at zero, so it has **no closed form** and is solved numerically (e.g. coordinate descent, LARS). Its key property is that it drives some weights **exactly to zero**, producing a **sparse** solution — hence Lasso performs implicit **feature selection**.\n\n**Comparison.**\n- *Penalty:* Ridge uses $L_2$, Lasso uses $L_1$.\n- *Sparsity:* Lasso yields sparse models (feature selection); Ridge keeps all features (only shrinks them).\n- *Solution:* Ridge closed-form; Lasso requires iterative optimization.\n- *Correlated features:* Ridge tends to share weight among correlated features; Lasso tends to pick one and zero the others (can be unstable). Elastic net combines both penalties.\n- *Common point:* both introduce bias (relative to OLS) controlled by $\\lambda$, chosen via cross-validation; larger $\\lambda$ means more regularization, lower variance, higher bias.",
     "solutionSource": "authored"
@@ -33,7 +37,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Consider the following snippet of code:\n\n1. Describe the procedure presented above. What is the purpose of such a procedure? Which problem it solves?\n2. Tell if the procedure above is correct and, in the case it is not, propose a modification to fix it.\n3. Do you think that Line 3 is fundamental for this procedure? Can you describe an example where it can be removed and motivate why it is not useful in such a case?",
     "code": {
       "language": "python",
@@ -43,36 +49,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230201-e4",
+    "id": "ML20230201-e4.1",
     "examId": "ML20230201",
     "date": "2023-02-01",
     "academicYear": "AA2122",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell if the following statements about SVM are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20230201-e4-s1",
+        "id": "ML20230201-e4.1-s1",
         "statement": "There exists a closed form solution to provide the optimal weights of the SVM.",
         "answer": false,
         "motivation": "The problem of finding the optimal parameter requires to transform the primal optimization problem into the dual one and apply an iterative procedure (i.e., SMO) to find the optimal weights."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230201-e4.2",
+    "examId": "ML20230201",
+    "date": "2023-02-01",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following statements about SVM are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230201-e4-s2",
+        "id": "ML20230201-e4.2-s1",
         "statement": "There exists a unique solution for the problem of optimizing the weights of the SVM.",
         "answer": true,
         "motivation": "The objective function of the SVM is convex, therefore it has a unique minimum."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230201-e4.3",
+    "examId": "ML20230201",
+    "date": "2023-02-01",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following statements about SVM are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230201-e4-s3",
+        "id": "ML20230201-e4.3-s1",
         "statement": "Since they have the same activation function, it is equivalent to train an SVM and a perceptron, if we have a linearly separable dataset.",
         "answer": false,
         "motivation": "Even if they have the $sign(\\cdot)$ activation function, they are optimizing different objectives. The perceptron is minimizing the misclassification error, while the SVM is maximizing the intraclass margin. This holds also for linearly separable datasets."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230201-e4.4",
+    "examId": "ML20230201",
+    "date": "2023-02-01",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell if the following statements about SVM are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230201-e4-s4",
+        "id": "ML20230201-e4.4-s1",
         "statement": "The boundary of a nonlinear kernel SVM is linear in a specific high-dimensional feature space.",
         "answer": true,
         "motivation": "The idea of using a kernel is based on the idea that expanding the features into a complex space it is more likely the data can be all correctly classified by a straight boundary (i.e., a hyperplane)."
@@ -82,36 +141,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20230201-e5",
+    "id": "ML20230201-e5.1",
     "examId": "ML20230201",
     "date": "2023-02-01",
     "academicYear": "AA2122",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["modelsel", "learntheory"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "You are given with the following class of regression models $\\mathcal{M}_\\psi$ over the variables $\\{x_1, x_2\\}$ and an additional feature $\\psi(x_1, x_2)$: $$\\mathcal{M}_\\psi: \\quad y_\\mathbf{w}(x_1, x_2) = w_0 + w_1 x_1 + w_2 x_2^2 + w_3 \\psi(x_1, x_2), \\qquad \\mathbf{w} \\in \\mathbb{R}^4.$$ Consider three possible choices of feature $\\psi$: $$\\psi_1(x_1, x_2) = 1, \\qquad \\psi_2(x_1, x_2) = x_1 - 3x_2^2, \\qquad \\psi_3(x_1, x_2) = x_1 x_2.$$ Tell if the following statements are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20230201-e5-s1",
+        "id": "ML20230201-e5.1-s1",
         "statement": "Models $\\mathcal{M}_{\\psi_1}$ and $\\mathcal{M}_{\\psi_2}$ have the same bias.",
         "answer": true,
         "motivation": "They are the very same model after a renaming of the weights. For $\\mathcal{M}_{\\psi_1}$: $y_\\mathbf{w} = w_0 + w_1 x_1 + w_2 x_2^2 + w_3 = (w_0 + w_3) + w_1 x_1 + w_2 x_2^2$, with $\\mathbf{w}^{(1)} \\in \\mathbb{R}^3$. For $\\mathcal{M}_{\\psi_2}$: $y_\\mathbf{w} = w_0 + w_1 x_1 + w_2 x_2^2 + w_3(x_1 - 3x_2^2) = w_0 + (w_1 + w_3)x_1 + (w_2 - 3w_3)x_2^2$, with $\\mathbf{w}^{(2)} \\in \\mathbb{R}^3$. Both span the same set of models."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230201-e5.2",
+    "examId": "ML20230201",
+    "date": "2023-02-01",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "You are given with the following class of regression models $\\mathcal{M}_\\psi$ over the variables $\\{x_1, x_2\\}$ and an additional feature $\\psi(x_1, x_2)$: $$\\mathcal{M}_\\psi: \\quad y_\\mathbf{w}(x_1, x_2) = w_0 + w_1 x_1 + w_2 x_2^2 + w_3 \\psi(x_1, x_2), \\qquad \\mathbf{w} \\in \\mathbb{R}^4.$$ Consider three possible choices of feature $\\psi$: $$\\psi_1(x_1, x_2) = 1, \\qquad \\psi_2(x_1, x_2) = x_1 - 3x_2^2, \\qquad \\psi_3(x_1, x_2) = x_1 x_2.$$ Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230201-e5-s2",
+        "id": "ML20230201-e5.2-s1",
         "statement": "The bias of model $\\mathcal{M}_{\\psi_1}$ is larger than the bias of model $\\mathcal{M}_{\\psi_3}$.",
         "answer": true,
         "motivation": "Models $\\mathcal{M}_{\\psi_3}$ are a super-set of models $\\mathcal{M}_{\\psi_1}$. Formally, $\\mathcal{M}_{\\psi_1}: y_\\mathbf{w} = w_0 + w_1 x_1 + w_2 x_2^2 + w_3$, and $\\mathcal{M}_{\\psi_3}: y_\\mathbf{w} = w_0' + w_1' x_1 + w_2' x_2^2 + w_3' x_1 x_2$. To get $\\mathcal{M}_{\\psi_1}$ from $\\mathcal{M}_{\\psi_3}$, simply set $w_0' = w_0 + w_3$, $w_1' = w_1$, $w_2' = w_2$, and $w_3' = 0$. A larger hypothesis space gives lower (or equal) bias, so $\\mathcal{M}_{\\psi_1}$ has larger bias."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230201-e5.3",
+    "examId": "ML20230201",
+    "date": "2023-02-01",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "You are given with the following class of regression models $\\mathcal{M}_\\psi$ over the variables $\\{x_1, x_2\\}$ and an additional feature $\\psi(x_1, x_2)$: $$\\mathcal{M}_\\psi: \\quad y_\\mathbf{w}(x_1, x_2) = w_0 + w_1 x_1 + w_2 x_2^2 + w_3 \\psi(x_1, x_2), \\qquad \\mathbf{w} \\in \\mathbb{R}^4.$$ Consider three possible choices of feature $\\psi$: $$\\psi_1(x_1, x_2) = 1, \\qquad \\psi_2(x_1, x_2) = x_1 - 3x_2^2, \\qquad \\psi_3(x_1, x_2) = x_1 x_2.$$ Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230201-e5-s3",
+        "id": "ML20230201-e5.3-s1",
         "statement": "The VC dimension of model $\\mathcal{M}_{\\psi_2}$ is larger than the VC dimension of model $\\mathcal{M}_{\\psi_3}$.",
         "answer": false,
         "motivation": "For the same reason as the previous question, recalling that models $\\mathcal{M}_{\\psi_2}$ are the same as models $\\mathcal{M}_{\\psi_1}$. Since $\\mathcal{M}_{\\psi_3}$ is a super-set of $\\mathcal{M}_{\\psi_1} = \\mathcal{M}_{\\psi_2}$, its VC dimension is not smaller."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20230201-e5.4",
+    "examId": "ML20230201",
+    "date": "2023-02-01",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "You are given with the following class of regression models $\\mathcal{M}_\\psi$ over the variables $\\{x_1, x_2\\}$ and an additional feature $\\psi(x_1, x_2)$: $$\\mathcal{M}_\\psi: \\quad y_\\mathbf{w}(x_1, x_2) = w_0 + w_1 x_1 + w_2 x_2^2 + w_3 \\psi(x_1, x_2), \\qquad \\mathbf{w} \\in \\mathbb{R}^4.$$ Consider three possible choices of feature $\\psi$: $$\\psi_1(x_1, x_2) = 1, \\qquad \\psi_2(x_1, x_2) = x_1 - 3x_2^2, \\qquad \\psi_3(x_1, x_2) = x_1 x_2.$$ Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20230201-e5-s4",
+        "id": "ML20230201-e5.4-s1",
         "statement": "The VC dimension of model $\\mathcal{M}_{\\psi_1 + \\psi_2}$ is larger than the VC dimension of model $\\mathcal{M}_{\\psi_3}$.",
         "answer": false,
         "motivation": "Models $\\mathcal{M}_{\\psi_1 + \\psi_2}$ are the same as models $\\mathcal{M}_{\\psi_1}$ (or models $\\mathcal{M}_{\\psi_2}$). Since $\\mathcal{M}_{\\psi_3}$ is a super-set, the VC dimension of $\\mathcal{M}_{\\psi_1 + \\psi_2}$ is not larger than that of $\\mathcal{M}_{\\psi_3}$."
@@ -128,7 +240,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "We are given the problem of evaluating the time and materials necessary for the construction of a building. Even if in principle all the quantities are known, the fact that there might be some delays in the construction site and the fact that some of the materials might be lost during transportation, allow us to consider all the quantities that are involved in the process as random variables. Let us assume to have a dataset of previous construction building, where they describe the entire process, also including the intermediate steps, e.g., design, foundation building, structure building, furnishing of the apartments.\n\n1. Model the problem of evaluating the time and materials used for a new construction.\n2. Model the problem of selecting the best way of performing the construction works to minimize the time and materials required for the construction.\n\nIn both cases, specify the problem, feature, solution and all the relevant information to solve such task using ML-based approaches.",
     "solution": "1. Multiple regression problem: we can use as input the characteristics of the building ground, the one about the location we are planning to built to predict the amount of materials and time required (output) to finish the building. A method to solve such a problem is to use multiple linear regression. Notice that, with this approach, we are only considering the process as a whole, while we are not taking into account the intermediate steps of the process.\n\n2. Reinforcement Learning problem: given the actions required to finish a building, select the ones which are the most fruitful from a time and economic point of view. The state consists in the current state of the building, the actions are the decision one may take to advance the building construction, the reward is either time or costs incurred by the specific action, the transition are stochastic, the discount factor might be set to 1 since we are assuming to have a finite horizon for the process. We can use either SARSA or Q-learning to find the optimal policy. If we want to make use of the dataset we need to use an offline offpolicy approach or an offline approach with importance sampling.",
     "solutionSource": "exam"
@@ -141,7 +256,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the set of trajectories collected with a policy $\\pi$ in a Markov decision process with state space $\\mathcal{S} = \\{A, B, C\\}$, where $C$ is an absorbing zero-reward state, and action space $\\mathcal{A} = \\{x, y\\}$:\n\n$$(A, x, -2) \\to (B, y, 3) \\to (A, x, 1) \\to (C)$$\n$$(B, x, 1) \\to (B, y, -3) \\to (C)$$\n$$(A, y, 6) \\to (C)$$\n\n1. Execute first-visit Monte Carlo for estimating the value function $V^\\pi(s)$ for all states $s \\in \\mathcal{S}$, keeping the discount factor $\\gamma$ parametric.\n2. Execute TD(0) **on the first trajectory only** for estimating the value function $V^\\pi$ for all states $s \\in \\mathcal{S}$, keeping the discount factor $\\gamma$ parametric, starting with a zero initialization of the value functions and with learning rate $\\alpha = 1$.\n3. Can the provided trajectories be generated by a deterministic policy $\\pi$? Justify your answer.",
     "solution": "1. Let us apply first-visit Monte Carlo:\n$$V^\\pi(C) = 0 \\text{ (absorbing zero-reward state)}$$\n$$V^\\pi(B) = \\frac{1}{2}((3 + \\gamma) + (1 - 3\\gamma)) = 2 - \\gamma$$\n$$V^\\pi(A) = \\frac{1}{2}((-2 + 3\\gamma + \\gamma^2) + 6) = 2 + \\frac{3}{2}\\gamma + \\frac{1}{2}\\gamma^2.$$\n\n2. Let us apply TD(0) starting with a zero initialization of the value functions and with learning rate $\\alpha = 1$:\n$$(A, x, -2) \\to (B, y, 3) \\implies V^\\pi(A) \\leftarrow R + \\gamma V^\\pi(B) = -2 + \\gamma\\cdot 0 = -2$$\n$$(B, y, 3) \\to (A, x, 1) \\implies V^\\pi(B) \\leftarrow R + \\gamma V^\\pi(A) = 3 + \\gamma\\cdot(-2) = 3 - 2\\gamma$$\n$$(A, x, 1) \\to (C) \\implies V^\\pi(A) \\leftarrow R + \\gamma V^\\pi(C) = 1 + \\gamma\\cdot 0 = 1$$\n$$(C) \\implies V^\\pi(C) \\leftarrow 0 \\text{ (absorbing zero-reward state)}$$\n\n3. No, because, for instance, in state $A$ both actions $x$ and $y$ are played at least once.",
     "solutionSource": "exam"
@@ -154,7 +271,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["modeleval"],
+    "topics": [
+      "modeleval"
+    ],
     "prompt": "Consider a binary classifier, defined in terms of the threshold $\\xi$: $$y(\\mathbf{x}) = \\begin{cases} 1 & \\text{if } \\mathbf{w}^T\\mathbf{x} \\ge \\xi \\\\ 0 & \\text{otherwise} \\end{cases},$$ where the weights $\\mathbf{w}$ were trained on a dataset made of $N = 100$ samples and $\\xi = 0$.\n\n1. Suppose that Accuracy $=$ Precision $= 0.5$ and that the negative samples correctly classified are 10, draw the confusion matrix.\n2. Compute the Recall.\n3. Suppose that we move the threshold $\\xi$ to the value 0.2. How will the Recall change? Provide a formal justification to your answer (**Suggestion.** Function $\\frac{x}{x+y}$ for $x, y \\ge 0$ is increasing in $x$ and decreasing in $y$).",
     "solution": "1. Knowing that Accuracy $=$ Precision $= 0.5$, we deduce: $$\\text{Accuracy} = \\frac{TP + TN}{TP + TN + FP + FN} = \\frac{TP + TN}{100} = 0.5 \\implies TP + TN = 50,$$ $$\\text{Precision} = \\frac{TP}{TP + FP} = 0.5 \\implies (1 - 0.5)TP = 0.5 FP \\implies TP = FP.$$ Thus, recalling that $TN = 10$, we have the system: $TP + TN = 50$, $TP = FP$, $TN = 10$, which gives $TP = 40$, $FP = 40$, $TN = 10$. From which, $FN = N - TP - FP - TN = 10$. Thus, the confusion matrix becomes:\n\n| | Actual Class: 1 | Actual Class: 0 |\n| Predicted Class: 1 | 40 | 40 |\n| Predicted Class: 0 | 10 | 10 |\n\n2. Using the confusion matrix, we can compute the Recall: $$\\text{Recall} = \\frac{TP}{TP + FN} = \\frac{40}{40 + 10} = 0.8.$$\n\n3. If we increase $\\xi$ (it does not matter the actual value 0.2), we will have that some points previously classified as positive, will be classified as negative. Which means, formally: $TP' \\le TP$, $FP' \\le FP$, $FN' \\ge FN$ and $TN' \\ge TN$, having denoted with $'$ the quantities after the change of $\\xi$. The recall will become: $$\\text{Recall}' = \\frac{TP'}{TP' + FN'} \\le \\frac{TP}{TP + FN} = \\text{Recall},$$ having applied the suggestion with $x = TP'$ and $y = FN'$ and observing that $TP' \\le TP$ and the function is increasing in $x$, and $FN' \\ge FN$ and the function is decreasing in $y$.",
     "solutionSource": "exam"

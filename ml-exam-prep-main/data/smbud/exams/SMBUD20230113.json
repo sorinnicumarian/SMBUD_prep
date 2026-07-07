@@ -1,83 +1,272 @@
 [
   {
-    "id": "SMBUD20230113-e1",
+    "id": "SMBUD20230113-e1.1",
     "examId": "SMBUD20230113",
     "date": "2023-01-13",
     "academicYear": "AA2223",
     "exerciseNo": 1,
-    "marks": 6,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["relational", "nosql-intro", "mongodb", "elasticsearch", "hadoop", "keyvalue", "spark", "architectures"],
+    "topics": [
+      "architectures"
+    ],
     "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
     "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s1",
+        "id": "SMBUD20230113-e1.1-s1",
         "statement": "All APIs require the user to get an authentication key to be able to access their services.",
         "answer": false,
         "motivation": "FALSE. Many APIs are public/open and can be called without any authentication key (e.g. some public REST endpoints); authentication is common but not universal."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.2",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s2",
+        "id": "SMBUD20230113-e1.2-s1",
         "statement": "The Consistency (ACID) property ensures that a transaction is not affected by the behaviour of other, concurrent transactions.",
         "answer": false,
         "motivation": "FALSE. That description is the **Isolation** property, not Consistency. ACID Consistency means a transaction takes the database from one valid (constraint-satisfying) state to another; isolation is what protects a transaction from interference by concurrent transactions."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.3",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s3",
+        "id": "SMBUD20230113-e1.3-s1",
         "statement": "A graph is sparse when the cardinality of the nodes is similar to the cardinality of the arcs.",
         "answer": true,
         "motivation": "TRUE. A sparse graph has a number of edges close to (linear in) the number of nodes, as opposed to a dense graph where the number of edges approaches the quadratic maximum (~|V|^2)."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.4",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s4",
+        "id": "SMBUD20230113-e1.4-s1",
         "statement": "MongoDB guarantees Partition tolerance and Consistency.",
         "answer": false,
         "motivation": "FALSE. MongoDB is usually classified as CP-leaning (strong consistency by default on the primary), but it does not unconditionally *guarantee* both properties: during a network partition/primary election the affected shard can become temporarily unavailable for writes, and read/write concerns are tunable so consistency itself is configurable rather than an absolute guarantee."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.5",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s5",
+        "id": "SMBUD20230113-e1.5-s1",
         "statement": "In Elasticsearch, term queries can be easily applied to text fields",
         "answer": false,
         "motivation": "FALSE — this should be avoided. `text` fields are analyzed/tokenized at index time (lowercased, stemmed, split into tokens), so a `term` query (which matches the exact, unanalyzed value) will rarely match anything useful on them. Term queries are meant for `keyword` (and other not-analyzed) fields; matching text should use `match`/`match_phrase` queries instead."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.6",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s6",
+        "id": "SMBUD20230113-e1.6-s1",
         "statement": "HDFS is a distributed, resilient file system built with the objective of supporting scalable computation",
         "answer": true,
         "motivation": "TRUE. HDFS splits files into large blocks replicated across many DataNodes (resilience to node failure) and is designed to feed distributed, data-local batch computation frameworks (e.g. MapReduce, Spark) at scale."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.7",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s7",
+        "id": "SMBUD20230113-e1.7-s1",
         "statement": "Redis is not meant to be used when caching is needed.",
         "answer": false,
         "motivation": "FALSE. Redis is an in-memory key-value store that is **used also as a cache** (with TTL/eviction policies) — caching is one of its primary, most common use cases, not something to avoid."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.8",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s8",
+        "id": "SMBUD20230113-e1.8-s1",
         "statement": "In Spark, RDDs are immutable and lazily evaluated.",
         "answer": true,
         "motivation": "TRUE. RDDs are read-only/immutable partitioned collections; transformations (map, filter, ...) build a lineage DAG that is only executed when an action (e.g. collect, count) triggers it (lazy evaluation)."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.9",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s9",
+        "id": "SMBUD20230113-e1.9-s1",
         "statement": "Data-driven decisions can be guided by Descriptive, Predictive, Reactive, or Prescriptive analysis on the data",
         "answer": false,
         "motivation": "FALSE. \"Reactive\" is not one of the standard analytics categories; the usual framework is **Descriptive, Diagnostic, Predictive, and Prescriptive** analysis (only the last, Prescriptive, actually recommends actions to take)."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.10",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s10",
+        "id": "SMBUD20230113-e1.10-s1",
         "statement": "In a documental database, a subdocument is a complex object associated to an attribute in the main document",
         "answer": false,
         "motivation": "FALSE. A subdocument is simply an **embedded document** that can appear as the value of a field — it need not be \"complex\" (it can be a small/simple nested object, or even one element of an array of embedded documents); the definition given is too restrictive."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.11",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s11",
+        "id": "SMBUD20230113-e1.11-s1",
         "statement": "Map-reduce is a database software that implements scalable queries upon big data",
         "answer": false,
         "motivation": "FALSE. MapReduce is a **programming/computation paradigm** (a pattern for parallel batch processing across a cluster) — it is not a database software, and it is not meant for ad-hoc queries but for scheduled, large-scale batch jobs."
-      },
+      }
+    ],
+    "solution": "1: FALSE (not all APIs require auth). 2: FALSE (that's Isolation, not Consistency). 3: TRUE (sparse = edges ~ nodes). 4: FALSE (not an unconditional guarantee). 5: FALSE (term queries should be avoided on analyzed text fields). 6: TRUE. 7: FALSE (Redis is also used as a cache). 8: TRUE. 9: FALSE (only Descriptive/Diagnostic/Predictive/Prescriptive; only Prescriptive is really \"actionable\"). 10: FALSE (subdocuments need not be complex). 11: FALSE (MapReduce is a paradigm, not a DB, not for queries). 12: TRUE. See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "SMBUD20230113-e1.12",
+    "examId": "SMBUD20230113",
+    "date": "2023-01-13",
+    "academicYear": "AA2223",
+    "exerciseNo": 1,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**THEORY.** Choose whether the following statements are true or false. Each correct answer awards 0.5 pts, each incorrect answer penalizes -0.125 pts, missing answers count 0 pts.",
+    "subStatements": [
       {
-        "id": "SMBUD20230113-e1-s12",
+        "id": "SMBUD20230113-e1.12-s1",
         "statement": "A dataframe is a large-scale distributed collection of rows organized into named columns",
         "answer": true,
         "motivation": "TRUE. This is exactly the Spark DataFrame abstraction: a distributed collection of records organized into named, typed columns, conceptually like a relational table."
@@ -94,7 +283,10 @@
     "exerciseNo": 2,
     "marks": 4,
     "type": "applied-modeling",
-    "topics": ["relational", "architectures"],
+    "topics": [
+      "relational",
+      "architectures"
+    ],
     "prompt": "**Exercise 1 — ER modeling (4 pts).** NASA wants to model a database of their space launches. They manage two types of space systems: **spaceships** and **space probes**. A spaceship is described by its name, version, price, number of seats, and fuel capacity. A space probe is described by its name, version, price, and fuel capacity. Each spaceship has an associated **crew**, while probes are unmanned. Every crew has a unique name, and includes at least three astronauts, up to the number of seats in the spaceship. Each **astronaut** is described by a personal ID, name, surname, birth date, crew role (engineer, pilot, second pilot, etc.), and hiring date. Each astronaut can be part of several crews with different roles. Each spaceship or space probe can only take part in one **launch**, and it's assigned to only one crew. Each launch is described by date, time, departure country, departure location, and destination. **Destinations** are described by their names, coordinates, description, and type. The type depends on the systems: spaceships head towards space station, moon landing, planet landing, or orbit only. In contrast, space probes are launched towards space bodies (e.g., planets, satellites, sun, comets, etc.).\n\n**1.1)** Model the ER diagram of the proposed situation. Be sure to properly set the primary key for each entity. If needed, write the necessary assumptions to model the diagram properly. Write the relationship reading direction. (3 pts.)\n\n**1.2)** Which DB technology would be the best to store the different groups of entities in your ER diagram? For each DB technology, provide the list of entities that would be stored and the motivation (e.g., \"Documental DB\" – \"Entity 1, Entity 2, etc.\" – \"Motivation\"). (1 pt.)",
     "solution": "**Assumptions.** `name` is not guaranteed globally unique for spaceships/probes (real names can repeat across versions/models), so each gets a surrogate primary key `id`; `version` is then a plain attribute. `Astronaut.personal_id` is the natural key. `Crew.name` is a candidate key (given as unique). Destination `type` is modeled as an attribute whose *domain* differs depending on whether the destination is reached by a spaceship-launch or a probe-launch (a specialization is not required since a destination's realistic type set is just a constraint, not a structural difference).\n\n**Entities & keys.**\n- `Spaceship(id [PK], name, version, price, seats, fuel_capacity)`\n- `SpaceProbe(id [PK], name, version, price, fuel_capacity)`\n- `Crew(name [PK])`\n- `Astronaut(personal_id [PK], name, surname, birth_date, hiring_date)`\n- `Launch(id [PK], date, time, departure_country, departure_location)`\n- `Destination(id [PK], name, coordinates, description, type)`\n\n**Relationships.**\n- `HAS_CREW`: Spaceship (1,1) — Crew (1,1). *Reading:* \"a Spaceship HAS an associated Crew\" — one-to-one, since each spaceship has exactly one crew and (by the 1-launch/1-crew rule) a crew is tied to one spaceship.\n- `MEMBER_OF` (ternary-like, modeled as an entity-relationship with attribute): Astronaut (1,N) — Crew (3,N), with attribute `role` on the relationship (crew role: engineer, pilot, second pilot, …). Cardinality on the Crew side is **at least 3, at most `seats`** of the associated spaceship (a business rule to state as an assumption, not directly expressible in plain ER — note it explicitly). *Reading:* \"an Astronaut IS MEMBER OF a Crew (with a role)\".\n- `PERFORMS`: (Spaceship (0,1) OR SpaceProbe (0,1)) — Launch (1,1). Modeled as two optional, mutually-exclusive relationships `PERFORMS_S` (Spaceship–Launch) and `PERFORMS_P` (SpaceProbe–Launch), each (0,1) on the system side and (1,1) on the Launch side, with the exclusivity constraint \"a Launch is performed by exactly one Spaceship XOR one SpaceProbe\" noted as an assumption (plain ER has no native XOR; some notations use a generalization/exclusion arc). *Reading:* \"a Spaceship/SpaceProbe PERFORMS a Launch\".\n- `TO`: Launch (1,1) — Destination (0,N). *Reading:* \"a Launch goes TO a Destination\"; a Destination can be the target of many launches, each launch has exactly one destination.\n\n**1.2) DB technology mapping.**\n\n| DB Type | Main Entities | Motivation |\n|---|---|---|\n| Relational (SQL) | Spaceship, SpaceProbe, Launch | Fixed, well-structured schema with numeric/date attributes and clear 1:1/1:N relationships; ACID transactions matter when scheduling launches and assigning systems. |\n| Documental (MongoDB) | Crew, Astronaut | Crew and its astronauts (with role) are naturally read/written together as a nested document (crew + embedded astronaut list), avoiding costly joins for a very common access pattern. |\n| Graph (Neo4j) | Destination, Launch, Spaceship, SpaceProbe | The launch → destination network and system-to-launch links are naturally graph-shaped, making it easy to run connectivity/pattern queries (e.g., \"astronauts who traveled together\"). |\n| Search engine (Elasticsearch) | Destination | `description` is free text that benefits from full-text search/relevance scoring (e.g., searching destinations by keywords), which relational LIKE queries handle poorly. |\n| Columnar (Cassandra) | SpaceProbe | Simple, high-volume, mostly append/read-by-key telemetry-like data (name/version/price/fuel) benefits from Cassandra's fast key-based writes/reads at scale, if the fleet of probes grows very large. |\n\n*(The specific DB↔entity assignment is a modeling choice; the exam grades the reasoning/motivation, not one fixed mapping — the assignment used consistently in Exercises 2–5 below is: Neo4j for destinations/launches/spaceships/space probes, MongoDB for spaceships/crew/astronauts, Elasticsearch for destination, Cassandra for space probe.)*",
     "solutionSource": "authored"
@@ -107,7 +299,9 @@
     "exerciseNo": 3,
     "marks": 4,
     "type": "applied-modeling",
-    "topics": ["neo4j"],
+    "topics": [
+      "neo4j"
+    ],
     "prompt": "**Exercise 2 — Neo4j (4 pts).** Consider the following entities from the NASA space-launches scenario described in Exercise 1: destinations, launches, spaceships, and space probes.\n\n**2.1)** Provide an example of a simple graph describing the aforementioned nodes, the respective connections, and their properties. Be coherent with your ER Diagram. (1 pt.)\n\n**2.2)** Write a Cypher query that computes the total price for each destination of space probes whose individual price is higher than 30 MLN $, leaving from the country \"USA\". (1.5 pts.)\n\n**2.3)** Write a query to extract the astronauts that traveled at least two times with the same colleague, on trips that departed from the same location and had different type of destination. Make sure not to extract many times the same pairs of astronauts. (1.5 pts.)",
     "solution": "**2.1) Graph model.**\n- `(:Spaceship {id, name, version, price, seats, fuel_capacity})`\n- `(:SpaceProbe {id, name, version, price, fuel_capacity})`\n- `(:Launch {id, date, time, departure_country, departure_location})`\n- `(:Destination {id, name, coordinates, description, type})`\n- `(:Astronaut {personal_id, name, surname, birth_date, hiring_date})`\n- `(:Crew {name})`\n\nRelationships: `(:Spaceship)-[:PERFORMS]->(:Launch)`, `(:SpaceProbe)-[:PERFORMS]->(:Launch)`, `(:Launch)-[:TO]->(:Destination)`, `(:Spaceship)-[:HAS_CREW]->(:Crew)`, `(:Astronaut)-[:MEMBER_OF {role}]->(:Crew)`.\n\n**2.2)**\n```cypher\nMATCH (p:SpaceProbe)-[:PERFORMS]->(l:Launch)-[:TO]->(d:Destination)\nWHERE p.price > 30000000 AND l.departure_country = \"USA\"\nRETURN d.name AS destination, sum(p.price) AS totalPrice\n```\n\n**2.3)** Two astronauts \"traveled together\" when they belong to the same crew, and that crew is assigned to the same launch — join through `Crew`/`MEMBER_OF` and `HAS_CREW`/`PERFORMS`. We look for two distinct such trips (l1, l2) shared by the same pair, departing from the same location, with different destination type; `personal_id` ordering avoids duplicate/symmetric pairs.\n```cypher\nMATCH (a1:Astronaut)-[:MEMBER_OF]->(c1:Crew)<-[:HAS_CREW]-(s1)-[:PERFORMS]->(l1:Launch)-[:TO]->(d1:Destination)\nMATCH (a2:Astronaut)-[:MEMBER_OF]->(c1)\nWHERE a1.personal_id < a2.personal_id\nMATCH (a1)-[:MEMBER_OF]->(c2:Crew)<-[:HAS_CREW]-(s2)-[:PERFORMS]->(l2:Launch)-[:TO]->(d2:Destination)\nMATCH (a2)-[:MEMBER_OF]->(c2)\nWHERE l1 <> l2\n  AND l1.departure_location = l2.departure_location\n  AND d1.type <> d2.type\nRETURN DISTINCT a1.personal_id AS astronaut1, a2.personal_id AS astronaut2\n```\nThe `DISTINCT` plus the strict `personal_id` ordering ensures each qualifying pair is returned only once, even though the pattern can match the (l1,l2) trip pair in either order.",
     "solutionSource": "authored"
@@ -120,7 +314,9 @@
     "exerciseNo": 4,
     "marks": 4,
     "type": "applied-modeling",
-    "topics": ["mongodb"],
+    "topics": [
+      "mongodb"
+    ],
     "prompt": "**Exercise 3 — MongoDB (4 pts).** Consider the following entities from the NASA scenario described in Exercise 1: spaceships, crew, and astronauts. **Simplifying assumption:** each astronaut can now only be part of one crew.\n\n**3.1)** Describe the structure of the document you would design to model their relationships and attributes. Be coherent with your ER Diagram. (1 pt.)\n\n**3.2)** Extract the name of all the astronauts whose spaceship's name is \"Dragonstar\". (1 pt.)\n\n**3.3)** Extract the list of all spaceships with a crew of at least five people, one of which must be an engineer hired in 2015 (suppose that the `year()` function would let you collect the year of a given date). (2 pts.)",
     "solution": "**3.1) Document design.** Since each spaceship has exactly one crew, and (under the simplifying assumption) each astronaut belongs to only one crew, the 1:1 spaceship–crew relationship and the 1:N crew–astronaut relationship can both be **embedded** inside the spaceship document — this is the natural \"contains\" access pattern (fetch a spaceship and its whole crew in one read):\n```json\n{\n  \"_id\": ObjectId(\"...\"),\n  \"name\": \"Dragonstar\",\n  \"version\": \"v2.0\",\n  \"price\": 45000000,\n  \"seats\": 6,\n  \"fuel_capacity\": 1200,\n  \"crew\": {\n    \"name\": \"Alpha Crew\",\n    \"astronauts\": [\n      {\n        \"personal_id\": \"A001\",\n        \"name\": \"Jane\",\n        \"surname\": \"Doe\",\n        \"birth_date\": ISODate(\"1985-04-12\"),\n        \"role\": \"engineer\",\n        \"hiring_date\": ISODate(\"2015-06-01\")\n      }\n    ]\n  }\n}\n```\n\n**3.2)**\n```javascript\ndb.spaceships.aggregate([\n  { $match: { name: \"Dragonstar\" } },\n  { $unwind: \"$crew.astronauts\" },\n  { $project: { _id: 0, name: \"$crew.astronauts.name\" } }\n])\n```\n\n**3.3)**\n```javascript\ndb.spaceships.aggregate([\n  { $match: {\n      $expr: { $gte: [ { $size: \"$crew.astronauts\" }, 5 ] }\n  } },\n  { $match: {\n      \"crew.astronauts\": {\n        $elemMatch: {\n          role: \"engineer\",\n          $expr: { $eq: [ { $year: \"$$this.hiring_date\" }, 2015 ] }\n        }\n      }\n  } },\n  { $project: { _id: 0, name: 1, version: 1 } }\n])\n```\n*(If the driver/MongoDB version does not support `$$this` inside `$elemMatch`, an equivalent approach is to `$unwind` the astronauts, filter with `role: \"engineer\"` and `$year(hiring_date) == 2015`, then `$group` back by spaceship and keep only spaceships whose original crew size is ≥ 5.)*",
     "solutionSource": "authored"
@@ -133,7 +329,9 @@
     "exerciseNo": 5,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["elasticsearch"],
+    "topics": [
+      "elasticsearch"
+    ],
     "prompt": "**Exercise 4 — Elasticsearch (2 pts).** Consider only the entity **destination** from the NASA scenario described in Exercise 1.\n\n**4.1)** Describe the **full mapping** in an Elasticsearch model to define the document of the entity involved. Be coherent with your ER diagram, and be sure to assign the field types \"text\" and \"keyword\" properly. (1 pt.)\n\n**4.2)** Write a query to extract all the destinations whose descriptions include the words \"travel\" and \"solar system\", assigning a higher score to the ones whose type is \"planet\" and filtering out the ones with the name \"Mars\". (1 pt.)",
     "solution": "**4.1) Mapping.** `name` and `type` are short, exact-match, enumerable-ish values used for filtering/aggregation/sorting → `keyword`. `description` is free text meant to be searched/analyzed → `text`. `coordinates` is a geo point.\n```json\nPUT /destinations\n{\n  \"mappings\": {\n    \"properties\": {\n      \"name\":        { \"type\": \"keyword\" },\n      \"coordinates\": { \"type\": \"geo_point\" },\n      \"description\": { \"type\": \"text\" },\n      \"type\":        { \"type\": \"keyword\" }\n    }\n  }\n}\n```\n\n**4.2) Query.** Both \"travel\" and \"solar system\" must appear in `description` (must clauses), destinations named \"Mars\" are excluded (must_not on the keyword field), and `type: planet` boosts relevance without being mandatory (should clause):\n```json\nGET /destinations/_search\n{\n  \"query\": {\n    \"bool\": {\n      \"must\": [\n        { \"match\": { \"description\": \"travel\" } },\n        { \"match_phrase\": { \"description\": \"solar system\" } }\n      ],\n      \"should\": [\n        { \"term\": { \"type\": { \"value\": \"planet\", \"boost\": 2.0 } } }\n      ],\n      \"must_not\": [\n        { \"term\": { \"name\": \"Mars\" } }\n      ]\n    }\n  }\n}\n```",
     "solutionSource": "authored"
@@ -146,7 +344,9 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["columnar"],
+    "topics": [
+      "columnar"
+    ],
     "prompt": "**Exercise 5 — Cassandra (2 pts).** Consider only the entity **space probe** from the NASA scenario described in Exercise 1.\n\n**5.1)** Write the statements to create a keyspace, connect to it, and create a table in Cassandra for the aforementioned entity. Be coherent with your ER Diagram. (1 pt.)\n\n**5.2)** Write a query to extract the space probes whose version equals \"v1.1.0\". (1 pt.)",
     "solution": "**5.1)**\n```sql\nCREATE KEYSPACE nasa\n  WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};\n\nUSE nasa;\n\nCREATE TABLE space_probes (\n  id            uuid,\n  name          text,\n  version       text,\n  price         double,\n  fuel_capacity double,\n  PRIMARY KEY (id)\n);\n```\n*(`id` is chosen as the sole partition key since space probes are identified individually and there is no natural, highly-selective grouping key to partition on; `name`/`version` are plain columns.)*\n\n**5.2)** Since `version` is not part of the primary key, Cassandra needs either a secondary index or `ALLOW FILTERING` to query by it:\n```sql\nCREATE INDEX ON space_probes (version);\n\nSELECT * FROM space_probes WHERE version = 'v1.1.0';\n```\n*(Without the secondary index, the equivalent ad-hoc query would be `SELECT * FROM space_probes WHERE version = 'v1.1.0' ALLOW FILTERING;`, which works but forces a full-table scan and is discouraged at scale — the secondary index is the better production answer.)*",
     "solutionSource": "authored"

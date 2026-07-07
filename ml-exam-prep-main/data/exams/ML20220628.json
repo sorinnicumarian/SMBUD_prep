@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Describe the Bayesian Linear Regression method and how it compares to Ridge Regression.",
     "solution": "**Bayesian Linear Regression (BLR).** We model the target as $t = \\mathbf{w}^\\top \\phi(\\mathbf{x}) + \\varepsilon$ with Gaussian noise $\\varepsilon \\sim \\mathcal{N}(0, \\sigma^2)$, and instead of a single point estimate of the weights we treat $\\mathbf{w}$ as a random variable with a prior. A common choice is a zero-mean Gaussian prior $p(\\mathbf{w}) = \\mathcal{N}(\\mathbf{0}, \\tau^2 I)$.\n\n**Posterior.** By Bayes' rule the posterior is proportional to likelihood times prior. With a Gaussian likelihood and Gaussian prior, the posterior over $\\mathbf{w}$ is again Gaussian: $p(\\mathbf{w}\\mid X, \\mathbf{t}) = \\mathcal{N}(\\mathbf{w}_N, S_N)$, with $S_N^{-1} = \\tfrac{1}{\\sigma^2}\\Phi^\\top\\Phi + \\tfrac{1}{\\tau^2} I$ and $\\mathbf{w}_N = \\tfrac{1}{\\sigma^2} S_N \\Phi^\\top \\mathbf{t}$.\n\n**Prediction.** Predictions are made through the predictive distribution, integrating over the posterior: $p(t^\\ast\\mid \\mathbf{x}^\\ast, X, \\mathbf{t}) = \\int p(t^\\ast\\mid \\mathbf{x}^\\ast, \\mathbf{w}) p(\\mathbf{w}\\mid X, \\mathbf{t})\\, d\\mathbf{w}$, which is Gaussian with mean $\\mathbf{w}_N^\\top \\phi(\\mathbf{x}^\\ast)$ and a variance that quantifies predictive uncertainty.\n\n**Comparison to Ridge Regression.** The MAP estimate of $\\mathbf{w}$ under the Gaussian prior coincides exactly with the Ridge solution: maximizing the posterior is equivalent to minimizing $\\lVert \\mathbf{t} - \\Phi\\mathbf{w}\\rVert^2 + \\lambda \\lVert \\mathbf{w}\\rVert^2$ with $\\lambda = \\sigma^2/\\tau^2$. So Ridge is the point (MAP) special case of BLR. The key differences: (i) BLR returns a full posterior distribution and a predictive distribution with uncertainty, whereas Ridge returns a single point estimate; (ii) the Ridge regularization coefficient $\\lambda$ is encoded by the prior variance and noise variance, which can themselves be estimated (e.g. by maximizing the marginal likelihood / evidence); (iii) BLR naturally provides confidence intervals and is less prone to overfitting because it averages over plausible weights.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Explain what the Kernel Trick is, what it is used for, and in which ML methods it can be used.",
     "solution": "**What it is.** Many linear algorithms depend on the data only through inner products $\\langle x_i, x_j\\rangle$. The kernel trick replaces every such inner product with a kernel function $k(x_i, x_j) = \\langle \\phi(x_i), \\phi(x_j)\\rangle$, where $\\phi$ maps inputs into a (possibly very high- or infinite-dimensional) feature space. Because we only ever need the inner products, we never have to compute $\\phi(x)$ explicitly — we just evaluate $k$.\n\n**What it is for.** It lets a linear method learn non-linear decision boundaries / regressors in the original input space, while keeping the computation tractable (cost depends on the number of samples $N$ via the $N\\times N$ Gram matrix, not on the feature-space dimension). A function $k$ is a valid kernel iff it is symmetric and positive semi-definite (Mercer's condition).\n\n**Common examples:** linear $k(x,x')=x^\\top x'$, polynomial $k(x,x')=(x^\\top x'+c)^d$, RBF/Gaussian $k(x,x')=\\exp(-\\gamma\\lVert x-x'\\rVert^2)$.\n\n**Where it is used.** Any method expressible in dual form / via inner products: kernel (soft- and hard-margin) **SVM**, **kernel ridge regression**, **kernel PCA**, Gaussian Processes, the perceptron (kernel perceptron), and kernel k-NN.",
     "solutionSource": "authored"
@@ -33,7 +37,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Assume you have been given a dataset with input matrix $X$ and target vector $y$. Consider the following snippet of code:\n\n1. Describe the procedure and the purpose of the above code snippet. Is it correct?\n2. Line 6 consists in a selection procedure. Explain the rationale behind this operation and suggest other viable options to perform the selection procedure.\n3. Do you think this code requires some preliminary operations on $X$ and $y$ before being executed? In the case of a positive answer, tell which ones and why should they be performed. In the case of a negative answer, motivate adequately.",
     "code": {
       "language": "python",
@@ -43,36 +49,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220628-e4",
+    "id": "ML20220628-e4.1",
     "examId": "ML20220628",
     "date": "2022-06-28",
     "academicYear": "AA2122",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Tell if the following statements about classification algorithms are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20220628-e4-s1",
+        "id": "ML20220628-e4.1-s1",
         "statement": "The perceptron classifier and the logistic regression classifier are both generalized linear models.",
         "answer": true,
         "motivation": "Their prediction function can both be written as $f(x^\\top w + w_0)$. In particular, for the perceptron we have $f(y) = +1$ if $y \\ge 0$ and $-1$ otherwise, and for logistic regression we have $f(y) = \\sigma(y)$, where $\\sigma(\\cdot)$ is the sigmoid function."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220628-e4.2",
+    "examId": "ML20220628",
+    "date": "2022-06-28",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following statements about classification algorithms are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220628-e4-s2",
+        "id": "ML20220628-e4.2-s1",
         "statement": "The logistic regression loss function is convex, therefore, it admits a closed-form solution of the optimal weights.",
         "answer": false,
         "motivation": "While it is true that the loss function of logistic regression is convex, it does not admit a closed-form solution of the optimal weights. In general, convexity does not imply the existence of a closed-form solution."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220628-e4.3",
+    "examId": "ML20220628",
+    "date": "2022-06-28",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following statements about classification algorithms are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220628-e4-s3",
+        "id": "ML20220628-e4.3-s1",
         "statement": "If the training set is linearly separable, the logistic regression classifier and the perceptron classifier converge to the same solution.",
         "answer": false,
         "motivation": "The perceptron converges to a separating hyperplane depending on the initialization, whereas logistic regression converges to the separating hyperplane that minimizes its (convex) loss function. If there exists only one separating hyperplane, the two algorithms converge to it."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220628-e4.4",
+    "examId": "ML20220628",
+    "date": "2022-06-28",
+    "academicYear": "AA2122",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following statements about classification algorithms are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220628-e4-s4",
+        "id": "ML20220628-e4.4-s1",
         "statement": "The logistic regression classifier converges to a solution even when the training set is not linearly separable.",
         "answer": true,
         "motivation": "Logistic regression always provides the weights minimizing the corresponding loss function, being the objective function convex. If the training set is not linearly separable, the provided weights would not correspond to a separating hyperplane."
@@ -82,36 +141,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20220628-e5",
+    "id": "ML20220628-e5.1",
     "examId": "ML20220628",
     "date": "2022-06-28",
     "academicYear": "AA2122",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Tell if the following statements about the VC dimension are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20220628-e5-s1",
+        "id": "ML20220628-e5.1-s1",
         "statement": "If the VC dimension of a hypothesis space H is infinite, then hypothesis space H contains infinite hypotheses.",
         "answer": true,
         "motivation": "If this were not the case, we would conclude that a hypothesis space with finite cardinality would have infinite VC dimension, which is clearly false."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220628-e5.2",
+    "examId": "ML20220628",
+    "date": "2022-06-28",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about the VC dimension are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220628-e5-s2",
+        "id": "ML20220628-e5.2-s1",
         "statement": "The VC dimension of a hypothesis space H is at least $k$ if and only if the hypothesis space H shatters every subset of cardinality $k$ of the instance space.",
         "answer": false,
         "motivation": "The VC dimension is at least $k$ if the hypothesis space shatters **at least one** subset of cardinality $k$ in the instance space."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220628-e5.3",
+    "examId": "ML20220628",
+    "date": "2022-06-28",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about the VC dimension are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220628-e5-s3",
+        "id": "ML20220628-e5.3-s1",
         "statement": "The VC dimension of the logistic regression classifier with features $x_1$ and $x_2$ is smaller than the VC dimension of the logistic regression classifier with features $x_1, x_2, x_1^2, x_2^2, x_1 x_2$.",
         "answer": true,
         "motivation": "Since the hypothesis space of the second logistic regression classifier is a superset of the hypothesis space of the first logistic regression classifier, the statement is true."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20220628-e5.4",
+    "examId": "ML20220628",
+    "date": "2022-06-28",
+    "academicYear": "AA2122",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about the VC dimension are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20220628-e5-s4",
+        "id": "ML20220628-e5.4-s1",
         "statement": "The VC dimension of a hypothesis space is affected by the size of the training set, but not by the size of the test set.",
         "answer": false,
         "motivation": "The VC dimension is a property of the hypothesis space per se and does not depend on the number of samples used for training or testing."
@@ -128,7 +240,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "You are the head of the data science department of the F1 team Beta Giulietta. You are faced with two different problems:\n\n1. Find how the configuration of the car (i.e., flap incidence, tyres choice, aerodynamic profile) provides information about the lap time.\n2. Determine the best strategy to enter the pit and change the tyres during the race. In this problem, the choice you are facing is whether to pit your car or not on each lap of the race.\n\nModel these two problems using ML, specifying the data (input, output, state, action, reward) required, the problem class, and a specific method to solve them.",
     "solution": "1. This scenario can be modeled as a regression problem, where the different parameters determining the configuration of the car are the input and the lap time is the target we want to model. In this case a solution might be to use Linear Regression or Gaussian Processes.\n\n2. This scenario is a reinforcement learning problem, where the actions are pit/no-pit, the state is the consumption of the wheel, the fuel remaining in the car, the weather forecast, other cars' strategy. The reward is proportional to the position of the car at the end of the race. One might use Q-learning or SARSA to solve the problem.",
     "solutionSource": "exam"
@@ -141,7 +256,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["modelsel"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Consider a $K$-NN model for regression, and the following training dataset that includes the one-dimensional feature $x$, the target $t$, and the real function $f(x)$ (unknown to the model).\n\n| $x$ | 1 | 1.5 | 3 | 4.5 | 5.5 | 6.5 |\n| $t$ | 2.5 | 2.5 | 6 | 10 | 10.5 | 12 |\n| $f(x)$ | 2 | 3 | 6 | 9 | 11 | 13 |\n\n1. Compute the predictions for each element in the given dataset obtained by the model with $K = 3$.\n2. Compute the mean squared error on the given dataset.\n3. Provide an estimate of the variance of the model with the available data. What happens to the variance if we increase $K$?\n4. Provide an estimate of the squared bias of the model with the available data. What happens to the bias if we increase $K$?",
     "solution": "1. According to the $K$-NN model, we compute the predictions as $y(x) = \\frac{1}{K}\\sum_{i=1}^{K} t_i$, where $t_i$ are the targets of the $K$ nearest neighbours. With $K=3$:\n- $x=1$: $y = \\frac{2.5+2.5+6}{3} = \\frac{11}{3}$\n- $x=1.5$: $y = \\frac{2.5+2.5+6}{3} = \\frac{11}{3}$\n- $x=3$: $y = \\frac{2.5+6+10}{3} = \\frac{37}{6}$ (note: $\\frac{18.5}{3}$)\n- $x=4.5$: $y = \\frac{6+10+10.5}{3} = \\frac{53}{6}$ (note: $\\frac{26.5}{3}$)\n- $x=5.5$: $y = \\frac{10+10.5+12}{3} = \\frac{65}{6}$ (note: $\\frac{32.5}{3}$)\n- $x=6.5$: $y = \\frac{10+10.5+12}{3} = \\frac{65}{6}$\n\n2. The mean squared error on the training set is given by $$\\frac{1}{N}\\sum_{i=1}^{N}(t_i - y(x_i))^2 = \\frac{(\\frac{11}{3}-2.5)^2 + (\\frac{11}{3}-2.5)^2 + (\\frac{37}{6}-6)^2 + (\\frac{53}{6}-10)^2 + (\\frac{65}{6}-10.5)^2 + (\\frac{65}{6}-12)^2}{6}.$$\n\n3. An estimate of the variance of the model is given by $$\\frac{\\widehat{Var}[t]}{K} = \\frac{\\frac{1}{N}\\sum_{i=1}^{N}(t_i - f(x_i))^2}{K} = \\frac{(2.5-2)^2 + (2.5-3)^2 + (6-6)^2 + (10-9)^2 + (10.5-11)^2 + (12-13)^2}{6K},$$ thus, increasing $K$ would make the variance smaller.\n\n4. An estimate of the bias of the model is given by $$\\frac{1}{N}\\sum_{i=1}^{N}(f(x_i) - y(x_i))^2 = \\frac{(\\frac{11}{3}-2)^2 + (\\frac{11}{3}-3)^2 + (\\frac{37}{6}-6)^2 + (\\frac{53}{6}-9)^2 + (\\frac{65}{6}-11)^2 + (\\frac{65}{6}-13)^2}{6}.$$ While the parameter $K$ does not explicitly appear in the formula, it affects the $y(x)$ values, and we can expect the bias to increase if we increase $K$.",
     "solutionSource": "exam"
@@ -154,7 +271,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the trajectory below, which is obtained while running the SARSA algorithm in an MDP with three states $\\mathcal{S} = \\{A, B, C\\}$, two actions $\\mathcal{A} = \\{u, d\\}$, and discount factor $\\gamma = 1$.\n\n$$(A, u, 2) \\to (B, d, -2) \\to (A, d, -2) \\to (A, u, -1) \\to (B, u, -3) \\to (C, d, 4) \\to (B)$$\n\n1. Provide a consistent guess over the policy $\\pi$ that has been used to draw the latter trajectory. Do you think it is a reasonable policy?\n2. Provide the policy evaluation step according to SARSA by considering zero initial value $Q(s, a) = 0$ for every state-action pair, and learning rate $\\alpha = 0.5$.\n3. Provide the policy improvement step, i.e., the policy $\\pi'$ that the algorithm will deploy at the next iteration.",
     "solution": "1. A guess over $\\pi$ that is consistent with the available data is $$\\pi(u|A) = 1/3, \\pi(d|A) = 2/3, \\quad \\pi(u|B) = 1/2, \\pi(d|B) = 1/2, \\quad \\pi(u|C) = 0, \\pi(d|C) = 1.$$ We do not have enough data to reliably estimate the policy $\\pi$. On the one hand, it is unreasonable to have a deterministic policy in the state $C$, as we should guarantee sufficient exploration for the SARSA algorithm to converge to the optimal policy. On the other hand, the policy in the states $A, B$ seems to be overly randomized to be an $\\epsilon$-greedy policy.\n\n2. For the policy evaluation step, we employ the TD update formula $$Q^\\pi(s, a) \\leftarrow (1-\\alpha)Q^\\pi(s, a) + \\alpha(R(s, a) + \\gamma Q^\\pi(s', a')).$$ More specifically, starting from null values for the state/action value function we have:\n$$Q^\\pi(A, u) = 0.5 \\cdot Q^\\pi(A, u) + 0.5(2 + Q^\\pi(B, d)) = 0.5\\cdot 0 + 0.5(2+0) = 1$$\n$$Q^\\pi(B, d) = 0.5 \\cdot Q^\\pi(B, d) + 0.5(-2 + Q^\\pi(A, d)) = 0.5\\cdot 0 + 0.5(-2+0) = -1$$\n$$Q^\\pi(A, d) = 0.5 \\cdot Q^\\pi(A, d) + 0.5(-2 + Q^\\pi(A, u)) = 0.5\\cdot 0 + 0.5(-2+1) = -0.5$$\n$$Q^\\pi(A, u) = 0.5 \\cdot Q^\\pi(A, u) + 0.5(2 + Q^\\pi(B, u)) = 0.5\\cdot 1 + 0.5(-1+0) = 0$$\n$$Q^\\pi(B, u) = 0.5 \\cdot Q^\\pi(B, u) + 0.5(-3 + Q^\\pi(C, d)) = 0.5\\cdot 0 + 0.5(-3+0) = -1.5$$\n$$Q^\\pi(C, d) = 0.5 \\cdot Q^\\pi(C, d) + 0.5(4 + 0) = 0.5\\cdot 0 + 0.5(4+0) = 2$$\n\n3. With the SARSA algorithm we have to ensure sufficient exploration, e.g., by deploying an $\\epsilon$-greedy policy. Thus, we have: $$\\pi(u|A) = 1-\\epsilon, \\pi(d|A) = \\epsilon, \\quad \\pi(u|B) = \\epsilon, \\pi(d|B) = 1-\\epsilon, \\quad \\pi(u|C) = \\epsilon, \\pi(d|C) = 1-\\epsilon.$$",
     "solutionSource": "exam"

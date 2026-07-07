@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Define PAC-Learning in the context of supervised learning and explain how it is related to the concept of sample complexity. Please, make sure to define also each relevant term introduced in your answer.",
     "solution": "**PAC (Probably Approximately Correct) learning.** A concept class / hypothesis space $\\mathcal{H}$ is PAC-learnable if there exists a learning algorithm that, for any target concept, any data distribution $D$, and any accuracy $\\varepsilon\\in(0,1)$ and confidence $\\delta\\in(0,1)$, returns with probability at least $1-\\delta$ a hypothesis $\\hat h$ whose true error is at most $\\varepsilon$, using a number of samples $N$ that is polynomial in $1/\\varepsilon$, $1/\\delta$ (and the size of the problem).\n\n**Relevant terms.**\n- *True (generalization) error* $L_{true}(\\hat h) = \\Pr_{x\\sim D}[\\hat h(x)\\neq c(x)]$: probability of error on a fresh sample.\n- *Training error* $L_{train}(\\hat h)$: error measured on the $N$ training samples.\n- *Approximately correct:* $L_{true}(\\hat h)\\le\\varepsilon$ ($\\varepsilon$ = accuracy parameter).\n- *Probably:* the guarantee holds with probability $\\ge 1-\\delta$ over the random draw of the training set ($\\delta$ = confidence parameter).\n- *Consistent learner:* one that achieves zero training error.\n\n**Relation to sample complexity.** The *sample complexity* is the minimum number of training examples $N$ needed to guarantee a $(\\varepsilon,\\delta)$-PAC guarantee. For a finite $\\mathcal{H}$ and a consistent learner, the PAC bound\n$$L_{true}(\\hat h)\\le\\frac{\\ln|\\mathcal{H}| + \\ln\\frac{1}{\\delta}}{N}$$\nrearranged gives the sample complexity\n$$N \\ge \\frac{1}{\\varepsilon}\\left(\\ln|\\mathcal{H}| + \\ln\\tfrac{1}{\\delta}\\right).$$\nThus PAC-learnability essentially requires the sample complexity to grow only **polynomially** (here logarithmically in $|\\mathcal{H}|$ and $1/\\delta$, linearly in $1/\\varepsilon$). For infinite $\\mathcal{H}$ the role of $\\ln|\\mathcal{H}|$ is played by the **VC dimension**, giving $N = O\\big(\\tfrac{1}{\\varepsilon}(VC(\\mathcal{H})\\ln\\tfrac1\\varepsilon + \\ln\\tfrac1\\delta)\\big)$.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["ensemble"],
+    "topics": [
+      "ensemble"
+    ],
     "prompt": "Explain the principles behind boosting, how does it work and when it is useful.",
     "solution": "**Principle.** Boosting is an ensemble method that combines many **weak learners** (models only slightly better than random, e.g. decision stumps — high bias, low variance) into a single **strong learner**. The key idea is to train the weak learners **sequentially**, with each new learner focusing on the examples that the previous ensemble misclassified. Its main goal is to **reduce bias**.\n\n**How it works (AdaBoost).** Maintain a weight distribution over training samples, initialized uniformly. At each round $t = 1,\\dots,T$:\n1. Train a weak learner $h_t$ on the weighted data.\n2. Compute its weighted error $\\varepsilon_t = \\sum_i D_t(i)\\,\\mathbb{1}[h_t(x_i)\\neq t_i]$.\n3. Assign it a coefficient $\\alpha_t = \\tfrac12\\ln\\frac{1-\\varepsilon_t}{\\varepsilon_t}$ (larger when the learner is more accurate).\n4. **Re-weight** the samples: increase the weight of misclassified points and decrease that of correctly classified ones, then renormalize.\n\nThe final classifier is the weighted vote $H(x) = \\operatorname{sign}\\!\\big(\\sum_t \\alpha_t h_t(x)\\big)$.\n\n**When it is useful.** Boosting is effective when the base learners **underfit** (high bias) but there is real signal — it drives the bias down and can reach very high accuracy with simple base models. It is **harmful / ineffective** with very **noisy or mislabeled data** (it keeps up-weighting hard/noisy points and overfits them), and pointless when the base learner is already low-bias/high-variance (there **bagging** is the right tool). Compared to bagging, boosting reduces bias (sequential) while bagging reduces variance (parallel).",
     "solutionSource": "authored"
@@ -33,7 +37,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["classif", "modeleval"],
+    "topics": [
+      "classif",
+      "modeleval"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. Tell which procedure is performed in the previous lines of code. Detail **line-by-line** the operations that have been used in the previous code. Do you think there are some errors in the code?\n2. Which problem are we solving with this procedure? Are there other methods that can solve the same problem? List at least other 3 methods suitable for such a problem.\n3. Which kind of metrics would you use to evaluate the performance of the previous method? Describe the metrics and the eventual procedure you would use to understand if the adopted approach is effective.",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240125-e4",
+    "id": "ML20240125-e4.1",
     "examId": "ML20240125",
     "date": "2024-01-25",
     "academicYear": "AA2223",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["mab", "rl"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Tell if the following statements about Multi-Armed Bandit (MAB) are true or false. Provide adequate motivations.",
     "subStatements": [
       {
-        "id": "ML20240125-e4-s1",
+        "id": "ML20240125-e4.1-s1",
         "statement": "After pulling an arm, the learner gets a feedback on the reward from all the available arms.",
         "answer": false,
         "motivation": "FALSE: we get feedback only about the arm we pull. In the case we would have information about the other arms we would be in an expert setting (full-information feedback), not the bandit setting."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240125-e4.2",
+    "examId": "ML20240125",
+    "date": "2024-01-25",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements about Multi-Armed Bandit (MAB) are true or false. Provide adequate motivations.",
+    "subStatements": [
       {
-        "id": "ML20240125-e4-s2",
+        "id": "ML20240125-e4.2-s1",
         "statement": "An algorithm designed for MAB setting should minimize the regret suffered during the learning procedure.",
         "answer": true,
         "motivation": "TRUE: the goal is to minimize the loss due to the lack of knowledge about the optimal option. This can be done maximizing the expected reward or, equivalently, minimizing the regret."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240125-e4.3",
+    "examId": "ML20240125",
+    "date": "2024-01-25",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements about Multi-Armed Bandit (MAB) are true or false. Provide adequate motivations.",
+    "subStatements": [
       {
-        "id": "ML20240125-e4-s3",
+        "id": "ML20240125-e4.3-s1",
         "statement": "A problem modeled as an MDP with a single state and an infinite number of actions can be handled with MAB techniques.",
         "answer": false,
         "motivation": "FALSE: the (classical) MAB problem has a finite set of arms (corresponding to actions). An infinite number of actions falls outside the standard MAB setting we studied."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240125-e4.4",
+    "examId": "ML20240125",
+    "date": "2024-01-25",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements about Multi-Armed Bandit (MAB) are true or false. Provide adequate motivations.",
+    "subStatements": [
       {
-        "id": "ML20240125-e4-s4",
+        "id": "ML20240125-e4.4-s1",
         "statement": "UCB1 and TS are designed to solve the same class of problems.",
         "answer": true,
         "motivation": "TRUE: they both provide theoretical guarantees on the stochastic MAB problem."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240125-e5",
+    "id": "ML20240125-e5.1",
     "examId": "ML20240125",
     "date": "2024-01-25",
     "academicYear": "AA2223",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["featsel", "modeleval"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
     "subStatements": [
       {
-        "id": "ML20240125-e5-s1",
+        "id": "ML20240125-e5.1-s1",
         "statement": "Backward feature selection evaluates a number of models that is at most quadratic in the number of features.",
         "answer": true,
         "motivation": "TRUE: backward feature selection removes one feature at a time. In the first iteration it evaluates $m$ models (each associated with each of the $m$ candidate features), then in the second iteration $m-1$, and so on. Thus the maximum number of evaluated models is $\\sum_{i=1}^m i = m(m-1)/2 = O(m^2)$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240125-e5.2",
+    "examId": "ML20240125",
+    "date": "2024-01-25",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20240125-e5-s2",
+        "id": "ML20240125-e5.2-s1",
         "statement": "Forward feature selection is guaranteed to deliver the best subset of features.",
         "answer": false,
         "motivation": "FALSE: just like backward feature selection, it evaluates $m(m-1)/2$ models, while all subsets of features are $2^m \\gg m(m-1)/2$. It is a greedy heuristic and may miss the optimal subset."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240125-e5.3",
+    "examId": "ML20240125",
+    "date": "2024-01-25",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20240125-e5-s3",
+        "id": "ML20240125-e5.3-s1",
         "statement": "Wrapper methods should use the training error to guide the selection of the features.",
         "answer": false,
         "motivation": "FALSE: as any model selection technique, it should avoid overfitting by using a proper model evaluation approach, such as validation set, cross-validation, or adjusting techniques (not the training error)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240125-e5.4",
+    "examId": "ML20240125",
+    "date": "2024-01-25",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20240125-e5-s4",
+        "id": "ML20240125-e5.4-s1",
         "statement": "Filter methods are more appropriate than wrapper methods when training the underlying model is expensive.",
         "answer": true,
         "motivation": "TRUE: filter methods do not require training the underlying model, while wrapper methods do for every candidate subset of features."
@@ -128,7 +241,11 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["classif", "rl", "kernelsvm"],
+    "topics": [
+      "classif",
+      "rl",
+      "kernelsvm"
+    ],
     "prompt": "General anesthesia is a reversible condition of unconsciousness induced by systemic administration of one or more drugs to make the patients insensible to the stress of surgical trauma. Consider the following problems.\n1. Predicting whether the patient blood pressure goes below a fixed known threshold as an effect of the concentration levels of the administrated drugs.\n2. Learning the interventions (increase or decrease the amount of drugs administrated) the anesthesiologist should perform in order to keep the patient blood pressure within a certain known range during the whole surgical procedure.\nClassify the problems and, for each of them, specify all the elements needed to fully characterize it (e.g., input, output, states, actions, reward, ...). Furthermore, propose one technique to solve it.",
     "solution": "1. The problem is classified as **supervised learning**, specifically **classification**. The input variables are the concentrations of the administrated drugs and the output variable is 1 if the blood pressure is below the threshold (0 otherwise). A technique to solve it is SVM.\n2. The problem is classified as **reinforcement learning** (control). The state is (at least) the blood pressure (reasonably, all indicators that are available to the anesthesiologist through the monitors), the action is the amount of each drug administrated in the current time instant, the reward function is $-1$ if the current blood pressure falls outside the range (other solutions are possible), and the discount factor is 1 since the surgical procedure has finite duration. We can solve the problem of optimizing the drug dosage using Q-learning or SARSA.",
     "solutionSource": "exam"
@@ -141,7 +258,10 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif", "modelsel"],
+    "topics": [
+      "classif",
+      "modelsel"
+    ],
     "prompt": "Given the following dataset:\n$$\\mathbf{x}_1 = (2,3,4)^\\top,\\ y_1 = 1;\\quad \\mathbf{x}_2 = (0,1,2)^\\top,\\ y_2 = 0;$$\n$$\\mathbf{x}_3 = (1,2,5)^\\top,\\ y_3 = 1;\\quad \\mathbf{x}_4 = (1,4,3)^\\top,\\ y_4 = 0;$$\n$$\\mathbf{x}_5 = (0,3,1)^\\top,\\ y_5 = 0;\\quad \\mathbf{x}_6 = (1,2,2)^\\top,\\ y_6 = 0;$$\n$$\\mathbf{x}_7 = (3,1,4)^\\top,\\ y_7 = 1;\\quad \\mathbf{x}_8 = (4,2,5)^\\top,\\ y_8 = 1;$$\n$$\\mathbf{x}_9 = (1,3,3)^\\top,\\ y_9 = 0;\\quad \\mathbf{x}_{10} = (1,2,4)^\\top,\\ y_{10} = 1.$$\n- Classify the point $\\mathbf{x}_{11} = (0,1,2)^\\top$ according to a KNN classifier trained on the given dataset with $K=3$ using the Manhattan distance ($d(\\mathbf{x}_i,\\mathbf{x}_j) := \\sum_h |x_{ih} - x_{jh}|$).\n- What happens if we use $K=2$ instead? Do you think it is a good idea to choose such a value for the parameter $K$?\n- What would you do in the case you want to apply regularization to this classifier?",
     "solution": "1. The Manhattan distances of $\\mathbf{x}_{11} = (0,1,2)$ from the training points are:\n$$d_1 = |2-0| + |3-1| + |4-2| = 6,\\quad d_2 = 0 + 0 + 0 = 0,$$\n$$d_3 = 1+1+3 = 5,\\quad d_4 = 1+3+1 = 5,$$\n$$d_5 = 0+2+1 = 3,\\quad d_6 = 1+1+0 = 2,$$\n$$d_7 = 3+0+2 = 5,\\quad d_8 = 4+1+3 = 8,$$\n$$d_9 = 1+2+1 = 5,\\quad d_{10} = 1+1+2 = 4.$$\nThe 3 closest points to $\\mathbf{x}_{11}$ are $\\mathbf{x}_2$ ($d=0$, class 0), $\\mathbf{x}_6$ ($d=2$, class 0), and $\\mathbf{x}_5$ ($d=3$, class 0). Therefore, the class predicted by the KNN is the **negative class (0)**.\n2. If we use $K=2$, we would have had the same outcome for the point $\\mathbf{x}_{11}$ (the two closest are $\\mathbf{x}_2$ and $\\mathbf{x}_6$, both class 0). However, it is **not** a good idea to choose an even value for $K$ since there would be some cases in which we need to arbitrarily break ties. This does not happen if we have two classes and an odd value for $K$.\n3. $K$ can be regarded as a regularization parameter of the model. The larger the value of $K$, the more the model resorts to regularization (smoother decision boundary).",
     "solutionSource": "exam"
@@ -154,7 +274,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following Markov reward process (i.e., Markov decision process with a policy): a chain of states $A \\to B \\to C \\to D$ where from each of $A, B, C$ the agent moves to the next state with probability $1/2$ and stays (self-loop) with probability $1/2$, while $D$ is absorbing (self-loop with probability $1$). The discount factor is $\\gamma\\in[0,1)$ and the reward function $R$ is defined as $R(A) = R(B) = R(C) = 0$ and $R(D) = \\frac{1-\\gamma}{1-\\gamma/2}$.\n1. Compute the value function $V^\\pi(s)$ from every state $s\\in\\{A,B,C,D\\}$.\n2. Suppose that the agent observes the (infinite-length) episode $A \\to B \\to B \\to C \\to C \\to C \\to C \\to D \\to D \\to \\dots$. Compute the probability that such an episode occurs.\n3. Say if Monte Carlo (both first-visit and every-visit) and Temporal Difference evaluation can be employed for estimating the value function in this problem. If yes, provide the value function estimate that the technique would deliver when executed with the episode of question 2 and the estimated value function is initialized to zero and learning rate $\\alpha > 0$. Motivate your answers.",
     "solution": "1. Given the simple structure of the MRP, we write down the Bellman expectation equations:\n$$\\begin{cases} V(A) = 0 + \\tfrac{\\gamma}{2}V(A) + \\tfrac{\\gamma}{2}V(B) \\\\ V(B) = 0 + \\tfrac{\\gamma}{2}V(B) + \\tfrac{\\gamma}{2}V(C) \\\\ V(C) = 0 + \\tfrac{\\gamma}{2}V(C) + \\tfrac{\\gamma}{2}V(D) \\\\ V(D) = \\tfrac{1-\\gamma}{1-\\gamma/2} + \\gamma V(D) \\end{cases} \\implies \\begin{cases} V(A) = \\frac{(\\gamma/2)^3}{(1-\\gamma/2)^4} \\\\ V(B) = \\frac{(\\gamma/2)^2}{(1-\\gamma/2)^3} \\\\ V(C) = \\frac{\\gamma/2}{(1-\\gamma/2)^2} \\\\ V(D) = \\frac{1}{1-\\gamma/2} \\end{cases}$$\nby solving from the last equation up.\n2. We just multiply the probability of each transition, which are all equal to $1/2$ apart from those of the form $D \\to D$ that have probability $1$:\n$$\\Pr(A \\to B \\to B \\to C \\to C \\to C \\to C \\to D \\to D \\to \\dots) = \\tfrac12\\cdot\\tfrac12\\cdot\\tfrac12\\cdot\\tfrac12\\cdot\\tfrac12\\cdot\\tfrac12\\cdot\\tfrac12\\cdot 1\\cdot 1\\cdots = (1/2)^7.$$\n3. **Monte Carlo** evaluation (both first-visit and every-visit) **cannot** be applied since the MRP is infinite-horizon (the episode never terminates, so returns cannot be computed). **Temporal Difference** evaluation **can** be applied since it works for infinite-horizon problems too. TD applied to the episode of question 2 with $\\hat V$ initialized to zero and $\\alpha > 0$ will deliver $\\hat V(A) = \\hat V(B) = \\hat V(C) = 0$ since the immediate reward for these states is zero and the estimated value function for the next states in the episode is always zero. For state $D$, instead, we have the sequence of updates:\n$$\\hat V(D) \\leftarrow \\hat V(D) + \\alpha(R(D) + \\gamma\\hat V(D) - \\hat V(D)) = \\hat V(D)(1 - \\alpha + \\alpha\\gamma) + \\alpha\\tfrac{1-\\gamma}{1-\\gamma/2}.$$\nFor $\\gamma < 1$ and $\\alpha > 0$, the quantity $1 - \\alpha + \\alpha\\gamma < 1$, and thus the sequence of updates converges to:\n$$\\hat V(D) = \\frac{\\alpha(1-\\gamma)}{(1-\\gamma/2)(1 - (1 - \\alpha + \\alpha\\gamma))} = \\frac{1}{1-\\gamma/2}.$$\nThis is not unexpected since TD will converge to the true value function in this state.",
     "solutionSource": "exam"

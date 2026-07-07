@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Write the pseudocode of the perceptron algorithm and prove that the update rule decreases the error for the currently processed sample at each iteration.",
     "solution": "**Pseudocode (perceptron, with targets $t_n\\in\\{-1,+1\\}$).**\n1. Initialize $w \\leftarrow 0$ (or $w^{(0)}$), choose learning rate $\\alpha > 0$.\n2. Repeat until all samples are correctly classified (or for a max number of epochs):\n   - For each sample $(x_n, t_n)$:\n     - Predict $\\hat t_n = \\operatorname{sign}(w^\\top x_n)$.\n     - If $\\hat t_n \\neq t_n$ (misclassified): update $w \\leftarrow w + \\alpha\\, t_n x_n$.\n\nThe perceptron minimizes the perceptron loss $L(w) = -\\sum_{n\\in\\mathcal{M}} t_n (w^\\top x_n)$, summed over the misclassified set $\\mathcal{M}$. The update $w + \\alpha t_n x_n$ is the (sub)gradient-descent step on the contribution of the misclassified sample $n$ (since $-\\nabla_w(-t_n w^\\top x_n) = t_n x_n$).\n\n**Proof that the update decreases the error on the current sample.** Consider a sample $(x_n, t_n)$ misclassified by $w^{(k)}$, i.e. $t_n (w^{(k)\\top} x_n) < 0$, so its loss contribution is $\\ell_n(w^{(k)}) = -t_n (w^{(k)\\top} x_n) > 0$. After the update $w^{(k+1)} = w^{(k)} + \\alpha t_n x_n$, the new contribution is\n$$\\ell_n(w^{(k+1)}) = -t_n\\big(w^{(k+1)\\top}x_n\\big) = -t_n\\big((w^{(k)} + \\alpha t_n x_n)^\\top x_n\\big) = -t_n(w^{(k)\\top}x_n) - \\alpha\\, t_n^2 \\lVert x_n\\rVert^2.$$\nSince $t_n^2 = 1$ and $\\alpha\\lVert x_n\\rVert^2 > 0$,\n$$\\ell_n(w^{(k+1)}) = \\ell_n(w^{(k)}) - \\alpha\\lVert x_n\\rVert^2 < \\ell_n(w^{(k)}).$$\nHence the update strictly decreases the loss (error) for the currently processed sample. (If the data are linearly separable, the perceptron convergence theorem guarantees termination in a finite number of updates.)",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Provide an overview of the **feature selection** methods that you know and explain their pros and cons.",
     "solution": "Feature selection reduces the input dimensionality by keeping only a subset of the original features. It reduces overfitting/variance, improves interpretability and lowers computational cost, at the price of some bias if relevant features are discarded. The three main families are:\n\n**1. Filter methods.** Select features *before* and *independently* of the learning algorithm, using statistical scores (e.g. correlation with the target, mutual information, chi-square, variance threshold), then train the model on the chosen features.\n- *Pros:* very fast and cheap (no model training during selection), scalable to many features, model-agnostic.\n- *Cons:* ignore the interaction with the specific model and feature dependencies, so they may select a sub-optimal subset.\n\n**2. Wrapper methods.** Search over subsets of features, *training and evaluating the actual model* on each candidate subset (e.g. forward selection, backward elimination). Selection is guided by a validation metric.\n- *Pros:* tailored to the specific model, capture feature interactions, usually higher accuracy.\n- *Cons:* computationally very expensive (one model trained per evaluated subset); greedy variants are heuristics and not guaranteed optimal; exhaustive search over all $2^m$ subsets is intractable; higher risk of overfitting the selection.\n\n**3. Embedded methods.** Feature selection is built *into the training of the model itself*, typically via regularization (e.g. **Lasso** / $\\ell_1$ penalty, which drives some coefficients exactly to zero; tree-based importance).\n- *Pros:* selection and training in one step, cheaper than wrappers, model-aware, captures interactions through the loss.\n- *Cons:* tied to a specific model/loss; selection depends on the regularization strength which must be tuned.\n\n**Note.** PCA is a *feature extraction* (not selection) technique: it builds new features as linear combinations of the originals, reducing dimensionality but losing the original-feature interpretability.",
     "solutionSource": "authored"
@@ -33,7 +37,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. What algorithm is the snippet of code above implementing? What problem is it trying to solve?\n2. Is code snippet above correct? If not, list the mistakes and provide a fix for each of them.\n3. Is the `while` loop guaranteed to stop after a finite number of iterations (if `gamma < 1`)? If yes, provide an upper bound on the maximum number of iterations. If not, provide a counterexample.",
     "code": {
       "language": "python",
@@ -43,36 +49,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240216-e4",
+    "id": "ML20240216-e4.1",
     "examId": "ML20240216",
     "date": "2024-02-16",
     "academicYear": "AA2223",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["classif", "linreg"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Tell if the following statements hold or not for the logistic regression and KNN methods. Provide motivations for your answers.",
     "subStatements": [
       {
-        "id": "ML20240216-e4-s1",
+        "id": "ML20240216-e4.1-s1",
         "statement": "Exists a closed form solution for the optimization procedure required to train the model.",
         "answer": false,
         "motivation": "FALSE for both: logistic regression is trained using an iterative procedure (it is guaranteed to converge but there is no closed-form solution); KNN is a non-parametric method that does not require any training process."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240216-e4.2",
+    "examId": "ML20240216",
+    "date": "2024-02-16",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following statements hold or not for the logistic regression and KNN methods. Provide motivations for your answers.",
+    "subStatements": [
       {
-        "id": "ML20240216-e4-s2",
+        "id": "ML20240216-e4.2-s1",
         "statement": "They are methods used for classification, but can be easily adapted to solve regression problems.",
         "answer": false,
         "motivation": "FALSE for logistic regression, TRUE for KNN: logistic regression represents an extension of the linear regression technique for classification problems (not easily adapted back to regression). KNN can be used also for regression, averaging the output of the selected samples instead of applying a majority voting approach at the end of the procedure."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240216-e4.3",
+    "examId": "ML20240216",
+    "date": "2024-02-16",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following statements hold or not for the logistic regression and KNN methods. Provide motivations for your answers.",
+    "subStatements": [
       {
-        "id": "ML20240216-e4-s3",
+        "id": "ML20240216-e4.3-s1",
         "statement": "The prediction phase for the model is computationally light.",
         "answer": true,
         "motivation": "TRUE for logistic regression, DEPENDS for KNN: logistic regression requires a number of operations for prediction which is linear in the dimension of the parameter vector; KNN requires computing all the distances between the samples in the training set and the new sample (linear in the sample number). If we assume to have a small number of samples, then this operation can be performed in a fast way too."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240216-e4.4",
+    "examId": "ML20240216",
+    "date": "2024-02-16",
+    "academicYear": "AA2223",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell if the following statements hold or not for the logistic regression and KNN methods. Provide motivations for your answers.",
+    "subStatements": [
       {
-        "id": "ML20240216-e4-s4",
+        "id": "ML20240216-e4.4-s1",
         "statement": "They allow the use of regularization methods for model selection purposes.",
         "answer": true,
         "motivation": "TRUE for both: the logistic regression loss function can be modified to include penalties for regularization purposes; the KNN method uses the parameter $K$ as a regularization tool (large $K$ implies large regularization)."
@@ -82,36 +141,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240216-e5",
+    "id": "ML20240216-e5.1",
     "examId": "ML20240216",
     "date": "2024-02-16",
     "academicYear": "AA2223",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Tell whether the following statements are true or false. Justify your answers.",
     "subStatements": [
       {
-        "id": "ML20240216-e5-s1",
+        "id": "ML20240216-e5.1-s1",
         "statement": "SARSA is a prediction method since it makes use of the Bellman expectation equation for updating the value function.",
         "answer": false,
         "motivation": "FALSE. Although it uses the Bellman expectation equation, SARSA is a control method since it aims at learning the optimal Q-function $Q^*$ as well as Q-learning."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240216-e5.2",
+    "examId": "ML20240216",
+    "date": "2024-02-16",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20240216-e5-s2",
+        "id": "ML20240216-e5.2-s1",
         "statement": "Q-learning is based on Temporal Difference learning while SARSA on Monte Carlo estimation.",
         "answer": false,
         "motivation": "FALSE. They are both based on Temporal Difference learning since they bootstrap the previous estimate of the Q-function for defining the targets of the update."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240216-e5.3",
+    "examId": "ML20240216",
+    "date": "2024-02-16",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20240216-e5-s3",
+        "id": "ML20240216-e5.3-s1",
         "statement": "Both SARSA and Q-learning necessitate to update the policy used to collect samples with the $\\epsilon$-greedy policy improvement.",
         "answer": false,
         "motivation": "FALSE. This is true for SARSA only, where the policy used to collect samples needs to converge to the optimal policy, being SARSA an on-policy method. Being Q-learning an off-policy method, the policy used to collect samples does not need to converge to the optimal policy; thus, for the latter, the $\\epsilon$-greedy policy improvement is not needed. (One may argue that other improvements are possible for SARSA other than the $\\epsilon$-greedy one; what matters is that they converge to the optimal policy.)"
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240216-e5.4",
+    "examId": "ML20240216",
+    "date": "2024-02-16",
+    "academicYear": "AA2223",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20240216-e5-s4",
+        "id": "ML20240216-e5.4-s1",
         "statement": "Differently from SARSA, Q-learning does not need to wait for the action played in the next state for updating the value function.",
         "answer": true,
         "motivation": "TRUE. SARSA needs such an action $a_{t+1}$ for defining the TD target that contains $Q(s_{t+1}, a_{t+1})$. Instead, Q-learning uses in the TD target the term $\\max_{a'\\in\\mathcal{A}} Q(s_{t+1}, a')$; thus, it does not need to wait for $a_{t+1}$."
@@ -128,7 +240,9 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider a problem of designing an autonomous driving agent for a car. The system's performance must be evaluated based on both the time it takes to reach a designated location and the safety of the driver and any individuals the car may come across along its path. The system should replace the driver in the possible decision/actions they could perform in a car with automatic gearbox.\n1. Model the problem as an MDP and provide a technique to learn the best driving policy. Motivate your decisions.\n2. In the case the learning process is performed on a real car in a real-world setting, would you prefer to adopt an off-policy or an on-policy approach? (In the case it is off-policy, specify also the policy the agent should follow.)",
     "solution": "1. Since we want to find an optimal strategy we want to solve a **control problem**. The MDP modeling such a problem has the following elements:\n- **States:** location, speed, acceleration of the car. We might add also other parameters related to the distances from possible obstacles.\n- **Actions:** steer (left, right with a specific angle), accelerate/decelerate (with specific intensity), emergency brake activation.\n- **Transition matrix:** stochastic and unknown, since the modelization of the possible situations is significantly large and complex to be modeled.\n- **Reward:** weighted sum of a value corresponding to the decrease in terms of distance to the final target and an index related to the safety of the action (considering penalties if the car hits some obstacles).\n- $\\gamma < 1$: since there might be some trajectories which are infinitely long (loops).\n- **Initial state:** initial state of the car (initial position, zero speed, and acceleration).\nSince some of the elements are unknown, we need to resort to RL control methods, like Q-learning and SARSA.\n2. Using an **on-policy** approach would mean that the learning would incur a significant number of experiments in which accidents and other unwanted behaviour would occur; therefore it is not a good idea in this setting. Instead, if we already have a policy that ensures the safety of the car, the passengers and people around the car, as long as it is still exploring enough, we can follow that policy and learn in an **off-policy** manner, for instance using Q-Learning.",
     "solutionSource": "exam"
@@ -141,7 +255,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Consider an initial parameter $\\mathbf{w}^{(0)} = [1\\ 2\\ 0]^\\top$ and a loss function of the form:\n$$J(\\mathbf{w}) = \\frac{1}{2N}\\sum_{n=1}^N(\\mathbf{w}^\\top\\mathbf{x}_n - t_n)^2 + \\frac{\\lambda}{2}\\mathbf{w}^\\top\\mathbf{w}.$$\n1. Derive the update given from the gradient descent for a generic input.\n2. Apply the formula to the input $\\mathbf{x}_1 = [2\\ 1\\ 1]^\\top$, $t_1 = 2$, with a learning rate $\\alpha = 0.3$ and a regularization coefficient $\\lambda = 0.5$.\n3. Let us assume to iteratively run such a procedure over the entire dataset. Do we have any convergence assurance of this procedure?",
     "solution": "1. The update for a given parameter for the gradient descent for a single input is:\n$$w_j^{(1)} = w_j^{(0)} - \\alpha\\big[(\\mathbf{x}_1^\\top\\mathbf{w}^{(0)} - t_1)x_{1j} + \\lambda w_j^{(0)}\\big].$$\n2. We have $\\mathbf{x}_1^\\top\\mathbf{w}^{(0)} = 2\\cdot 1 + 1\\cdot 2 + 1\\cdot 0 = 4$, so $(\\mathbf{x}_1^\\top\\mathbf{w}^{(0)} - t_1) = 4 - 2 = 2$. The update for the given sample is:\n$$w_0^{(1)} = 1 - 0.3[(4-2)\\cdot 2 + 0.5\\cdot 1] = 1 - 0.3\\cdot 4.5 = -0.35,$$\n$$w_1^{(1)} = 2 - 0.3[(4-2)\\cdot 1 + 0.5\\cdot 2] = 2 - 0.3\\cdot 3 = 1.1,$$\n$$w_2^{(1)} = 0 - 0.3[(4-2)\\cdot 1 + 0.5\\cdot 0] = 0 - 0.3\\cdot 2 = -0.6,$$\nand the final coefficient is $\\mathbf{w} = [-0.35,\\ 1.1,\\ -0.6]$.\n3. Since the loss function is convex (regularized least squares), the procedure will converge to the unique minimum of the loss function. This might not be true if the learning rate $\\alpha$ is too large.",
     "solutionSource": "exam"
@@ -154,7 +270,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Suppose we have a training set composed of $N = 100$ samples and we use it to train two binary classifiers $\\hat h_1$ and $\\hat h_2$ belonging to the hypothesis spaces:\n- $\\hat h_1 \\in \\mathcal{H}_1$, where $|\\mathcal{H}_1| = e^6$;\n- $\\hat h_2 \\in \\mathcal{H}_2$, where $|\\mathcal{H}_2| = +\\infty$ and its VC-dimension is $VC(\\mathcal{H}_2) = 2$.\nCompute the upper bound of the classification error with confidence $1-\\delta = 1 - e^{-2}$ for the two classifiers in the following two scenarios:\n- The two classifiers $\\hat h_1$ and $\\hat h_2$ are consistent learners.\n- The two classifiers $\\hat h_1$ and $\\hat h_2$ have a training error of $\\hat L(\\hat h_1) = 0.3$ and $\\hat L(\\hat h_2) = 0.1$, respectively.\nHint — learning theory bounds: for $|\\mathcal{H}| < \\infty$ and consistent learning $L(\\hat h) \\le \\frac{\\log|\\mathcal{H}| + \\log\\frac{1}{\\delta}}{N}$; for $|\\mathcal{H}| < \\infty$, $L(\\hat h) \\le \\hat L(\\hat h) + \\sqrt{\\frac{\\log|\\mathcal{H}| + \\log\\frac{1}{\\delta}}{2N}}$; for $|\\mathcal{H}| = \\infty$, $L(\\hat h) \\le \\hat L(\\hat h) + \\sqrt{\\frac{VC(\\mathcal{H})\\log\\frac{2eN}{VC(\\mathcal{H})} + \\log\\frac{4}{\\delta}}{N}}$. Note $\\sqrt{\\frac{\\log(40000e^3)}{100}} \\approx 0.37$.",
     "solution": "We compute the upper bound to the true error $L(\\hat h)$ holding with probability $1-\\delta = 1 - e^{-2}$ (so $\\delta = e^{-2}$, $\\log\\frac{1}{\\delta} = 2$) and propose to deploy the classifier with the smallest upper bound.\n\n**Consistent learners case.** For $\\hat h_1$, being $\\mathcal{H}_1$ finite, we apply the first formula:\n$$L(\\hat h_1) \\le \\frac{\\log|\\mathcal{H}_1| + \\log\\frac{1}{\\delta}}{N} = \\frac{\\log e^6 + \\log e^2}{100} = \\frac{6+2}{100} = 0.08.$$\nFor $\\hat h_2$, although it is consistent, its hypothesis space $\\mathcal{H}_2$ is infinite, so we apply the third formula:\n$$L(\\hat h_2) \\le 0 + \\sqrt{\\frac{VC(\\mathcal{H}_2)\\log\\frac{2eN}{VC(\\mathcal{H}_2)} + \\log\\frac{4}{\\delta}}{N}} = \\sqrt{\\frac{2\\log(100e) + \\log(4e^2)}{100}} = \\sqrt{\\frac{\\log(40000e^3)}{100}} \\approx 0.37.$$\nThus, in this case, we propose to deploy $\\hat h_1$.\n\n**Agnostic learners case.** For $\\hat h_1$, being $\\mathcal{H}_1$ finite, we apply the second formula:\n$$L(\\hat h_1) \\le \\hat L(\\hat h_1) + \\sqrt{\\frac{\\log|\\mathcal{H}_1| + \\log\\frac{1}{\\delta}}{2N}} = 0.3 + \\sqrt{\\frac{8}{200}} = 0.3 + \\sqrt{0.04} = 0.5.$$\nFor $\\hat h_2$, we apply the third formula:\n$$L(\\hat h_2) \\le \\hat L(\\hat h_2) + \\sqrt{\\frac{VC(\\mathcal{H}_2)\\log\\frac{2eN}{VC(\\mathcal{H}_2)} + \\log\\frac{4}{\\delta}}{N}} = 0.1 + \\sqrt{\\frac{2\\log(100e) + \\log(4e^2)}{100}} \\approx 0.1 + 0.37 = 0.47.$$\nThus, in this second case, we propose to deploy $\\hat h_2$.",
     "solutionSource": "exam"

@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Discuss at least three methods used for feature selection and compare their advantages and disadvantages.",
     "solution": "Feature selection chooses a subset of the input variables to improve generalization, reduce overfitting, and lower computational cost. The three main families are:\n\n**1. Filter methods.** Features are scored individually (or in small groups) with a statistical criterion independent of the learning algorithm — e.g. correlation with the target, mutual information, chi-square, or variance threshold — and the top-ranked features are kept.\n- *Advantages:* very fast and scalable, model-agnostic, low overfitting risk.\n- *Disadvantages:* ignore feature interactions and the downstream model, so they may keep redundant features or drop ones useful only in combination.\n\n**2. Wrapper methods.** They search over feature subsets, training the actual model and evaluating its (cross-validated) performance for each subset — e.g. forward selection, backward elimination, recursive feature elimination.\n- *Advantages:* account for feature interactions and are tuned to the specific model, usually giving the best subset.\n- *Disadvantages:* computationally very expensive (many model fits), and prone to overfitting the validation criterion when the search space is large.\n\n**3. Embedded methods.** Feature selection is performed as part of model training — e.g. **Lasso ($\\ell_1$)** regularization, which drives some weights exactly to zero, or tree-based importance (random forests).\n- *Advantages:* a good compromise between filters and wrappers — much cheaper than wrappers while still considering the model and interactions.\n- *Disadvantages:* tied to a specific model/regularizer, and the selection may be unstable when features are highly correlated.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["ensemble"],
+    "topics": [
+      "ensemble"
+    ],
     "prompt": "Explain the concept of bagging (Bootstrap Aggregating) in machine learning. Describe a scenario where bagging would be particularly beneficial.",
     "solution": "**Concept.** Bagging (Bootstrap Aggregating) is an ensemble method that reduces the **variance** of a learning algorithm. Given a training set of $N$ samples, it draws $B$ **bootstrap samples** (each obtained by sampling $N$ points with replacement) and trains one base model on each. Predictions are then **aggregated**: by averaging for regression, or by majority vote for classification.\n\nBecause each model is trained on a slightly different dataset, the models make somewhat independent errors; averaging $B$ such models reduces variance by roughly a factor of $B$ (if errors were independent) while leaving the bias essentially unchanged. A useful by-product is the **out-of-bag (OOB)** error: each model can be evaluated on the ~37% of samples not drawn into its bootstrap, giving a near-free validation estimate.\n\n**When it is beneficial.** Bagging helps most with **high-variance, low-bias (unstable) base learners**, where a small change in the data causes a large change in the model. The classic example is **fully grown (deep) decision trees**: a single tree overfits and is unstable, but bagging many trees (and, in **random forests**, also decorrelating them by random feature subsampling at each split) yields a much more accurate and robust predictor. Bagging gives little benefit for stable, high-bias learners (e.g. linear models), where boosting is more appropriate.",
     "solutionSource": "authored"
@@ -33,7 +37,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["linreg", "modelsel"],
+    "topics": [
+      "linreg",
+      "modelsel"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. Describe what the code is doing from lines 1 to 9. What kind of machine learning problem is it attempting to solve? What machine learning techniques are being used?\n2. Tell if lines 7-9 are correct. If not, identify the mistakes and propose a correction.\n3. What happens when increasing the value of `lambda_` to `w2` and `w3`? Describe the role of `lambda_` in terms of bias-variance trade-off.",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240624-e4",
+    "id": "ML20240624-e4.1",
     "examId": "ML20240624",
     "date": "2024-06-24",
     "academicYear": "AA2324",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Tell if the following statements about Markov Decision Processes (MDPs) are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20240624-e4-s1",
+        "id": "ML20240624-e4.1-s1",
         "statement": "If the MDP has stochastic rewards, it may not admit a deterministic optimal policy.",
         "answer": false,
         "motivation": "Every MDP admits a deterministic optimal policy. Stochastic rewards do not matter, since the optimal policy can just be defined in terms of the *expected* rewards of state-action pairs."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240624-e4.2",
+    "examId": "ML20240624",
+    "date": "2024-06-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about Markov Decision Processes (MDPs) are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240624-e4-s2",
+        "id": "ML20240624-e4.2-s1",
         "statement": "$V^*(s) \\ge Q^*(s,a)$ for all states $s$ and actions $a$, where $V^*$ is the optimal value function and $Q^*$ is the optimal state-action value function.",
         "answer": true,
         "motivation": "True, since $V^*(s) = \\max_a Q^*(s,a)$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240624-e4.3",
+    "examId": "ML20240624",
+    "date": "2024-06-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about Markov Decision Processes (MDPs) are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240624-e4-s3",
+        "id": "ML20240624-e4.3-s1",
         "statement": "A larger discount factor assigns more importance to the long-term effects of actions.",
         "answer": true,
         "motivation": "True, provided some actions do have long-term effects, since a larger discount factor gives more weight to rewards further in the future."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240624-e4.4",
+    "examId": "ML20240624",
+    "date": "2024-06-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about Markov Decision Processes (MDPs) are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240624-e4-s4",
+        "id": "ML20240624-e4.4-s1",
         "statement": "Value iteration is guaranteed to converge to the optimal value function in a finite amount of steps.",
         "answer": false,
         "motivation": "False, value iteration is only guaranteed to converge to the optimal value function asymptotically."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240624-e5",
+    "id": "ML20240624-e5.1",
     "examId": "ML20240624",
     "date": "2024-06-24",
     "academicYear": "AA2324",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["modelsel", "classif"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Consider the parametric classification model $f_{\\boldsymbol{w}}(x) = \\mathrm{sign}\\left(\\sum_{i=0}^{d} w_i x^i\\right)$, where $\\boldsymbol{w} = [w_0, \\ldots, w_d]^\\top$ and $d \\in \\mathbb{N}$ that is trained on a dataset $\\mathcal{D} = \\{(x_i, t_i)\\}_{i=1}^{N}$ made of $N$ samples. Tell if the following statements are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20240624-e5-s1",
+        "id": "ML20240624-e5.1-s1",
         "statement": "Keeping $N$ fixed and increasing $d$, the variance of the model reduces.",
         "answer": false,
         "motivation": "By increasing the degree $d$ of the polynomial, we are considering enlarging hypothesis spaces, and, therefore, the variance does not reduce."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240624-e5.2",
+    "examId": "ML20240624",
+    "date": "2024-06-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Consider the parametric classification model $f_{\\boldsymbol{w}}(x) = \\mathrm{sign}\\left(\\sum_{i=0}^{d} w_i x^i\\right)$, where $\\boldsymbol{w} = [w_0, \\ldots, w_d]^\\top$ and $d \\in \\mathbb{N}$ that is trained on a dataset $\\mathcal{D} = \\{(x_i, t_i)\\}_{i=1}^{N}$ made of $N$ samples. Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240624-e5-s2",
+        "id": "ML20240624-e5.2-s1",
         "statement": "Keeping $d$ fixed and increasing $N$, the bias of the model reduces.",
         "answer": false,
         "motivation": "By increasing the number of samples $N$, we are not affecting the bias that remains fixed since the degree $d$ does not change."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240624-e5.3",
+    "examId": "ML20240624",
+    "date": "2024-06-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Consider the parametric classification model $f_{\\boldsymbol{w}}(x) = \\mathrm{sign}\\left(\\sum_{i=0}^{d} w_i x^i\\right)$, where $\\boldsymbol{w} = [w_0, \\ldots, w_d]^\\top$ and $d \\in \\mathbb{N}$ that is trained on a dataset $\\mathcal{D} = \\{(x_i, t_i)\\}_{i=1}^{N}$ made of $N$ samples. Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240624-e5-s3",
+        "id": "ML20240624-e5.3-s1",
         "statement": "Increasing both $N$ and $d$, the variance of model increases.",
         "answer": false,
         "motivation": "By increasing the number of samples $N$ with a fixed degree $d$, we reduce the variance, but, by increasing $d$ with a fixed $N$, we increase the variance. Therefore, we can conclude nothing about the variance, in this case."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240624-e5.4",
+    "examId": "ML20240624",
+    "date": "2024-06-24",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Consider the parametric classification model $f_{\\boldsymbol{w}}(x) = \\mathrm{sign}\\left(\\sum_{i=0}^{d} w_i x^i\\right)$, where $\\boldsymbol{w} = [w_0, \\ldots, w_d]^\\top$ and $d \\in \\mathbb{N}$ that is trained on a dataset $\\mathcal{D} = \\{(x_i, t_i)\\}_{i=1}^{N}$ made of $N$ samples. Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240624-e5-s4",
+        "id": "ML20240624-e5.4-s1",
         "statement": "Decreasing both $N$ and $d$, the bias of model increases.",
         "answer": true,
         "motivation": "The number of samples $N$ does not affect the bias, but by reducing the degree $d$, we are considering simpler models and, therefore, we are increasing the bias."
@@ -128,7 +241,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["mab", "rl"],
+    "topics": [
+      "mab",
+      "rl"
+    ],
     "prompt": "Consider the following real-world problem. An online bookstore wants to recommend books to its potential clients. Whenever a user enters the homepage of the website, they are immediately shown a single book from the bookstore's catalog. We want to display the book that maximizes the probability that the user will end up buying it. For each of the following situations, briefly discuss how the problem could be modeled and solved using the techniques seen in the class:\n\n1. The bookstore does not have any previous purchase data, nor any information about the current visitor.\n2. The bookstore has access to detailed information (such as age, location...) and previous purchases of registered users.",
     "solution": "1. This is a hard problem, but we can still model it as a multi-armed bandit where the arms are the books, and try to recommend to all users the single book that has the largest probability of being bought overall. We could solve this with UCB or Thompson sampling.\n\n2. The purchase history of each registered user can be seen as a Markov decision process. The state can be designed to summarize the user's data and purchase history, and the actions are the books to recommend at each visit of the same user. To solve the problem, we can use reinforcement learning control methods such as SARSA or Q-learning, deploying a separate instance for each registered user. If we already have a large amount of purchase data, we could also use an off-policy (offline) RL approach. Alternatively, we can also use multi-class classification with features based on the user's data and history, and the classes being the books from the catalog.",
     "solutionSource": "exam"
@@ -141,7 +257,10 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["modeleval", "classif"],
+    "topics": [
+      "modeleval",
+      "classif"
+    ],
     "prompt": "Consider a binary classifier, defined in terms of the threshold $\\iota \\in [0,1]$:\n$$y_{\\boldsymbol{w}}(\\boldsymbol{x}) = \\begin{cases} 1 & \\text{if } \\sigma(\\boldsymbol{w}^\\top \\boldsymbol{x}) \\ge \\iota \\\\ 0 & \\text{otherwise} \\end{cases},$$\nwhere $\\sigma(\\cdot)$ is the sigmoid function. The weights $\\boldsymbol{w}$ are trained with Logistic Regression on a training set made of $N = 100$ samples and the threshold is set to $\\iota = 1/2$.\n\n1. Supposes that Accuracy $= 0.4$, Recall $= 0.5$, and that the positive samples correctly classified are 20, draw the confusion matrix.\n2. Compute the F1 score.\n3. Suppose we move the threshold $\\iota$ to the value $1/4$, and we discover that the number of samples wrongly classified as positive does not change. What can we conclude about the Precision? Provide a formal justification.",
     "solution": "1. Knowing that Accuracy $= 0.4$ and Recall $= 0.5$, we deduce:\n$$\\text{Accuracy} = \\frac{TP + TN}{N} = 0.4 \\implies TP + TN = 40,$$\n$$\\text{Recall} = \\frac{TP}{TP + FN} = 0.5 \\implies TP = FN.$$\nThus, exploiting that $TP = 20$, we have the system:\n$$\\begin{cases} TP + TN = 40 \\\\ TP = FN \\\\ TP = 20 \\end{cases} \\implies \\begin{cases} TP = 20 \\\\ TN = 20 \\\\ FN = 20 \\end{cases}.$$\nFrom which, $FP = N - TP - TN - FN = 40$. Thus, the confusion matrix becomes (rows = predicted, columns = actual):\n- Predicted 1: $TP = 20$ (actual 1), $FP = 40$ (actual 0)\n- Predicted 0: $FN = 20$ (actual 1), $TN = 20$ (actual 0)\n\n2. We first compute the Precision:\n$$\\text{Precision} = \\frac{TP}{TP + FP} = \\frac{20}{20 + 40} = \\frac{1}{3}.$$\nThe F1 score is the harmonic mean between Precision and Recall:\n$$F = \\frac{2}{\\frac{1}{\\text{Precision}} + \\frac{1}{\\text{Recall}}} = \\frac{2}{3 + 2} = \\frac{2}{5}.$$\n\n3. By decreasing the threshold to $\\iota = 1/4$, there will be more samples classified as positive. In particular, $TP' \\ge TP$. Since the text says that $FP' = FP$, we have:\n$$\\text{Precision}' = \\frac{TP'}{TP' + FP'} = \\frac{1}{1 + \\frac{FP'}{TP'}} \\ge \\frac{1}{1 + \\frac{FP}{TP}} = \\frac{TP}{TP + FP} = \\text{Precision}.$$\nThus, the precision increases.",
     "solutionSource": "exam"
@@ -154,7 +273,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a linear binary SVM classifier that, after training, has weights $w = [-1, 2]$ and bias $b = -3$. Motivate all answers and write down any necessary computation.\n\n1. How is the point $[0.5, 1]$ classified?\n2. Provide an example of a support vector.\n3. Suppose the point $[1,1]$ is added to the dataset, with a negative label. Do we need to retrain the SVM?\n4. Can we discard the point $[-3, 2]$ from the dataset if all we care about is predicting the class of new points?",
     "solution": "1. $f([0.5, 1]) = -1 * 0.5 + 2 * 1 - 3 = -1.5 < 0$, so the point is classified as negative.\n\n2. An example is $[0, 1.5]$, since $f([0, 1.5]) = -1 * 0 + 2 * 1.5 - 3 = 0$, so it is on the boundary. Any vector $v$ with $|f(v)| \\le 1$ is a good example.\n\n3. No, since $f([1,1]) = -1 * 1 + 2 * 1 - 3 = -2 < -1$: the point is correctly classified and is not a support vector, so the classifier would not change.\n\n4. With a linear SVM, we can discard the whole dataset, the weights are enough! If we are using a non-parametric version (e.g. a kernel-based implementation with a linear kernel), we have to check if the point is a support vector. $f([-3, 2]) = -1 * (-3) + 2 * 2 - 3 = 4 > 1$, so it is not a support vector and it can be discarded anyway.",
     "solutionSource": "exam"

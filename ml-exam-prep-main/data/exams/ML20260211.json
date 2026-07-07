@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Explain what the Kernel Trick is, what it is used for, and in which ML methods it can be used.",
     "solution": "**What it is.** Many linear algorithms depend on the data only through inner products $\\langle x_i, x_j\\rangle$. The kernel trick replaces every such inner product with a kernel function $k(x_i, x_j) = \\langle \\phi(x_i), \\phi(x_j)\\rangle$, where $\\phi$ maps inputs into a (possibly very high- or infinite-dimensional) feature space. Because we only ever need the inner products, we never have to compute $\\phi(x)$ explicitly — we just evaluate $k$.\n\n**What it is for.** It lets a linear method learn non-linear decision boundaries / regressors in the original input space, while keeping the computation tractable (cost depends on the number of samples $N$ via the $N\\times N$ Gram matrix, not on the feature-space dimension). A function $k$ is a valid kernel iff it is symmetric and positive semi-definite (Mercer's condition).\n\n**Common examples:** linear $k(x,x')=x^\\top x'$, polynomial $k(x,x')=(x^\\top x'+c)^d$, RBF/Gaussian $k(x,x')=\\exp(-\\gamma\\lVert x-x'\\rVert^2)$.\n\n**Where it is used.** Any method expressible in dual form / via inner products: kernel (soft- and hard-margin) **SVM**, **kernel ridge regression**, **kernel PCA**, Gaussian Processes, the perceptron (kernel perceptron), and kernel k-NN.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["ensemble"],
+    "topics": [
+      "ensemble"
+    ],
     "prompt": "Explain the key idea behind Boosting and its main purpose. Describe how training and inference work in Boosting. Finally, give one example of a problem where Boosting is likely to be beneficial and one where it could be harmful or ineffective.",
     "solution": "**Key idea & purpose.** Boosting combines many *weak learners* (models only slightly better than random, i.e. high bias / low variance, e.g. decision stumps) into a single strong learner. Its main purpose is to **reduce bias** by fitting learners sequentially, each one focusing on the examples the previous ensemble got wrong.\n\n**Training (e.g. AdaBoost).** Maintain a weight distribution over the training samples, initially uniform. At each round $t$: (1) train a weak learner $h_t$ on the weighted data; (2) compute its weighted error $\\varepsilon_t$; (3) give it a coefficient $\\alpha_t = \\tfrac12\\ln\\frac{1-\\varepsilon_t}{\\varepsilon_t}$ (larger when the learner is more accurate); (4) **re-weight** the samples, increasing the weight of misclassified ones so the next learner concentrates on them. Repeat for $T$ rounds.\n\n**Inference.** The final prediction is the weighted vote/sum of the weak learners: $H(x)=\\operatorname{sign}\\!\\big(\\sum_t \\alpha_t h_t(x)\\big)$ for classification.\n\n**Beneficial example:** a problem where simple base models underfit (high bias) but signal exists — e.g. classification with decision stumps on tabular data; boosting drives down the bias and reaches high accuracy.\n\n**Harmful/ineffective example:** very **noisy data or many mislabeled examples** — boosting keeps up-weighting the hard/noisy points and overfits them; also pointless if the base learner is already low-bias/high-variance (there bagging is the right tool).",
     "solutionSource": "authored"
@@ -33,7 +37,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["kernelsvm", "modeleval"],
+    "topics": [
+      "kernelsvm",
+      "modeleval"
+    ],
     "prompt": "Consider the following Python code snippet.\n\n1. Describe the purpose of the code snippet and explain what it does line by line.\n2. What is the role of `C` in the SVM model used in the snippet?\n3. Identify any methodological issues in the snippet. For each issue, propose a concrete fix (in words or pseudo-code).",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20260211-e4",
+    "id": "ML20260211-e4.1",
     "examId": "ML20260211",
     "date": "2026-02-11",
     "academicYear": "AA2425",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Indicate whether the following statements about Linear Regression and regularization are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20260211-e4-s1",
+        "id": "ML20260211-e4.1-s1",
         "statement": "If the design matrix $\\Phi$ is singular, Ridge Regression (with $\\lambda>0$) and Ordinary Least Squares (OLS) yield the same solution.",
         "answer": false,
         "motivation": "If $\\Phi$ is singular, OLS may have infinitely many optima. The Ridge solution is unique and well-defined for $\\lambda>0$, but it generally differs from any OLS solution due to the regularization term."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260211-e4.2",
+    "examId": "ML20260211",
+    "date": "2026-02-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Indicate whether the following statements about Linear Regression and regularization are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260211-e4-s2",
+        "id": "ML20260211-e4.2-s1",
         "statement": "For unregularized Ordinary Least Squares, adding additional features to the model cannot increase the training mean squared error.",
         "answer": true,
         "motivation": "In OLS the training objective is the residual sum of squares; adding features enlarges the hypothesis space, so the minimum over a larger set cannot be higher. Equivalently, the residual after projecting onto a higher-dimensional column space cannot increase, hence training MSE is non-increasing."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260211-e4.3",
+    "examId": "ML20260211",
+    "date": "2026-02-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Indicate whether the following statements about Linear Regression and regularization are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260211-e4-s3",
+        "id": "ML20260211-e4.3-s1",
         "statement": "When outputs are corrupted by noise, adding regularization can reduce the MSE on the test set compared to Ordinary Least Squares.",
         "answer": true,
         "motivation": "With noisy outputs, OLS can have high variance; adding regularization introduces bias but can reduce variance enough to lower the expected test MSE (bias–variance trade-off)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260211-e4.4",
+    "examId": "ML20260211",
+    "date": "2026-02-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Indicate whether the following statements about Linear Regression and regularization are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260211-e4-s4",
+        "id": "ML20260211-e4.4-s1",
         "statement": "Lasso admits a solution that can be computed by inverting $(\\Phi^\\top\\Phi + \\lambda I)$.",
         "answer": false,
         "motivation": "The expression $(\\Phi^\\top\\Phi + \\lambda I)^{-1}\\Phi^\\top y$ is the closed-form *Ridge* solution, not Lasso. Lasso has no closed form (its $\\ell_1$ penalty is non-differentiable) and is solved by iterative methods."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20260211-e5",
+    "id": "ML20260211-e5.1",
     "examId": "ML20260211",
     "date": "2026-02-11",
     "academicYear": "AA2425",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Indicate whether the following statements about RL methods are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20260211-e5-s1",
+        "id": "ML20260211-e5.1-s1",
         "statement": "In TD(0) policy evaluation, the update target for $V(S_t)$ uses the one-step bootstrap.",
         "answer": true,
         "motivation": "TD(0) updates $V(S_t)$ toward the one-step TD target $R_{t+1} + \\gamma V(S_{t+1})$, which bootstraps from the current estimate instead of using the full return."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260211-e5.2",
+    "examId": "ML20260211",
+    "date": "2026-02-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about RL methods are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260211-e5-s2",
+        "id": "ML20260211-e5.2-s1",
         "statement": "In Monte Carlo (MC) policy evaluation, MC first-visit and MC every-visit converge to the same value function $V^\\pi$ (given sufficiently many visits to each state).",
         "answer": true,
         "motivation": "For a fixed $\\pi$, both first-visit and every-visit estimate $\\mathbb{E}[G_t \\mid S_t = s]$; with sufficiently many visits their sample averages converge to the same $V^\\pi$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260211-e5.3",
+    "examId": "ML20260211",
+    "date": "2026-02-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about RL methods are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260211-e5-s3",
+        "id": "ML20260211-e5.3-s1",
         "statement": "In Q-learning, the update of $Q(S_t, A_t)$ does not require sampling the next action $A_{t+1}$ in order to compute the TD target.",
         "answer": true,
         "motivation": "Q-learning uses the target $R_{t+1} + \\gamma \\max_a Q(S_{t+1}, a)$, so it does not need to sample the specific next action $A_{t+1}$ (it only needs to observe $S_{t+1}$ and $R_{t+1}$)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260211-e5.4",
+    "examId": "ML20260211",
+    "date": "2026-02-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about RL methods are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260211-e5-s4",
+        "id": "ML20260211-e5.4-s1",
         "statement": "SARSA can be applied to non-Markovian tasks, since it does not rely on the Markov property.",
         "answer": false,
         "motivation": "Standard SARSA assumes an MDP: the TD target uses $Q(S_{t+1}, A_{t+1})$ and is justified by the Markov property. In non-Markov tasks the state is not sufficient and learning can be inconsistent unless the state is augmented (e.g., with history)."
@@ -128,7 +241,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "You are an ML consultant working with a national park authority that wants to improve both visitor experience and environmental protection.\n\n1. The authority wants to forecast how crowded each area of the park will be over the next hour, based on historical data and contextual information, to plan staff allocation and provide timely recommendations to visitors.\n2. During peak days, the park can apply different access rules (e.g., reservation requirements, time-slot limits, dynamic entry caps) to balance congestion and ecological impact. The authority wants an adaptive system that, throughout the day, chooses which rule to apply to keep overcrowding low while maximizing visitor satisfaction.\n\nModel the two problems as ML problems (e.g., classification, regression, RL, etc.), specifying the input features or the state representation, the target or the action space, and the loss/reward function. Also, propose suitable methods/algorithms for each task.",
     "solution": "**1. Crowding forecasting — Supervised learning / Regression.**\n- *Input features:* for each area $i$ at time $t$, a vector $x^{(i)}_t$ with contextual descriptors (time-of-day, day-of-week/holiday, weather, special-event flags), operational signals (entry counts, parking occupancy), and recent sensor summaries (current crowd index).\n- *Target:* the crowding level one hour ahead, $y^{(i)}_{t+1}\\in\\mathbb{R}$ (expected number of visitors or a density index).\n- *Loss:* a regression loss such as RSS / MSE.\n- *Method:* Ridge or Lasso regression (handle correlated features, improve generalization); alternatively KNN regression for local similarity, or Gaussian Processes for uncertainty estimates.\n\n**2. Adaptive access management — Reinforcement Learning / Control.**\n- *State:* $s_t$ summarizing the park situation at decision time $t$ (current/predicted crowding per area, current access rule, calendar context, recent inflow, satisfaction and eco-stress proxies).\n- *Actions:* select an access rule $a_t$ from a discrete set (enable/disable reservations, raise/lower an entry cap, change time-slot granularity).\n- *Reward:* a scalar combining the goals, e.g. $r_t = -\\alpha\\,\\text{Overcrowding}(s_t) - \\beta\\,\\text{EcoStress}(s_t) + \\gamma\\,\\text{Satisfaction}(s_t) - \\eta\\,\\mathbb{1}[a_t\\neq a_{t-1}]$, where the last term discourages frequent rule changes.\n- *Method:* a model-free RL algorithm such as tabular Q-learning if the state can be discretized (or function approximation otherwise).",
     "solutionSource": "exam"
@@ -141,7 +257,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Suppose we have a training set composed of $N = 120$ samples and we use it to train two binary classifiers $\\hat{h}_1 \\in \\mathcal{H}_1$ and $\\hat{h}_2 \\in \\mathcal{H}_2$, where $|\\mathcal{H}_1| = e^5$, $|\\mathcal{H}_2| = +\\infty$, and $VC(\\mathcal{H}_2) = 3$. Compute an upper bound on the true classification error with confidence $1-\\delta = 1 - e^{-3}$ for the two classifiers in the following two scenarios:\n\n1. The two classifiers $\\hat{h}_1$ and $\\hat{h}_2$ are consistent learners.\n2. The two classifiers have training errors $\\hat{L}(\\hat{h}_1) = 0.25$ and $\\hat{L}(\\hat{h}_2) = 0.15$.\n\nHint — learning-theory bounds:\n$$|\\mathcal{H}| < \\infty:\\quad L(\\hat{h}) \\le \\frac{\\ln|\\mathcal{H}| + \\ln\\frac{1}{\\delta}}{N}, \\qquad L(\\hat{h}) \\le \\hat{L}(\\hat{h}) + \\sqrt{\\frac{\\ln|\\mathcal{H}| + \\ln\\frac{1}{\\delta}}{2N}}$$\n$$|\\mathcal{H}| = \\infty:\\quad L(\\hat{h}) \\le \\hat{L}(\\hat{h}) + \\sqrt{\\frac{VC(\\mathcal{H})\\ln\\frac{2eN}{VC(\\mathcal{H})} + \\ln\\frac{4}{\\delta}}{N}}$$",
     "solution": "Data: $\\delta = e^{-3}$, $\\ln|\\mathcal{H}_1| = \\ln(e^5) = 5$, $\\ln(1/\\delta) = 3$.\n\n**Scenario 1 — consistent learning (training error $=0$).**\n- $\\hat{h}_1$ (finite, consistent): $L(\\hat{h}_1) \\le \\dfrac{\\ln|\\mathcal{H}_1| + \\ln(1/\\delta)}{N} = \\dfrac{5+3}{120} = \\dfrac{8}{120} \\approx 0.0667.$\n- $\\hat{h}_2$ (VC bound, $\\hat{L}=0$): with $VC(\\mathcal{H}_2)=3$, $\\tfrac{2eN}{3} = 80e$ and $\\ln(4/\\delta) = \\ln(4e^3)$, so $$L(\\hat{h}_2) \\le \\sqrt{\\frac{3\\ln(80e) + \\ln(4e^3)}{120}} \\approx \\sqrt{\\frac{20.532}{120}} \\approx 0.414.$$\n\n**Scenario 2 — nonzero training errors.**\n- $\\hat{h}_1$ with $\\hat{L} = 0.25$: $L(\\hat{h}_1) \\le 0.25 + \\sqrt{\\dfrac{8}{240}} \\approx 0.25 + 0.183 = 0.433.$\n- $\\hat{h}_2$ with $\\hat{L} = 0.15$: $L(\\hat{h}_2) \\le 0.15 + \\sqrt{\\dfrac{3\\ln(80e)+\\ln(4e^3)}{120}} \\approx 0.15 + 0.414 = 0.564.$",
     "solutionSource": "exam"
@@ -154,7 +272,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Consider an algorithm for a MAB with binary rewards, choosing the arm $A_t \\in \\{a_1, a_2\\}$ over a horizon of $T = 12$ rounds (only the reward of the chosen arm is revealed). Observed rewards: $a_1$ played at $t=1,2,4,6,7,10,12$ with rewards $1,0,1,0,1,1,0$; $a_2$ played at $t=3,5,8,9,11$ with rewards $0,1,1,0,1$.\n\n1. Knowing that $\\mu_1 = 0.65$ and $\\mu_2 = 0.35$, compute the expected regret over the horizon $T$.\n2. What arm would UCB1 play in the next round $t=13$? Motivate your answer.\n3. What can you say about the arm Thompson Sampling (uniform prior at $t=0$) would play at $t=13$? Explain in terms of the posterior distributions.",
     "solution": "**1. Expected regret.** The optimal arm is $a_1$ ($\\mu_1=0.65>\\mu_2=0.35$). Counts: $N_1 = 7$, $N_2 = 5$. Expected regret $= N_2(\\mu_1-\\mu_2) = 5\\cdot 0.30 = 1.5.$\n\n**2. UCB1 at $t=13$.** Empirical means: $\\hat{\\mu}_1 = \\tfrac{1+0+1+0+1+1+0}{7} = \\tfrac{4}{7}$, $\\hat{\\mu}_2 = \\tfrac{0+1+1+0+1}{5} = \\tfrac{3}{5}$. UCB index $\\hat{\\mu}_i + \\sqrt{\\tfrac{2\\ln 12}{N_i}}$: $$\\text{UCB}_1 = \\tfrac{4}{7} + \\sqrt{\\tfrac{2\\ln 12}{7}} \\approx 1.41, \\qquad \\text{UCB}_2 = \\tfrac{3}{5} + \\sqrt{\\tfrac{2\\ln 12}{5}} \\approx 1.60.$$ Hence UCB1 selects $a_2$ (larger upper confidence bound).\n\n**3. Thompson Sampling at $t=13$.** With a uniform $\\text{Beta}(1,1)$ prior and Bernoulli rewards: $a_1$ has $s_1=4, f_1=3 \\Rightarrow \\theta_1 \\sim \\text{Beta}(5,4)$; $a_2$ has $s_2=3, f_2=2 \\Rightarrow \\theta_2 \\sim \\text{Beta}(4,3)$. TS draws one sample from each posterior and plays the larger. Since $\\mathbb{E}[\\theta_2]=\\tfrac{4}{7}\\approx 0.571$ is slightly larger than $\\mathbb{E}[\\theta_1]=\\tfrac{5}{9}\\approx 0.556$ (and $\\theta_2$ is based on fewer samples, hence more variable), it is **more likely** to pick $a_2$ — but the choice is stochastic and $a_1$ can still be selected with non-zero probability.",
     "solutionSource": "exam"

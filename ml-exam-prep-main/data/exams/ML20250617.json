@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Describe **PCA** technique, how it works, and what its purpose is.",
     "solution": "**What it is / purpose.** Principal Component Analysis (PCA) is an unsupervised linear dimensionality-reduction technique. Its purpose is to find a small set of new orthogonal axes (the principal components) that capture as much of the variance in the data as possible, so the data can be re-expressed in fewer dimensions with minimal information loss. It is used for compression, visualization, denoising, and removing correlated/redundant features before learning.\n\n**How it works.**\n1. **Center** (and usually standardize) the data: subtract the mean of each feature, $\\tilde{x}_i = x_i - \\bar{x}$.\n2. Compute the **covariance matrix** $\\Sigma = \\frac{1}{N}\\sum_i \\tilde{x}_i \\tilde{x}_i^\\top$.\n3. Compute the **eigen-decomposition** of $\\Sigma$: eigenvectors $u_1,\\dots,u_d$ with eigenvalues $\\lambda_1 \\ge \\lambda_2 \\ge \\dots \\ge \\lambda_d$. Each eigenvector is a principal component and its eigenvalue is the variance explained along that direction. (Equivalently, use the SVD of the centered data matrix.)\n4. **Select** the top $k$ eigenvectors (those with the largest eigenvalues), e.g. enough to retain a desired fraction $\\frac{\\sum_{j\\le k}\\lambda_j}{\\sum_j \\lambda_j}$ of the total variance.\n5. **Project** the data onto these components: $z = U_k^\\top \\tilde{x}$, giving a $k$-dimensional representation.\n\nThe first component is the direction of maximum variance; each subsequent one is the direction of maximum remaining variance orthogonal to the previous ones. PCA equivalently minimizes the reconstruction (projection) error. It is sensitive to feature scaling (hence standardization) and only captures linear structure.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Compare the **Perceptron** algorithm and **Logistic Regression** in terms of their update rules, loss functions, and convergence properties.",
     "solution": "**Loss functions.**\n- *Perceptron:* minimizes the perceptron loss $\\sum_{i} \\max(0, -y_i\\, w^\\top x_i)$, i.e. it only incurs a penalty (proportional to the margin) on misclassified points; correctly classified points contribute zero loss. There is no probabilistic interpretation.\n- *Logistic Regression:* minimizes the (cross-entropy / log) loss $\\sum_i \\ln(1 + e^{-y_i w^\\top x_i})$, derived from maximum likelihood of a Bernoulli model with $P(y=1\\mid x) = \\sigma(w^\\top x)$. It is smooth and convex and penalizes even correctly classified points that are close to the boundary.\n\n**Update rules (gradient/SGD).**\n- *Perceptron:* on a misclassified example, $w \\leftarrow w + \\eta\\, y_i x_i$; no update on correctly classified examples (a hard, mistake-driven rule).\n- *Logistic Regression:* $w \\leftarrow w + \\eta\\,(y_i - \\sigma(w^\\top x_i))\\, x_i$ (gradient of the log-likelihood). Every example contributes an update weighted by the probabilistic error $y_i - \\sigma(\\cdot)$, so the update is soft and continuous.\n\n**Convergence properties.**\n- *Perceptron:* the Perceptron Convergence Theorem guarantees it converges in a finite number of updates **if the data are linearly separable**; if they are not, it never converges (keeps oscillating). It returns some separating hyperplane (not unique, no margin guarantee).\n- *Logistic Regression:* its loss is convex, so gradient-based methods converge to the global minimum on any dataset (separable or not). On perfectly separable data the unregularized weights diverge to infinity (the sigmoid saturates), which is why regularization is normally added; it also yields calibrated class probabilities rather than just a hard label.",
     "solutionSource": "authored"
@@ -33,7 +37,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["linreg", "classif"],
+    "topics": [
+      "linreg",
+      "classif"
+    ],
     "prompt": "Consider the following Python code snippet.\n\n1. Describe the procedure performed in the code above, detailing **line-by-line** what it does and the general goal of the snippet.\n2. Tell what is the purpose of line 2 and if it is correct.\n3. Is the approach used in the snippet appropriate for the task? Would you use a different approach?",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250617-e4",
+    "id": "ML20250617-e4.1",
     "examId": "ML20250617",
     "date": "2025-06-17",
     "academicYear": "AA2425",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250617-e4-s1",
+        "id": "ML20250617-e4.1-s1",
         "statement": "Temporal Difference (TD) methods require a complete episode to end before they can begin updating value function estimates.",
         "answer": false,
         "motivation": "Temporal Difference (TD) methods employ bootstrapping and update value estimates at each time step (e.g. after observing $S_t, A_t, R_{t+1}, S_{t+1}$), without waiting for the episode to terminate."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250617-e4.2",
+    "examId": "ML20250617",
+    "date": "2025-06-17",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250617-e4-s2",
+        "id": "ML20250617-e4.2-s1",
         "statement": "Q-learning is guaranteed to converge to the optimal action-value function, $Q^*$, only if the agent's behavior policy sufficiently explores all state-action pairs.",
         "answer": true,
         "motivation": "Q-learning's convergence proof assumes a sufficiently exploring behavior policy (e.g. GLIE) so that every state-action pair is visited infinitely often and the learning rates satisfy the usual stochastic-approximation conditions."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250617-e4.3",
+    "examId": "ML20250617",
+    "date": "2025-06-17",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250617-e4-s3",
+        "id": "ML20250617-e4.3-s1",
         "statement": "SARSA is considered an on-policy algorithm because it involves an incremental update of the action-value function.",
         "answer": false,
         "motivation": "SARSA is on-policy because it updates using the action actually taken by the same policy that generates behavior. The incremental nature of the update is not what makes it on-policy."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250617-e4.4",
+    "examId": "ML20250617",
+    "date": "2025-06-17",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Tell if the following statements about reinforcement learning are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250617-e4-s4",
+        "id": "ML20250617-e4.4-s1",
         "statement": "One of the advantages of TD methods over Monte Carlo methods is their lower variance, as they update estimates based on other learned estimates rather than waiting for a final outcome.",
         "answer": true,
         "motivation": "By bootstrapping on existing value estimates rather than waiting for full returns, TD methods exhibit lower variance than Monte Carlo methods (though at the cost of introducing bias)."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250617-e5",
+    "id": "ML20250617-e5.1",
     "examId": "ML20250617",
     "date": "2025-06-17",
     "academicYear": "AA2425",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg", "modelsel"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Tell if the following statements about regularization are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250617-e5-s1",
+        "id": "ML20250617-e5.1-s1",
         "statement": "In ridge regression, increasing the penalty weight $\\lambda$ always increases the model's bias.",
         "answer": true,
         "motivation": "In ridge regression the penalty term $\\lambda\\sum_j w_j^2$ shrinks the weights $w_j$ toward zero. As $\\lambda$ increases, the model becomes less flexible (more biased) even though variance decreases."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250617-e5.2",
+    "examId": "ML20250617",
+    "date": "2025-06-17",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Tell if the following statements about regularization are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250617-e5-s2",
+        "id": "ML20250617-e5.2-s1",
         "statement": "Lasso (L1) regularization can drive some regression coefficients exactly to zero.",
         "answer": true,
         "motivation": "Lasso adds an $\\ell_1$ penalty $\\lambda\\sum_j |w_j|$. This penalty has \"corners\" at zero in the loss geometry, which allows some weights to be driven exactly to zero, yielding sparse solutions."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250617-e5.3",
+    "examId": "ML20250617",
+    "date": "2025-06-17",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements about regularization are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250617-e5-s3",
+        "id": "ML20250617-e5.3-s1",
         "statement": "Adding a regularization term to the loss can never worsen performance on the training set.",
         "answer": false,
         "motivation": "Adding regularization increases the trade-off toward smaller weights. While the *regularized* objective always decreases (or stays the same), the *unregularized* training error (e.g. MSE) can *increase*, so plain training-set performance may worsen."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250617-e5.4",
+    "examId": "ML20250617",
+    "date": "2025-06-17",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements about regularization are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250617-e5-s4",
+        "id": "ML20250617-e5.4-s1",
         "statement": "Expanding a linear model with higher-degree polynomial features tends to decrease bias but increase variance.",
         "answer": true,
         "motivation": "Introducing higher-degree polynomial features enlarges the hypothesis space, making it easier to fit the data (lower bias) but more sensitive to sampling noise (higher variance)."
@@ -128,7 +241,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "rl"],
+    "topics": [
+      "linreg",
+      "rl"
+    ],
     "prompt": "You are a ML expert working for the urban planning department of a major city. Consider the following two challenges:\n\n1. **Bus Delay Prediction**: To better inform commuters, the city wants to provide real-time predictions for bus delays. Your task is to predict the delay (in minutes) of a specific bus on its route. You have access to a large historical dataset containing information about past bus trips.\n2. **Traffic Light Control**: To ease congestion at a particularly busy intersection, you are asked to design an intelligent traffic light controller. This system can observe the number of vehicles approaching the intersection from all directions in real-time. At any moment, it can decide whether to extend the current green light or switch to the next phase. The objective is to minimize the average vehicle waiting time.\n\nModel the two problems described above as ML problems, specifying the data (features and target or states, actions, and reward), the problem class, and a specific method or algorithm to solve them.",
     "solution": "**Bus Delay Prediction.** This is a classic supervised learning problem. Specifically, it is a regression task, as the goal is to predict a continuous value: the delay in minutes. To solve this, we would use a historical dataset where the features are predictive variables like the bus route, time of day, location, and weather conditions. The target variable is simply the recorded delay for each trip. Linear regression models or gradient boosting regressors are suitable methods for this task.\n\n**Traffic Light Control.** The task falls into the domain of Reinforcement Learning (RL). Here, an agent must learn an optimal decision-making policy through direct interaction with its environment. The problem can be modeled as follows: **State**: A snapshot of the current traffic situation (e.g., vehicle counts per lane, current light phase). **Actions**: The decisions the controller can make (e.g., extend the current green light or switch to the next phase). **Reward**: we could design it as the negative of the average vehicle waiting time. Suitable algorithms are Q-learning or SARSA.",
     "solutionSource": "exam"
@@ -141,7 +257,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a binary classification problem with input space $x = [x_1, x_2] \\in \\mathbb{R}^2$ and feature mapping $\\phi(x) = [x_1^2, \\sqrt{2}\\,x_1 x_2, x_2^2]$. After training a hard-margin linear SVM in this feature space, the resulting classifier has the following weight vector and bias:\n$$w = \\begin{bmatrix} 1 \\\\ -1 \\\\ 0.5 \\end{bmatrix}, \\qquad b = -2$$\n\nAnswer the following questions. Motivate your reasoning and show any necessary computations.\n1. Compute $\\phi([1, 2])$ and classify the point using the SVM.\n2. Find a point in the input space that lies on the decision boundary in the feature space.\n3. Could the point $[0, 1]$ be a support vector? Justify your answer.\n4. Could we have trained the SVM in the dual (kernel) space? If yes, provide a kernel. If no, motivate your answer.",
     "solution": "1. We have:\n$$\\phi([1, 2]) = \\begin{bmatrix} 1^2 \\\\ \\sqrt{2}\\cdot 1\\cdot 2 \\\\ 2^2 \\end{bmatrix} = \\begin{bmatrix} 1 \\\\ 2\\sqrt{2} \\\\ 4 \\end{bmatrix}.$$\nCompute the decision function:\n$$f([1,2]) = 1\\cdot 1 + (-1)\\cdot 2\\sqrt{2} + 0.5\\cdot 4 - 2 = 1 - 2\\sqrt{2} < 0.$$\nThus, the point is classified as the negative class.\n\n2. We need to find a point $x^* = [x_1^*, x_2^*]$ such that $f(x^*) = w^\\top \\phi(x^*) + b = 0$. Setting, for simplicity, $x_1^* = 0$, we have to enforce:\n$$w^\\top \\phi([0, x_2^*]) + b = 0 \\iff 0.5(x_2^*)^2 - 2 = 0 \\iff x_2^* = 2.$$\n\n3. We have:\n$$\\phi([0, 1]) = \\begin{bmatrix} 0 \\\\ 0 \\\\ 1 \\end{bmatrix}.$$\nThen:\n$$f([0,1]) = 0\\cdot 1 + 0\\cdot(-1) + 1\\cdot 0.5 - 2 = -1.5.$$\nSince $|f([0,1])| > 1$, the point cannot be a support vector.\n\n4. We can always perform training in the dual space provided that we are able to define the corresponding kernel. In this case, we just consider the kernel induced by the feature mapping:\n$$k(x, y) = \\phi(x)^\\top \\phi(y) = x_1^2 y_1^2 + 2 x_1 x_2 y_1 y_2 + x_2^2 y_2^2 = (x_1 y_1 + x_2 y_2)^2,$$\nwhich is a polynomial kernel.",
     "solutionSource": "exam"
@@ -154,7 +272,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Consider a multi-armed bandit problem with two arms $a_1, a_2$ and binary rewards. The reward distribution of arm $a_1$ is Bernoulli with parameter $\\mu_1 = 0.6$. The reward distribution of arm $a_2$ is Bernoulli with parameter $\\mu_2 = 0.4$. By the end of round $t = 9$, agent $\\mathcal{A}$ has observed the following: arm $a_1$ has $3$ successes and $2$ failures; arm $a_2$ has $1$ success and $3$ failures.\n\nAssuming $\\mathcal{A}$ is playing UCB1, answer the following questions, writing all the necessary computations:\n1. Do you have enough information to compute the random regret at the end of round $t = 9$? And the pseudo regret (a.k.a. expected regret)? If so, compute them.\n2. What action will $\\mathcal{A}$ play at round $t' = 10$? Hint: $|\\sqrt{2\\ln(10)/5} - \\sqrt{2\\ln(10)/4}| < 0.12$.\n3. What is the probability that $\\mathcal{A}$ will play action $a_1$ in round $t'' = 11$? Hint: $|\\sqrt{2\\ln(11)/6} - \\sqrt{2\\ln(11)/4}| < 0.21$.",
     "solution": "1. We do not have enough information to compute the random regret, we would need the reward realizations for both arms in all rounds. We can compute the pseudo regret by noting that $a_1$ is the optimal arm; $\\mathcal{A}$ played the suboptimal arm $a_2$ a total of $1 + 3 = 4$ times, suffering each time an expected instantaneous regret $\\mathbb{E}[R(a_1)] - \\mathbb{E}[R(a_2)] = \\mu_1 - \\mu_2 = 0.2$. So the pseudo regret is $4 \\cdot 0.2 = 0.8$.\n\n2. It is important to notice that $\\mathcal{A}$ gains a reward of $1$ at every success and $0$ at every failure. At round $t' = 10$, the UCB index for arm $a_1$ is:\n$$U_{t'}(a_1) = \\frac{3}{5} + \\sqrt{\\frac{2\\log(10)}{5}}.$$\nFor arm $a_2$:\n$$U_{t'}(a_2) = \\frac{1}{4} + \\sqrt{\\frac{2\\log(10)}{4}}.$$\nUsing the hint, since the difference of the average rewards is $\\frac{3}{5} - \\frac{1}{4} = 0.35 > 0.12$, the contribution of the bonuses is negligible and $\\mathcal{A}$ will play $a_1$.\n\n3. From the previous point, $\\mathcal{A}$ will play $a_1$ at round $t' = 10$. So, from the arm's reward distribution:\n- With probability $0.6$, $\\mathcal{A}$ will get a reward of $1$, leading to $U_{t''}(a_1) = \\frac{4}{6} + \\sqrt{\\frac{2\\log(11)}{6}}$, $U_{t''}(a_2) = \\frac{1}{4} + \\sqrt{\\frac{2\\log(11)}{4}}$.\n- With probability $1 - 0.6 = 0.4$, $\\mathcal{A}$ will get a reward of $0$, leading to $U_{t''}(a_1) = \\frac{3}{6} + \\sqrt{\\frac{2\\log(11)}{6}}$, $U_{t''}(a_2) = \\frac{1}{4} + \\sqrt{\\frac{2\\log(11)}{4}}$.\n\nIn both cases the difference in the bonuses is negligible ($\\frac{4}{6} - \\frac{1}{4} > \\frac{3}{6} - \\frac{1}{4} = 0.25 > 0.21$), so $\\mathcal{A}$ will play again $a_1$ with probability $1$.",
     "solutionSource": "exam"

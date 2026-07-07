@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Describe and compare ordinary least squares and Bayesian linear regression.",
     "solution": "**Ordinary Least Squares (OLS).** OLS is a frequentist approach that fits a linear model $y = \\mathbf{w}^\\top \\boldsymbol{\\phi}(\\mathbf{x})$ by minimizing the sum of squared residuals (RSS). The closed-form solution is $\\hat{\\mathbf{w}} = (\\Phi^\\top \\Phi)^{-1}\\Phi^\\top \\mathbf{y}$, where $\\Phi$ is the design matrix. OLS returns a single point estimate of the weights, is unbiased and (by Gauss–Markov) has minimum variance among unbiased linear estimators, but it can overfit and become ill-conditioned when features are collinear or when the number of samples is small.\n\n**Bayesian Linear Regression (BLR).** BLR treats the weights as a random variable with a prior $p(\\mathbf{w})$ (typically Gaussian $\\mathcal{N}(\\mathbf{0}, \\tau^2 I)$). Combining the prior with the Gaussian likelihood of the data, it computes a full posterior $p(\\mathbf{w}\\mid \\mathcal{D}) \\propto p(\\mathcal{D}\\mid \\mathbf{w})\\,p(\\mathbf{w})$, which (with Gaussian conjugacy) is again Gaussian. Predictions are made via the predictive distribution, integrating over all weights, so BLR returns a distribution (mean + variance) rather than a single value.\n\n**Comparison.**\n- OLS gives a point estimate; BLR gives a posterior distribution and hence quantifies predictive uncertainty.\n- The MAP estimate of BLR with a zero-mean Gaussian prior coincides with Ridge regression, so BLR has a built-in regularization effect that mitigates overfitting and ill-conditioning.\n- BLR is especially advantageous when data are scarce (the prior dominates and stabilizes the estimate); as the number of samples grows, the posterior concentrates and BLR tends to the OLS solution.\n- OLS is computationally cheaper and simpler; BLR requires choosing priors and is more expensive but more informative.",
     "solutionSource": "authored"
@@ -20,7 +22,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Describe and compare Q-learning and SARSA.",
     "solution": "Both Q-learning and SARSA are model-free, temporal-difference (TD) control algorithms that learn an action-value function $Q(s,a)$ from sampled transitions, without a model of the environment.\n\n**SARSA (on-policy).** SARSA updates using the action $a'$ actually taken in the next state $s'$ according to the current (behaviour) policy:\n$$Q(s,a) \\leftarrow Q(s,a) + \\alpha\\big[r + \\gamma\\, Q(s',a') - Q(s,a)\\big].$$\nThe name comes from the tuple $(s,a,r,s',a')$. Because it evaluates the policy it is actually following (e.g. $\\varepsilon$-greedy), it learns a more conservative, \"safe\" policy that accounts for exploration.\n\n**Q-learning (off-policy).** Q-learning updates using the greedy (max) action in the next state, regardless of the action actually taken:\n$$Q(s,a) \\leftarrow Q(s,a) + \\alpha\\big[r + \\gamma\\, \\max_{a'} Q(s',a') - Q(s,a)\\big].$$\nIt directly approximates the optimal action-value function $Q^*$ independently of the behaviour policy.\n\n**Comparison.**\n- SARSA is on-policy (learns the value of the policy being followed); Q-learning is off-policy (learns the optimal policy while following an exploratory one).\n- Q-learning's target uses $\\max_{a'}Q(s',a')$; SARSA's target uses the sampled next action $Q(s',a')$.\n- During training with exploration, SARSA tends to learn safer policies (it avoids risky states when exploration could be costly, e.g. the cliff-walking problem), whereas Q-learning learns the optimal but possibly riskier path.\n- Both converge to $Q^*$ under standard conditions (all state-action pairs visited infinitely often and a suitably decaying learning rate); for SARSA the exploration must also vanish in the limit (GLIE).",
     "solutionSource": "authored"
@@ -33,7 +37,11 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["modelsel", "modeleval", "classif"],
+    "topics": [
+      "modelsel",
+      "modeleval",
+      "classif"
+    ],
     "prompt": "Consider the Python code snippet below.\n\n1. Describe the operations performed by the Python code snippet above. Provide the detailed description of the lines of code provided below.\n2. Which kind of problem are we solving? What is the technique we are using?\n3. Do you think there are some problems with the procedure described above? Do you think there exists a better way to perform the procedure described above?",
     "code": {
       "language": "python",
@@ -43,20 +51,93 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210623-e4",
+    "id": "ML20210623-e4.1",
     "examId": "ML20210623",
     "date": "2021-06-23",
     "academicYear": "AA2021",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg", "kernelsvm"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Are the following statements about Linear Regression True or False? Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210623-e4-s1", "statement": "Linear regression can be used to model processes showing a non-linear behavior.", "answer": true, "motivation": "Using a set of nonlinear basis functions one might approximate also nonlinear processes." },
-      { "id": "ML20210623-e4-s2", "statement": "In the case we have a small number of samples, the use of Bayesian Linear Regression is advised as a substitute for classical Linear Regression.", "answer": true, "motivation": "In this case we might include the prior information we have in the Bayesian prior and update it based on the data. Bayesian methods usually outperform their frequentist counterparts when the samples are scarce." },
-      { "id": "ML20210623-e4-s3", "statement": "After performing Ridge Regression on a dataset with regularization parameter $\\lambda = k$, the eigenvalues of the matrix $(\\phi^\\top \\phi + \\lambda I)$ are smaller or equal than $k$.", "answer": false, "motivation": "Ridge regression ensures that the eigenvalues of the resulting matrix are larger or equal than the value $\\lambda$. This method is used to avoid having an ill-conditioned design matrix." },
-      { "id": "ML20210623-e4-s4", "statement": "Gaussian Process can be reformulated as a specific case of Linear Regression over a specific set of features.", "answer": true, "motivation": "In this case the basis has an infinite number of features. In general using a valid kernel corresponds to the projection of our original dataset in a higher dimensional feature space." }
+      {
+        "id": "ML20210623-e4.1-s1",
+        "statement": "Linear regression can be used to model processes showing a non-linear behavior.",
+        "answer": true,
+        "motivation": "Using a set of nonlinear basis functions one might approximate also nonlinear processes."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210623-e4.2",
+    "examId": "ML20210623",
+    "date": "2021-06-23",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Are the following statements about Linear Regression True or False? Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210623-e4.2-s1",
+        "statement": "In the case we have a small number of samples, the use of Bayesian Linear Regression is advised as a substitute for classical Linear Regression.",
+        "answer": true,
+        "motivation": "In this case we might include the prior information we have in the Bayesian prior and update it based on the data. Bayesian methods usually outperform their frequentist counterparts when the samples are scarce."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210623-e4.3",
+    "examId": "ML20210623",
+    "date": "2021-06-23",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Are the following statements about Linear Regression True or False? Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210623-e4.3-s1",
+        "statement": "After performing Ridge Regression on a dataset with regularization parameter $\\lambda = k$, the eigenvalues of the matrix $(\\phi^\\top \\phi + \\lambda I)$ are smaller or equal than $k$.",
+        "answer": false,
+        "motivation": "Ridge regression ensures that the eigenvalues of the resulting matrix are larger or equal than the value $\\lambda$. This method is used to avoid having an ill-conditioned design matrix."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210623-e4.4",
+    "examId": "ML20210623",
+    "date": "2021-06-23",
+    "academicYear": "AA2021",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Are the following statements about Linear Regression True or False? Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210623-e4.4-s1",
+        "statement": "Gaussian Process can be reformulated as a specific case of Linear Regression over a specific set of features.",
+        "answer": true,
+        "motivation": "In this case the basis has an infinite number of features. In general using a valid kernel corresponds to the projection of our original dataset in a higher dimensional feature space."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -69,26 +150,101 @@
     "exerciseNo": 5,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "You want to apply RL to train an AI agent to play a single-player videogame. The state of the game is fully observable and, at each step, the agent has to select an action from a discrete set of possibilities. The interaction ends as soon as the agent reaches the end of the level or fails. To optimize the policy for your AI, you have a set of recorded trajectories (i.e., sequences of state, action, and reward) of the AI agent playing the game following a suboptimal policy. Unfortunately, most of these trajectories are not complete (i.e., they do not cover all the interactions from the beginning of the level to either the end, or to a game-over state).\n\nIndicate if the following methods can be applied to this problem, motivating your answer.\n1. Monte Carlo Policy Iteration;\n2. Value Iteration;\n3. Sarsa;\n4. Q-Learning.",
     "solution": "To provide a solution for the described scenario we need to solve a **control problem**. We need to use an **online** method since we do not have complete trajectories. Moreover, we cannot resort to a dynamic programming approach, since we do not have a full description of the environment, but only trajectories. Finally, we need an **off-policy** method since we can only rely on trajectories collected in the past. Therefore:\n1. **Not a viable option**: Monte Carlo requires complete trajectories.\n2. **Not a viable option**: it would require a complete description of the environment.\n3. **Not a viable option**: it requires following the policy provided by it. (Using importance sampling might be a solution.)\n4. **Viable option**: it is off-policy, online and uses only trajectories.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210623-e6",
+    "id": "ML20210623-e6.1",
     "examId": "ML20210623",
     "date": "2021-06-23",
     "academicYear": "AA2021",
     "exerciseNo": 6,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["linreg", "classif", "kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell which of the following methods is a parametric method and which is not. Motivate your answers.\n1. Gaussian Processes;\n2. Logistic Regression;\n3. Ridge Regression;\n4. K-Nearest Neighbors.",
     "subStatements": [
-      { "id": "ML20210623-e6-s1", "statement": "Gaussian Processes is a parametric method.", "answer": false, "motivation": "NONPARAMETRIC: it requires storing the initial data and computing the value of the kernel to provide a prediction." },
-      { "id": "ML20210623-e6-s2", "statement": "Logistic Regression is a parametric method.", "answer": true, "motivation": "PARAMETRIC: the final result of the optimization problem is the parameter vector of the weights $\\mathbf{w}$. The training set can be discarded once we have this vector." },
-      { "id": "ML20210623-e6-s3", "statement": "Ridge Regression is a parametric method.", "answer": true, "motivation": "PARAMETRIC: the final result of the optimization is the weight vector $\\mathbf{w}$; the training set can be discarded once we have it. (The course noted this approach can be cast in both ways depending on whether the number of parameters is large or small, but it is fundamentally parametric.)" },
-      { "id": "ML20210623-e6-s4", "statement": "K-Nearest Neighbors is a parametric method.", "answer": false, "motivation": "NONPARAMETRIC: to provide a prediction one needs the entire dataset. No data from the training set can be discarded." }
+      {
+        "id": "ML20210623-e6.1-s1",
+        "statement": "Gaussian Processes is a parametric method.",
+        "answer": false,
+        "motivation": "NONPARAMETRIC: it requires storing the initial data and computing the value of the kernel to provide a prediction."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210623-e6.2",
+    "examId": "ML20210623",
+    "date": "2021-06-23",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell which of the following methods is a parametric method and which is not. Motivate your answers.\n1. Gaussian Processes;\n2. Logistic Regression;\n3. Ridge Regression;\n4. K-Nearest Neighbors.",
+    "subStatements": [
+      {
+        "id": "ML20210623-e6.2-s1",
+        "statement": "Logistic Regression is a parametric method.",
+        "answer": true,
+        "motivation": "PARAMETRIC: the final result of the optimization problem is the parameter vector of the weights $\\mathbf{w}$. The training set can be discarded once we have this vector."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210623-e6.3",
+    "examId": "ML20210623",
+    "date": "2021-06-23",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Tell which of the following methods is a parametric method and which is not. Motivate your answers.\n1. Gaussian Processes;\n2. Logistic Regression;\n3. Ridge Regression;\n4. K-Nearest Neighbors.",
+    "subStatements": [
+      {
+        "id": "ML20210623-e6.3-s1",
+        "statement": "Ridge Regression is a parametric method.",
+        "answer": true,
+        "motivation": "PARAMETRIC: the final result of the optimization is the weight vector $\\mathbf{w}$; the training set can be discarded once we have it. (The course noted this approach can be cast in both ways depending on whether the number of parameters is large or small, but it is fundamentally parametric.)"
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210623-e6.4",
+    "examId": "ML20210623",
+    "date": "2021-06-23",
+    "academicYear": "AA2021",
+    "exerciseNo": 6,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "classif"
+    ],
+    "prompt": "Tell which of the following methods is a parametric method and which is not. Motivate your answers.\n1. Gaussian Processes;\n2. Logistic Regression;\n3. Ridge Regression;\n4. K-Nearest Neighbors.",
+    "subStatements": [
+      {
+        "id": "ML20210623-e6.4-s1",
+        "statement": "K-Nearest Neighbors is a parametric method.",
+        "answer": false,
+        "motivation": "NONPARAMETRIC: to provide a prediction one needs the entire dataset. No data from the training set can be discarded."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -101,7 +257,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a linear, hard-margin, two-class SVM classifier defined by parameters $\\mathbf{w} = [-2, 1]$, $b = -3$. Answer the following questions providing adequate motivations.\n1. Provide the analytical formula of the boundary and the margins.\n2. How is the point $\\mathbf{x}_1 = [9/10; 9/2]$ classified according to the trained SVM?\n3. Assume to collect a new sample $\\mathbf{x}_2 = [1/2; 37/10]$ in the negative class. Do you need to retrain the SVM?\n4. Which additional information would you require to classify the point $\\mathbf{x}_1$ in the case we have a Kernel SVM classifier?",
     "solution": "1. The boundary and margins are:\n$$-2 x_1 + 1 x_2 - 3 = 0 \\quad (\\text{boundary})$$\n$$-2 x_1 + 1 x_2 - 4 = 0 \\quad (\\text{positive margin})$$\n$$-2 x_1 + 1 x_2 - 2 = 0 \\quad (\\text{negative margin})$$\n2. $-2\\cdot 0.9 + 1\\cdot 4.5 - 3 = -0.3 \\rightarrow$ classified as **negative**.\n3. $-2\\cdot 0.5 + 1\\cdot 3.7 - 3 = -0.3 \\rightarrow$ classified as negative. The point is correctly classified; however, it is inside the margin, hence **we should retrain**.\n4. I would need the **support vectors** and the **formula of the kernel, including all its hyperparameters**.",
     "solutionSource": "exam"
@@ -114,7 +272,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "1. Show that the VC-dimension of the class $H$ of axis aligned rectangles is $VC(H) = 4$. Provide a proof resorting to textual and/or visual explanations.\n2. How many samples do you need to guarantee that this classifier provides you with an error larger than $\\varepsilon = 0.1$ with probability smaller than $\\delta = 0.2$?",
     "solution": "1. To show that $VC(H) \\ge 4$ one may choose four points arranged on a cross and show by enumeration that every labelling (every element of the power set of these points) can be shattered by axis-aligned rectangles. To show that $VC(H) < 5$ we consider three cases for any set of 5 points (the positive instances must be inside the rectangle and the negatives outside):\n   - (a) Three points are aligned: by alternating the labels on the aligned points, the set cannot be shattered.\n   - (b) Four points are placed on the edges of an axis-aligned rectangle and the fifth is inside: using a negative label on the inside point, the set cannot be shattered.\n   - (c) The points are all on the edges of an axis-aligned rectangle, so at least two points lie on a single edge: using alternating labels on those points plus one on an adjacent edge shows the points cannot be shattered.\n   Since no set of 5 points can be shattered, $VC(H) < 5$, and together with $VC(H) \\ge 4$ we get $VC(H) = 4$.\n2. Using the sample-complexity bound:\n$$N \\ge \\frac{1}{\\varepsilon}\\left(4\\log_2\\!\\left(\\frac{2}{\\delta}\\right) + 8\\,VC(H)\\log_2\\!\\left(\\frac{13}{\\varepsilon}\\right)\\right)$$\n$$N \\ge \\lceil 10(4\\log_2(10) + 32\\log_2(75))\\rceil$$\n$$N \\ge \\lceil 40\\cdot 4 + 32\\cdot 7\\rceil$$\n$$N \\ge 384$$",
     "solutionSource": "exam"

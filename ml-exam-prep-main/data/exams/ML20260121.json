@@ -7,7 +7,9 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["modelsel"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Explain the bias–variance trade-off in supervised learning. Define bias and variance, describe their relation to model complexity, and explain how they lead to underfitting and overfitting.",
     "solution": "**Setup.** For a model trained on a random dataset, the expected squared prediction error at a point decomposes (for squared loss) as\n$$\\mathbb{E}[(y - \\hat{f}(x))^2] = \\underbrace{\\text{Bias}[\\hat{f}(x)]^2}_{} + \\underbrace{\\text{Var}[\\hat{f}(x)]}_{} + \\underbrace{\\sigma^2}_{\\text{irreducible noise}}.$$\n\n**Bias.** The bias measures the systematic error: how far the *average* prediction (over many training sets) is from the true function, $\\text{Bias} = \\mathbb{E}[\\hat{f}(x)] - f(x)$. High bias means the model makes wrong assumptions and cannot capture the underlying structure even with infinite data.\n\n**Variance.** The variance measures how much the prediction $\\hat{f}(x)$ fluctuates around its own mean when the training set changes, $\\text{Var} = \\mathbb{E}[(\\hat{f}(x) - \\mathbb{E}[\\hat{f}(x)])^2]$. High variance means the model is very sensitive to the particular training sample.\n\n**Relation to model complexity (the trade-off).** As model complexity increases (more parameters, higher-degree features, deeper trees): bias **decreases** (the model can fit more shapes) but variance **increases** (it fits noise / sample-specific quirks). Conversely, simpler models have high bias but low variance. The total expected error is U-shaped in complexity, minimized at an intermediate sweet spot. Because reducing one tends to raise the other, this tension is the bias–variance trade-off.\n\n**Underfitting vs overfitting.**\n- *Underfitting* = the high-bias, low-variance regime (model too simple): both training and test error are high; the model misses real structure.\n- *Overfitting* = the low-bias, high-variance regime (model too complex): training error is very low but test error is high, because the model memorized noise and generalizes poorly.\n\nTechniques like regularization, cross-validation, and choosing model capacity aim to find the complexity that balances the two and minimizes generalization error.",
     "solutionSource": "authored"
@@ -20,7 +22,10 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["classif", "kernelsvm"],
+    "topics": [
+      "classif",
+      "kernelsvm"
+    ],
     "prompt": "Compare Logistic Regression and Support Vector Machines. Discuss their loss functions, output interpretation, margin, regularization, and mention one scenario where each method is preferable.",
     "solution": "**Loss functions.**\n- *Logistic Regression (LR):* minimizes the logistic / cross-entropy loss $\\sum_i \\ln(1 + e^{-y_i w^\\top x_i})$ (smooth, never exactly zero), derived from maximum likelihood of a Bernoulli model.\n- *SVM:* minimizes the hinge loss $\\sum_i \\max(0, 1 - y_i w^\\top x_i)$, which is exactly zero for points correctly classified beyond the margin and only penalizes margin violations.\n\n**Output interpretation.**\n- *LR* outputs a calibrated **probability** $P(y=1\\mid x) = \\sigma(w^\\top x)$.\n- *SVM* outputs a **signed distance / score** $w^\\top x + b$ and a hard class label via its sign; the raw score is not a probability (probabilities require post-hoc calibration, e.g. Platt scaling).\n\n**Margin.**\n- *SVM* explicitly **maximizes the margin** (the distance between the separating hyperplane and the closest points, the support vectors); the solution depends only on these support vectors.\n- *LR* has no explicit margin concept; its boundary is influenced by all points (through their probabilistic contributions).\n\n**Regularization.** Both are typically trained with an $\\ell_2$ penalty on $w$. In SVM the trade-off is controlled by $C$ (large $C$ = less regularization, narrower margin; small $C$ = more regularization). In LR a $\\lambda$ (or $C = 1/\\lambda$) term is added; regularization is especially important for LR on separable data, where unregularized weights diverge to infinity. Both can use $\\ell_1$ for sparsity.\n\n**When each is preferable.**\n- *LR is preferable* when you need well-calibrated class probabilities (e.g. risk scoring, ranking, thresholds that must be tuned to a cost), and for large datasets where its simple probabilistic output and easy online training are convenient.\n- *SVM is preferable* when the goal is a robust large-margin separator in high-dimensional spaces, and especially when non-linear boundaries are needed via the **kernel trick** (kernel SVM) on small/medium datasets where margin maximization improves generalization.",
     "solutionSource": "authored"
@@ -33,7 +38,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["classif", "modeleval"],
+    "topics": [
+      "classif",
+      "modeleval"
+    ],
     "prompt": "Consider the following Python code snippet.\n\n1. Describe briefly what the code does and what learning task it is solving.\n2. Explain the effect of the parameter C=0.01 in this context.\n3. Is computing the accuracy on X_scaled appropriate to evaluate performance? Why or why not?",
     "code": {
       "language": "python",
@@ -43,36 +51,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20260121-e4",
+    "id": "ML20260121-e4.1",
     "examId": "ML20260121",
     "date": "2026-01-21",
     "academicYear": "AA2425",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Tell whether the following statements about Kernel Methods are true or false. Briefly motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20260121-e4-s1",
+        "id": "ML20260121-e4.1-s1",
         "statement": "If the feature mapping $\\phi(x)$ is explicitly known, there is no point in using a kernel (dual) representation.",
         "answer": false,
         "motivation": "Even with an explicit feature map, the dual/kernel form can still be preferable (e.g., from a computational perspective, depending on $n$ vs. feature dimension)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260121-e4.2",
+    "examId": "ML20260121",
+    "date": "2026-01-21",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell whether the following statements about Kernel Methods are true or false. Briefly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260121-e4-s2",
+        "id": "ML20260121-e4.2-s1",
         "statement": "The function $k(x, x') := \\exp(-\\lVert x - x'\\rVert^2)$ is a valid kernel.",
         "answer": true,
         "motivation": "This is the Gaussian/RBF kernel."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260121-e4.3",
+    "examId": "ML20260121",
+    "date": "2026-01-21",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell whether the following statements about Kernel Methods are true or false. Briefly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260121-e4-s3",
+        "id": "ML20260121-e4.3-s1",
         "statement": "The function $k(x, x') := x^\\top A x'$ with $A = \\begin{bmatrix} 1 & 2 \\\\ 2 & 1 \\end{bmatrix}$ and $x, x' \\in \\mathbb{R}^2$ is a valid kernel.",
         "answer": false,
         "motivation": "Although $A$ is symmetric, it is not PSD (it has a negative eigenvalue), hence $k$ is not a valid kernel."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260121-e4.4",
+    "examId": "ML20260121",
+    "date": "2026-01-21",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Tell whether the following statements about Kernel Methods are true or false. Briefly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260121-e4-s4",
+        "id": "ML20260121-e4.4-s1",
         "statement": "Knowing only the Gram matrix $K$ of the training set is sufficient to compute predictions on a new test point $x^*$ using a dual kernel method.",
         "answer": false,
         "motivation": "To predict at $x^*$, one also needs the vector of kernel evaluations $k(x^*, x_i)$ (and the learned dual coefficients); $K$ alone is insufficient."
@@ -82,36 +143,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20260121-e5",
+    "id": "ML20260121-e5.1",
     "examId": "ML20260121",
     "date": "2026-01-21",
     "academicYear": "AA2425",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Tell if the following statements about the VC dimension are true or false. Briefly motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20260121-e5-s1",
+        "id": "ML20260121-e5.1-s1",
         "statement": "Even if a hypothesis space $H$ contains infinitely many hypotheses, its VC dimension is always finite.",
         "answer": false,
         "motivation": "There exist infinite hypothesis spaces with infinite VC dimension (they can shatter sets of any finite size)."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260121-e5.2",
+    "examId": "ML20260121",
+    "date": "2026-01-21",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about the VC dimension are true or false. Briefly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260121-e5-s2",
+        "id": "ML20260121-e5.2-s1",
         "statement": "The VC dimension of $H$ is at least $k$ if and only if $H$ shatters *at least one* subset of the instance space of cardinality $k$.",
         "answer": true,
         "motivation": "$VC(H) \\ge k$ iff there exists a shattered set of size $k$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260121-e5.3",
+    "examId": "ML20260121",
+    "date": "2026-01-21",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about the VC dimension are true or false. Briefly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260121-e5-s3",
+        "id": "ML20260121-e5.3-s1",
         "statement": "The VC dimension of a logistic-regression classifier using features $(x_1, x_2)$ is smaller than the VC dimension of a logistic-regression classifier using $(x_1, x_2, x_1^2, x_2^2, x_1 x_2)$.",
         "answer": true,
         "motivation": "Logistic regression is linear in the chosen feature space; adding features enlarges the class and increases the VC dimension with the feature dimension."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20260121-e5.4",
+    "examId": "ML20260121",
+    "date": "2026-01-21",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements about the VC dimension are true or false. Briefly motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20260121-e5-s4",
+        "id": "ML20260121-e5.4-s1",
         "statement": "The VC dimension of a hypothesis space depends on the size of the training set.",
         "answer": false,
         "motivation": "VC dimension is a property of $H$ only; it does not depend on training/test set size."
@@ -128,7 +242,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["classif", "mab"],
+    "topics": [
+      "classif",
+      "mab"
+    ],
     "prompt": "You are a data scientist for a *bike-sharing* service. You have historical logs containing, for each user and week, aggregated activity (e.g., #rides, total minutes, average distance, typical time-of-day, city, subscription tier) and service-quality indicators (e.g., average nearby-bike availability, reported issues, support contacts).\n\n1. You want to predict whether a user will make **zero rides in the next 30 days**.\n2. Every Monday you want to send each user **one** offer among $K$ alternatives (e.g., discount, free minutes, temporary upgrade, no offer).\n\nModel the two problems described above as ML problems, specifying the key elements such as features and target or states, actions, and reward, and mention suitable methods to solve them.",
     "solution": "1. **Classification (supervised learning).**\n- **Instances:** one example per (user, reference week).\n- **Features:** recent-window aggregates and trends of usage (rides/minutes/distance), recency, time-of-day patterns, city, subscription tier, service-quality indicators (availability, issues, support contacts), calendar/seasonality if available.\n- **Target:** binary label indicating whether the user makes zero rides in the next 30 days.\n- **Methods:** logistic regression or support vector machines.\n\n2. **Multi-Armed Bandit (sequential decision making).**\n- **State / context (optional):** user profile + recent behavior/service-quality features available on Monday.\n- **Actions:** choose one offer among the $K$ alternatives for each user.\n- **Reward:** observed after the week (e.g., 1 if at least one ride occurred, 0 otherwise; or rides/revenue).\n- **Methods:** UCB or Thompson Sampling (eventually contextual).",
     "solutionSource": "exam"
@@ -141,7 +258,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Assume you need to learn the parameters of a binary perceptron classifier with bias. Start from $\\mathbf{w}^{(0)} = (1\\ 1\\ 0)^\\top$ and use learning rate $\\alpha = 1$.\n\nYou are given the following dataset (in the reported order):\n- $\\mathbf{x}_1 = (2\\ 2)^\\top$, $t_1 = 1$\n- $\\mathbf{x}_2 = (2\\ -2)^\\top$, $t_2 = -1$\n- $\\mathbf{x}_3 = (-2\\ 2)^\\top$, $t_3 = -1$\n- $\\mathbf{x}_4 = (-2\\ -2)^\\top$, $t_4 = 1$\n\n1. Compute the vector $\\mathbf{w}$ after running one full pass of the online perceptron algorithm on the dataset.\n2. With the obtained $\\mathbf{w}$, which training points are misclassified?\n3. Can you tell if the perceptron training procedure would converge eventually on this dataset? Motivate your answer.",
     "solution": "1. Online update: if $\\hat{t}_n \\neq t_n$, then $\\mathbf{w} \\leftarrow \\mathbf{w} + t_n \\bar{\\mathbf{x}}_n$ (where $\\bar{\\mathbf{x}}_n$ is the augmented input vector with bias term). Note the augmentation puts the bias as the first component: $\\bar{\\mathbf{x}} = (1, x_1, x_2)$.\n- $n=1$: $\\bar{\\mathbf{x}}_1 = (1, 2, 2)$, $a_1 = 3 \\Rightarrow \\hat{t}_1 = 1 = t_1 \\Rightarrow \\mathbf{w} = (1, 1, 0)$.\n- $n=2$: $\\bar{\\mathbf{x}}_2 = (1, 2, -2)$, $a_2 = 3 \\Rightarrow \\hat{t}_2 = 1 \\neq t_2 \\Rightarrow \\mathbf{w} = (1, 1, 0) - (1, 2, -2) = (0, -1, 2)$.\n- $n=3$: $\\bar{\\mathbf{x}}_3 = (1, -2, 2)$, $a_3 = 6 \\Rightarrow \\hat{t}_3 = 1 \\neq t_3 \\Rightarrow \\mathbf{w} = (0, -1, 2) - (1, -2, 2) = (-1, 1, 0)$.\n- $n=4$: $\\bar{\\mathbf{x}}_4 = (1, -2, -2)$, $a_4 = -3 \\Rightarrow \\hat{t}_4 = -1 \\neq t_4 \\Rightarrow \\mathbf{w} = (-1, 1, 0) + (1, -2, -2) = (0, -1, -2)$.\n\nResult: $\\mathbf{w} = (0\\ -1\\ -2)^\\top$.\n\n2. Check with $\\mathbf{w} = (0, -1, -2)$:\n- $\\mathbf{x}_1$: $\\mathbf{w}^\\top(1, 2, 2) = -6 \\Rightarrow \\hat{t}_1 = -1 \\neq t_1$.\n- $\\mathbf{x}_2$: $\\mathbf{w}^\\top(1, 2, -2) = 2 \\Rightarrow \\hat{t}_2 = 1 \\neq t_2$.\n- $\\mathbf{x}_3$: $\\mathbf{w}^\\top(1, -2, 2) = -2 \\Rightarrow \\hat{t}_3 = -1 = t_3$.\n- $\\mathbf{x}_4$: $\\mathbf{w}^\\top(1, -2, -2) = 6 \\Rightarrow \\hat{t}_4 = 1 = t_4$.\n\nMisclassified: $\\mathbf{x}_1, \\mathbf{x}_2$.\n\n3. The labels form an XOR pattern: positives are $(2, 2)$ and $(-2, -2)$, negatives are $(2, -2)$ and $(-2, 2)$. The convex hulls of the two classes intersect (both contain the origin), hence the data are not linearly separable. Therefore the perceptron algorithm will **not converge**.",
     "solutionSource": "exam"
@@ -154,7 +273,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the following episode obtained by an agent interacting with an MDP having three states $\\mathcal{S} = \\{A, B, C\\}$ and two actions $\\mathcal{A} = \\{l, r\\}$:\n$$(A, l, 0) \\to (B, r, 4) \\to (C, l, -2) \\to (B, l, -1) \\to (A, r, 2) \\to (B, r, 0) \\to (A, l, 1) \\to (C, l).$$\n\nConsider an initial state-action values $Q(s, a) = 0$ for every state-action pair, a learning rate $\\alpha = 0.5$, and a discount factor $\\gamma = 1$. Answer the following questions providing adequate motivations (break ties using the first action listed in the action set).\n1. Execute the *Q-learning* algorithm on the given episode.\n2. Execute the *SARSA* algorithm on the given episode.\n3. Provide the best deterministic policy according to the output of *SARSA*. Is it different from the one provided by *Q-learning*?",
     "solution": "1. The formula for Q-learning is $Q(s, a) \\leftarrow Q(s, a) + \\alpha(R + \\gamma\\max_{a'} Q(s', a') - Q(s, a))$, which in our case is:\n- $Q(A, l) = 0 + 0.5(0 + 1\\cdot 0 - 0) = 0$\n- $Q(B, r) = 0 + 0.5(4 + 1\\cdot 0 - 0) = 2$\n- $Q(C, l) = 0 + 0.5(-2 + 1\\cdot\\max\\{Q(B, l), Q(B, r)\\} - 0) = 0.5(-2 + 2) = 0$\n- $Q(B, l) = 0 + 0.5(-1 + 1\\cdot\\max\\{Q(A, l), Q(A, r)\\} - 0) = -1/2$\n- $Q(A, r) = 0 + 0.5(2 + 1\\cdot\\max\\{Q(B, l), Q(B, r)\\} - 0) = 0.5(2 + 2) = 2$\n- $Q(B, r) = 2 + 0.5(0 + 1\\cdot\\max\\{Q(A, l), Q(A, r)\\} - 2) = 2$\n- $Q(A, l) = 0 + 0.5(1 + 1\\cdot\\max\\{Q(C, l), Q(C, r)\\} - 0) = 1/2$\n\n2. The formula for SARSA is $Q(s, a) \\leftarrow Q(s, a) + \\alpha(R + \\gamma Q(s', a') - Q(s, a))$, where $a'$ is the action observed in the episode. In our case:\n- $Q(A, l) = 0 + 0.5(0 + 1\\cdot Q(B, r) - 0) = 0$\n- $Q(B, r) = 0 + 0.5(4 + 1\\cdot Q(C, l) - 0) = 2$\n- $Q(C, l) = 0 + 0.5(-2 + 1\\cdot Q(B, l) - 0) = -1$\n- $Q(B, l) = 0 + 0.5(-1 + 1\\cdot Q(A, r) - 0) = -1/2$\n- $Q(A, r) = 0 + 0.5(2 + 1\\cdot Q(B, r) - 0) = 2$\n- $Q(B, r) = 2 + 0.5(0 + 1\\cdot Q(A, l) - 2) = 1$\n- $Q(A, l) = 0 + 0.5(1 + 1\\cdot Q(C, l) - 0) = 0$\n\n3. The policy prescribed by SARSA is to take the greedy action in each state (ties broken with the first action):\n$$\\pi_{\\text{SARSA}}(A) = r, \\quad \\pi_{\\text{SARSA}}(B) = r, \\quad \\pi_{\\text{SARSA}}(C) = r$$\nsince $Q_{\\text{SARSA}}(C, r) = 0 > Q_{\\text{SARSA}}(C, l) = -1$. For Q-learning we get $\\pi_{\\text{QL}}(A) = r$, $\\pi_{\\text{QL}}(B) = r$, while in $C$ we have $Q_{\\text{QL}}(C, l) = Q_{\\text{QL}}(C, r) = 0$, hence $\\pi_{\\text{QL}}(C) = l$ by tie-breaking. Therefore, the policies are **different (in state $C$)**.",
     "solutionSource": "exam"

@@ -1,66 +1,528 @@
 [
   {
-    "id": "ML20210115-e1",
+    "id": "ML20210115-e1.1",
     "examId": "ML20210115",
     "date": "2021-01-15",
     "academicYear": "AA1920",
     "exerciseNo": 1,
     "type": "true-false-motivated",
-    "topics": ["modelsel", "kernelsvm", "featsel", "modeleval"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210115-e1-s1", "statement": "Regularization techniques are likely to increase the bias of a model.", "answer": true, "motivation": "Regularization acts as constraints or penalty on parameters variability and, hence, reduces the variance of the model and at the same time increases its bias." },
-      { "id": "ML20210115-e1-s2", "statement": "If we focus on a specific task, it does not exist an ML algorithm that performs better than the others.", "answer": false, "motivation": "If we focus on a specific task, a single ML algorithm can outperform others. This is not true if we, instead, consider all the possible problems (no free lunch theorem)." },
-      { "id": "ML20210115-e1-s3", "statement": "If a logistic regression classifier does not achieve the desired performance (on a test set) one might consider an SVM with a linear kernel as a method to improve the performances.", "answer": true, "motivation": "Even if SVM with linear kernel still finds a linear boundary, it might find a better solution in terms of test error, because it will find the maximum margin separating hyperplane and soft margins can be used to improve generalization. Nonetheless, we are expecting that the two methods would provide similar results." },
-      { "id": "ML20210115-e1-s4", "statement": "If the performance on the training is matching the desired performance, while the one on a test set is not satisfactory, the model might be too complex for the task.", "answer": true, "motivation": "We might have provided a model which is overfitting the available data. Using a simpler model seems a proper choice." },
-      { "id": "ML20210115-e1-s5", "statement": "Increasing the training set size always improves the model performance.", "answer": false, "motivation": "If the model selected presents a bias w.r.t. the real process, increasing the training set size would provide only limited benefits. In general, the more data we have, the more we are reducing the variance of the model." },
-      { "id": "ML20210115-e1-s6", "statement": "It is a good idea to increase the number of samples used for training if we decided to increase the model complexity.", "answer": true, "motivation": "The more complex the model, the more data I usually need to train it in order to avoid overfitting." },
-      { "id": "ML20210115-e1-s7", "statement": "Removing features randomly to a given model might help if the model has a large variance due to limited availability of data.", "answer": false, "motivation": "Selecting a subset of features might be a good idea to reduce the variance, but removing them at random might exclude relevant information from the model, decreasing even more its performance on a test set. Notice that there exist some techniques which include randomicity in the selection of the feature to use in the model selection phase." },
-      { "id": "ML20210115-e1-s8", "statement": "The use of the error on a validation set is suggested when we have a small dataset and we want to discriminate the performance of a set of computationally expensive models.", "answer": false, "motivation": "With computationally hard models and only a few data one should prefer the use of an adjustment technique, like AIC, to get an estimate of the test error." }
+      {
+        "id": "ML20210115-e1.1-s1",
+        "statement": "Regularization techniques are likely to increase the bias of a model.",
+        "answer": true,
+        "motivation": "Regularization acts as constraints or penalty on parameters variability and, hence, reduces the variance of the model and at the same time increases its bias."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210115-e2",
+    "id": "ML20210115-e1.2",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e1.2-s1",
+        "statement": "If we focus on a specific task, it does not exist an ML algorithm that performs better than the others.",
+        "answer": false,
+        "motivation": "If we focus on a specific task, a single ML algorithm can outperform others. This is not true if we, instead, consider all the possible problems (no free lunch theorem)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e1.3",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e1.3-s1",
+        "statement": "If a logistic regression classifier does not achieve the desired performance (on a test set) one might consider an SVM with a linear kernel as a method to improve the performances.",
+        "answer": true,
+        "motivation": "Even if SVM with linear kernel still finds a linear boundary, it might find a better solution in terms of test error, because it will find the maximum margin separating hyperplane and soft margins can be used to improve generalization. Nonetheless, we are expecting that the two methods would provide similar results."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e1.4",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e1.4-s1",
+        "statement": "If the performance on the training is matching the desired performance, while the one on a test set is not satisfactory, the model might be too complex for the task.",
+        "answer": true,
+        "motivation": "We might have provided a model which is overfitting the available data. Using a simpler model seems a proper choice."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e1.5",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e1.5-s1",
+        "statement": "Increasing the training set size always improves the model performance.",
+        "answer": false,
+        "motivation": "If the model selected presents a bias w.r.t. the real process, increasing the training set size would provide only limited benefits. In general, the more data we have, the more we are reducing the variance of the model."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e1.6",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e1.6-s1",
+        "statement": "It is a good idea to increase the number of samples used for training if we decided to increase the model complexity.",
+        "answer": true,
+        "motivation": "The more complex the model, the more data I usually need to train it in order to avoid overfitting."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e1.7",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e1.7-s1",
+        "statement": "Removing features randomly to a given model might help if the model has a large variance due to limited availability of data.",
+        "answer": false,
+        "motivation": "Selecting a subset of features might be a good idea to reduce the variance, but removing them at random might exclude relevant information from the model, decreasing even more its performance on a test set. Notice that there exist some techniques which include randomicity in the selection of the feature to use in the model selection phase."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e1.8",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "modeleval"
+    ],
+    "prompt": "Question 1 (Bias/Variance Tradeoff). Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e1.8-s1",
+        "statement": "The use of the error on a validation set is suggested when we have a small dataset and we want to discriminate the performance of a set of computationally expensive models.",
+        "answer": false,
+        "motivation": "With computationally hard models and only a few data one should prefer the use of an adjustment technique, like AIC, to get an estimate of the test error."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e2.1",
     "examId": "ML20210115",
     "date": "2021-01-15",
     "academicYear": "AA1920",
     "exerciseNo": 2,
     "type": "true-false-motivated",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210115-e2-s1", "statement": "A MAB setting provides more information per round than the ones we have in an expert one.", "answer": false, "motivation": "We have feedback only for a single arm, differently from the expert setting in which the feedback for each available arm." },
-      { "id": "ML20210115-e2-s2", "statement": "In a setting with Gaussian rewards we can use the TS algorithm to have sublinear regret.", "answer": true, "motivation": "FALSE/TRUE: if we use the Beta prior, the conjugate distribution is the Bernoulli, thus the rewards should be $\\{0,1\\}$. Instead, if we use a Gaussian prior, its conjugate is Gaussian itself and it is possible to execute the TS algorithm with Gaussian rewards." },
-      { "id": "ML20210115-e2-s3", "statement": "Since the TS is a randomized algorithm, it provides sublinear guarantees on the regret also in an adversarial MAB setting.", "answer": false, "motivation": "The results on the regret we have for the TS algorithm are only valid in the stochastic setting." },
-      { "id": "ML20210115-e2-s4", "statement": "The selection of the arm provided by UCB1 is deterministic.", "answer": true, "motivation": "It relies on the selection of the largest arm upper bound, whose computation is deterministic." },
-      { "id": "ML20210115-e2-s5", "statement": "In the presence of prior information on the arms rewards, we should use the UCB1 algorithm.", "answer": false, "motivation": "The best option to exploit the prior information is the use of a Bayesian algorithm, that for the MAB setting is the use of TS." },
-      { "id": "ML20210115-e2-s6", "statement": "In the case we do not know the nature of the MAB problem (stochastic or adversarial) it is a good idea to use a stochastic algorithm, like the TS.", "answer": false, "motivation": "The stochastic setting is a more specific model than the adversarial one and, therefore, we are not assured the algorithms designed for it are able to get a sublinear regret." },
-      { "id": "ML20210115-e2-s7", "statement": "The upper bound on the regret of UCB1 and TS scales logarithmically with the time horizon.", "answer": true, "motivation": "It has been shown that their upper bound on the regret is dependent on $\\log(T)$, where $T$ is the time horizon." },
-      { "id": "ML20210115-e2-s8", "statement": "The design of MAB algorithms different from TS might provides an expected pseudo-regret of order $\\log(\\log(T))$, $T$ being the time horizon.", "answer": false, "motivation": "This is prevented from the theorem on the lower bound for the regret of stochastic MAB setting, providing a lower bound of $\\log(T)$." }
+      {
+        "id": "ML20210115-e2.1-s1",
+        "statement": "A MAB setting provides more information per round than the ones we have in an expert one.",
+        "answer": false,
+        "motivation": "We have feedback only for a single arm, differently from the expert setting in which the feedback for each available arm."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20210115-e3",
+    "id": "ML20210115-e2.2",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e2.2-s1",
+        "statement": "In a setting with Gaussian rewards we can use the TS algorithm to have sublinear regret.",
+        "answer": true,
+        "motivation": "FALSE/TRUE: if we use the Beta prior, the conjugate distribution is the Bernoulli, thus the rewards should be $\\{0,1\\}$. Instead, if we use a Gaussian prior, its conjugate is Gaussian itself and it is possible to execute the TS algorithm with Gaussian rewards."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e2.3",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e2.3-s1",
+        "statement": "Since the TS is a randomized algorithm, it provides sublinear guarantees on the regret also in an adversarial MAB setting.",
+        "answer": false,
+        "motivation": "The results on the regret we have for the TS algorithm are only valid in the stochastic setting."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e2.4",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e2.4-s1",
+        "statement": "The selection of the arm provided by UCB1 is deterministic.",
+        "answer": true,
+        "motivation": "It relies on the selection of the largest arm upper bound, whose computation is deterministic."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e2.5",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e2.5-s1",
+        "statement": "In the presence of prior information on the arms rewards, we should use the UCB1 algorithm.",
+        "answer": false,
+        "motivation": "The best option to exploit the prior information is the use of a Bayesian algorithm, that for the MAB setting is the use of TS."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e2.6",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e2.6-s1",
+        "statement": "In the case we do not know the nature of the MAB problem (stochastic or adversarial) it is a good idea to use a stochastic algorithm, like the TS.",
+        "answer": false,
+        "motivation": "The stochastic setting is a more specific model than the adversarial one and, therefore, we are not assured the algorithms designed for it are able to get a sublinear regret."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e2.7",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e2.7-s1",
+        "statement": "The upper bound on the regret of UCB1 and TS scales logarithmically with the time horizon.",
+        "answer": true,
+        "motivation": "It has been shown that their upper bound on the regret is dependent on $\\log(T)$, where $T$ is the time horizon."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e2.8",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Question 2 (MAB). Tell if the following statements about MAB are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e2.8-s1",
+        "statement": "The design of MAB algorithms different from TS might provides an expected pseudo-regret of order $\\log(\\log(T))$, $T$ being the time horizon.",
+        "answer": false,
+        "motivation": "This is prevented from the theorem on the lower bound for the regret of stochastic MAB setting, providing a lower bound of $\\log(T)$."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.1",
     "examId": "ML20210115",
     "date": "2021-01-15",
     "academicYear": "AA1920",
     "exerciseNo": 3,
     "type": "true-false-motivated",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20210115-e3-s1", "statement": "Linear regression can be the ideal choice also when the target is a nonlinear function of the problem variables.", "answer": true, "motivation": "In fact linear regression models can be extended by mapping the problem space into a feature space to account for nonlinearity." },
-      { "id": "ML20210115-e3-s2", "statement": "The feature space for linear regression can be the result of any nonlinear mapping of the problem space.", "answer": true, "motivation": "Linear regression models require the target to be linear only with respect to the model parameters and not to the input." },
-      { "id": "ML20210115-e3-s3", "statement": "The easiest approach to train the model parameters in linear regression is to minimize the mean absolute error of the model.", "answer": false, "motivation": "The sum of squared error is the most convenient loss function because it allows us to compute a closed form solution." },
-      { "id": "ML20210115-e3-s4", "statement": "As long as we assume the targets are generated by a linear model with a zero-mean Gaussian noise, the model parameters with the maximum likelihood always minimize the residual sum of squares (RSS).", "answer": true, "motivation": "We can prove that under the above assumption, maximizing the log-likelihood of the model parameters lead exactly to minimize the RSS." },
-      { "id": "ML20210115-e3-s5", "statement": "In linear regression, the larger the values of the parameters the higher is the probability of overfitting the training data.", "answer": true, "motivation": "Larger parameters lead to larger variance and, hence, might lead to overfitting the training data." },
-      { "id": "ML20210115-e3-s6", "statement": "Lasso and ridge regression require to minimize the same loss function.", "answer": false, "motivation": "Despite they both extend RSS, in ridge regression the regularization term is the norm-2 of the parameters vector while in lasso it is the norm-1." },
-      { "id": "ML20210115-e3-s7", "statement": "The probabilistic interpretation of ridge regression is that it corresponds to choosing the model parameters that maximize the posterior probability, while assuming an infinitely broad Gaussian prior.", "answer": false, "motivation": "It corresponds to assuming a zero mean Gaussian prior with a finite variance." },
-      { "id": "ML20210115-e3-s8", "statement": "Bayesian Linear Regression framework is less suitable than Ordinary Least Squares to perform sequential training due to the higher computational complexity.", "answer": false, "motivation": "Sequential training is possible in Bayesian Linear Regression while it is not with OLS. An alternative solution for OLS would be to apply the recursive least square algorithm to reduce the computational complexity by processing each new datum in an efficient way." }
+      {
+        "id": "ML20210115-e3.1-s1",
+        "statement": "Linear regression can be the ideal choice also when the target is a nonlinear function of the problem variables.",
+        "answer": true,
+        "motivation": "In fact linear regression models can be extended by mapping the problem space into a feature space to account for nonlinearity."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.2",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e3.2-s1",
+        "statement": "The feature space for linear regression can be the result of any nonlinear mapping of the problem space.",
+        "answer": true,
+        "motivation": "Linear regression models require the target to be linear only with respect to the model parameters and not to the input."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.3",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e3.3-s1",
+        "statement": "The easiest approach to train the model parameters in linear regression is to minimize the mean absolute error of the model.",
+        "answer": false,
+        "motivation": "The sum of squared error is the most convenient loss function because it allows us to compute a closed form solution."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.4",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e3.4-s1",
+        "statement": "As long as we assume the targets are generated by a linear model with a zero-mean Gaussian noise, the model parameters with the maximum likelihood always minimize the residual sum of squares (RSS).",
+        "answer": true,
+        "motivation": "We can prove that under the above assumption, maximizing the log-likelihood of the model parameters lead exactly to minimize the RSS."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.5",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e3.5-s1",
+        "statement": "In linear regression, the larger the values of the parameters the higher is the probability of overfitting the training data.",
+        "answer": true,
+        "motivation": "Larger parameters lead to larger variance and, hence, might lead to overfitting the training data."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.6",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e3.6-s1",
+        "statement": "Lasso and ridge regression require to minimize the same loss function.",
+        "answer": false,
+        "motivation": "Despite they both extend RSS, in ridge regression the regularization term is the norm-2 of the parameters vector while in lasso it is the norm-1."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.7",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e3.7-s1",
+        "statement": "The probabilistic interpretation of ridge regression is that it corresponds to choosing the model parameters that maximize the posterior probability, while assuming an infinitely broad Gaussian prior.",
+        "answer": false,
+        "motivation": "It corresponds to assuming a zero mean Gaussian prior with a finite variance."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20210115-e3.8",
+    "examId": "ML20210115",
+    "date": "2021-01-15",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "linreg"
+    ],
+    "prompt": "Question 3 (Linear Regression). Tell if the following statements about Linear Regression are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20210115-e3.8-s1",
+        "statement": "Bayesian Linear Regression framework is less suitable than Ordinary Least Squares to perform sequential training due to the higher computational complexity.",
+        "answer": false,
+        "motivation": "Sequential training is possible in Bayesian Linear Regression while it is not with OLS. An alternative solution for OLS would be to apply the recursive least square algorithm to reduce the computational complexity by processing each new datum in an efficient way."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -72,7 +534,10 @@
     "academicYear": "AA1920",
     "exerciseNo": 4,
     "type": "code-interpretation",
-    "topics": ["featsel", "modelsel"],
+    "topics": [
+      "featsel",
+      "modelsel"
+    ],
     "prompt": "Code 1 (PCA). The code snippet below implements the training procedure of three different models. Tell if the following statements are true or false and provide adequate motivations.\n\n- It is likely that model1 has a lower training error than the other two models.\n- The model2 is more prone to overfitting than model1.\n- The pca function at line 8 provides a useful methodology to identify the most significant features in the dataset.\n- The loadings matrix contains the principal components of the irisInputs, thus it contains four orthogonal vectors.\n- We can guarantee that model3 is trained on a feature space that explains at least 95 percent of the variance of the original feature space.\n- We can say with certainty that the last element of the vector perc_variance is 1.\n- The first column of the loadings matrix identifies the direction of greatest variability in the iris dataset feature space.\n- The matrix irisInputs can be perfectly reconstructed from irisInputs2 and the loadings matrix.",
     "code": {
       "language": "matlab",
@@ -88,7 +553,9 @@
     "academicYear": "AA1920",
     "exerciseNo": 5,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Exercise 1 (MC/TD). Consider the set of trajectories below (Version A), which are obtained by running a given policy in an MDP with three states $S = \\{A, B, C\\}$ ($C$ is terminal) and two actions $A = \\{left, right\\}$. A trajectory is denoted by a sequence of $(S_t, A_t, R_t)$:\n\n- $(A, right, -1) \\to (A, left, 4) \\to (B, left, 1) \\to (C)$\n- $(B, left, 4) \\to (A, right, -3) \\to (C)$\n- $(A, left, 1) \\to (B, right, -2) \\to (A, left, 1) \\to (B, left, 1) \\to (C)$\n\n1. Compute the state-action value function $Q(A, right)$ by resorting to TD evaluation. Assume to start from zero values for each state, $\\alpha = 0.5$, $\\gamma = 1$.\n2. Compute the state-action value function for every meaningful state-action pair by resorting to first-visit MC evaluation.\n3. What does the greedy policy prescribe according to the MC first-visit evaluation?\n4. Assume to have performed the MC first-visit evaluation with an infinite number of trajectories from the same policy. What can we say about the optimal policy?",
     "solution": "TD update rule: $Q(S, A) = Q(S, A) + \\alpha \\cdot (R + \\gamma \\cdot Q(S', A') - Q(S, A))$.\n\n**1) TD evaluation of $Q(A, right)$:**\n$$Q(A, right) = 0 + 0.5 \\cdot (-1 + Q(A, left) - Q(A, right)) = 0 + 0.5 \\cdot (-1) = -0.5$$\n$$Q(A, right) = -0.5 + 0.5 \\cdot (-3 + Q(C, \\cdot) - Q(A, right)) = -0.5 + 0.5 \\cdot (-2.5) = -1.75$$\n\n**2) First-visit MC evaluation:**\n$$Q(A, left) = (5 + 1) / 2 = 3$$\n$$Q(A, right) = (4 - 3) / 2 = 0.5$$\n$$Q(B, left) = (1 + 1 + 1) / 3 = 1$$\n$$Q(B, right) = 0$$\n\n**3) Greedy policy from MC first-visit:**\n$$\\pi(left \\mid A) = 1, \\; \\pi(right \\mid A) = 0$$\n$$\\pi(left \\mid B) = 1, \\; \\pi(right \\mid B) = 0$$\n\n**4)** We cannot say anything about the optimal policy. MC first-visit is an unbiased estimator, so the evaluation converges to the exact state-action values. But these values only refer to the current policy.",
     "solutionSource": "exam"
@@ -100,7 +567,10 @@
     "academicYear": "AA1920",
     "exerciseNo": 6,
     "type": "numerical-computation",
-    "topics": ["classif", "kernelsvm"],
+    "topics": [
+      "classif",
+      "kernelsvm"
+    ],
     "prompt": "Exercise 2 (Perceptron). Consider a binary classifier defined by parameters $w = [2, -1, 1]$ with quadratic features (i.e., $\\phi([a, b]) = [a^2, a\\cdot b, b^2]$) (Version A). Answer the following questions related to the perceptron algorithm. Provide full calculations and clear motivations.\n\n1. Predict the class of the data point $x_1 = [0, 2]$ with the given classifier ($+1$ represents the positive class, $-1$ the negative class).\n2. Consider the training data points: $(x_2, t_2) = ([1, 1], -1)$, $(x_3, t_3) = ([0, 1], +1)$, $(x_4, t_4) = ([1, 0], +1)$. Compute the value of the perceptron loss over the dataset.\n3. Consider training the perceptron via stochastic gradient descent, under which assumptions the algorithm is guaranteed to converge? If you are likely to have outliers in your dataset, do you think that the perceptron provides a good modeling technique?",
     "solution": "**1)** $\\phi(x_1) = \\phi([0,2]) = [0, 0, 4]$, so $y_1 = w^\\top \\phi(x_1) = [2, -1, 1]^\\top [0, 0, 4] = 4 > 0 \\Rightarrow$ **$+1$ positive class**.\n\n**2)** Perceptron loss (accounts only for misclassified samples):\n$$y_2 = w^\\top \\phi(x_2) \\cdot t_2 = [2, -1, 1]^\\top [1, 1, 1] \\cdot (-1) = -2 \\Rightarrow \\text{misclassified}$$\n$$y_3 = w^\\top \\phi(x_3) \\cdot t_3 = [2, -1, 1]^\\top [0, 0, 1] \\cdot 1 = 1$$\n$$y_4 = w^\\top \\phi(x_4) \\cdot t_4 = [2, -1, 1]^\\top [1, 0, 0] \\cdot 1 = 2$$\n$$L = 2 \\quad \\text{(since the loss only accounts for misclassified samples)}$$\n\n**3)** The perceptron algorithm trained with stochastic gradient descent is guaranteed to converge in a finite number of steps if and only if the dataset is linearly separable in the feature space. With outliers, probably not: the perceptron would not converge. It would be better to employ a model that allows for a soft boundary, such as SVM or logistic regression.",
     "solutionSource": "exam"

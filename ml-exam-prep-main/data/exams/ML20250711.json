@@ -7,7 +7,10 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["modeleval", "modelsel"],
+    "topics": [
+      "modeleval",
+      "modelsel"
+    ],
     "prompt": "Introduce the concept of cross-validation for model evaluation and describe at least two common strategies for implementing it, including their advantages and disadvantages.",
     "solution": "**Concept.** Cross-validation (CV) is a resampling technique used to estimate how well a model generalizes to unseen data and to select hyperparameters/models. Instead of relying on a single train/test split (which gives a high-variance, possibly lucky/unlucky estimate), CV repeatedly partitions the available data into training and validation folds, fits the model on the training part, evaluates it on the held-out part, and averages the performance. This makes more efficient use of limited data and yields a more reliable estimate of the test error.\n\n**Strategy 1 — $k$-fold CV.** Split the data into $k$ equally sized folds. For each fold $i$, train on the other $k-1$ folds and validate on fold $i$; average the $k$ validation scores.\n- *Advantages:* every sample is used for both training and validation; lower-variance estimate than a single split; tunable cost via $k$ (typically 5 or 10).\n- *Disadvantages:* requires training the model $k$ times (more expensive); the estimate still has some bias because each model sees only a fraction $(k-1)/k$ of the data; ordinary k-fold ignores class balance (use *stratified* k-fold for classification) and temporal structure (use time-series CV for sequential data).\n\n**Strategy 2 — Leave-One-Out CV (LOOCV).** The extreme case $k = N$: each sample in turn is the single validation point.\n- *Advantages:* nearly unbiased estimate of the generalization error (each model trains on $N-1$ samples, almost the full set); deterministic (no randomness in the splits).\n- *Disadvantages:* very expensive ($N$ trainings); the estimate has high variance because the $N$ models are almost identical and the per-fold errors are highly correlated.\n\n(Other common variants: hold-out validation — cheap but high variance; repeated/Monte-Carlo CV; stratified k-fold.)",
     "solutionSource": "authored"
@@ -20,7 +23,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["linreg"],
+    "topics": [
+      "linreg"
+    ],
     "prompt": "Illustrate and explain the Bayesian interpretation of ridge regression.",
     "solution": "**Setup.** In Bayesian linear regression we treat the weights $w$ as a random variable with a prior, and we model the observed targets as noisy linear functions of the inputs: $y_i = w^\\top \\phi(x_i) + \\varepsilon_i$ with i.i.d. Gaussian noise $\\varepsilon_i \\sim \\mathcal{N}(0, \\sigma^2)$. This gives the likelihood $p(y\\mid w) = \\prod_i \\mathcal{N}(y_i \\mid w^\\top \\phi(x_i), \\sigma^2)$.\n\n**Prior.** We place an isotropic zero-mean Gaussian prior on the weights: $p(w) = \\mathcal{N}(w \\mid 0, \\tau^2 I)$. This encodes the belief that weights should be small (near zero).\n\n**MAP estimate.** The posterior is $p(w\\mid y) \\propto p(y\\mid w)\\, p(w)$. Maximizing the posterior (MAP) is equivalent to minimizing the negative log-posterior:\n$$-\\log p(w\\mid y) = \\frac{1}{2\\sigma^2}\\sum_i (y_i - w^\\top \\phi(x_i))^2 + \\frac{1}{2\\tau^2}\\lVert w\\rVert^2 + \\text{const}.$$\nMultiplying by $2\\sigma^2$, this is exactly the ridge objective\n$$\\sum_i (y_i - w^\\top \\phi(x_i))^2 + \\lambda \\lVert w\\rVert^2, \\qquad \\lambda = \\frac{\\sigma^2}{\\tau^2}.$$\n\n**Interpretation.** Ridge regression is the MAP estimate of linear regression under a Gaussian prior on the weights. The $\\ell_2$ regularization term arises directly from the (log of the) Gaussian prior, and the regularization strength $\\lambda = \\sigma^2/\\tau^2$ is the ratio between the noise variance and the prior variance: a tighter prior (small $\\tau^2$) means stronger regularization, while a very broad prior ($\\tau^2 \\to \\infty$, i.e. $\\lambda \\to 0$) recovers ordinary least squares (the MLE). Because both prior and likelihood are Gaussian, the full posterior is also Gaussian, so Bayesian LR additionally gives the posterior covariance — a measure of uncertainty over the predictions — not just the point MAP estimate.",
     "solutionSource": "authored"
@@ -33,7 +38,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. What is the aim of this code? What methods are being used?\n2. Are there any problems with the solution implemented here? If so, propose a fix.",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250711-e4",
+    "id": "ML20250711-e4.1",
     "examId": "ML20250711",
     "date": "2025-07-11",
     "academicYear": "AA2425",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["learntheory", "modeleval"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "Tell if the following statements are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250711-e4-s1",
+        "id": "ML20250711-e4.1-s1",
         "statement": "In consistent learning, the training error is an accurate estimator of the true error of the model.",
         "answer": false,
         "motivation": "The training error is always biased, even more so in consistent learning in which it is always zero."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250711-e4.2",
+    "examId": "ML20250711",
+    "date": "2025-07-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250711-e4-s2",
+        "id": "ML20250711-e4.2-s1",
         "statement": "The test error is an accurate estimator of the true error of the model only if the VC dimension is small.",
         "answer": false,
         "motivation": "The test error is always unbiased and its reliability depends on the size of the test set only, not on the VC dimension."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250711-e4.3",
+    "examId": "ML20250711",
+    "date": "2025-07-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250711-e4-s3",
+        "id": "ML20250711-e4.3-s1",
         "statement": "The larger the VC dimension, the more the hypothesis space is prone to overfitting.",
         "answer": true,
         "motivation": "The VC dimension is an index of the complexity of the hypothesis space and, thus, quantifies the variance."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250711-e4.4",
+    "examId": "ML20250711",
+    "date": "2025-07-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modeleval"
+    ],
+    "prompt": "Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250711-e4-s4",
+        "id": "ML20250711-e4.4-s1",
         "statement": "The more the samples in the training set, the more the training error is an accurate estimator for the true error of the model.",
         "answer": true,
         "motivation": "In all cases (consistent and agnostic learning) the accuracy of the training error increases as the number of training samples increases."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250711-e5",
+    "id": "ML20250711-e5.1",
     "examId": "ML20250711",
     "date": "2025-07-11",
     "academicYear": "AA2425",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["mab"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Tell if the following statements about multi-armed bandits are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250711-e5-s1",
+        "id": "ML20250711-e5.1-s1",
         "statement": "UCB1 is a deterministic algorithm.",
         "answer": true,
         "motivation": "Given the same sequence of rewards, UCB1 will always play the same sequence of actions."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250711-e5.2",
+    "examId": "ML20250711",
+    "date": "2025-07-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements about multi-armed bandits are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250711-e5-s2",
+        "id": "ML20250711-e5.2-s1",
         "statement": "The expected total regret of UCB1 after $T$ rounds is upper bounded by a constant independent of $T$.",
         "answer": false,
         "motivation": "The regret grows logarithmically with $T$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250711-e5.3",
+    "examId": "ML20250711",
+    "date": "2025-07-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements about multi-armed bandits are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250711-e5-s3",
+        "id": "ML20250711-e5.3-s1",
         "statement": "Exploration is trivial in multi-armed bandit problems since there is only one state.",
         "answer": false,
         "motivation": "Multi-armed bandit problems are a prime example of the exploration-exploitation dilemma: gather more information from less explored options or select the option that seems the best according to current knowledge."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250711-e5.4",
+    "examId": "ML20250711",
+    "date": "2025-07-11",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements about multi-armed bandits are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250711-e5-s4",
+        "id": "ML20250711-e5.4-s1",
         "statement": "Thompson sampling needs to sample multiple values at each round.",
         "answer": true,
         "motivation": "Thompson sampling samples $N$ values at each round, one for each arm, from the arms' posteriors."
@@ -128,7 +241,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "featsel"],
+    "topics": [
+      "linreg",
+      "featsel"
+    ],
     "prompt": "You are a machine learning expert volunteering for the organizing committee of the next COLT (Conference on Learning Theory). Consider the following two challenges:\n\n1. **Talk Attendance Prediction**: To help with room assignment, the committee wants to estimate how many people will attend each talk. You are given historical data from past COLT conferences: each talk is described by topic area, author affiliations, keywords, and time slot. The actual attendance numbers are also recorded.\n2. **Poster Session Grouping**: The committee wants to organize accepted posters into coherent sessions. Each poster is represented by its title, abstract, author list, and features describing the content of the poster (e.g., text embedding from a language model). Your task is to group papers into sessions such that papers within the same session are thematically similar.\n\nModel the two problems described above as ML problems, specifying the data (features and target or states, actions, and reward), the problem class. **For the first problem only**, what approach would you use if the committee wants to have a measure of the uncertainty of the prediction too?",
     "solution": "1. SUPERVISED LEARNING, REGRESSION since we are to predict a numerical variable. Input: topic area, author affiliations, keywords, time slot. Output: number of attendees. To have a measure of the uncertainty of the prediction, we can use, for instance, GPs or BLR.\n\n2. UNSUPERVISED LEARNING, CLUSTERING since we need to group points that share similarities. Input: title, abstract, author list, paper embeddings.",
     "solutionSource": "exam"
@@ -141,7 +257,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider an MDP with 3 states $A, B, C$, 2 actions $x, y$, and discount factor $\\gamma = 0.5$. Running policy $\\pi$, we have collected the following trajectories, displayed as sequences of (state, action, reward) tuples:\n$$(A, x, 1) \\to (B, y, 2) \\to (B, x, 4) \\to C$$\n$$(A, x, 1) \\to (B, x, 0) \\to C$$\n\nAnswer the following questions showing all the computations. Make and state any assumption you deem necessary to answer.\n1. Estimate $V^\\pi$ using first-visit Monte Carlo.\n2. Estimate $V^\\pi$ using every-visit Monte Carlo.\n3. Estimate $V^\\pi$ for all states using TD(0) with learning rate $\\alpha = 0.5$.\n4. Provide a policy that is compatible with the observed trajectories.",
     "solution": "We will consider $C$ as a terminal state, so $V^\\pi(C) = 0$ for all the methods. For TD, we will assume the initial estimates are all zero.\n\n1. **First-visit Monte Carlo.**\n$$V^\\pi(A) = \\frac{(1 + \\tfrac{1}{2}\\cdot 2 + \\tfrac{1}{4}\\cdot 4) + (1 + \\tfrac{1}{2}\\cdot 0)}{2} = 2.$$\n$$V^\\pi(B) = \\frac{(2 + \\tfrac{1}{2}\\cdot 4) + 0}{2} = 2.$$\n\n2. **Every-visit Monte Carlo.**\n$V^\\pi(A)$: same as first-visit $= 2$.\n$$V^\\pi(B) = \\frac{(2 + \\tfrac{1}{2}\\cdot 4) + 4 + 0}{3} = \\frac{8}{3}.$$\n\n3. **TD(0) with $\\alpha = 0.5$** (updates applied in trajectory order, initial values zero):\n- $V(A) = 0 + \\tfrac{1}{2}(1 + \\tfrac{1}{2}\\cdot 0 - 0) = \\tfrac{1}{2}.$\n- $V(B) = 0 + \\tfrac{1}{2}(2 + \\tfrac{1}{2}\\cdot 0 - 0) = 1.$\n- $V(B) = 1 + \\tfrac{1}{2}(4 + \\tfrac{1}{2}\\cdot 0 - 1) = \\tfrac{5}{2}.$\n- $V(A) = \\tfrac{1}{2} + \\tfrac{1}{2}(1 + \\tfrac{1}{2}\\cdot \\tfrac{5}{2} - \\tfrac{1}{2}) = \\tfrac{11}{8}.$\n- $V(B) = \\tfrac{5}{2} + \\tfrac{1}{2}(0 + \\tfrac{1}{2}\\cdot 0 - \\tfrac{5}{2}) = \\tfrac{5}{4}.$\n\n4. A possible policy is given by $\\pi(x\\mid A) = 1$ and $\\pi(x\\mid B) = \\pi(y\\mid B) = \\tfrac{1}{2}$.",
     "solutionSource": "exam"
@@ -154,7 +272,10 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif", "linreg"],
+    "topics": [
+      "classif",
+      "linreg"
+    ],
     "prompt": "You are training a binary classifier using $\\ell_2$-**regularized logistic regression**. The model predicts the probability that a binary label $y \\in \\{0, 1\\}$ is 1 given input $x \\in \\mathbb{R}^d$, using the sigmoid function: $\\sigma(z) = \\frac{1}{1+e^{-z}}$. The regularized loss function for a single sample $(x, y)$ is (the bias term is zero):\n$$\\ell(w; x, y) = -y\\log\\sigma(w^\\top x) - (1-y)\\log(1 - \\sigma(w^\\top x)) + \\frac{\\lambda}{2}\\lVert w\\rVert^2$$\nwhere $\\lambda > 0$ is the regularization parameter.\n\n1. Derive the gradient $\\nabla_w \\ell(w; x, y)$ of the loss function with respect to the weight vector $w$.\n2. Assume the current weight vector is $w = [1, -1]^\\top$, and you receive the sample $x = [2, 3]^\\top$ and $y = 1$. Use a learning rate $\\eta = 1$ and regularization parameter $\\lambda = 1/2$. Compute the stochastic gradient and update the weights.\n3. Find a point $x \\in \\mathbb{R}^2$ that is classified differently by the updated model compared to the original model.\n\nHint: $\\sigma(-1) \\approx 1/4$.",
     "solution": "1. Let $z = w^\\top x$, and $\\hat{y} = \\sigma(z) = \\frac{1}{1+e^{-z}}$. The loss can be rewritten as:\n$$\\ell(w) = -y\\log\\hat{y} - (1-y)\\log(1-\\hat{y}) + \\frac{\\lambda}{2}\\lVert w\\rVert^2.$$\nWith standard computations, the gradient is:\n$$\\nabla_w \\ell(w; x, y) = (\\sigma(w^\\top x) - y)x + \\lambda w.$$\n\n2. We apply stochastic gradient descent on the sample:\n$$w' = w - \\eta\\nabla_w \\ell(w; x, y) = [1, -1]^\\top - (\\sigma(-1) - 1)[2, 3]^\\top - \\frac{1}{2}[1, -1]^\\top$$\n$$\\approx [1, -1]^\\top - [-3/2, -9/4]^\\top - [1/2, -1/2]^\\top = [2, 7/4]^\\top.$$\n(Here $w^\\top x = 2 - 3 = -1$, so $\\sigma(-1) - 1 \\approx 1/4 - 1 = -3/4$, giving $(\\sigma(-1)-1)x \\approx [-3/2, -9/4]^\\top$.)\n\n3. We have to find a point $x = [x_1, x_2]^\\top$ such that $(w^\\top x)((w')^\\top x) < 0$, which leads to the inequality:\n$$(w^\\top x)((w')^\\top x) = (x_1 - x_2)(2x_1 + 7/4\\,x_2) < 0.$$\nFor instance, we pick $x = [0, 1]^\\top$.",
     "solutionSource": "exam"

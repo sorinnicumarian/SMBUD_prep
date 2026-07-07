@@ -86,7 +86,7 @@ const FillTable = z.object({
 function makeQuestionSchema(topicKeys) {
   return z
     .object({
-      id: z.string().regex(/^[A-Za-z]{2,5}\d{8}-e\d+$/, 'id must be like ML20230620-e3 / CI20250612-e3'),
+      id: z.string().regex(/^[A-Za-z]{2,5}\d{8}-e\d+(\.\d+)?$/, 'id must be like ML20230620-e3 / CI20250612-e3 / SMBUD20230113-e1.3'),
       examId: z.string().regex(/^[A-Za-z]{2,5}\d{8}$/),
       date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       academicYear: z.string().min(1),
@@ -206,6 +206,7 @@ function addContext(questions) {
 function computeStats(questions) {
   const byType = {}, byTopic = {}, byYear = {}, byPart = {}, topicByYear = {}
   const examMap = new Map()
+  const examExerciseNos = new Map() // examId -> Set of distinct exerciseNo (format-stable, unaffected by tf-motivated splitting)
   let totalSub = 0
   for (const q of questions) {
     byType[q.type] = (byType[q.type] ?? 0) + 1
@@ -220,8 +221,13 @@ function computeStats(questions) {
     if (!examMap.has(q.examId))
       examMap.set(q.examId, { examId: q.examId, date: q.date, academicYear: q.academicYear, questionCount: 0, format: 'new' })
     examMap.get(q.examId).questionCount++
+    if (!examExerciseNos.has(q.examId)) examExerciseNos.set(q.examId, new Set())
+    examExerciseNos.get(q.examId).add(q.exerciseNo)
   }
-  const exams = [...examMap.values()].map((e) => ({ ...e, format: e.questionCount <= 4 ? 'old' : 'new' }))
+  // Format heuristic is based on the count of DISTINCT exercise numbers per exam, not the raw
+  // question count — splitting bundled true-false-motivated questions into one-per-statement
+  // inflates questionCount without changing exerciseNo, so exerciseNo count stays format-stable.
+  const exams = [...examMap.values()].map((e) => ({ ...e, format: examExerciseNos.get(e.examId).size <= 4 ? 'old' : 'new' }))
   exams.sort((a, b) => (a.date < b.date ? -1 : 1))
   return {
     totalExams: examMap.size, totalQuestions: questions.length, totalSubStatements: totalSub,

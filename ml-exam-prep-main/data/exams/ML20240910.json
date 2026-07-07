@@ -7,7 +7,10 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["modeleval", "modelsel"],
+    "topics": [
+      "modeleval",
+      "modelsel"
+    ],
     "prompt": "Describe the processes of training, validation, and testing in supervised learning. Explain how to manage the dataset and what common mistakes should be avoided.",
     "solution": "**The three processes.**\n- **Training.** The model parameters (e.g. the weights $\\boldsymbol{w}$) are fitted on the *training set* by minimizing a loss/empirical risk. This is where the model actually learns.\n- **Validation.** A separate *validation set* is used to choose **hyperparameters** and perform **model selection** (e.g. polynomial degree, regularization $\\lambda$, kernel, early stopping). For each configuration we train on the training set and measure performance on the validation set, picking the configuration with the best validation performance.\n- **Testing.** A *test set*, untouched during training and selection, gives an **unbiased estimate of generalization error**. It must be used only once, at the very end.\n\n**How to manage the dataset.** Split the data into train / validation / test (e.g. 60/20/20). When data is scarce, use **k-fold cross-validation**: partition the training data into $k$ folds, train on $k-1$ and validate on the held-out fold, rotating; average the $k$ scores. The split should be done *before* any data-dependent preprocessing, and any scaling/feature-selection must be fit on the training data only and then applied to validation/test. For non-i.i.d. data (time series, grouped samples) use appropriate splits (chronological, group-wise) and stratify for imbalanced classes.\n\n**Common mistakes to avoid.**\n- **Data leakage**: fitting preprocessing (normalization, PCA, feature selection, imputation) on the whole dataset before splitting, leaking test information into training.\n- **Using the test set for model selection** or peeking at it repeatedly — it stops being an unbiased estimator (this is a form of selection bias / overfitting the test set).\n- **Selecting hyperparameters on the training error** instead of validation error (leads to overfitting).\n- Random splitting when data are temporally/grouped dependent; ignoring class imbalance.\n- Reporting validation performance as if it were test performance.",
     "solutionSource": "authored"
@@ -20,7 +23,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Compare the advantages and disadvantages of Monte Carlo methods and Temporal Difference methods in the context of model-free prediction problems.",
     "solution": "Both Monte Carlo (MC) and Temporal Difference (TD) methods are **model-free** techniques that estimate a value function $V^\\pi$ from sampled experience, without knowing the transition/reward model.\n\n**Monte Carlo.** Updates the value estimate using the **complete return** of an episode: $V(s_t) \\leftarrow V(s_t) + \\alpha (G_t - V(s_t))$, where $G_t = \\sum_{k} \\gamma^k r_{t+k+1}$.\n- *Advantages:* the return $G_t$ is an **unbiased** estimate of $V^\\pi(s_t)$; conceptually simple; does not bootstrap, so no compounding of estimation errors; works well when the Markov property does not strictly hold.\n- *Disadvantages:* requires **complete episodes** (only works for episodic tasks, must wait until the end to update); **high variance** because the return depends on many random actions/rewards; slow/inefficient updates.\n\n**Temporal Difference (e.g. TD(0)).** Updates using a **bootstrapped one-step target**: $V(s_t) \\leftarrow V(s_t) + \\alpha (r_{t+1} + \\gamma V(s_{t+1}) - V(s_t))$.\n- *Advantages:* learns **online**, after each step, so it works on continuing (non-episodic) tasks and updates immediately; **lower variance** than MC since the target depends only on one transition; usually converges faster in practice; can be more data-efficient.\n- *Disadvantages:* the target uses the current estimate $V(s_{t+1})$, so it is **biased** (bootstrapping); errors can propagate; relies more strongly on the Markov assumption.\n\n**Summary / trade-off.** MC = unbiased but high variance, needs episodes; TD = biased but low variance, online and efficient. This is essentially a **bias-variance trade-off**; n-step methods and TD($\\lambda$) interpolate between the two.",
     "solutionSource": "authored"
@@ -33,7 +38,9 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Consider the following snippet of code.\n\n1. What kind of machine learning problem is this code trying to solve? What method is being used?\n2. Are there any issues with the solution implemented here? If so, propose a fix.\n3. When is the procedure guaranteed to terminate for a generic training dataset (`X`,`t`)?",
     "code": {
       "language": "python",
@@ -43,36 +50,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240910-e4",
+    "id": "ML20240910-e4.1",
     "examId": "ML20240910",
     "date": "2024-09-10",
     "academicYear": "AA2324",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["modelsel"],
+    "topics": [
+      "modelsel"
+    ],
     "prompt": "Tell if the following statements on the bias-variance tradeoff in regression are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20240910-e4-s1",
+        "id": "ML20240910-e4.1-s1",
         "statement": "With the same amount of data, simplifying the model reduces the bias at the cost of more variance.",
         "answer": false,
         "motivation": "It reduces the variance and increases the bias."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240910-e4.2",
+    "examId": "ML20240910",
+    "date": "2024-09-10",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements on the bias-variance tradeoff in regression are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240910-e4-s2",
+        "id": "ML20240910-e4.2-s1",
         "statement": "Adding more data reduces variance and bias.",
         "answer": false,
         "motivation": "It only reduces the variance, bias is unaffected."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240910-e4.3",
+    "examId": "ML20240910",
+    "date": "2024-09-10",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements on the bias-variance tradeoff in regression are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240910-e4-s3",
+        "id": "ML20240910-e4.3-s1",
         "statement": "A smaller hypothesis space can have the same bias as a larger one.",
         "answer": true,
         "motivation": "For example if the smaller space has zero bias and is contained in the larger one."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240910-e4.4",
+    "examId": "ML20240910",
+    "date": "2024-09-10",
+    "academicYear": "AA2324",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Tell if the following statements on the bias-variance tradeoff in regression are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240910-e4-s4",
+        "id": "ML20240910-e4.4-s1",
         "statement": "Adding more data reduces the mean-squared error.",
         "answer": true,
         "motivation": "Since it reduces the variance and MSE is the sum of variance, squared bias and irreducible error."
@@ -82,36 +142,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20240910-e5",
+    "id": "ML20240910-e5.1",
     "examId": "ML20240910",
     "date": "2024-09-10",
     "academicYear": "AA2324",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["mab", "rl"],
+    "topics": [
+      "mab"
+    ],
     "prompt": "Tell if the following statements are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20240910-e5-s1",
+        "id": "ML20240910-e5.1-s1",
         "statement": "A multi-armed bandit problem is a Markov decision process with no transition model.",
         "answer": false,
         "motivation": "The multi-armed bandit problem is a Markov decision process with a single state $s$ and a self-loop as transition model $P(s|s,a) = 1$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240910-e5.2",
+    "examId": "ML20240910",
+    "date": "2024-09-10",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240910-e5-s2",
+        "id": "ML20240910-e5.2-s1",
         "statement": "The $\\epsilon$-greedy policy with a fixed value of $\\epsilon$ provides sub-linear cumulative regret in any multi-armed bandit problem.",
         "answer": false,
         "motivation": "The $\\epsilon$-greedy policy may suffer from linear regret in some bandit instances. For sure, if $\\epsilon$ is not set as a function of the learning horizon $T$, we have that in any bandit the $\\epsilon$-greedy policy will suffer $\\epsilon T \\Delta$ cumulative regret, where $\\Delta = \\mu_{i^*} - \\max_{i \\ne i^*} \\mu_i$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240910-e5.3",
+    "examId": "ML20240910",
+    "date": "2024-09-10",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240910-e5-s3",
+        "id": "ML20240910-e5.3-s1",
         "statement": "The Thompson sampling algorithm makes use of Bayesian updates.",
         "answer": true,
         "motivation": "The Thompson sampling algorithm uses Bayesian prior-posterior updates. For instance, Beta-Bernoulli."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20240910-e5.4",
+    "examId": "ML20240910",
+    "date": "2024-09-10",
+    "academicYear": "AA2324",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Tell if the following statements are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20240910-e5-s4",
+        "id": "ML20240910-e5.4-s1",
         "statement": "The UCB1 algorithm can be applied only if the rewards are Bernoulli random variables.",
         "answer": false,
         "motivation": "The UCB1 algorithm can be applied even to non-Bernoulli random variables, provided that a suitable concentration inequality is available for building the upper confidence bound. For instance, for any bounded random variable, we can use the Hoeffding's inequality."
@@ -128,7 +241,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "classif"],
+    "topics": [
+      "linreg",
+      "classif"
+    ],
     "prompt": "You work as a data scientist for a chocolate factory and you want to predict the quality, in terms of *taste*, of chocolate bars based on some measurements that do not require human evaluation (like color, density, reflectance...). These predictions should happen at a very fast rate, and the company has limited computational power, but you have plenty of data labeled by professional chocolate tasters. For each of the following scenarios, tell how you would model this task as a machine learning problem and what solution you would propose.\n\n1. The company standards define taste as a percentage, where 0% means disgusting and 100% means delicious.\n2. The company standards define taste as \"disgusting\", \"unpleasant\", \"bland\", \"pleasant\", or \"delicious\".",
     "solution": "1. This is a regression problem, where the target (taste) is a real number (between zero and one) and the input variables are the measurements. Since the prediction of test data must be fast, with limited computational power but many training data, a parametric method is recommended, for example linear regression. It is also acceptable to interpret the target as a probability of being delicious and use logistic regression.\n\n2. This instead is a multi-class classification problem. For the same computational reasons as before, a parametric method like logistic regression with cross-entropy loss should be used.",
     "solutionSource": "exam"
@@ -141,7 +257,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Consider the trajectory below obtained in an MDP with three states $\\mathcal{S} = \\{x, y, z\\}$, two actions $\\mathcal{A} = \\{a, b\\}$, and discount factor $\\gamma = 1$.\n$$(x, a, 4) \\to (y, b, 3) \\to (x, b, -1) \\to (z, a, 1) \\to (y)$$\n1. Starting from zero initialization and using learning rate $\\alpha = 1$, compute the Q-function obtained by applying Q-learning to this trajectory.\n2. Starting from zero initialization and using learning rate $\\alpha = 1$, compute the Q-function obtained by applying SARSA to this trajectory.\n3. What is the policy that SARSA will play in the next trajectory? What about Q-learning?\n\nMotivate all answers and report all necessary computations.",
     "solution": "1. Q-learning update rule:\n$$Q(s_t, a_t) \\leftarrow Q(s_t, a_t) + \\alpha \\left[ r_t + \\gamma \\max_{a' \\in \\mathcal{A}} Q(s_{t+1}, a') - Q(s_t, a_t) \\right]$$\n- Transition 1: $(x,a,4) \\to (y)$: $Q(x,a) = 0 + 1 \\cdot (4 + 1 \\cdot 0 - 0) = 4$\n- Transition 2: $(y,b,3) \\to (x)$: $Q(y,b) = 0 + 1 \\cdot (3 + 1 \\cdot \\max(4,0) - 0) = 7$\n- Transition 3: $(x,b,-1) \\to (z)$: $Q(x,b) = 0 + 1 \\cdot (-1 + 1 \\cdot 0 - 0) = -1$\n- Transition 4: $(z,a,1) \\to (y)$: $Q(z,a) = 0 + 1 \\cdot (1 + 1 \\cdot \\max(7,0) - 0) = 8$\n\nThus, the final Q-values are: $Q(x,a) = 4$, $Q(x,b) = -1$, $Q(y,b) = 7$, $Q(z,a) = 8$ and all other Q-values remain at 0.\n\n2. SARSA update rule:\n$$Q(s_t, a_t) \\leftarrow Q(s_t, a_t) + \\alpha \\left[ r_t + \\gamma Q(s_{t+1}, a_{t+1}) - Q(s_t, a_t) \\right]$$\n- Transition 1: $(x,a,4) \\to (y,b)$: $Q(x,a) = 0 + 1 \\cdot (4 + 1 \\cdot 0 - 0) = 4$\n- Transition 2: $(y,b,3) \\to (x,b)$: $Q(y,b) = 0 + 1 \\cdot (3 + 1 \\cdot 0 - 0) = 3$\n- Transition 3: $(x,b,-1) \\to (z,a)$: $Q(x,b) = 0 + 1 \\cdot (-1 + 1 \\cdot 0 - 0) = -1$\n- Transition 4: $(z,a,1) \\to (y)$: $Q(z,a) = 0 + 1 \\cdot (1 + 1 \\cdot 0 - 0) = 1$\n\nThus, the final Q-values are: $Q(x,a) = 4$, $Q(x,b) = -1$, $Q(y,b) = 3$, $Q(z,a) = 1$ and all other Q-values remain at 0.\n\n3. SARSA will play an $\\epsilon$-greedy policy defined in terms of the estimated Q-function:\n$$\\pi(a|x) = 1 - \\epsilon, \\quad \\pi(b|x) = \\epsilon,$$\n$$\\pi(a|y) = \\epsilon, \\quad \\pi(b|y) = 1 - \\epsilon,$$\n$$\\pi(a|z) = 1 - \\epsilon, \\quad \\pi(b|z) = \\epsilon.$$\nWe do not know which policy will Q-learning play, but, for sure, it will be a policy that plays with non-zero probability all the actions (if we want the algorithm to converge to $Q^*$).",
     "solutionSource": "exam"
@@ -154,7 +272,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["learntheory"],
+    "topics": [
+      "learntheory"
+    ],
     "prompt": "An annulus is the region between two concentric circles. A spherical shell is the region between two concentric spheres.\n\n1. Show that the VC dimension of an origin-centered annulus in $\\mathbb{R}^2$ is 2.\n2. What is the VC dimension of an origin-centered spherical shell in $\\mathbb{R}^3$? Justify your answer.",
     "solution": "1. $VC \\ge 2$: it is easy to see that any two points at different distances from the origin can be correctly classified by an annulus whatever their labeling: an annulus either including only the closest point, only the farthest point, both, or neither.\n\n$VC < 3$: all that matters is the distance of the three points from the origin. If any two points are at the same distance, classification is impossible when they are assigned opposite labels. So we must consider three points $x_1, x_2, x_3$ at three different distances $r_1 < r_2 < r_3$. If $x_1, x_3$ are given positive labels and $x_2$ a negative label, the points can't be correctly classified by any annulus, as to include both $x_1$ and $x_3$ it would have to include $x_2$ too.\n\n2. It is again 2. The previous proof holds word by word just by replacing \"annulus\" with \"spherical shell\": all that matters is the distance of the points from the origin.",
     "solutionSource": "exam"

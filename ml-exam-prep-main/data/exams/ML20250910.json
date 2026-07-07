@@ -7,7 +7,10 @@
     "exerciseNo": 1,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["ensemble", "modelsel"],
+    "topics": [
+      "ensemble",
+      "modelsel"
+    ],
     "prompt": "Compare bagging and boosting in terms of how they combine models and their impact on bias and variance.",
     "solution": "**Bagging (Bootstrap Aggregating).**\n- *How it combines models:* trains many base learners **in parallel and independently**, each on a different bootstrap sample (sampling with replacement) of the training data. Predictions are combined by **averaging** (regression) or **majority vote** (classification), all learners weighted equally.\n- *Bias/variance impact:* mainly **reduces variance** while leaving bias roughly unchanged. Averaging many de-correlated high-variance, low-bias models (e.g. fully grown decision trees, as in Random Forests) smooths out their fluctuations. It does little to reduce bias, so it does not help with underfitting.\n\n**Boosting.**\n- *How it combines models:* trains base learners **sequentially**, each new learner focusing on the examples the previous ensemble got wrong (e.g. AdaBoost re-weights misclassified samples; gradient boosting fits residuals). Predictions are combined as a **weighted** sum/vote, where more accurate learners get larger weights.\n- *Bias/variance impact:* mainly **reduces bias** by combining many **weak learners** (high bias, low variance, e.g. shallow trees/stumps) into a strong one. Because it fits the data progressively, it can also lower variance, but it is **prone to overfitting noisy data** if run for too many rounds.\n\n**Summary.** Bagging = parallel, independent, equal-weight averaging → reduces variance (use with low-bias/high-variance learners). Boosting = sequential, adaptive, weighted combination → reduces bias (use with high-bias/low-variance weak learners), but is more sensitive to noise/outliers.",
     "solutionSource": "authored"
@@ -20,7 +23,9 @@
     "exerciseNo": 2,
     "marks": 7,
     "type": "theory-essay",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "In reinforcement learning, explain the exploration–exploitation trade-off and discuss how the discount factor ($\\gamma$) influences an agent's long-term behavior.",
     "solution": "**Exploration–exploitation trade-off.** In RL the agent must choose actions to maximize cumulative reward, but it does not know the environment's dynamics/rewards in advance. *Exploitation* means choosing the action currently believed to be best (greedy w.r.t. the current value/policy estimate) to harvest reward now. *Exploration* means trying less-known actions to gather information that may reveal a better long-term option. Pure exploitation risks locking onto a suboptimal action because better alternatives were never tried; pure exploration wastes reward on known-bad actions. A good agent balances the two — e.g. with $\\varepsilon$-greedy (act greedily with probability $1-\\varepsilon$, randomly otherwise), softmax/Boltzmann action selection, optimistic initialization, or UCB-style exploration bonuses. Often exploration is annealed over time (e.g. decaying $\\varepsilon$, GLIE), exploring early and exploiting later.\n\n**Role of the discount factor $\\gamma \\in [0,1)$.** The return is $G_t = \\sum_{k\\ge 0}\\gamma^k r_{t+k+1}$, so $\\gamma$ controls how strongly future rewards are weighted relative to immediate ones.\n- $\\gamma \\to 0$: the agent is **myopic / short-sighted** — it cares almost only about the immediate reward and ignores long-term consequences.\n- $\\gamma \\to 1$: the agent is **far-sighted** — it values long-term rewards almost as much as immediate ones and will accept short-term sacrifices for larger future gains.\n\n$\\gamma$ also defines an effective horizon ($\\approx 1/(1-\\gamma)$ steps) and guarantees the infinite-horizon return is finite/convergent (for bounded rewards and $\\gamma<1$). Thus $\\gamma$ directly shapes whether the learned optimal policy prioritizes immediate or delayed payoffs.",
     "solutionSource": "authored"
@@ -33,7 +38,10 @@
     "exerciseNo": 3,
     "marks": 2,
     "type": "code-interpretation",
-    "topics": ["featsel", "modeleval"],
+    "topics": [
+      "featsel",
+      "modeleval"
+    ],
     "prompt": "Consider the following Python code snippet.\n\n1. Explain line by line what the code does ([1]–[20]) and summarize its overall goal.\n2. What is the purpose of lines [7] and [13]?\n3. Do you find any methodological issue in this snippet?",
     "code": {
       "language": "python",
@@ -43,36 +51,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250910-e4",
+    "id": "ML20250910-e4.1",
     "examId": "ML20250910",
     "date": "2025-09-10",
     "academicYear": "AA2425",
     "exerciseNo": 4,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
     "subStatements": [
       {
-        "id": "ML20250910-e4-s1",
+        "id": "ML20250910-e4.1-s1",
         "statement": "TD(0) has lower bias but higher variance than Monte Carlo (MC) evaluation.",
         "answer": false,
         "motivation": "TD(0) has *higher* bias due to bootstrapping from potentially inaccurate estimates. However, it has *lower* variance because its updates depend only on a single reward and the next state's value, not the sum of all future rewards."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250910-e4.2",
+    "examId": "ML20250910",
+    "date": "2025-09-10",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250910-e4-s2",
+        "id": "ML20250910-e4.2-s1",
         "statement": "MC policy evaluation is well-suited for continuous, non-episodic tasks.",
         "answer": false,
         "motivation": "MC methods require a complete episode to calculate the observed return $G_t$. In a continuous (non-episodic) task, episodes never terminate, making standard MC evaluation impossible."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250910-e4.3",
+    "examId": "ML20250910",
+    "date": "2025-09-10",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250910-e4-s3",
+        "id": "ML20250910-e4.3-s1",
         "statement": "Bootstrapping in TD methods refers to the practice of updating value at the end of each episode.",
         "answer": false,
         "motivation": "Bootstrapping does mean updating an estimate based on other estimates. This update happens incrementally *after each step*, not at the end of an episode."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250910-e4.4",
+    "examId": "ML20250910",
+    "date": "2025-09-10",
+    "academicYear": "AA2425",
+    "exerciseNo": 4,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Indicate whether the following statements about Monte Carlo and Temporal Difference are true or false. Motivate your answers.",
+    "subStatements": [
       {
-        "id": "ML20250910-e4-s4",
+        "id": "ML20250910-e4.4-s1",
         "statement": "The converged value function from TD(0) policy evaluation is biased by the initial choice of $V(s)$.",
         "answer": false,
         "motivation": "For a given policy, TD(0) evaluation is guaranteed to converge to the true value function $V^\\pi$ regardless of the initial values, provided that standard stochastic approximation conditions on the learning rate are met."
@@ -82,36 +143,89 @@
     "solutionSource": "exam"
   },
   {
-    "id": "ML20250910-e5",
+    "id": "ML20250910-e5.1",
     "examId": "ML20250910",
     "date": "2025-09-10",
     "academicYear": "AA2425",
     "exerciseNo": 5,
-    "marks": 2,
+    "marks": 0.5,
     "type": "true-false-motivated",
-    "topics": ["featsel"],
+    "topics": [
+      "featsel"
+    ],
     "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
     "subStatements": [
       {
-        "id": "ML20250910-e5-s1",
+        "id": "ML20250910-e5.1-s1",
         "statement": "Exhaustive search is guaranteed to find the optimal feature subset, and its complexity is quadratic in the number of features.",
         "answer": false,
         "motivation": "While exhaustive search is guaranteed to find the optimal feature subset, its complexity is **exponential** ($O(2^m)$), not quadratic. It must evaluate all $2^m$ possible subsets, making it computationally infeasible for even a moderate number of features $m$."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250910-e5.2",
+    "examId": "ML20250910",
+    "date": "2025-09-10",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20250910-e5-s2",
+        "id": "ML20250910-e5.2-s1",
         "statement": "Wrapper methods are considered model-agnostic because the selected features are chosen independently of the learning algorithm.",
         "answer": false,
         "motivation": "Wrapper methods are inherently **model-dependent**. They use the performance of a specific learning algorithm (e.g., an SVM or a Decision Tree) as the objective function to evaluate and select the best subset of features for that particular model."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250910-e5.3",
+    "examId": "ML20250910",
+    "date": "2025-09-10",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20250910-e5-s3",
+        "id": "ML20250910-e5.3-s1",
         "statement": "Filter methods rank features based on their intrinsic statistical properties without training a predictive model.",
         "answer": true,
         "motivation": "Filter methods are a pre-processing step. They use statistical measures (like correlation, mutual information, or chi-squared tests) to score and rank features based on their relationship with the target variable, completely independent of any learning algorithm."
-      },
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20250910-e5.4",
+    "examId": "ML20250910",
+    "date": "2025-09-10",
+    "academicYear": "AA2425",
+    "exerciseNo": 5,
+    "marks": 0.5,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Indicate whether the following statements are true or false. Justify your answers.",
+    "subStatements": [
       {
-        "id": "ML20250910-e5-s4",
+        "id": "ML20250910-e5.4-s1",
         "statement": "Embedded methods, such as Lasso, are typically less computationally intensive than wrapper methods.",
         "answer": true,
         "motivation": "Wrapper methods require training and evaluating a model for many different feature subsets. Embedded methods integrate the feature selection process directly into the model's training algorithm itself, making them significantly more efficient by selecting features and training the model in a single process."
@@ -128,7 +242,10 @@
     "exerciseNo": 6,
     "marks": 2,
     "type": "applied-modeling",
-    "topics": ["linreg", "mab"],
+    "topics": [
+      "linreg",
+      "mab"
+    ],
     "prompt": "A university wants to improve student outcomes in a challenging course by offering personalized support. They have access to historical data from previous semesters.\n\n1. You are first asked to create a model that predicts a student's **final exam score** (a value from 0 to 100). Define the data you would need, state the type of machine learning problem this is, and suggest a suitable method to solve it.\n2. Now, imagine the university has developed three different tutoring strategies (e.g., peer tutoring, online modules, faculty-led workshops) but doesn't know which is most effective. They want to create an adaptive system that assigns students to a strategy to maximize the total number of students who pass the course over the semester. Define the data you would need, state the type of machine learning problem this is, and suggest a suitable method to solve it.",
     "solution": "1. This is a classic **supervised learning, regression** problem, as the goal is to predict a continuous numerical value (the score). We would need a dataset where each row corresponds to a student. The features ($X$) could include quantifiable academic indicators like *midterm exam scores, assignment grades, attendance percentage,* and *hours spent on the course platform*. The target variable ($y$) would be the student's *final exam score*. A suitable and straightforward method would be **Linear Regression**. Other models like KNN or Gaussian Processes could also be used.\n\n2. This is a **Multi-Armed Bandit (MAB)** problem. The challenge is to balance exploration (trying different strategies to see how well they work) with exploitation (using the strategy that currently seems best). For each student, the system needs to record the **action** taken (which of the three strategies was assigned) and the resulting **reward** (e.g., 1 if the student passed, 0 if they failed). Suitable algorithms for this problem include Upper Confidence Bound (UCB1) or Thompson Sampling (TS).",
     "solutionSource": "exam"
@@ -141,7 +258,9 @@
     "exerciseNo": 7,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["classif"],
+    "topics": [
+      "classif"
+    ],
     "prompt": "Suppose we collect data for a group of patients who had a specific type of cancer. The variables are age $x_1$, tumor size in cm $x_2$, and the probability of cancer recurrence in the next five years $t$. We fit a logistic regression and produce estimated coefficients: $w_0 = -5$, $w_1 = 0.04$ and $w_2 = 0.8$.\n\n1. Compute the probability that a 50-year-old patient with a 3 cm tumor will have a recurrence in the next five years (provide the formula and substitute the values, leave the calculations).\n2. What would the tumor size for a 60-year-old patient need to be to have a 50% chance of recurrence in the next five years?\n3. Based on the learned model parameters, what insights can be gained regarding the impact of each feature on the outcome?\n4. If a new, potentially crucial, variable ($x_3$) is added to the model, is it necessary to retrain the entire model from scratch?",
     "solution": "1. The probability of recurrence is given by the logistic function:\n$$P(y = 1\\mid \\mathbf{x}) = \\frac{1}{1 + e^{-(w_0 + w_1 x_1 + w_2 x_2)}} = \\frac{1}{1 + e^{-(-5 + 50\\cdot 0.04 + 3\\cdot 0.8)}} = \\frac{1}{1 + e^{0.6}}.$$\n\n2. A 50% chance of recurrence occurs when the linear combination in the exponent is zero. We set the age $x_1 = 60$ and solve for the tumor size $x_2$:\n$$w_0 + w_1 x_1 + w_2 x_2 = 0$$\n$$\\to -5 + (0.04\\cdot 60) + 0.8\\cdot x_2 = 0$$\n$$\\to -5 + 2.4 + 0.8\\cdot x_2 = 0$$\n$$\\to 0.8\\cdot x_2 = 2.6$$\n$$\\to x_2 = 3.25\\text{ cm}.$$\n\n3. The coefficient for age ($w_1 = 0.04$) is positive, suggesting that the risk of recurrence increases with age. The coefficient for tumor size ($w_2 = 0.8$) is also positive, indicating that larger tumors are associated with a higher probability of recurrence. Both seem reasonable findings in oncology.\n\n4. If a new variable $x_3$ (e.g., tumor grade) were added, the model **must be retrained from scratch**. The logistic regression loss function is not separable with respect to its features, so you cannot simply find the new coefficient $w_3$ while keeping $w_0, w_1, w_2$ fixed. All coefficients must be re-estimated simultaneously.",
     "solutionSource": "exam"
@@ -154,7 +273,9 @@
     "exerciseNo": 8,
     "marks": 4,
     "type": "numerical-computation",
-    "topics": ["kernelsvm"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Consider a linear, hard-margin, two-class SVM classifier with parameters $w = [1, 3]$, $b = -2$.\n\nAnswer the following questions providing adequate motivations.\n1. How is the point $p_1 = [3, 1]$ classified according to the trained SVM?\n2. Is the point $p_2 = [0, 1]$ a support vector of the given SVM?\n3. Provide a point that falls on the boundary of the given SVM.\n4. Let us suppose we collect new data that make the classification task not linearly separable. How would you change the SVM model to deal with the task?",
     "solution": "1. We compute the decision function for the point $p_1$:\n$$w^\\top \\cdot p_1 + b = [1, 3]\\cdot[3, 1]^\\top - 2 = 3 + 3 - 2 = 4.$$\nSince the result $4 > 0$, the point is classified as belonging to the **positive class**.\n\n2. We compute the decision function for the point $p_2$:\n$$w^\\top \\cdot p_2 + b = [1, 3]\\cdot[0, 1]^\\top - 2 = 0 + 3 - 2 = 1.$$\nSince the result is exactly 1, the point falls on the positive margin. Therefore, **it is a support vector** for the SVM.\n\n3. We are looking for a point $x = [x_1, x_2]$ such that it lies on the decision boundary, meaning it satisfies the equation $w^\\top \\cdot x + b = 0$.\n$$[1, 3]\\cdot[x_1, x_2]^\\top - 2 = 0 \\implies x_1 + 3x_2 - 2 = 0.$$\nWe can choose a value for one coordinate and solve for the other. For instance, if we let $x_2 = 0$, then $x_1 - 2 = 0$, which gives $x_1 = 2$. Thus, a point on the boundary is $[2, 0]$.\n\n4. If the data is not linearly separable, the hard-margin SVM can no longer be used. We could adapt the model in two main ways:\n- **Soft-Margin SVM**: Introduce \"slack variables\" that allow some data points to be misclassified or fall within the margin. This adds a penalty term for such errors to the optimization problem.\n- **Kernel Trick**: Map the data into a higher-dimensional feature space where it might become linearly separable. This is done implicitly using a kernel function (e.g., Polynomial or Radial Basis Function - RBF), which allows the SVM to find a non-linear decision boundary in the original feature space.\n\nIn either case, the model's parameters would need to be re-trained on the new data.",
     "solutionSource": "exam"

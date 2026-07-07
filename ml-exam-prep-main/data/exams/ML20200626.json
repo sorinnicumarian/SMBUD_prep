@@ -6,7 +6,13 @@
     "academicYear": "AA1920",
     "exerciseNo": 1,
     "type": "applied-modeling",
-    "topics": ["rl", "mab", "classif", "featsel", "linreg"],
+    "topics": [
+      "rl",
+      "mab",
+      "classif",
+      "featsel",
+      "linreg"
+    ],
     "prompt": "Q1. Categorize the following ML problems. For each one of them suggest a proper method to solve it and the set of features/actions/states which might be useful to solve the problem. Motivate your answers.\n\n- Play optimally a bridge game.\n- Escape from a labyrinth.\n- Display an advertisement on a search engine page.\n- Recognise handwritten digits and characters.\n- Identify the most informative features from an image.\n- Predicting the value of motorcycles for second-hand retailers.\n- Design an automatic medical system providing a diagnosis based on symptoms.\n- Determine which are the most important factors (age, gender, geographical position) when trying to predict the most suitable person to hire.\n- Estimate time of arrival of an airplane.\n- Identify the country given its flag.\n- Tell if a bank is going to approve a credit line for a client.",
     "solution": "- **Play optimally a bridge game**: Reinforcement Learning. State representation would include (1) the result of the bidding stage, (2) my cards, (3) previous played cards. Action consists of choosing the card to play. Sarsa or Q-Learning could be used.\n- **Escape from a labyrinth**: RL. State could be the agent's perception (as well an estimate of the position). Actions are the ones that allow us to navigate the labyrinth. Sarsa or Q-Learning could be used.\n- **Display an advertisement on a search engine page**: it can be modeled as a MAB, where the choice of the advertisement is the action. UCB1 could be used. Contextual MAB can also be used to model the search query as context.\n- **Recognise handwritten digits and characters**: Classification problem. Features would be the image of the digit/character to recognize. Convolutional Neural Networks are a common choice.\n- **Identify the most informative features from an image**: this could be modeled as a feature extraction problem (e.g., using PCA or applying filters to images). Alternatively, in the case we have a supervised problem, as a feature selection problem ranking the importance of the features.\n- **Predicting the value of motorcycles**: Regression problem. Features could be some characteristics of the bike, e.g., mileage, age. We can use Linear Regression.\n- **Automatic medical diagnosis from symptoms**: Classification problem. Features are symptoms. Any classification algorithm like the perceptron or SVM can be used.\n- **Most important hiring factors**: feature selection problem; assuming we have labeled samples (hired/not hired) or a target (e.g., productivity of employees) we can apply a wrapper feature selection algorithm, such as Forward Stepwise Selection.\n- **Estimate time of arrival of an airplane**: can be solved using physics, but also as a regression problem if we learn from historical data. Features would be the route, time of day, weather data, takeoff delay. Linear Regression can be used.\n- **Identify the country given its flag**: Classification problem. Convolutional Neural Networks are a common choice. One might also argue the problem cannot be solved with ML since we have a single sample (flag) for each country.\n- **Bank credit line approval**: binary classification problem. Features would be data about the client, e.g., income, age, other credit lines, guarantees. We can use Logistic Regression.",
     "solutionSource": "exam"
@@ -18,58 +24,518 @@
     "academicYear": "AA1920",
     "exerciseNo": 2,
     "type": "theory-essay",
-    "topics": ["linreg", "classif", "modeleval", "mab"],
+    "topics": [
+      "linreg",
+      "classif",
+      "modeleval",
+      "mab"
+    ],
     "prompt": "Q2. Answer to the following questions about regression and classifications, providing motivations.\n\n1. You are asked to implement an algorithm to solve a regression problem. The training will be performed on a device with constrained resources: which solution would you propose?\n2. You are asked to implement an algorithm to solve a regression problem. The training will be performed on a server with great computational power, but the resulting model should be run on a device with constrained resources: which solution would you propose?\n3. You are asked to implement an algorithm to solve a classification problem. Training on a powerful server, but model runs on a constrained device: which solution?\n4. You decide to use a perceptron to classify your system, but you find out that the two classes are not linearly separable in the current feature space. What would you do?\n5. The company wants to extend your classification system to the online setting. If using a perceptron, which changes should you make? What if using logistic regression instead?\n6. You are asked to extend your regression system to the online setting. Which are the available options? Can you exploit the results obtained before from the offline setting?\n7. You have trained two different classification models and computed their confusion matrices. Which figure of merit should you look at to choose the best model for an anomaly detection task?\n8. You have performed a regression on stock prices time series. Your model has adjusted $R^2$ equal to 0.01. Are the predictions informative for the specific application?\n9. While solving a regression task, you find that $X^\\top X$ matrix is singular. What does it imply? Can you still solve the problem?\n10. Would it make sense to use classification algorithms to solve a Multi-Armed bandit problem?\n11. Is it correct to say that the RL policy evaluation problem is a regression task?",
     "solution": "1. I could train a linear regression model using gradient descent (LMS algorithm). Also non-parametric methods can be used as they do not require expensive training.\n2. I could train a linear regression model using least squares or lasso (to reduce the number of non-zero weights). The resulting model can be run without large computational power. Alternatively, a Support Vector Machine for regression: expensive to train but not very expensive during test.\n3. I could train a Support Vector Machine: expensive to train but not very expensive to compute the prediction. In general any parametric method would be a good choice since the prediction is usually light to evaluate.\n4. I could either use a different method (e.g., SVM) or apply a feature mapping to the input space to make the problem linearly separable in the feature space.\n5. In the perceptron, if the new sample is classified correctly, I would not do anything; otherwise I run the update rule on the new sample and then run the algorithm again on the whole dataset until convergence. For logistic regression, I can perform the update rule on the new sample and eventually go through the entire dataset again. In both cases we use the online update offered by the training of the two methods.\n6. If using Bayesian Linear Regression, I can use the old data as prior and update the model with new data. Alternatively I can use a gradient descent training algorithm (e.g., LMS) to train incrementally my model.\n7. In an anomaly detection task I am usually interested in minimizing the False Negatives. On the other hand this might easily lead to many False Positives. Hence it is necessary to find a good tradeoff between these two errors, e.g., by looking at the F1 score.\n8. An adjusted $R^2$ equal to 0.01 means there is basically no relationship between input variable and the target (the stock price). So I cannot use the output of this prediction model for any trading application.\n9. I cannot compute OLS, because I am not able to invert the $X^\\top X$ matrix. This happens when some variables are linearly dependent. To solve this I can either find and get rid of dependent variables or use ridge regression.\n10. In principle, we can use a classification algorithm and solve it as an online classification problem. However we would face a major problem: in MAB we don't know in advance the best arm and we don't get this information as feedback after choosing an arm. In addition classification algorithms are designed to exploit and not to explore.\n11. No, it is not correct, as the targets (the state values I am trying to learn) are not provided in the training data but are learned through interaction and there are dependences between their values.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20200626-e3",
+    "id": "ML20200626-e3.1",
     "examId": "ML20200626",
     "date": "2020-06-26",
     "academicYear": "AA1920",
     "exerciseNo": 3,
     "type": "true-false-motivated",
-    "topics": ["modelsel", "kernelsvm", "featsel", "modeleval", "learntheory"],
+    "topics": [
+      "kernelsvm"
+    ],
     "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
     "subStatements": [
-      { "id": "ML20200626-e3-s1", "statement": "If a perceptron classifier does not achieve the desired performance (on a test set) one might consider an SVM with a linear kernel as a method to improve the performances.", "answer": true, "motivation": "Even if SVM with linear kernel still finds a linear boundary, it might find a better solution in terms of test error, because it will find the maximum margin separating hyperplane and soft margin can be used to improve generalization." },
-      { "id": "ML20200626-e3-s2", "statement": "If a logistic regression does not achieve the desired performance (on a test set) one might consider an SVM with a Gaussian kernel as a method to improve the performances.", "answer": false, "motivation": "If performance is good on the training set, it means we are overfitting data. SVM is a more complex model and it will probably result in even worse overfitting." },
-      { "id": "ML20200626-e3-s3", "statement": "If the performance on the training and the test sets are getting almost the same as we use more and more data for training, but both are worse than desired, the model might be too simple for the task.", "answer": true, "motivation": "Increasing training data will reduce the variance of the model, hence the error on both training and test set are likely to depend on bias (being the performance bad also on the training set we are not overfitting the noise in data). Using a more complex model seems the proper choice." },
-      { "id": "ML20200626-e3-s4", "statement": "Given a fixed training set, increasing the complexity of the model always improves its generalization capabilities.", "answer": false, "motivation": "The more complex the model, the more data I usually need to train it in order to avoid overfitting." },
-      { "id": "ML20200626-e3-s5", "statement": "It is a good idea to increase the number of samples used for training if we decided to increase the model complexity.", "answer": true, "motivation": "The more complex the model, the more data I usually need to train it in order to avoid overfitting." },
-      { "id": "ML20200626-e3-s6", "statement": "Adding new features to the model might help if the model has a bias with respect to the real process generating data.", "answer": true, "motivation": "The bias might be due to some features the model is not using as input." },
-      { "id": "ML20200626-e3-s7", "statement": "The use of cross-validation decreases the variance of the model.", "answer": false, "motivation": "Cross-validation is used only to assess the performance of the model and does not reduce their variance; however through a proper assessment I can hopefully select a model with lower variance." },
-      { "id": "ML20200626-e3-s8", "statement": "Regularization techniques are able to reduce the variance of a model.", "answer": true, "motivation": "Regularization acts as constraints or penalty on parameters variability and hence reduces the variance of the model." },
-      { "id": "ML20200626-e3-s9", "statement": "The use of the soft-margin SVM decreases the variance of the method (compared to hard-margin SVM).", "answer": true, "motivation": "Hard margin allows no error and can easily overfit training data, while soft margin allowing some errors in the training set might lead to a model with better generalization." },
-      { "id": "ML20200626-e3-s10", "statement": "The use of the error on a validation set is suggested when we have a large dataset and we want to discriminate the performance of a set of (computationally) simple models.", "answer": false, "motivation": "With computationally simple models, cross-validation is suggested to get a better estimate of the test error." },
-      { "id": "ML20200626-e3-s11", "statement": "If a set of hypothesis spaces have finite VC dimension, we can use the minimization of the training error to select the best model (among the given ones).", "answer": false, "motivation": "A finite VC dimension means that we cannot overfit completely the training set, however it is still possible that the training error is not an unbiased estimate of test error (especially if the training set is small with respect to the VC dimension)." },
-      { "id": "ML20200626-e3-s12", "statement": "If we focus on a specific task, it does not exist an ML algorithm that performs better than the others.", "answer": false, "motivation": "If we focus on a specific task, a single ML algorithm can outperform others. This is not true if we, instead, consider all the possible problems (no free lunch theorem)." }
+      {
+        "id": "ML20200626-e3.1-s1",
+        "statement": "If a perceptron classifier does not achieve the desired performance (on a test set) one might consider an SVM with a linear kernel as a method to improve the performances.",
+        "answer": true,
+        "motivation": "Even if SVM with linear kernel still finds a linear boundary, it might find a better solution in terms of test error, because it will find the maximum margin separating hyperplane and soft margin can be used to improve generalization."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
   },
   {
-    "id": "ML20200626-e4",
+    "id": "ML20200626-e3.2",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.2-s1",
+        "statement": "If a logistic regression does not achieve the desired performance (on a test set) one might consider an SVM with a Gaussian kernel as a method to improve the performances.",
+        "answer": false,
+        "motivation": "If performance is good on the training set, it means we are overfitting data. SVM is a more complex model and it will probably result in even worse overfitting."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.3",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.3-s1",
+        "statement": "If the performance on the training and the test sets are getting almost the same as we use more and more data for training, but both are worse than desired, the model might be too simple for the task.",
+        "answer": true,
+        "motivation": "Increasing training data will reduce the variance of the model, hence the error on both training and test set are likely to depend on bias (being the performance bad also on the training set we are not overfitting the noise in data). Using a more complex model seems the proper choice."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.4",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.4-s1",
+        "statement": "Given a fixed training set, increasing the complexity of the model always improves its generalization capabilities.",
+        "answer": false,
+        "motivation": "The more complex the model, the more data I usually need to train it in order to avoid overfitting."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.5",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.5-s1",
+        "statement": "It is a good idea to increase the number of samples used for training if we decided to increase the model complexity.",
+        "answer": true,
+        "motivation": "The more complex the model, the more data I usually need to train it in order to avoid overfitting."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.6",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "featsel"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.6-s1",
+        "statement": "Adding new features to the model might help if the model has a bias with respect to the real process generating data.",
+        "answer": true,
+        "motivation": "The bias might be due to some features the model is not using as input."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.7",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "modeleval"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.7-s1",
+        "statement": "The use of cross-validation decreases the variance of the model.",
+        "answer": false,
+        "motivation": "Cross-validation is used only to assess the performance of the model and does not reduce their variance; however through a proper assessment I can hopefully select a model with lower variance."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.8",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "modelsel"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.8-s1",
+        "statement": "Regularization techniques are able to reduce the variance of a model.",
+        "answer": true,
+        "motivation": "Regularization acts as constraints or penalty on parameters variability and hence reduces the variance of the model."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.9",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "kernelsvm"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.9-s1",
+        "statement": "The use of the soft-margin SVM decreases the variance of the method (compared to hard-margin SVM).",
+        "answer": true,
+        "motivation": "Hard margin allows no error and can easily overfit training data, while soft margin allowing some errors in the training set might lead to a model with better generalization."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.10",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "modeleval"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.10-s1",
+        "statement": "The use of the error on a validation set is suggested when we have a large dataset and we want to discriminate the performance of a set of (computationally) simple models.",
+        "answer": false,
+        "motivation": "With computationally simple models, cross-validation is suggested to get a better estimate of the test error."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.11",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.11-s1",
+        "statement": "If a set of hypothesis spaces have finite VC dimension, we can use the minimization of the training error to select the best model (among the given ones).",
+        "answer": false,
+        "motivation": "A finite VC dimension means that we cannot overfit completely the training set, however it is still possible that the training error is not an unbiased estimate of test error (especially if the training set is small with respect to the VC dimension)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e3.12",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "learntheory"
+    ],
+    "prompt": "Q3. Tell if the following statements about the bias-variance dilemma (and related topics) are true or false. Motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e3.12-s1",
+        "statement": "If we focus on a specific task, it does not exist an ML algorithm that performs better than the others.",
+        "answer": false,
+        "motivation": "If we focus on a specific task, a single ML algorithm can outperform others. This is not true if we, instead, consider all the possible problems (no free lunch theorem)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.1",
     "examId": "ML20200626",
     "date": "2020-06-26",
     "academicYear": "AA1920",
     "exerciseNo": 4,
     "type": "true-false-motivated",
-    "topics": ["rl", "mab"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
     "subStatements": [
-      { "id": "ML20200626-e4-s1", "statement": "For policy evaluation, if I have a simulator of the RL task, I can use DP, but not Monte Carlo or TD.", "answer": false, "motivation": "DP requires the knowledge of the MDP model; instead a simulator can be used to simulate experience and thus can be used with MC and TD." },
-      { "id": "ML20200626-e4-s2", "statement": "Off-policy learning, Exploring Starts, and Soft-policies are three ways to deal with the Exploration-Exploitation dilemma.", "answer": true, "motivation": "These three approaches allow to keep exploring while trying to find the optimal policy." },
-      { "id": "ML20200626-e4-s3", "statement": "The sparsity of the reward can be a problem for on-policy algorithms.", "answer": true, "motivation": "Despite reward sparsity being a general issue for RL algorithms, an on-policy algorithm might not be able to explore enough to reach states with higher reward, while an off-policy algorithm might be more aggressive in the exploration." },
-      { "id": "ML20200626-e4-s4", "statement": "TD based control algorithms can be applied also to the MAB setting, while MC ones cannot.", "answer": true, "motivation": "TRUE/FALSE: Both MC and TD are not specifically designed to solve the MAB setting. On the other hand we can argue that the MAB setting is not an episodic task and, thus, MC is not suited for it, while TD could be applied in principle." },
-      { "id": "ML20200626-e4-s5", "statement": "If the actions do not affect the dynamics of the system, an RL problem is equivalent to a contextual bandit.", "answer": true, "motivation": "In this case we have no control on the state and actions only affect the reward achieved." },
-      { "id": "ML20200626-e4-s6", "statement": "I can use Q-Learning with a greedy policy in an Adversarial Bandit context.", "answer": false, "motivation": "Using a deterministic policy in an adversarial problem is not recommended." },
-      { "id": "ML20200626-e4-s7", "statement": "Sarsa, as Value Iteration in DP, is based on the Bellman Expectation Equation.", "answer": false, "motivation": "Sarsa is based on the Bellman Expectation Equation, while Value Iteration exploits the Bellman Optimality Equation." },
-      { "id": "ML20200626-e4-s8", "statement": "Applying a TD approach to a problem, I can better exploit the markovianity of the state.", "answer": true, "motivation": "TD does bootstrapping and, thus, it exploits the Markov property of the state." },
-      { "id": "ML20200626-e4-s9", "statement": "A Markov Decision Process can always be solved analytically.", "answer": false, "motivation": "Even if we have a full knowledge of the MDP model, an analytical solution can be computationally infeasible." },
-      { "id": "ML20200626-e4-s10", "statement": "Differently from Q-learning, SARSA cannot handle the exploration-exploitation trade-off.", "answer": false, "motivation": "In SARSA the exploration-exploitation trade-off is handled using epsilon-soft policies." },
-      { "id": "ML20200626-e4-s11", "statement": "In an MDP a stochastic policy cannot be optimal.", "answer": false, "motivation": "In a finite MDP, for sure there is at least an optimal deterministic policy. This, however, does not prevent the existence of a stochastic optimal policy." }
+      {
+        "id": "ML20200626-e4.1-s1",
+        "statement": "For policy evaluation, if I have a simulator of the RL task, I can use DP, but not Monte Carlo or TD.",
+        "answer": false,
+        "motivation": "DP requires the knowledge of the MDP model; instead a simulator can be used to simulate experience and thus can be used with MC and TD."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.2",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.2-s1",
+        "statement": "Off-policy learning, Exploring Starts, and Soft-policies are three ways to deal with the Exploration-Exploitation dilemma.",
+        "answer": true,
+        "motivation": "These three approaches allow to keep exploring while trying to find the optimal policy."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.3",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.3-s1",
+        "statement": "The sparsity of the reward can be a problem for on-policy algorithms.",
+        "answer": true,
+        "motivation": "Despite reward sparsity being a general issue for RL algorithms, an on-policy algorithm might not be able to explore enough to reach states with higher reward, while an off-policy algorithm might be more aggressive in the exploration."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.4",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.4-s1",
+        "statement": "TD based control algorithms can be applied also to the MAB setting, while MC ones cannot.",
+        "answer": true,
+        "motivation": "TRUE/FALSE: Both MC and TD are not specifically designed to solve the MAB setting. On the other hand we can argue that the MAB setting is not an episodic task and, thus, MC is not suited for it, while TD could be applied in principle."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.5",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.5-s1",
+        "statement": "If the actions do not affect the dynamics of the system, an RL problem is equivalent to a contextual bandit.",
+        "answer": true,
+        "motivation": "In this case we have no control on the state and actions only affect the reward achieved."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.6",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "mab"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.6-s1",
+        "statement": "I can use Q-Learning with a greedy policy in an Adversarial Bandit context.",
+        "answer": false,
+        "motivation": "Using a deterministic policy in an adversarial problem is not recommended."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.7",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.7-s1",
+        "statement": "Sarsa, as Value Iteration in DP, is based on the Bellman Expectation Equation.",
+        "answer": false,
+        "motivation": "Sarsa is based on the Bellman Expectation Equation, while Value Iteration exploits the Bellman Optimality Equation."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.8",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.8-s1",
+        "statement": "Applying a TD approach to a problem, I can better exploit the markovianity of the state.",
+        "answer": true,
+        "motivation": "TD does bootstrapping and, thus, it exploits the Markov property of the state."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.9",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.9-s1",
+        "statement": "A Markov Decision Process can always be solved analytically.",
+        "answer": false,
+        "motivation": "Even if we have a full knowledge of the MDP model, an analytical solution can be computationally infeasible."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.10",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.10-s1",
+        "statement": "Differently from Q-learning, SARSA cannot handle the exploration-exploitation trade-off.",
+        "answer": false,
+        "motivation": "In SARSA the exploration-exploitation trade-off is handled using epsilon-soft policies."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "exam"
+  },
+  {
+    "id": "ML20200626-e4.11",
+    "examId": "ML20200626",
+    "date": "2020-06-26",
+    "academicYear": "AA1920",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "rl"
+    ],
+    "prompt": "Q4. Tell if the following statements about Reinforcement Learning are true or false, and motivate your answers.",
+    "subStatements": [
+      {
+        "id": "ML20200626-e4.11-s1",
+        "statement": "In an MDP a stochastic policy cannot be optimal.",
+        "answer": false,
+        "motivation": "In a finite MDP, for sure there is at least an optimal deterministic policy. This, however, does not prevent the existence of a stochastic optimal policy."
+      }
     ],
     "solution": "See per-statement motivations.",
     "solutionSource": "exam"
@@ -81,7 +547,9 @@
     "academicYear": "AA1920",
     "exerciseNo": 5,
     "type": "numerical-computation",
-    "topics": ["rl"],
+    "topics": [
+      "rl"
+    ],
     "prompt": "Q5. Consider the set of trajectories below, which are obtained by running a given policy in an MDP with three states $S = \\{A, B, C\\}$ ($C$ is terminal) and two actions $A = \\{up, down\\}$. A trajectory is a sequence of $(S_t, A_t, R_t)$:\n\n- $(A, up, 2) \\to (A, down, 4) \\to (B, down, 4) \\to (C)$\n- $(B, up, 2) \\to (A, down, 4) \\to (C)$\n\n1. Compute the value functions $V(A)$ and $Q(A, down)$ by resorting to first-visit Monte-Carlo evaluation.\n2. Compute the value function $V(A)$ by resorting to Temporal-Difference evaluation. Assume to start from zero value for each state, $\\alpha = 0.5$, $\\gamma = 1$.\n3. Consider the values $V(A)$ obtained with Monte Carlo and Temporal Difference. Can you tell if, given an infinite number of trajectories, the computed values would be different?",
     "solution": "**1) First-visit Monte-Carlo:**\n$$V(A) = (10 + 4) / 2 = 7$$\n$$Q(A, down) = (8 + 4) / 2 = 6$$\n\n**2) Temporal-Difference** (start from zero, $\\alpha = 0.5$, $\\gamma = 1$):\n$$V(A) = 0 + 0.5 \\cdot (2 + 0 - 0) = 1$$\n$$V(A) = 1 + 0.5 \\cdot (4 + 0 - 1) = 2.5$$\n$$V(A) = 2.5 + 0.5 \\cdot (4 + 0 - 2.5) = 3.25$$\n\n**3)** Since TD and MC are consistent estimators, they will converge to the same value $V^\\pi(A)$.",
     "solutionSource": "exam"
@@ -93,7 +561,10 @@
     "academicYear": "AA1920",
     "exerciseNo": 6,
     "type": "numerical-computation",
-    "topics": ["kernelsvm", "classif"],
+    "topics": [
+      "kernelsvm",
+      "classif"
+    ],
     "prompt": "Q6. Consider a linear, hard-margin, two-class SVM classifier defined by parameters $w = [1, 2]$, $b = -2$. Answer the following questions providing adequate motivations.\n\n1. Provide the analytical formula of the boundary and the margins.\n2. How is the point $x_1 = [1; 3/4]$ classified according to the trained SVM?\n3. Assume to collect a new sample $x_2 = [1; 3]$ in the negative class. Do you need to retrain the SVM? In which case would you resort to a soft-margin version?",
     "solution": "**1)** Boundary and margins:\n$$x_1 + 2 x_2 - 2 = 0 \\quad \\text{(boundary)}$$\n$$x_1 + 2 x_2 - 3 = 0 \\quad \\text{(positive margin)}$$\n$$x_1 + 2 x_2 - 1 = 0 \\quad \\text{(negative margin)}$$\n\n**2)** $1 + 2 \\cdot 3/4 - 2 = 0.5 > 0 \\Rightarrow$ **positive class**.\n\n**3)** $1 + 2 \\cdot 3 - 2 = 5 > 0$, so the new point $x_2$ (labeled negative) would be misclassified; thus you need to retrain and $x_2$ becomes a support vector. You would use a soft-margin version if the problem is no longer linearly separable.",
     "solutionSource": "exam"
