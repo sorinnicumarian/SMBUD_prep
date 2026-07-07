@@ -15,28 +15,36 @@ function ExamList() {
   const { stats } = useData()
   if (!stats) return null
   const exams = [...stats.exams].sort((a, b) => (a.date < b.date ? 1 : -1))
+  const years = Array.from(new Set(exams.map((e) => e.academicYear))).sort((a, b) => (a < b ? 1 : -1))
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <h1 className="text-2xl font-bold text-slate-900">Exam Simulation</h1>
       <p className="text-sm text-slate-500">
         Pick a past exam, set a timer, and work through every exercise before revealing the solutions.
       </p>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {exams.map((e) => (
-          <Link
-            key={e.examId}
-            to={`/exams/${e.examId}`}
-            className="rounded-xl border border-slate-200 bg-white p-4 transition hover:border-slate-400 hover:shadow-sm"
-          >
-            <div className="text-lg font-bold text-slate-900">{e.date}</div>
-            <div className="text-sm text-slate-500">{e.academicYear}</div>
-            <div className="mt-2 flex items-center gap-2 text-xs text-slate-400">
-              <span>{e.questionCount} exercises</span>
-              <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium uppercase">{e.format}</span>
-            </div>
-          </Link>
-        ))}
-      </div>
+      {years.map((year) => (
+        <div key={year} className="space-y-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-400">{year}</h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {exams
+              .filter((e) => e.academicYear === year)
+              .map((e) => (
+                <Link
+                  key={e.examId}
+                  to={`/exams/${e.examId}`}
+                  className="rounded-xl border border-slate-200 bg-white p-4 transition hover:border-slate-400 hover:shadow-sm"
+                >
+                  <div className="text-lg font-bold text-slate-900">{e.date}</div>
+                  <div className="text-sm text-slate-500">{e.academicYear}</div>
+                  <div className="mt-2 flex items-center gap-2 text-xs text-slate-400">
+                    <span>{e.questionCount} exercises</span>
+                    <span className="rounded bg-slate-100 px-1.5 py-0.5 font-medium uppercase">{e.format}</span>
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
