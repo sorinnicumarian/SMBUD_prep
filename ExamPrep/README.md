@@ -19,7 +19,9 @@ Live (open — no login): **https://sorinnicumarian.github.io/ExamPrep/**
 - **Guide** — theory reference per course, one collapsible section per topic (expanded by default), written for the
   specific exam rather than as a generic textbook summary.
 - **Browse & search** — filter by topic / year / exam / type (and **exam part** for CI); full-text search. Every
-  matching question is listed at once — no session, just a reference lookup.
+  matching question is listed at once — no session, just a reference lookup. Cards are tinted by mastery status
+  (green = mastered, amber = attempted but not yet mastered) so already-worked questions stand out at a glance —
+  same treatment in Practice, Exam Sim, and permalinked questions (shared via `QuestionCard`).
 - **Quiz** — a graded **Cram session** for auto-checkable question types (True/False, multiple-choice). Every
   selected question is in play; anything you rate Again/Hard loops back within the same session until you've
   cleared it. Rate with the buttons or keys **1–4**.
