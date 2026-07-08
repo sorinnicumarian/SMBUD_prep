@@ -1,0 +1,2344 @@
+[
+  {
+    "id": "SMBUD20261220-e1",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 1,
+    "type": "true-false-motivated",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e1-s1",
+        "statement": "In an ISA hierarchy marked (T, E) \u2014 Total, Exclusive \u2014 every instance of the superclass must belong to exactly one subclass.",
+        "answer": true,
+        "motivation": "Total means every superclass instance must be classified into a subclass; Exclusive means it can only belong to one."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e2",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 2,
+    "type": "true-false-motivated",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e2-s1",
+        "statement": "A (P, O) \u2014 Partial, Overlapping \u2014 ISA hierarchy allows a superclass instance to belong to zero, one, or more than one subclass simultaneously.",
+        "answer": true,
+        "motivation": "Partial = not every instance needs a subclass; Overlapping = an instance can belong to multiple subclasses at once."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e3",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 3,
+    "type": "true-false-motivated",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e3-s1",
+        "statement": "A weak entity can exist in the ER model without being connected to its owner (identifying) entity.",
+        "answer": false,
+        "motivation": "A weak entity's existence and identification depend entirely on its owner entity; it cannot exist independently."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e4",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 4,
+    "type": "true-false-motivated",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e4-s1",
+        "statement": "In the relational model, a foreign key can reference a non-primary-key candidate key of another table.",
+        "answer": true,
+        "motivation": "Foreign keys must reference a *unique* key (primary or candidate key with a uniqueness constraint), not necessarily the primary key specifically."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e5",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 5,
+    "type": "true-false-motivated",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e5-s1",
+        "statement": "Normalization to 3NF eliminates all possible data redundancy in a relational schema.",
+        "answer": false,
+        "motivation": "3NF removes many redundancies (transitive dependencies) but doesn't guarantee zero redundancy \u2014 higher normal forms (BCNF, 4NF) address further anomalies."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e6",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 6,
+    "type": "true-false-motivated",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e6-s1",
+        "statement": "Adding the arrow's tip on a relationship line in an ER diagram changes the cardinality of that relationship.",
+        "answer": false,
+        "motivation": "The arrow only indicates the reading direction of the relationship's verb phrase \u2014 it's a notational aid, not a structural/cardinality element."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e7",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 7,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e7-s1",
+        "statement": "A Data Lake typically follows a schema-on-write approach.",
+        "answer": false,
+        "motivation": "Data Lakes follow schema-on-read \u2014 raw data is stored as-is, and structure is applied only at query time."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e8",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 8,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e8-s1",
+        "statement": "ETL transforms data before loading it into the destination, so the destination doesn't retain the original raw form.",
+        "answer": true,
+        "motivation": "In ETL, transformation happens before load, so only the cleaned/structured version lands in the destination."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e9",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 9,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e9-s1",
+        "statement": "ELT is more naturally associated with Data Warehouses than with Data Lakes.",
+        "answer": false,
+        "motivation": "ELT (load raw, transform later) pairs naturally with Data Lakes; ETL pairs with Data Warehouses."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e10",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 10,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e10-s1",
+        "statement": "Horizontal partitioning (sharding) splits a table by rows across multiple nodes.",
+        "answer": true,
+        "motivation": "Each node/shard holds a subset of rows, all with the full schema."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e11",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 11,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e11-s1",
+        "statement": "Vertical partitioning splits a table by rows instead of columns.",
+        "answer": false,
+        "motivation": "Vertical partitioning splits by columns; horizontal partitioning splits by rows."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e12",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 12,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e12-s1",
+        "statement": "Vertical scalability and vertical partitioning are the same concept.",
+        "answer": false,
+        "motivation": "Vertical scalability is about adding resources to a single machine (scale-up); vertical partitioning is about splitting a table by columns \u2014 two unrelated concepts that share a name."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e13",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 13,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e13-s1",
+        "statement": "Data ingestion may involve merging small files into larger ones to optimize storage in a Big Data system.",
+        "answer": true,
+        "motivation": "Big Data systems often concatenate many small files into ~100s-of-MB files (and split very large files) to optimize block-based storage like HDFS."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e14",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 14,
+    "type": "true-false-motivated",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e14-s1",
+        "statement": "Veracity, one of the Big Data 5 Vs, refers to how quickly data is generated.",
+        "answer": false,
+        "motivation": "Veracity refers to the trustworthiness/quality of the data; Velocity refers to the speed of generation."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e15",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 15,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e15-s1",
+        "statement": "The BASE model guarantees strong consistency at all times.",
+        "answer": false,
+        "motivation": "BASE stands for Basically Available, Soft state, Eventual consistency \u2014 it explicitly trades strong consistency for availability/performance."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e16",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 16,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e16-s1",
+        "statement": "According to CAP, a system can maintain full Consistency, Availability, and Partition tolerance simultaneously as long as it is well engineered.",
+        "answer": false,
+        "motivation": "CAP theorem states you can only guarantee 2 of the 3 properties when a network partition actually occurs \u2014 no engineering trick avoids this trade-off."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e17",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 17,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e17-s1",
+        "statement": "Cassandra is typically classified as an AP system in the CAP theorem framework.",
+        "answer": true,
+        "motivation": "Cassandra favors Availability and Partition tolerance, offering tunable/eventual consistency."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e18",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 18,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e18-s1",
+        "statement": "A single-node relational database is typically classified as CA in the CAP framework.",
+        "answer": true,
+        "motivation": "With no network partition possible (single node), it trivially provides both Consistency and Availability."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e19",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 19,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e19-s1",
+        "statement": "NoSQL databases were developed primarily to provide stronger ACID guarantees than relational databases.",
+        "answer": false,
+        "motivation": "NoSQL databases were developed primarily to address scalability, flexibility, and performance needs that strict relational/ACID systems struggled with at large scale."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e20",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 20,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e20-s1",
+        "statement": "The four main NoSQL data models are document, graph, key-value, and wide-column (columnar).",
+        "answer": true,
+        "motivation": "These are the four canonical NoSQL families covered in the course."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e21",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 21,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e21-s1",
+        "statement": "Soft state, in the BASE model, means the state of a system may change over time even without new input, due to eventual consistency.",
+        "answer": true,
+        "motivation": "Unlike ACID's fixed committed state, BASE systems may still be \"converging\" and can appear to change as replicas synchronize."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e22",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 22,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e22-s1",
+        "statement": "Sharding in NoSQL systems like MongoDB is typically a fully manual process requiring custom application logic for every query.",
+        "answer": false,
+        "motivation": "NoSQL sharding (e.g. in MongoDB) is designed to be automatic, configurable, and transparent to the application."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e23",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 23,
+    "type": "true-false-motivated",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e23-s1",
+        "statement": "OLTP systems are optimized for complex, aggregate analytical queries over historical data.",
+        "answer": false,
+        "motivation": "That describes OLAP; OLTP is optimized for fast, small, frequent transactional operations on current data."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e24",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 24,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e24-s1",
+        "statement": "MongoDB stores documents in a binary format called BSON.",
+        "answer": true,
+        "motivation": "MongoDB uses BSON (Binary JSON) internally to store documents."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e25",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 25,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e25-s1",
+        "statement": "In MongoDB, embedding a sub-document is generally preferred when the embedded data has a strict 1:1 or 1:few relationship and is always accessed together with the parent.",
+        "answer": true,
+        "motivation": "Embedding avoids extra lookups when data is always read together and doesn't grow unbounded."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e26",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 26,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e26-s1",
+        "statement": "The `$lookup` aggregation stage in MongoDB performs a join-like operation between two collections.",
+        "answer": true,
+        "motivation": "`$lookup` performs a left outer join against another collection."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e27",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 27,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e27-s1",
+        "statement": "`$unwind` in MongoDB's aggregation pipeline merges an array field's elements into a single document.",
+        "answer": false,
+        "motivation": "`$unwind` does the opposite \u2014 it deconstructs an array field, producing one output document per array element."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e28",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 28,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e28-s1",
+        "statement": "MongoDB's dynamic schema means every document in a collection must have an identical set of fields.",
+        "answer": false,
+        "motivation": "MongoDB is schema-flexible \u2014 different documents in the same collection can have different fields."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e29",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 29,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e29-s1",
+        "statement": "A capped collection in MongoDB has a fixed size and automatically overwrites the oldest documents once full.",
+        "answer": true,
+        "motivation": "Capped collections behave like a circular buffer, useful for logs or caching-like use cases."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e30",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 30,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e30-s1",
+        "statement": "In an aggregation pipeline, `$group` can be used without any prior `$match` or `$unwind` stage.",
+        "answer": true,
+        "motivation": "`$group` can be the first stage; `$match`/`$unwind` are used only when filtering or flattening arrays is needed first."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e31",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 31,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e31-s1",
+        "statement": "MongoDB indexes work only on top-level fields, never on fields inside embedded documents or arrays.",
+        "answer": false,
+        "motivation": "MongoDB supports indexes on nested fields and array elements (multikey indexes)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e32",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 32,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e32-s1",
+        "statement": "The MongoDB aggregation stage `$project` can be used to create new computed fields, not just to include/exclude existing ones.",
+        "answer": true,
+        "motivation": "`$project` supports expressions to compute and add new fields, not just filter which fields pass through."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e33",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 33,
+    "type": "true-false-motivated",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e33-s1",
+        "statement": "Solving the object-relational impedance mismatch is one of the original motivations behind document databases.",
+        "answer": true,
+        "motivation": "Storing nested, object-shaped data directly (instead of splitting it across normalized tables) was a key original motivation for MongoDB."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e34",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 34,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e34-s1",
+        "statement": "Neo4j provides index-free adjacency, meaning each node directly references its adjacent relationships without needing a separate index lookup.",
+        "answer": true,
+        "motivation": "This is Neo4j's core performance feature for fast relationship traversal."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e35",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 35,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e35-s1",
+        "statement": "Neo4j guarantees ACID transactions.",
+        "answer": true,
+        "motivation": "Unlike many NoSQL stores, Neo4j supports full ACID transactional guarantees."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e36",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 36,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e36-s1",
+        "statement": "In Cypher, the `MERGE` clause always creates a new node, even if a matching one already exists.",
+        "answer": false,
+        "motivation": "`MERGE` creates the pattern only if it doesn't already exist; otherwise it matches the existing one \u2014 that's its whole purpose (upsert-like behavior)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e37",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 37,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e37-s1",
+        "statement": "A simple path, by definition, can visit the same vertex more than once.",
+        "answer": false,
+        "motivation": "A simple path requires every vertex in the sequence to be distinct."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e38",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 38,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e38-s1",
+        "statement": "In Cypher, `-[:KNOWS|LOVES]->` matches a relationship of type KNOWS or of type LOVES.",
+        "answer": true,
+        "motivation": "The pipe `|` inside a relationship type specification acts as an OR between relationship types."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e39",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 39,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e39-s1",
+        "statement": "Cypher's `WITH` clause can rename (alias) a variable using `AS`.",
+        "answer": true,
+        "motivation": "`WITH x AS y` is standard Cypher syntax to rename/carry forward a variable."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e40",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 40,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e40-s1",
+        "statement": "A graph is considered dense when the number of edges is much smaller than the number of nodes.",
+        "answer": false,
+        "motivation": "That describes a sparse graph; a dense graph has a number of edges close to (or approaching) the maximum possible for that number of nodes."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e41",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 41,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e41-s1",
+        "statement": "Cypher constraints can be used to enforce property uniqueness on nodes with a given label.",
+        "answer": true,
+        "motivation": "Unique constraints in Neo4j ensure no two nodes with the same label share the same value for a given property."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e42",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 42,
+    "type": "true-false-motivated",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e42-s1",
+        "statement": "In Cypher, using literal values directly in queries instead of parameters always improves performance.",
+        "answer": false,
+        "motivation": "The opposite \u2014 using parameters instead of literals allows Cypher to reuse cached query execution plans, improving performance."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e43",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 43,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e43-s1",
+        "statement": "Redis exposes its data structures (lists, sets, hashes, sorted sets) directly to the programmer, without additional abstraction layers.",
+        "answer": true,
+        "motivation": "This is explicitly one of Redis's defining characteristics per the course slides."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e44",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 44,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e44-s1",
+        "statement": "Redis is generally recommended for datasets that must always exceed available RAM by a large margin.",
+        "answer": false,
+        "motivation": "Redis is best used when the dataset can mostly fit in memory; it's not designed for datasets that vastly exceed available RAM."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e45",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 45,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e45-s1",
+        "statement": "Increasing Redis's persistence settings (e.g., writing to disk more frequently) tends to increase latency and decrease throughput.",
+        "answer": true,
+        "motivation": "More persistence guarantees generally trade off against speed."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e46",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 46,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e46-s1",
+        "statement": "Redis can be used as a message broker, not just as a database or cache.",
+        "answer": true,
+        "motivation": "Redis supports pub/sub messaging, making it usable as a lightweight message broker."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e47",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 47,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e47-s1",
+        "statement": "A Redis `List` enforces uniqueness of its elements, just like a `Set`.",
+        "answer": false,
+        "motivation": "Lists allow duplicate elements; only Sets (and the member values of Sorted Sets) enforce uniqueness."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e48",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 48,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e48-s1",
+        "statement": "`EXPIRE` in Redis can be applied to a single element within a Hash, without affecting the rest of the hash.",
+        "answer": false,
+        "motivation": "TTL always applies to the whole key, never to a single element inside a collection like a Hash."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e49",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 49,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e49-s1",
+        "statement": "Redis is intended as a full replacement for relational and document databases in all use cases.",
+        "answer": false,
+        "motivation": "Per the course slides, Redis is explicitly *not* meant to replace relational or document stores \u2014 it's typically used complementarily."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e50",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 50,
+    "type": "true-false-motivated",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e50-s1",
+        "statement": "In Redis, `ZADD` inserts members into a Sorted Set ordered ascending by score by default.",
+        "answer": true,
+        "motivation": "Sorted Sets keep members ranked ascending by score; `ZRANGE` returns them in that order (lowest first)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e51",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 51,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e51-s1",
+        "statement": "In Cassandra, the clustering key determines which node stores a given row.",
+        "answer": false,
+        "motivation": "The partition key determines which node stores the data; the clustering key only determines the sort order of rows within a partition."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e52",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 52,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e52-s1",
+        "statement": "A Cassandra query can filter on a range for the partition key, just like it can for a clustering key.",
+        "answer": false,
+        "motivation": "The partition key only supports equality filtering; only clustering keys support range queries (and only in their declared order, after the partition key is fixed)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e53",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 53,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e53-s1",
+        "statement": "Cassandra's data model follows a query-first (query-driven) design philosophy, where tables are built around specific access patterns rather than around normalized entities.",
+        "answer": true,
+        "motivation": "This is Cassandra's central modeling philosophy, often requiring one denormalized table per query pattern."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e54",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 54,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e54-s1",
+        "statement": "Secondary indexes in Cassandra scale efficiently for very high-cardinality columns.",
+        "answer": false,
+        "motivation": "Secondary indexes perform poorly on high-cardinality columns and require scatter-gather queries across nodes."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e55",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 55,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e55-s1",
+        "statement": "Using `ALLOW FILTERING` in a CQL query guarantees the query will be fast regardless of table size.",
+        "answer": false,
+        "motivation": "`ALLOW FILTERING` permits a query that would otherwise be rejected, but it can trigger a full-cluster scan \u2014 it's a performance red flag, not a guarantee of speed."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e56",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 56,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e56-s1",
+        "statement": "Cassandra uses a masterless, peer-to-peer architecture rather than a single-master design.",
+        "answer": true,
+        "motivation": "All Cassandra nodes are peers; there's no single master node, unlike, e.g., a traditional primary-replica RDBMS."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e57",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 57,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e57-s1",
+        "statement": "Consistent hashing (the \"ring\") in Cassandra ensures that adding or removing a node only requires reshuffling a small portion of the data.",
+        "answer": true,
+        "motivation": "That's the main benefit of consistent hashing over naive hash-mod-N partitioning."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e58",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 58,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e58-s1",
+        "statement": "In Cassandra, denormalization (duplicating data across multiple tables) is generally discouraged.",
+        "answer": false,
+        "motivation": "Denormalization is a normal, encouraged part of Cassandra's query-driven design \u2014 you often maintain several denormalized tables, each optimized for one query."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e59",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 59,
+    "type": "true-false-motivated",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e59-s1",
+        "statement": "A composite partition key requires all its component columns to be provided as equality conditions together in a query.",
+        "answer": true,
+        "motivation": "Cassandra needs the full partition key (all its components) as exact matches to locate the correct partition."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e60",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 60,
+    "type": "true-false-motivated",
+    "topics": [
+      "dwh"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e60-s1",
+        "statement": "A star schema typically has a single, highly normalized fact table connected to several highly normalized dimension tables.",
+        "answer": false,
+        "motivation": "In a star schema, dimension tables are typically denormalized (not fully normalized) \u2014 that's precisely what distinguishes it from a snowflake schema."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e61",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 61,
+    "type": "true-false-motivated",
+    "topics": [
+      "dwh"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e61-s1",
+        "statement": "A snowflake schema is a star schema where dimension tables are further normalized into sub-dimension tables.",
+        "answer": true,
+        "motivation": "That's the defining difference between snowflake and star schemas."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e62",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 62,
+    "type": "true-false-motivated",
+    "topics": [
+      "dwh"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e62-s1",
+        "statement": "ROLAP computes aggregations on the fly using relational storage, offering more flexibility but generally slower performance than MOLAP.",
+        "answer": true,
+        "motivation": "ROLAP stores data relationally and computes on demand; MOLAP precomputes cubes for speed at the cost of flexibility."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e63",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 63,
+    "type": "true-false-motivated",
+    "topics": [
+      "dwh"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e63-s1",
+        "statement": "In a 3-tier DSS architecture, OLAP servers sit at the client tier, directly facing the end user.",
+        "answer": false,
+        "motivation": "OLAP servers sit at Tier 2 (between the data warehouse server at Tier 1 and the clients at Tier 3)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e64",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 64,
+    "type": "true-false-motivated",
+    "topics": [
+      "dwh"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e64-s1",
+        "statement": "A fact table typically contains measurable, numeric data (e.g., sales amount), while dimension tables provide descriptive context (e.g., product, time, location).",
+        "answer": true,
+        "motivation": "That's the standard fact/dimension distinction in dimensional modeling."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e65",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 65,
+    "type": "true-false-motivated",
+    "topics": [
+      "dwh"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e65-s1",
+        "statement": "Data marts are always larger in scope than the enterprise data warehouse that feeds them.",
+        "answer": false,
+        "motivation": "Data marts are typically smaller, department- or subject-specific subsets derived from the broader data warehouse."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e66",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 66,
+    "type": "true-false-motivated",
+    "topics": [
+      "dwh"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e66-s1",
+        "statement": "MOLAP stores pre-aggregated data in multidimensional cube structures for fast query response.",
+        "answer": true,
+        "motivation": "MOLAP precomputes and stores cubes, trading storage/flexibility for query speed."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e67",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 67,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e67-s1",
+        "statement": "In Elasticsearch, a `filter` clause inside a `bool` query contributes to the relevance score.",
+        "answer": false,
+        "motivation": "`filter` clauses are yes/no checks that don't affect scoring \u2014 only `must` and `should` contribute to the score."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e68",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 68,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e68-s1",
+        "statement": "A `keyword` field in Elasticsearch is analyzed (tokenized) the same way a `text` field is.",
+        "answer": false,
+        "motivation": "`keyword` fields are stored exactly as-is, with no analysis/tokenization; only `text` fields are analyzed."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e69",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 69,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e69-s1",
+        "statement": "`match_phrase` requires the searched terms to appear adjacent and in the same order within the field.",
+        "answer": true,
+        "motivation": "That's what distinguishes `match_phrase` from a plain `match` query."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e70",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 70,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e70-s1",
+        "statement": "Once an Elasticsearch index has documents, you can freely change an existing field's mapping type without any restriction.",
+        "answer": false,
+        "motivation": "You cannot change the mapping of an existing field once the index already contains documents."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e71",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 71,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e71-s1",
+        "statement": "A `terms` aggregation groups documents into buckets based on the distinct values of a field, and is typically applied to `keyword` fields rather than `text` fields.",
+        "answer": true,
+        "motivation": "Aggregating on analyzed `text` fields produces broken/unintended buckets; `keyword` fields are the correct choice."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e72",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 72,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e72-s1",
+        "statement": "`POST` requires you to explicitly specify a document ID, while `PUT` does not.",
+        "answer": false,
+        "motivation": "It's the reverse \u2014 `POST` doesn't require an ID (Elasticsearch auto-generates one), while `PUT` requires you to specify the ID."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e73",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 73,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e73-s1",
+        "statement": "In a `bool` query, a `should` clause is mandatory for the overall query to match, just like `must`.",
+        "answer": false,
+        "motivation": "`should` clauses are optional (they boost score if matched) \u2014 a document can still match the query overall without satisfying any `should` clause, unlike `must`."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e74",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 74,
+    "type": "true-false-motivated",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e74-s1",
+        "statement": "Elasticsearch is fundamentally schemaless, with no possibility of defining any structure at all.",
+        "answer": false,
+        "motivation": "While Elasticsearch can dynamically guess field types, you can (and for exam purposes should) explicitly define a mapping \u2014 it's not purely schemaless."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e75",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 75,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e75-s1",
+        "statement": "In HDFS, the DataNode is responsible for managing the file system namespace and metadata.",
+        "answer": false,
+        "motivation": "The NameNode manages namespace/metadata; the DataNode stores the actual data blocks."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e76",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 76,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e76-s1",
+        "statement": "The Secondary NameNode in HDFS 1 automatically takes over as the active NameNode if the primary NameNode fails.",
+        "answer": false,
+        "motivation": "The Secondary NameNode only performs periodic checkpointing (merging the transaction log into a new FsImage) \u2014 it is not a hot standby and does not take over on failure."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e77",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 77,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e77-s1",
+        "statement": "HDFS is optimized for random-access reads of many small files rather than streaming reads of large files.",
+        "answer": false,
+        "motivation": "HDFS is optimized for streaming reads of a smaller number of large files, not random access to many small files."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e78",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 78,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e78-s1",
+        "statement": "By default, HDFS replicates each data block three times.",
+        "answer": true,
+        "motivation": "The default replication factor in HDFS is 3."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e79",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 79,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e79-s1",
+        "statement": "In MapReduce, the Combiner runs on the Reducer node after the Shuffle-and-Sort phase.",
+        "answer": false,
+        "motivation": "The Combiner runs locally on the Mapper's output, before data is shipped over the network to reducers \u2014 it's essentially a local mini-reduce step to cut network traffic."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e80",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 80,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e80-s1",
+        "statement": "MapReduce's Input Splitter divides input data into chunks, by default sized around 64MB, matching typical HDFS block size.",
+        "answer": true,
+        "motivation": "This alignment is intentional and enables data locality (compute moving to where the data block already resides)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e81",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 81,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e81-s1",
+        "statement": "DataNodes send heartbeats to the NameNode to allow it to detect node failures.",
+        "answer": true,
+        "motivation": "Heartbeats (every few seconds) let the NameNode detect DataNode failures and trigger re-replication."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e82",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 82,
+    "type": "true-false-motivated",
+    "topics": [
+      "hadoop"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e82-s1",
+        "statement": "If a worker node fails mid-task in MapReduce, the entire job must be restarted from scratch.",
+        "answer": false,
+        "motivation": "The Master simply re-schedules the failed task on another node \u2014 it doesn't restart the whole job."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e83",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 83,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e83-s1",
+        "statement": "Spark RDDs support two categories of operations: transformations (lazy) and actions (which trigger computation).",
+        "answer": true,
+        "motivation": "This is the fundamental Spark execution model."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e84",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 84,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e84-s1",
+        "statement": "`F.explode()` in PySpark is the DataFrame equivalent of MongoDB's `$unwind` stage.",
+        "answer": true,
+        "motivation": "Both operations expand an array-type column into multiple rows, one per element."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e85",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 85,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e85-s1",
+        "statement": "A Spark DataFrame is a lower-level, less structured API compared to RDDs.",
+        "answer": false,
+        "motivation": "DataFrames are a higher-level, more structured API built on top of RDDs, with named columns and query optimization (Catalyst)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e86",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 86,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e86-s1",
+        "statement": "In PySpark, filtering after a `groupBy().agg()` call is the equivalent of a SQL `HAVING` clause.",
+        "answer": true,
+        "motivation": "Filtering post-aggregation mirrors SQL's HAVING (filtering on aggregate results), as opposed to filtering pre-aggregation which mirrors WHERE."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e87",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 87,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e87-s1",
+        "statement": "Spark's fault tolerance mechanism requires manually replicating every RDD partition to multiple nodes.",
+        "answer": false,
+        "motivation": "Spark achieves fault tolerance through RDD lineage (recomputing lost partitions from their transformation history), not through manual replication."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e88",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 88,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e88-s1",
+        "statement": "`.union()` in Spark can be used to add rows from one DataFrame to another with a matching schema.",
+        "answer": true,
+        "motivation": "`.union()` combines rows from two DataFrames of compatible schema."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e89",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 89,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e89-s1",
+        "statement": "Spark is optimized exclusively for batch processing and cannot handle streaming data.",
+        "answer": false,
+        "motivation": "Spark supports Spark Streaming/Structured Streaming in addition to batch processing."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e90",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 90,
+    "type": "true-false-motivated",
+    "topics": [
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e90-s1",
+        "statement": "In Spark's programming model, calling only transformations without any action will still trigger computation on the cluster.",
+        "answer": false,
+        "motivation": "Transformations are lazily evaluated \u2014 nothing actually runs until an action (e.g., `.collect()`, `.count()`) is called."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e91",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 91,
+    "type": "true-false-motivated",
+    "topics": [
+      "vectordb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e91-s1",
+        "statement": "Cosine similarity considers both the magnitude and the direction (angle) of two vectors.",
+        "answer": false,
+        "motivation": "Cosine similarity considers only the angle between vectors, ignoring their magnitude \u2014 that's precisely what distinguishes it from measures like dot product."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e92",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 92,
+    "type": "true-false-motivated",
+    "topics": [
+      "vectordb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e92-s1",
+        "statement": "HNSW (Hierarchical Navigable Small World) builds a single-layer graph structure for approximate nearest-neighbor search.",
+        "answer": false,
+        "motivation": "HNSW builds a *multi-layer* graph, navigating from a sparse top layer down to denser layers \u2014 that hierarchical structure is the defining feature."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e93",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 93,
+    "type": "true-false-motivated",
+    "topics": [
+      "vectordb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e93-s1",
+        "statement": "KD-trees and R-trees provide exact nearest-neighbor search but degrade in performance in high-dimensional spaces.",
+        "answer": true,
+        "motivation": "This is the \"curse of dimensionality\" affecting classic tree-based exact search structures."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e94",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 94,
+    "type": "true-false-motivated",
+    "topics": [
+      "vectordb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e94-s1",
+        "statement": "LSH (Locality-Sensitive Hashing) is designed to minimize hash collisions between similar items.",
+        "answer": false,
+        "motivation": "LSH does the opposite of standard hashing goals \u2014 it's designed to maximize collisions for similar items, grouping them into the same buckets."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e95",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 95,
+    "type": "true-false-motivated",
+    "topics": [
+      "vectordb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e95-s1",
+        "statement": "FAISS is a full-featured, standalone vector database, comparable to Milvus or Pinecone.",
+        "answer": false,
+        "motivation": "FAISS is a library for performing ANN search computations, not a standalone database system, unlike Milvus/Pinecone/Weaviate/Qdrant/Chroma."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e96",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 96,
+    "type": "true-false-motivated",
+    "topics": [
+      "vectordb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e96-s1",
+        "statement": "IVFPQ combines a coarse clustering step (similar to k-means) with a vector compression step.",
+        "answer": true,
+        "motivation": "IVFPQ = Inverted File (clustering) + Product Quantization (compression)."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e97",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 97,
+    "type": "true-false-motivated",
+    "topics": [
+      "vectordb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e97-s1",
+        "statement": "pgvector adds vector search capability to PostgreSQL, a traditional relational database.",
+        "answer": true,
+        "motivation": "pgvector is a PostgreSQL extension enabling vector similarity search inside a traditional RDBMS."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e98",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 98,
+    "type": "true-false-motivated",
+    "topics": [
+      "feature-store"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e98-s1",
+        "statement": "A feature store's main purpose is to store, manage, and serve features consistently across multiple machine learning models.",
+        "answer": true,
+        "motivation": "That's the core definition given in the course material."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e99",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 99,
+    "type": "true-false-motivated",
+    "topics": [
+      "feature-store"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e99-s1",
+        "statement": "MLOps extends DevOps principles specifically to address challenges unique to building, deploying, and monitoring ML systems.",
+        "answer": true,
+        "motivation": "MLOps is explicitly described as extending DevOps into the ML domain."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e100",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 100,
+    "type": "true-false-motivated",
+    "topics": [
+      "feature-store"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Mark the statement True or False.",
+    "subStatements": [
+      {
+        "id": "SMBUD20261220-e100-s1",
+        "statement": "In the MLOps lifecycle, model retraining is typically a fully manual, one-off process disconnected from the deployment pipeline.",
+        "answer": false,
+        "motivation": "Retraining is meant to be automated within MLOps pipelines, triggered by performance drops or new data, not a manual one-off event."
+      }
+    ],
+    "solution": "See per-statement motivations.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e101",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 101,
+    "type": "theory-essay",
+    "topics": [
+      "relational"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Explain the four possible combinations of ISA hierarchy constraints \u2014 (Total, Exclusive), (Total, Overlapping), (Partial, Exclusive), (Partial, Overlapping) \u2014 and give a one-line example scenario for each.",
+    "solution": "- (T, E): every instance must belong to exactly one subclass. E.g., every `Person` must be a `Referee`, `Player`, or `Coach`, and only one of these.\n- (T, O): every instance must belong to at least one subclass, possibly more. E.g., every `Employee` must be at least one of `Manager` or `Engineer`, and could be both.\n- (P, E): an instance may belong to zero or one subclass, never more. E.g., an `Event` may optionally be a `Foul` or a `Score`, but not both, and some events might be neither.\n- (P, O): an instance may belong to zero, one, or several subclasses. E.g., a `Vehicle` might be none, one, or several of `Car`, `ElectricVehicle`, `RentalUnit`.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e102",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 102,
+    "type": "theory-essay",
+    "topics": [
+      "architectures"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Explain the distinction between horizontal and vertical scalability, and separately the distinction between horizontal and vertical partitioning. Why are these two pairs of terms often confused?",
+    "solution": "Scalability is about *how you add capacity*: vertical scaling = upgrading a single machine (more CPU/RAM/disk); horizontal scaling = adding more machines. Partitioning is about *how you split data*: vertical partitioning = splitting a table by columns; horizontal partitioning = splitting a table by rows (sharding) across multiple nodes. They're confused because both pairs reuse the words \"horizontal\" and \"vertical,\" but one pair describes infrastructure growth and the other describes data layout \u2014 they're orthogonal concepts that can be combined independently (e.g., a horizontally-partitioned system can still scale vertically per node).",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e103",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 103,
+    "type": "theory-essay",
+    "topics": [
+      "nosql-intro"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Contrast ACID and BASE. For each, name the properties they stand for and explain the philosophical trade-off each one represents.",
+    "solution": "ACID = Atomicity, Consistency, Isolation, Durability \u2014 guarantees that transactions are all-or-nothing, leave the database in a valid state, don't interfere with each other, and survive crashes. It represents a trade-off favoring correctness/predictability over availability and scale, typical of relational/OLTP systems. BASE = Basically Available, Soft state, Eventual consistency \u2014 guarantees the system stays available and eventually converges to a consistent state, but doesn't promise immediate consistency after every write. It represents a trade-off favoring availability and horizontal scalability over strict, immediate consistency, typical of distributed NoSQL systems handling Big Data workloads.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e104",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 104,
+    "type": "theory-essay",
+    "topics": [
+      "mongodb"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Explain the trade-off between embedding and referencing in MongoDB document design. Give one criterion favoring each choice.",
+    "solution": "Embedding stores related data as a nested sub-document/array inside the parent document. It favors read performance (no extra queries/joins needed) and is appropriate when the embedded data is always accessed together with the parent, has a bounded/small cardinality (e.g., 1:1 or 1:few), and doesn't need to be queried independently. Referencing stores a foreign-key-like ID pointing to a document in another collection (resolved via `$lookup` if needed). It favors normalization and is appropriate when the related data is large, unbounded, reused/shared across many parent documents, or updated independently of the parent \u2014 embedding it would cause unnecessary duplication and update anomalies.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e105",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 105,
+    "type": "theory-essay",
+    "topics": [
+      "neo4j"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Explain what \"index-free adjacency\" means in Neo4j and why it makes multi-hop relationship traversal faster than in a relational database using foreign keys and joins.",
+    "solution": "Index-free adjacency means each node stores direct physical pointers to its adjacent relationships and neighboring nodes, so traversing from one node to a connected node is a constant-time pointer-hop, not a lookup through a separate index structure. In a relational database, following a relationship (e.g., a foreign key) requires a join, which typically means an index lookup \u2014 and the cost of that lookup grows (at best logarithmically, and can degrade with data size and the number of hops) as the dataset grows. Since Neo4j's relationships are stored as direct references at the storage layer, a query with many hops (e.g., \"friends of friends of friends\") stays fast and roughly proportional to the amount of matched data, regardless of the overall database size, whereas the equivalent relational query would require increasingly expensive chained joins.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e106",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 106,
+    "type": "theory-essay",
+    "topics": [
+      "columnar"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Describe the query-first (query-driven) design methodology used in Cassandra data modeling. Walk through the steps a data modeler follows to design a table for a specific access pattern.",
+    "solution": "Unlike relational design (model entities first, then write queries against them), Cassandra modeling starts from the queries themselves. Steps: (1) enumerate the exact queries the application needs to run against this data; (2) for each query, identify which fields are always filtered by equality \u2014 these become the partition key, since Cassandra requires an exact partition-key match to locate data efficiently; (3) identify which field(s) determine the required sort/range order within that partition \u2014 these become the clustering key(s), in the order that matches the needed sort priority; (4) if multiple distinct query patterns exist over the same data, design a separate denormalized table per query pattern rather than trying to serve all patterns from one table; (5) avoid secondary indexes and `ALLOW FILTERING` except as a last resort, since they don't scale well in a distributed, partition-based system.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e107",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 107,
+    "type": "theory-essay",
+    "topics": [
+      "keyvalue"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** List the five core Redis data structures covered in this course, and for each, name the primary command used to write to it and one realistic use case.",
+    "solution": "- String \u2014 `SET` (with optional `EX` for TTL). Use case: caching a single value or session token.\n- List \u2014 `RPUSH`/`LPUSH`. Use case: an ordered log of recent events, allowing duplicates.\n- Set \u2014 `SADD`. Use case: tracking unique tags or membership, enabling fast intersection/union checks.\n- Sorted Set (ZSet) \u2014 `ZADD`. Use case: leaderboards, ranking items by a numeric score.\n- Hash \u2014 `HSET`. Use case: storing one entity's multiple named attributes together (like a mini-document), e.g., a user or team profile.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e108",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 108,
+    "type": "theory-essay",
+    "topics": [
+      "elasticsearch"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Explain the four contexts available inside an Elasticsearch `bool` query \u2014 `must`, `must_not`, `should`, `filter` \u2014 and state which of them affect the relevance score.",
+    "solution": "`must` \u2014 the clause is required to match, and it contributes to the relevance score. `must_not` \u2014 the clause is required to *not* match (pure exclusion), and it does not affect the score. `filter` \u2014 the clause is required to match, like `must`, but it does not contribute to the score (used for exact yes/no conditions where scoring is irrelevant, and it's typically faster/cacheable). `should` \u2014 the clause is optional; if it matches, it boosts the score, but a document can still satisfy the overall query without matching any `should` clause. Only `must` and `should` affect the relevance score; `must_not` and `filter` do not.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e109",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 109,
+    "type": "theory-essay",
+    "topics": [
+      "hadoop",
+      "spark"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Explain the MapReduce programming model (Map and Reduce phases, plus the Shuffle-and-Sort step in between) and explain what \"data locality\" means in this context and why it matters for performance.",
+    "solution": "MapReduce processes data in two user-defined phases operating on key-value pairs. The Map phase reads input records and emits intermediate `<key, value>` pairs (e.g., extracting or transforming something of interest from each record). Between Map and Reduce, the framework automatically performs Shuffle-and-Sort, grouping all intermediate values by key across all mappers so that each reducer receives all values for a given key. The Reduce phase then aggregates, summarizes, or filters the grouped values into final output pairs. Data locality means scheduling each Map task to run on (or near) the node that already physically stores the input data block it needs (this is why MapReduce's default split size, 64MB, matches HDFS's default block size) \u2014 instead of moving large volumes of data across the network to the compute node, the computation is moved to the data. This matters enormously at Big Data scale because network bandwidth is typically the scarcest resource in a cluster, and minimizing data movement is far more important than minimizing CPU cycles.",
+    "solutionSource": "authored"
+  },
+  {
+    "id": "SMBUD20261220-e110",
+    "examId": "SMBUD20261220",
+    "date": "2026-12-20",
+    "academicYear": "AA2526",
+    "exerciseNo": 110,
+    "type": "theory-essay",
+    "topics": [
+      "vectordb",
+      "feature-store"
+    ],
+    "prompt": "**Practice drill (AI-generated, not from a real exam sitting).** Explain why Approximate Nearest Neighbor (ANN) search is used instead of exact nearest-neighbor search in modern vector databases, and briefly relate this to the role of a feature store in a machine learning pipeline.",
+    "solution": "Exact nearest-neighbor search requires comparing a query vector against every stored vector (or using tree structures like KD-trees/R-trees that degrade badly in high dimensions due to the curse of dimensionality), which becomes computationally infeasible at the scale of millions or billions of embeddings. ANN techniques (LSH, HNSW, IVFPQ) trade a small amount of accuracy for large gains in speed and memory efficiency, making similarity search practical at scale. This connects to feature stores in that both exist to make large-scale ML infrastructure operationally efficient: a feature store centralizes and serves the input features used by ML models consistently across training and inference, while a vector database efficiently serves the embeddings (often themselves derived from features or model outputs) needed for similarity-based retrieval \u2014 both are infrastructure pieces that sit between raw data and a production ML system, optimizing for serving speed and consistency at scale.",
+    "solutionSource": "authored"
+  }
+]

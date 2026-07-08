@@ -9,7 +9,7 @@ A study app for Politecnico di Milano exams. **One app, several courses**, switc
 | **Computing Infrastructures** | `data/ci/exams/` | 21 exams · 369 questions · T/F + multiple-choice + numerical + open · tagged **first-exam vs second-exam** |
 | **Advanced Computer Architectures** | `data/aca/exams/` | 7 exams · 27 questions · study guide included |
 | **Ambient Intelligence & Domotics** | `data/ami/exams/` | 19 exams · 280 questions (mostly multiple-choice) · study guide included |
-| **Systems and Methods for Big and Unstructured Data (SMBUD)** | `data/smbud/exams/` | 13 exams · 201 questions · study guide included |
+| **Systems and Methods for Big and Unstructured Data (SMBUD)** | `data/smbud/exams/` | 14 exams · 311 questions · study guide included |
 
 Live (open — no login): **https://sorinnicumarian.github.io/ExamPrep/**
 
@@ -56,6 +56,10 @@ topic touched by the original bundled exercise.
 - SMBUD answers are a mix: `solutionSource: "exam"` where an official/expected solution was printed in the source
   material, `"authored"` where none existed (blank exam paper) and a model answer was written instead — badged
   the same way as ML's authored answers.
+- One SMBUD "exam" (`SMBUD20261220`, dated after the real sittings so it sorts last) is actually a 110-question
+  AI-generated practice drill (100 True/False + 10 open, covering every SMBUD topic), not a real past exam —
+  every question in it is `solutionSource: "authored"` and its prompts say so explicitly. Same pattern AmI already
+  uses for its per-lecture mock decks (`AMI-mock-*.json`, `AMI2026010X` ids) that aren't real exams either.
 
 ## Develop / run
 
