@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { Question } from '../types'
 import { QTYPE_LABELS } from '../types'
-import type { Grade } from '../lib/mastery'
+import { isMastered, type Grade } from '../lib/mastery'
 import { useData } from '../lib/data'
+import { useProgress } from '../lib/progress'
 import { MathText } from './MathText'
 import { CodeBlock } from './CodeBlock'
 import { TopicBadge } from './TopicBadge'
@@ -13,7 +14,7 @@ import { GradeBar } from './GradeBar'
 import { ExamLinks } from './ExamLinks'
 import { ContextBox } from './ContextBox'
 import { InteractiveTable } from './InteractiveTable'
-import { formatExamDate } from '../lib/items'
+import { formatExamDate, itemsForQuestion } from '../lib/items'
 
 interface Props {
   question: Question
@@ -56,6 +57,7 @@ function SolutionBox({ q }: { q: Question }) {
 
 export function QuestionCard({ question: q, mode = 'study', onGradeItem, showMeta = true, keyboard }: Props) {
   const { topicMap } = useData()
+  const { progress } = useProgress()
   const [revealed, setRevealed] = useState(mode === 'reveal')
   const [graded, setGraded] = useState(false)
   const [mcAnswered, setMcAnswered] = useState(mode === 'reveal')
@@ -68,9 +70,29 @@ export function QuestionCard({ question: q, mode = 'study', onGradeItem, showMet
     setGraded(true)
   }
 
+  // Persistent done-status (independent of this render's in-session `graded` flag), so already-worked
+  // questions stand out in list views (Browse/Practice/Exam Sim) even after a refresh/remount.
+  const itemStates = itemsForQuestion(q).map((it) => progress[it.itemId])
+  const status: 'mastered' | 'attempted' | 'new' =
+    itemStates.length > 0 && itemStates.every(isMastered)
+      ? 'mastered'
+      : itemStates.some((s) => s != null)
+        ? 'attempted'
+        : 'new'
+  const STATUS_STYLE = {
+    mastered: 'bg-emerald-50/60 ring-1 ring-inset ring-emerald-200',
+    attempted: 'bg-amber-50/60 ring-1 ring-inset ring-amber-200',
+    new: 'bg-white',
+  } as const
+  const STATUS_BADGE = {
+    mastered: <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-700">✓ MASTERED</span>,
+    attempted: <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700">IN PROGRESS</span>,
+    new: null,
+  } as const
+
   return (
     <article
-      className="rounded-xl border border-slate-200 bg-white shadow-sm"
+      className={`rounded-xl border border-slate-200 shadow-sm ${STATUS_STYLE[status]}`}
       style={{ borderLeft: `4px solid ${primary?.color ?? '#94a3b8'}` }}
     >
       {showMeta && (
@@ -78,6 +100,7 @@ export function QuestionCard({ question: q, mode = 'study', onGradeItem, showMet
           <span className={`rounded px-2 py-0.5 text-xs font-semibold ${TYPE_COLOR[q.type]}`}>
             {QTYPE_LABELS[q.type]}
           </span>
+          {STATUS_BADGE[status]}
           <Link to={`/q/${q.id}`} className="font-medium text-slate-500 hover:text-slate-800">
             {formatExamDate(q.examId)} · Ex {q.exerciseNo}
           </Link>
