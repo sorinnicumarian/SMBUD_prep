@@ -5,7 +5,7 @@ A study app for Politecnico di Milano exams. **One app, several courses**, switc
 
 | Course | data | content |
 |--------|------|---------|
-| **Machine Learning** (097683) | `data/exams/` | 30 exams · 485 questions (incl. split True/False statements) |
+| **Machine Learning** (097683) | `data/exams/` | 30 exams · 485 questions (incl. split True/False statements) · study guide included |
 | **Computing Infrastructures** | `data/ci/exams/` | 21 exams · 369 questions · T/F + multiple-choice + numerical + open · tagged **first-exam vs second-exam** |
 | **Advanced Computer Architectures** | `data/aca/exams/` | 7 exams · 27 questions · study guide included |
 | **Ambient Intelligence & Domotics** | `data/ami/exams/` | 19 exams · 280 questions (mostly multiple-choice) · study guide included |
